@@ -1,0 +1,17 @@
+{
+  "toolCommit": "a97138a",
+  "cases": {
+    "synthetic": {
+      "textCharacters": 7137,
+      "jsonCharacters": 20049
+    },
+    "pr81": {
+      "textCharacters": 12204,
+      "jsonCharacters": 29805
+    },
+    "pr78": {
+      "textCharacters": 6474,
+      "jsonCharacters": 15773
+    }
+  }
+}
