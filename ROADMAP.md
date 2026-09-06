@@ -4,7 +4,7 @@
 
 **現在位置: M1（V01・PR01〜03・V02）を完了。Git読み取り改善とActions上の自己利用検証も完了。未試用2件の予備試行から出力反復を追加改善。独立比較によるレビューの手間削減は未検証。**
 
-**次にすること: [予備試行](docs/validation/review-pilots.md)で見つけた宣言反復を改善済み。M2本比較は未完了。[Issue #8](https://github.com/KantoYamamoto/sekka/issues/8)で別の未試用PRと独立した比較条件を固定する。今回の2件は未見ケースとして再利用しない。**
+**次にすること: Issue #21の合成15種類＋実変更2件で未観測の境界を確認中。M2の独立比較は未完了。**
 
 ライセンス: [MIT](LICENSE)を採用（[判断0010](docs/decisions/0010-mit-license.md)）。
 
