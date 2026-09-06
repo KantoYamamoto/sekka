@@ -1,6 +1,7 @@
 # Patchwork development
 
 - Work in this repository. Target Swift 6+; do not build the analyzed app.
+- Read `ROADMAP.md` for current position, next task and milestone gates. When starting/completing a planned task, update its status and evidence links plus the current/next summary in the same change. Keep functionality completion separate from validation of user benefit; do not execute conditional milestones before their gates are met.
 - Use SwiftSyntax for syntax facts. Do not label textual type expressions as resolved dependencies, inferred purity, or proven effects.
 - Keep observations, analysis limitations, and design judgement separate. No LLM is required at runtime.
 - Preserve deterministic JSON ordering and source locations. Malformed/unreadable input must fail, not produce a partial clean report.
