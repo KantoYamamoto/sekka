@@ -31,6 +31,9 @@ with tempfile.TemporaryDirectory(prefix="sekka-smoke-") as temporary:
     (repo / "Model.swift").write_text("struct Model { let repo: Repo }\n")
     (repo / "Deleted.swift").write_text("struct Deleted {}\n")
     (repo / "space name.swift").write_text("enum Choice { case a }\n")
+    identical = '// 雪\n// embedded batch-looking line: abc blob 0\nstruct Copy {}'
+    (repo / "Copy1.swift").write_text(identical)
+    (repo / "Copy2.swift").write_text(identical)
     git("add", ".")
     git("commit", "-m", "base")
     base = git("rev-parse", "HEAD")
@@ -44,7 +47,7 @@ with tempfile.TemporaryDirectory(prefix="sekka-smoke-") as temporary:
     (repo / "Linked.swift").symlink_to(repo / "Model.swift")
     git("add", "Model.swift")
     dirty = json.loads(run("diff", "HEAD", "--format", "json").stdout)
-    assert dirty["beforeFiles"] == 3 and dirty["afterFiles"] == 3
+    assert dirty["beforeFiles"] == 5 and dirty["afterFiles"] == 5
     assert any(f["rule"] == "type-removed" and f["type"] == "Deleted" for f in dirty["findings"])
     assert any(f["rule"] == "type-added" and f["type"] == "New" for f in dirty["findings"])
     assert any("Analytics" in f["added"] for f in dirty["findings"])
@@ -99,6 +102,7 @@ with tempfile.TemporaryDirectory(prefix="sekka-smoke-") as temporary:
     fork = json.loads(run("diff", "HEAD", "--head", feature, "--merge-base", "--format", "json").stdout)
     assert not any(f["type"] == "Unrelated" for f in fork["findings"])
     assert any(f["type"] == "New" for f in fork["findings"])
+    assert not any(f["type"] == "Copy" for f in fork["findings"])
     past = run("diff", "HEAD", "--head", feature, "--merge-base", "--show-diff", "Model.swift").stdout
     assert "Analytics" in past and "Unrelated" not in past
     assert git("rev-parse", "--abbrev-ref", "HEAD") == "base-advanced"
