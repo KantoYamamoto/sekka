@@ -2,9 +2,9 @@
 
 更新日: 2026-09-06。これは試用意見を元にした暫定計画。日程の約束ではなく、依存順と判断の節目を示す。PR番号はまだなく、下記IDはローカルの作業単位。
 
-**現在位置: M1（V01・PR01〜03・V02）を完了。次は自己利用で発見したGit読み取りの待ち時間を改善する。レビューの手間削減は未検証。**
+**現在位置: M1（V01・PR01〜03・V02）を完了。Git読み取り改善のローカル検証も完了。レビューの手間削減は未検証。**
 
-**次にすること: Issue [#13](https://github.com/KantoYamamoto/sekka/issues/13)：Gitのバッチ読み取りと新旧の実行時間比較（進行中）。その後はM2の未試用ケース比較。**
+**次にすること: Issue [#15](https://github.com/KantoYamamoto/sekka/issues/15)：GitHub Actions上のPR表示を確認し、Git読み取り改善PRもCIで検証する。その後はM2の未試用ケース比較。**
 
 ライセンス: [MIT](LICENSE)を採用（[判断0010](docs/decisions/0010-mit-license.md)）。
 
@@ -15,7 +15,7 @@
 | できている | ビルド不要の構文差分、型別要約、引数差分、未観測ファイル、本体比較状態、compact/full JSON |
 | 実装の確認 | `f7ccc3b` までで解析テスト30件・CLI/Gitチェック18件通過。今回の計画作成で再実行した結果ではない |
 | 利益の兆候 | PR #81の追加引数、#78の診断時リセットなど、確認先を選ぶ入口になったという報告 |
-| 未解決 | Git比較が約8〜9秒。自己利用で発見した実行待ち時間を改善する |
+| 自己利用による改善 | [Git読み取り検証](docs/validation/git-batch.md)：同じ出力で中央値8.578→1.750秒。Actions上の確認待ち |
 | 未確認 | 通常diffだけのレビューより、総作業時間・検索・見落としが改善するか |
 | M1の確認 | [V02](docs/validation/m1-output.md)：39テスト・27 CLIチェック、固定入力のJSON保持とhunk到達を確認 |
 
@@ -55,7 +55,7 @@
 | [V03-02](https://github.com/KantoYamamoto/sekka/issues/9) | 未試用のSwiftUI・本体中心PRを比較レビューする | V02 | 未着手 |
 | [V03-03](https://github.com/KantoYamamoto/sekka/issues/10) | 未試用の型追加・削除・分割PRを比較レビューする | V02 | 未着手 |
 | [V03-04](https://github.com/KantoYamamoto/sekka/issues/11) | 小さいSwift PRを比較レビューする | V02 | 未着手 |
-| V04 | 比較結果から用途と次の投資を判断する | V03-01〜04 | 未着手 |
+| [V04](https://github.com/KantoYamamoto/sekka/issues/12) | 比較結果から用途と次の投資を判断する | V03-01〜04 | 未着手 |
 | PR04 | 最小の導入・配布手順を整える | V04で継続、公開判断 | 条件付き保留 |
 | PR05 | 通知のみのCI導入例を整える | PR04 | 条件付き保留 |
 | V05 | 新しい環境・別プロジェクトで導入を検証する | PR04・05 | 条件付き保留 |
