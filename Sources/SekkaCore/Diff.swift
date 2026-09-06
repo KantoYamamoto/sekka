@@ -90,7 +90,7 @@ public enum Differ {
         }
       }
     }
-    return DiffReport(
+    var report = DiffReport(
       beforeLabel: beforeLabel, afterLabel: afterLabel, beforeFiles: before.files,
       afterFiles: after.files,
       findings: findings,
@@ -99,6 +99,8 @@ public enum Differ {
       } + after.notices.map { Notice(location: $0.location, message: "After: " + $0.message) },
       limitations: after.limitations,
       coverage: CoverageBuilder.build(before, after, findings: findings))
+    report.textNotices = NoticePresentation.lines(before: before.notices, after: after.notices)
+    return report
   }
 
   private static func summary(_ type: TypeRecord) -> [String] {
@@ -211,7 +213,8 @@ public enum Renderer {
         "No structural observations in supported checks. Changed files/bodies above still require review."
       )
     }
-    lines += report.notices.map { "NOTE \($0.location.file):\($0.location.line): \($0.message)" }
+    lines += report.textNotices
+      ?? report.notices.map { "NOTE \($0.location.file):\($0.location.line): \($0.message)" }
     lines.append(
       "Scope: selected declarations/accessor/function bodies only. Unresolved calls, inferred types, unsupported syntax and effects remain unknown."
     )

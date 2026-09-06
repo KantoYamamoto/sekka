@@ -2,9 +2,9 @@
 
 更新日: 2026-09-06。これは試用意見を元にした暫定計画。日程の約束ではなく、依存順と判断の節目を示す。PR番号はまだなく、下記IDはローカルの作業単位。
 
-**現在位置: V01・PR01を完了。PR02の共通NOTE集約へ進む。レビューの手間削減は未検証。**
+**現在位置: V01・PR01・PR02を完了。PR03のdiff導線へ進む。レビューの手間削減は未検証。**
 
-**次にすること: PR02「共通NOTEの集約」。次はPR03「該当diffへの導線」。**
+**次にすること: PR03「該当diffへの導線」。次はV02「M1全体の確認」。**
 
 ライセンス: [MIT](LICENSE)を採用（[判断0010](docs/decisions/0010-mit-license.md)）。
 
@@ -15,9 +15,9 @@
 | できている | ビルド不要の構文差分、型別要約、引数差分、未観測ファイル、本体比較状態、compact/full JSON |
 | 実装の確認 | `f7ccc3b` までで解析テスト30件・CLI/Gitチェック18件通過。今回の計画作成で再実行した結果ではない |
 | 利益の兆候 | PR #81の追加引数、#78の診断時リセットなど、確認先を選ぶ入口になったという報告 |
-| 未解決 | 条件コンパイルNOTEの反復、該当diffを探す手間 |
+| 未解決 | 該当diffを探す手間 |
 | 未確認 | 通常diffだけのレビューより、総作業時間・検索・見落としが改善するか |
-| 未実装 | PR02のNOTE集約とPR03のdiff導線 |
+| 未実装 | PR03のdiff導線 |
 
 ## 大きな方針
 
@@ -48,8 +48,8 @@
 | --- | --- | --- | --- |
 | V01 | 比較の基準と旧出力を固定する | なし | 完了・[固定基準](docs/validation/protocol.md)、[旧出力量](docs/validation/baseline.json)、[自己利用](docs/validation/self-review-bootstrap.md) |
 | PR01 | 追加・削除に伴う比較不能説明を集約する | V01 | 完了・[検証](docs/validation/pr01-body-summary.md)、Issue [#2](https://github.com/KantoYamamoto/sekka/issues/2) |
-| PR02 | 共通の条件コンパイルNOTEを集約する | PR01 | 着手可能 |
-| PR03 | 案内した本体から該当diffへ進めるようにする | PR02 | 未着手 |
+| PR02 | 共通の条件コンパイルNOTEを集約する | PR01 | 完了・[検証](docs/validation/pr02-conditional-notes.md)、Issue [#3](https://github.com/KantoYamamoto/sekka/issues/3) |
+| PR03 | 案内した本体から該当diffへ進めるようにする | PR02 | 着手可能 |
 | V02 | 既知ケースで情報保持と読みやすさを確認する | PR01〜03 | 未着手 |
 | V03-01 | 未試用のAPI・モデル変更PRを比較レビューする | V02 | 未着手 |
 | V03-02 | 未試用のSwiftUI・本体中心PRを比較レビューする | V02 | 未着手 |

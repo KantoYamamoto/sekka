@@ -42,3 +42,27 @@ private func presentationReport(_ before: String, _ after: String) throws -> Dif
     "struct A { func f() { change() } }; struct A { func f() {} }")
   #expect(Renderer.text(repeated).components(separatedBy: "Repeated type identity").count - 1 == 4)
 }
+
+@Test func commonConditionalNotesCollapseAndKeepJSONLocations() throws {
+  let before = "#if DEBUG\nstruct A {}\n#endif\n"
+  let report = try presentationReport(before, "// moved lines\n" + before)
+  let text = Renderer.text(report)
+  #expect(text.components(separatedBy: "All #if branches").count - 1 == 1)
+  #expect(!text.contains("Unmatched conditional header"))
+  #expect(report.notices.count == 2)
+  #expect(report.notices.map(\.location.line) == [1, 2])
+  #expect(try !Renderer.json(report).contains("conditionalHeader"))
+  #expect(try !Renderer.json(report, detail: .full).contains("textNotices"))
+}
+
+@Test func changedConditionAndAmbiguousTypesRemainVisible() throws {
+  let before = "#if DEBUG\nstruct A {}\n#endif\n"
+  let report = try presentationReport(before, before.replacingOccurrences(of: "DEBUG", with: "RELEASE"))
+  let text = Renderer.text(report)
+  #expect(text.contains("after:1: Unmatched conditional header: #if RELEASE"))
+  #expect(text.contains("before:1: Unmatched conditional header: #if DEBUG"))
+  let duplicate = try presentationReport(
+    before + before, before + before.replacingOccurrences(of: "struct A {}", with: "struct A { func f() {} }"))
+  #expect(Renderer.text(duplicate).contains("Repeated declaration identity"))
+  #expect(Renderer.text(duplicate).contains("Repeated type identity"))
+}
