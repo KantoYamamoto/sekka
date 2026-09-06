@@ -104,7 +104,8 @@ private final class DeclarationVisitor: SyntaxVisitor {
             return normalized(item)
           }
         }, signatureWithoutParameters: signatureWithoutParameters,
-        bodyTokens: bodySyntax.map { $0.tokens(viewMode: .sourceAccurate).map(\.text) }))
+        bodyTokens: bodySyntax.map { $0.tokens(viewMode: .sourceAccurate).map(\.text) },
+        endLine: converter.location(for: node.endPositionBeforeTrailingTrivia).line))
   }
 
   override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {

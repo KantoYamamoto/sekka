@@ -32,6 +32,7 @@ public struct Member: Codable, Equatable, Sendable {
   public var signatureWithoutParameters: String? = nil
   // Exact token sequences are retained only in memory; they are not sent to reviewers.
   var bodyTokens: [String]? = nil
+  var endLine: Int? = nil
   enum CodingKeys: String, CodingKey {
     case key, kind, signature, location, body, forwardingCall
     case callableName, parameters, signatureWithoutParameters

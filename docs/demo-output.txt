@@ -19,7 +19,7 @@ Home.swift:9  HomeViewModel
     init — parameters (unique same-name declaration):
       + analytics : AnalyticsService
       + favorites : FavoriteRepository
-  [body-structure-changed] func purchase( _ item : Item ): body syntax counts changed
+  [body-structure-changed] func purchase( _ item : Item ): body syntax counts changed (after:23)
     - control-flow sites: 0
     - explicit self.property = sites: 0
     - tokens: 8
@@ -43,7 +43,7 @@ Home.swift:36  HomeView
   [members-changed] Declared members: 1 → 3 (all access levels)
     + @ State private var showFavorites
     + @ State private var showPromotion
-  [body-structure-changed] property body: body syntax counts changed
+  [body-structure-changed] property body: body syntax counts changed (after:40)
     - control-flow sites: 0
     - closures: 1
     - tokens: 11
@@ -52,3 +52,4 @@ Home.swift:36  HomeView
     + tokens: 36
 
 Scope: selected declarations/accessor/function bodies only. Unresolved calls, inferred types, unsupported syntax and effects remain unknown.
+Inspect source hunks: 'sekka' 'diff' '--before' '/path/to/sekka/Examples/before' '--after' '/path/to/sekka/Examples/after' '--expect-input' '00304bd9ad06a82a1f8f067fd31eeb49e6e7ae59' --show-diff FILE [--at before:LINE|after:LINE]

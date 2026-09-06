@@ -52,6 +52,28 @@ public enum Inputs {
     try runGit(["rev-parse", "--show-toplevel"], at: path).trimmingCharacters(in: .newlines)
   }
 
+  /// Content identifier, not authentication. Length prefixes separate paths and source bytes.
+  public static func fingerprint(before: Snapshot, after: Snapshot) throws -> String {
+    var bytes = Data()
+    func append(_ value: String) {
+      let data = Data(value.utf8)
+      bytes.append(Data("\(data.count):".utf8))
+      bytes.append(data)
+    }
+    for snapshot in [before, after] {
+      append(String(snapshot.sourceByPath.count))
+      for file in snapshot.sourceByPath.keys.sorted() {
+        append(file)
+        append(snapshot.sourceByPath[file]!)
+      }
+    }
+    let temporary = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    try bytes.write(to: temporary)
+    defer { try? FileManager.default.removeItem(at: temporary) }
+    return try runGit(["hash-object", "--no-filters", temporary.path], at: temporary.deletingLastPathComponent().path)
+      .trimmingCharacters(in: .newlines)
+  }
+
   public static func revision(_ ref: String, at root: String) throws -> String {
     try runGit(["rev-parse", "--verify", "--end-of-options", ref + "^{commit}"], at: root)
       .trimmingCharacters(in: .newlines)

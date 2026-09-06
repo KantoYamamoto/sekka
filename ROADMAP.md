@@ -49,7 +49,7 @@
 | V01 | 比較の基準と旧出力を固定する | なし | 完了・[固定基準](docs/validation/protocol.md)、[旧出力量](docs/validation/baseline.json)、[自己利用](docs/validation/self-review-bootstrap.md) |
 | PR01 | 追加・削除に伴う比較不能説明を集約する | V01 | 完了・[検証](docs/validation/pr01-body-summary.md)、Issue [#2](https://github.com/KantoYamamoto/sekka/issues/2) |
 | PR02 | 共通の条件コンパイルNOTEを集約する | PR01 | 完了・[検証](docs/validation/pr02-conditional-notes.md)、Issue [#3](https://github.com/KantoYamamoto/sekka/issues/3) |
-| PR03 | 案内した本体から該当diffへ進めるようにする | PR02 | 着手可能 |
+| PR03 | 案内した本体から該当diffへ進めるようにする | PR02 | 進行中・Issue [#4](https://github.com/KantoYamamoto/sekka/issues/4) |
 | V02 | 既知ケースで情報保持と読みやすさを確認する | PR01〜03 | 未着手 |
 | V03-01 | 未試用のAPI・モデル変更PRを比較レビューする | V02 | 未着手 |
 | V03-02 | 未試用のSwiftUI・本体中心PRを比較レビューする | V02 | 未着手 |
