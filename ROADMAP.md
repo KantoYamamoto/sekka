@@ -6,6 +6,8 @@
 
 **次にすること: V01「比較の基準を固定する」。その次の実装はPR01「追加・削除の重複説明をまとめる」。**
 
+ライセンス: [MIT](LICENSE)を採用（[判断0010](docs/decisions/0010-mit-license.md)）。
+
 名称・公開: Sekka（セッカ）を採用し、改名・[publicリポジトリ](https://github.com/KantoYamamoto/sekka)作成済み（[判断0009](docs/decisions/0009-sekka.md)）。公開はユーザーの指示によるもので、M1/M2の有用性検証やM3の配布整備の完了を意味しない。
 
 | 現状 | 内容 |

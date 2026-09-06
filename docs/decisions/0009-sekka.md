@@ -34,4 +34,4 @@ Weave/Weaverは近い領域との混同を避けた。未公開の試作段階�
 
 - [セッカの巣作り](https://global.canon/ja/bird-branch/bird-column/kids5/)、同名の[日本語入力システム](https://github.com/kiyoka/sekka)を名称候補の調査で確認。
 - 改名後・フォルダ移動後のクリーンビルドで`swift test`30件通過。移動直後は旧絶対パスを含むキャッシュでビルド失敗したため、`swift package clean`後に再実行した。CLI smoke 18件と文書の相対リンクを確認。サンプル出力も保存済みの期待値と一致。
-- [KantoYamamoto/sekka](https://github.com/KantoYamamoto/sekka)をpublicで作成し、既存履歴を含むmainをpushした。公開時点のライセンスは未設定。
+- [KantoYamamoto/sekka](https://github.com/KantoYamamoto/sekka)をpublicで作成し、既存履歴を含むmainをpushした。初回公開時点のライセンスは未設定。その後、[0010](0010-mit-license.md)でMITを採用。
