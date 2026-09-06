@@ -134,3 +134,5 @@ python3 Scripts/smoke.py .build/debug/sekka
 Sekkaのコードと文書は[MIT License](LICENSE)で公開しています。Copyright (c) 2026 KantoYamamoto。
 
 依存するSwiftSyntaxはApache License 2.0（Runtime Library Exception付き）です。SekkaのMITライセンスで依存ライブラリの条件を置き換えることはありません。[依存と配布時の確認事項](docs/references.md)を参照してください。
+
+Sekka自身のSwift変更では、[自己利用・比較検証の手順](docs/validation/protocol.md)に従い、新旧評価器の案内と通常diffを保存して改善点を記録します。
