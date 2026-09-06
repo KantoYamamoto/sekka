@@ -54,6 +54,9 @@ public struct TypeRecord: Codable, Equatable, Sendable {
 public struct Notice: Codable, Equatable, Sendable {
   public let location: Location
   public let message: String
+  // Internal syntax identity for presentation; JSON notice contract remains unchanged.
+  var conditionalHeader: String? = nil
+  enum CodingKeys: String, CodingKey { case location, message }
 }
 
 public struct Snapshot: Encodable, Sendable {
@@ -141,6 +144,11 @@ public struct DiffReport: Encodable, Sendable {
   public let notices: [Notice]
   public let limitations: [String]
   public var coverage = ComparisonCoverage()
+  var textNotices: [String]? = nil
+  enum CodingKeys: String, CodingKey {
+    case schemaVersion, analysis, detail, beforeLabel, afterLabel, beforeFiles, afterFiles
+    case findings, notices, limitations, coverage
+  }
 }
 
 public enum SekkaError: Error, CustomStringConvertible {

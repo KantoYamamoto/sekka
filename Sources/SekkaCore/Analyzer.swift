@@ -233,7 +233,10 @@ private final class DeclarationVisitor: SyntaxVisitor {
     notices.append(
       Notice(
         location: location(node),
-        message: "All #if branches are included, regardless of build configuration."))
+        message: "All #if branches are included, regardless of build configuration.",
+        conditionalHeader: node.clauses.map {
+          $0.poundKeyword.text + ($0.condition.map { " " + normalized($0) } ?? "")
+        }.joined(separator: " / ")))
     return .visitChildren
   }
 
