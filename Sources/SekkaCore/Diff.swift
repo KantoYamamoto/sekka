@@ -176,7 +176,8 @@ public enum Renderer {
         .beforeLocation!
       lines.append("\(location.file):\(location.line)  \(name)")
       for finding in observations {
-        lines.append("  [\(finding.rule)] \(finding.message)")
+        let position = finding.rule == "body-structure-changed" ? " (after:\(finding.location.line))" : ""
+        lines.append("  [\(finding.rule)] \(finding.message)\(position)")
         let delta = displayDelta(finding)
         lines += delta.removed.map { "    - \($0)" }
         lines += delta.added.map { "    + \($0)" }

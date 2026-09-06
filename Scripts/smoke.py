@@ -1,5 +1,6 @@
 """Exercise the real CLI and Git snapshots in a disposable repository. No dependencies."""
 import json
+import re
 from pathlib import Path
 import subprocess
 import sys
@@ -60,6 +61,23 @@ with tempfile.TemporaryDirectory(prefix="sekka-smoke-") as temporary:
     assert not any(f["type"] == "Model" for f in excluded["findings"])
     annotations = run("diff", "HEAD", "--format", "github").stdout
     assert "::notice " in annotations and "::error " not in annotations
+    summary = run("diff", "HEAD").stdout
+    fingerprint = re.search(r"--expect-input' '([0-9a-f]+)'", summary).group(1)
+    selected = run("diff", "HEAD", "--show-diff", "Model.swift", "--at", "after:1",
+                   "--expect-input", fingerprint).stdout
+    assert "Analytics" in selected and "showing all file hunks" in selected
+    assert "Deleted" in run("diff", "HEAD", "--show-diff", "Deleted.swift").stdout
+    saved = (repo / "Model.swift").read_bytes()
+    (repo / "Model.swift").write_bytes(b"// shifted lines\n" + saved)
+    stale = run("diff", "HEAD", "--show-diff", "Model.swift", "--at", "after:1",
+                "--expect-input", fingerprint, code=2)
+    assert stale.stdout == "" and "input changed" in stale.stderr
+    (repo / "Model.swift").write_bytes(saved)
+    run("diff", "HEAD", "--show-diff", "Model.swift", "--at", "after:1", code=2)
+    run("diff", "HEAD", "--show-diff", "Model.swift", "--format", "json", code=2)
+    run("diff", "HEAD", "--show-diff", "missing.swift", code=2)
+    (repo / "space name.swift").write_text("enum Choice { case a, b }\n")
+    assert "case a, b" in run("diff", "HEAD", "--show-diff", "space name.swift").stdout
     run("diff", "does-not-exist", code=2)
     run("scan", "--format", "wat", code=2)
     run("diff", "HEAD", "--format", "json", "--json-detail", "wat", code=2)
@@ -81,6 +99,8 @@ with tempfile.TemporaryDirectory(prefix="sekka-smoke-") as temporary:
     fork = json.loads(run("diff", "HEAD", "--head", feature, "--merge-base", "--format", "json").stdout)
     assert not any(f["type"] == "Unrelated" for f in fork["findings"])
     assert any(f["type"] == "New" for f in fork["findings"])
+    past = run("diff", "HEAD", "--head", feature, "--merge-base", "--show-diff", "Model.swift").stdout
+    assert "Analytics" in past and "Unrelated" not in past
     assert git("rev-parse", "--abbrev-ref", "HEAD") == "base-advanced"
     assert git("status", "--porcelain") == ""
     # Comparing two empty trees must not be mistaken for a successful analysis.

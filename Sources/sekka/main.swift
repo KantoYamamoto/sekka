@@ -16,6 +16,9 @@ private let help = """
     --fail-on-findings        Exit 1 for observations (default: exit 0)
     --head REF                Compare a committed head; default: working tree
     --merge-base              Compare against merge-base(REF, HEAD/--head)
+    --show-diff FILE          Show source hunks for a changed analyzed Swift file (text only)
+    --at before:LINE|after:LINE  Select a declaration's hunks; requires --expect-input
+    --expect-input ID         Refuse navigation if analyzed source differs from the summary
     --help                    Show this help
     --version                 Show version
 
@@ -39,6 +42,9 @@ private struct Options {
   var fail = false
   var jsonDetail = JSONDetail.compact
   var jsonDetailSpecified = false
+  var showDiff: String?
+  var at: String?
+  var expectInput: String?
 
   init(_ args: [String]) throws {
     guard let first = args.first, ["scan", "diff"].contains(first) else {
@@ -61,6 +67,9 @@ private struct Options {
       case "--after": after = try value()
       case "--head": head = try value()
       case "--format": format = try value()
+      case "--show-diff": showDiff = try value()
+      case "--at": at = try value()
+      case "--expect-input": expectInput = try value()
       case "--json-detail":
         let raw = try value()
         guard let detail = JSONDetail(rawValue: raw) else {
@@ -90,6 +99,14 @@ private struct Options {
     }
     if jsonDetailSpecified && (command != "diff" || format != "json") {
       throw SekkaError.message("--json-detail requires diff --format json")
+    }
+    if showDiff != nil || at != nil || expectInput != nil {
+      guard command == "diff", showDiff != nil, format == "text", !fail else {
+        throw SekkaError.message("Navigation requires diff --show-diff FILE --format text, without --fail-on-findings")
+      }
+      if at != nil && expectInput == nil {
+        throw SekkaError.message("--at requires --expect-input from the summary; rerun the summary first")
+      }
     }
     if command == "scan" {
       guard before == nil, after == nil, head == nil, !mergeBase, !fail, format != "github" else {
@@ -130,11 +147,14 @@ private func run() throws -> Int32 {
   let afterFiles: [(path: String, source: String)]
   let beforeLabel: String
   let afterLabel: String
+  var replay: [String] = ["sekka", "diff"]
   if let before = options.before, let after = options.after {
     beforeFiles = try Inputs.directory(before, excluding: options.exclude)
     afterFiles = try Inputs.directory(after, excluding: options.exclude)
     beforeLabel = before
     afterLabel = after
+    replay += ["--before", URL(fileURLWithPath: before).standardizedFileURL.path,
+      "--after", URL(fileURLWithPath: after).standardizedFileURL.path]
   } else {
     let root = try Inputs.gitRoot(options.path)
     let ref = options.ref!
@@ -153,18 +173,38 @@ private func run() throws -> Int32 {
       ? "merge-base(\(ref), \(options.head ?? "HEAD")) [\(base.prefix(12))]"
       : "\(ref) [\(base.prefix(12))]"
     afterLabel = headCommit.map { "\(options.head!) [\($0.prefix(12))]" } ?? "working tree"
+    replay += [base, "--path", root]
+    if let headCommit { replay += ["--head", headCommit] }
   }
+  for excluded in options.exclude { replay += ["--exclude", excluded] }
   guard !beforeFiles.isEmpty || !afterFiles.isEmpty else {
     throw SekkaError.message(
       "No Swift files found on either side; check the input paths and exclusions")
   }
-  let report = try Differ.compare(
-    Analyzer.analyze(beforeFiles), Analyzer.analyze(afterFiles), beforeLabel: beforeLabel,
+  let beforeSnapshot = try Analyzer.analyze(beforeFiles)
+  let afterSnapshot = try Analyzer.analyze(afterFiles)
+  let report = Differ.compare(
+    beforeSnapshot, afterSnapshot, beforeLabel: beforeLabel,
     afterLabel: afterLabel)
+  let fingerprint = try options.format == "text"
+    ? Inputs.fingerprint(before: beforeSnapshot, after: afterSnapshot) : nil
+  if let expected = options.expectInput, expected != fingerprint {
+    throw SekkaError.message("Analyzed input changed; rerun the summary before selecting old locations")
+  }
+  if let file = options.showDiff {
+    print(try DiffNavigation.render(before: beforeSnapshot, after: afterSnapshot, report: report, file: file, at: options.at))
+    return 0
+  }
   switch options.format {
   case "json": print(try Renderer.json(report, detail: options.jsonDetail))
   case "github": print(Renderer.github(report))
-  default: print(Renderer.text(report))
+  default:
+    print(Renderer.text(report))
+    if !report.coverage.changedFiles.isEmpty {
+      func quote(_ value: String) -> String { "'" + value.replacingOccurrences(of: "'", with: "'\\''") + "'" }
+      print("Inspect source hunks: " + (replay + ["--expect-input", fingerprint!]).map(quote).joined(separator: " ")
+        + " --show-diff FILE [--at before:LINE|after:LINE]")
+    }
   }
   return options.fail && !report.findings.isEmpty ? 1 : 0
 }
