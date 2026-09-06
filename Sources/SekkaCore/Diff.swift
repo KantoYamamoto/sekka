@@ -53,6 +53,8 @@ public enum Differ {
         .sorted()
       if oldRefs == newRefs && oldEdges != newEdges {
         add("reference-sites-changed", "Explicit type reference sites changed", oldEdges, newEdges)
+        findings[findings.count - 1].textReferenceLines = ReferencePresentation.lines(
+          before: old.references, after: new.references)
       }
       let oldSignatures = old.members.map(\.signature).sorted()
       let newSignatures = new.members.map(\.signature).sorted()
@@ -179,8 +181,12 @@ public enum Renderer {
         let position = finding.rule == "body-structure-changed" ? " (after:\(finding.location.line))" : ""
         lines.append("  [\(finding.rule)] \(finding.message)\(position)")
         let delta = displayDelta(finding)
-        lines += delta.removed.map { "    - \($0)" }
-        lines += delta.added.map { "    + \($0)" }
+        if let referenceLines = finding.textReferenceLines {
+          lines += referenceLines
+        } else {
+          lines += delta.removed.map { "    - \($0)" }
+          lines += delta.added.map { "    + \($0)" }
+        }
         for change in finding.parameterChanges {
           lines.append("    \(change.member) — parameters (unique same-name declaration):")
           lines += change.removed.map { "      - \($0)" }

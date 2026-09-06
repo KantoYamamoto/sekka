@@ -92,6 +92,11 @@ public struct Finding: Codable, Sendable {
   public let after: [String]
   public var typeID: String = ""
   public var parameterChanges: [ParameterChange] = []
+  // Structured source facts supply text grouping; serialized observations retain full edges.
+  var textReferenceLines: [String]? = nil
+  enum CodingKeys: String, CodingKey {
+    case rule, type, location, message, before, after, typeID, parameterChanges
+  }
 }
 
 public struct ParameterChange: Codable, Sendable {
