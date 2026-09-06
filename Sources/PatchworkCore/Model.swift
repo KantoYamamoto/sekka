@@ -27,6 +27,15 @@ public struct Member: Codable, Equatable, Sendable {
   public var body: BodyMetrics?
   /// A syntactic shape, not a claim that the wrapper is unnecessary or has no effects.
   public var forwardingCall: String?
+  public var callableName: String? = nil
+  public var parameters: [String]? = nil
+  public var signatureWithoutParameters: String? = nil
+  // Exact token sequences are retained only in memory; they are not sent to reviewers.
+  var bodyTokens: [String]? = nil
+  enum CodingKeys: String, CodingKey {
+    case key, kind, signature, location, body, forwardingCall
+    case callableName, parameters, signatureWithoutParameters
+  }
 }
 
 public struct TypeRecord: Codable, Equatable, Sendable {
@@ -48,17 +57,24 @@ public struct Notice: Codable, Equatable, Sendable {
 }
 
 public struct Snapshot: Encodable, Sendable {
-  public let schemaVersion = 1
+  public let schemaVersion = 2
   public let analysis = "syntax-only"
   public var files = 0
   public var types: [TypeRecord] = []
   public var notices: [Notice] = []
+  var sourceByPath: [String: String] = [:]
+  var tokensByPath: [String: [String]] = [:]
+  enum CodingKeys: String, CodingKey {
+    case schemaVersion, analysis, files, types, notices, limitations
+  }
   public let limitations = [
     "Type spellings are not resolved symbols or semantic dependency edges.",
     "Extensions are separate records; identities include file paths. Moves/renames appear as removal/addition.",
     "All conditional-compilation branches are parsed; macros are not expanded.",
     "Inferred types, call targets, module membership, purity and transitive effects are not resolved.",
     "No finding does not imply that the design is safe or unchanged.",
+    "Coverage refers to changed analyzed Swift files after exclusions, not all PR files or line coverage.",
+    "Body comparison covers selected members and compares token sequences/counts, not correctness. Unlisted syntax remains outside these checks.",
   ]
   public init() {}
 }
@@ -70,11 +86,53 @@ public struct Finding: Codable, Sendable {
   public let message: String
   public let before: [String]
   public let after: [String]
+  public var typeID: String = ""
+  public var parameterChanges: [ParameterChange] = []
+}
+
+public struct ParameterChange: Codable, Sendable {
+  public let member: String
+  public let beforeSignature: String
+  public let afterSignature: String
+  public let beforeHeader: String
+  public let afterHeader: String
+  public let removed: [String]
+  public let added: [String]
+  public let beforeOrder: [String]
+  public let afterOrder: [String]
+}
+
+public struct ChangedFile: Codable, Sendable {
+  public let file: String
+  public let change: String
+  public let syntaxChanged: Bool
+  public let observationCount: Int
+}
+
+public struct BodyComparison: Codable, Sendable {
+  public let typeID: String
+  public let type: String
+  public let member: String
+  public let beforeLocation: Location?
+  public let afterLocation: Location?
+  /// changed-metrics / changed-syntax-only / not-compared
+  public let status: String
+  public let reason: String
+}
+
+public struct ComparisonCoverage: Codable, Sendable {
+  public var changedFiles: [ChangedFile] = []
+  /// Counts only bodies belonging to changed input files, not the entire repository.
+  public var comparedBodyCount = 0
+  public var unchangedBodyCount = 0
+  public var bodyComparisons: [BodyComparison] = []
+  public var skippedBodyCount = 0
 }
 
 public struct DiffReport: Encodable, Sendable {
-  public let schemaVersion = 1
+  public let schemaVersion = 2
   public let analysis = "syntax-only"
+  public let detail = "full"
   public let beforeLabel: String
   public let afterLabel: String
   public let beforeFiles: Int
@@ -82,6 +140,7 @@ public struct DiffReport: Encodable, Sendable {
   public let findings: [Finding]
   public let notices: [Notice]
   public let limitations: [String]
+  public var coverage = ComparisonCoverage()
 }
 
 public enum PatchworkError: Error, CustomStringConvertible {

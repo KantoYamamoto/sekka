@@ -7,18 +7,24 @@ public enum Differ {
     var findings: [Finding] = []
     let oldTypes = Dictionary(uniqueKeysWithValues: before.types.map { ($0.id, $0) })
     let newTypes = Dictionary(uniqueKeysWithValues: after.types.map { ($0.id, $0) })
+    func family(_ type: TypeRecord) -> String { "\(type.location.file)::\(type.kind):\(type.name)" }
+    let oldFamilies = Dictionary(grouping: before.types, by: family)
+    let newFamilies = Dictionary(grouping: after.types, by: family)
     for id in Set(oldTypes.keys).union(newTypes.keys).sorted() {
       let old = oldTypes[id]
       let new = newTypes[id]
       let type = new ?? old!
+      let ambiguousType =
+        oldFamilies[family(type), default: []].count > 1
+        || newFamilies[family(type), default: []].count > 1
       func add(
         _ rule: String, _ message: String, _ previous: [String], _ current: [String],
-        at: Location? = nil
+        at: Location? = nil, parameterChanges: [ParameterChange] = []
       ) {
         findings.append(
           Finding(
             rule: rule, type: type.name, location: at ?? type.location, message: message,
-            before: previous, after: current))
+            before: previous, after: current, typeID: id, parameterChanges: parameterChanges))
       }
       guard let old, let new else {
         add(
@@ -54,9 +60,11 @@ public enum Differ {
         add(
           "members-changed",
           "Declared members: \(old.members.count) → \(new.members.count) (all access levels)",
-          oldSignatures, newSignatures)
+          oldSignatures, newSignatures,
+          parameterChanges: ambiguousType ? [] : MemberMatching.parameterChanges(old, new))
       }
       // Duplicate/overloaded identities are deliberately not arbitrarily paired.
+      if ambiguousType { continue }
       let oldMembers = Dictionary(grouping: old.members, by: \.key)
       let newMembers = Dictionary(grouping: new.members, by: \.key)
       for key in newMembers.keys.sorted() {
@@ -89,7 +97,8 @@ public enum Differ {
       notices: before.notices.map {
         Notice(location: $0.location, message: "Before: " + $0.message)
       } + after.notices.map { Notice(location: $0.location, message: "After: " + $0.message) },
-      limitations: after.limitations)
+      limitations: after.limitations,
+      coverage: CoverageBuilder.build(before, after, findings: findings))
   }
 
   private static func summary(_ type: TypeRecord) -> [String] {
@@ -134,36 +143,75 @@ public enum Renderer {
   }
 
   public static func text(_ report: DiffReport) -> String {
+    let coverage = report.coverage
+    let without = coverage.changedFiles.filter { $0.observationCount == 0 }
     var lines = [
-      "Patchwork · structural delta (syntax-only)", "\(report.beforeLabel) → \(report.afterLabel)",
-      "Swift files: \(report.beforeFiles) → \(report.afterFiles) · \(report.findings.count) observations",
-      "",
+      "Patchwork · structural delta (syntax-only)",
+      "\(report.beforeLabel) → \(report.afterLabel)",
+      "Analyzed Swift files: \(report.beforeFiles) → \(report.afterFiles)",
+      "Changed Swift files: \(coverage.changedFiles.count) · with observations: \(coverage.changedFiles.count - without.count) · without observations: \(without.count)",
+      "\(report.findings.count) observations. These counts are not a coverage percentage.", "",
     ]
-    for finding in report.findings {
-      lines += [
-        "\(finding.location.file):\(finding.location.line)  \(finding.type) [\(finding.rule)]",
-        "  \(finding.message)",
-      ]
-      // Multiset subtraction retains repeated declarations without reporting unchanged members.
-      var removed = finding.before
-      var added: [String] = []
-      for item in finding.after {
-        if let index = removed.firstIndex(of: item) {
-          removed.remove(at: index)
-        } else {
-          added.append(item)
+    if !without.isEmpty {
+      lines.append("Changed files without structural observations (review the ordinary diff):")
+      lines += without.map {
+        "  \($0.file) [\($0.change)]" + ($0.syntaxChanged ? "" : " — comments/formatting only")
+      }
+      lines.append("")
+    }
+    lines += [
+      "Bodies in changed files: \(coverage.comparedBodyCount) compared · \(coverage.unchangedBodyCount) token-identical · \(coverage.skippedBodyCount) not compared",
+      "Body comparison checks tokens/counts, not behavior. Unchanged bodies are omitted below.", "",
+    ]
+    let findings = Dictionary(grouping: report.findings, by: \.typeID)
+    let bodies = Dictionary(grouping: coverage.bodyComparisons, by: \.typeID)
+    for id in Set(findings.keys).union(bodies.keys).sorted() {
+      let observations = findings[id] ?? []
+      let comparisons = bodies[id] ?? []
+      let name = observations.first?.type ?? comparisons.first!.type
+      let location =
+        observations.first?.location ?? comparisons.first!.afterLocation ?? comparisons.first!
+        .beforeLocation!
+      lines.append("\(location.file):\(location.line)  \(name)")
+      for finding in observations {
+        lines.append("  [\(finding.rule)] \(finding.message)")
+        let delta = displayDelta(finding)
+        lines += delta.removed.map { "    - \($0)" }
+        lines += delta.added.map { "    + \($0)" }
+        for change in finding.parameterChanges {
+          lines.append("    \(change.member) — parameters (unique same-name declaration):")
+          lines += change.removed.map { "      - \($0)" }
+          lines += change.added.map { "      + \($0)" }
+          if change.beforeHeader != change.afterHeader {
+            lines += [
+              "      declaration before: " + change.beforeHeader,
+              "      declaration after: " + change.afterHeader,
+            ]
+          }
+          if parameterOrderChanged(change) {
+            lines += [
+              "      order before: " + change.beforeOrder.joined(separator: ", "),
+              "      order after: " + change.afterOrder.joined(separator: ", "),
+            ]
+          }
         }
       }
-      lines += removed.map { "  - \($0)" }
-      lines += added.map { "  + \($0)" }
+      for body in comparisons where body.status != "changed-metrics" {
+        let at =
+          body.afterLocation.map { "after:\($0.line)" } ?? "before:\(body.beforeLocation!.line)"
+        lines.append("  [\(body.status)] \(body.member) (\(at))")
+        lines.append("    " + coverageExplanation(body.reason))
+      }
       lines.append("")
     }
     if report.findings.isEmpty {
-      lines.append("No observations in the supported syntax checks. This is not a design approval.")
+      lines.append(
+        "No structural observations in supported checks. Changed files/bodies above still require review."
+      )
     }
     lines += report.notices.map { "NOTE \($0.location.file):\($0.location.line): \($0.message)" }
     lines.append(
-      "Coverage: explicit type syntax and selected body counts; unresolved calls, inferred types and effects are unknown."
+      "Scope: selected declarations/accessor/function bodies only. Unresolved calls, inferred types, unsupported syntax and effects remain unknown."
     )
     return lines.joined(separator: "\n")
   }
@@ -184,17 +232,39 @@ public enum Renderer {
       let position =
         $0.rule == "type-removed"
         ? "" : "file=\(escape($0.location.file, property: true)),line=\($0.location.line),"
+      let delta = displayDelta($0)
+      let parameters = $0.parameterChanges.map {
+        $0.member + " parameters: - " + $0.removed.joined(separator: ", ") + " / + "
+          + $0.added.joined(separator: ", ")
+          + (parameterOrderChanged($0)
+            ? " / order: " + $0.beforeOrder.joined(separator: ", ") + " → "
+              + $0.afterOrder.joined(separator: ", ") : "")
+          + ($0.beforeHeader == $0.afterHeader
+            ? "" : " / declaration: " + $0.beforeHeader + " → " + $0.afterHeader)
+      }.joined(separator: "\n")
       let detail =
-        $0.message + "\nBefore: " + $0.before.joined(separator: "; ") + "\nAfter: "
-        + $0.after.joined(separator: "; ")
+        $0.message + "\nRemoved: " + delta.removed.joined(separator: "; ")
+        + "\nAdded: " + delta.added.joined(separator: "; ") + "\n" + parameters
       return
         "::notice \(position)title=\(escape("Patchwork / " + $0.rule, property: true))::\(escape($0.type + ": " + detail))"
+    }
+    for file in report.coverage.changedFiles where file.observationCount == 0 {
+      lines.append(
+        "::notice title=Patchwork coverage::"
+          + escape(
+            file.file + ": changed without structural observations; review the ordinary diff."))
+    }
+    for body in report.coverage.bodyComparisons where body.status != "changed-metrics" {
+      let position =
+        body.afterLocation.map { "file=\(escape($0.file, property: true)),line=\($0.line)," } ?? ""
+      let detail = body.type + "." + body.member + ": " + coverageExplanation(body.reason)
+      lines.append("::notice \(position)title=Patchwork body coverage::\(escape(detail))")
     }
     lines += report.notices.map {
       "::notice title=Patchwork coverage::\(escape($0.location.file + ": " + $0.message))"
     }
     lines.append(
-      "::notice title=Patchwork coverage::Syntax-only analysis; unresolved calls, inferred types and effects are unknown. \(report.findings.count) observations."
+      "::notice title=Patchwork coverage::Syntax-only analysis; unresolved calls, inferred types and effects are unknown. \(report.findings.count) observations; \(report.coverage.changedFiles.count) changed Swift files; \(report.coverage.skippedBodyCount) body comparisons skipped."
     )
     return lines.joined(separator: "\n")
   }

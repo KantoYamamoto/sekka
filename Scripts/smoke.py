@@ -46,7 +46,12 @@ with tempfile.TemporaryDirectory(prefix="patchwork-smoke-") as temporary:
     assert dirty["beforeFiles"] == 3 and dirty["afterFiles"] == 3
     assert any(f["rule"] == "type-removed" and f["type"] == "Deleted" for f in dirty["findings"])
     assert any(f["rule"] == "type-added" and f["type"] == "New" for f in dirty["findings"])
-    assert any("Analytics" in f["after"] for f in dirty["findings"])
+    assert any("Analytics" in f["added"] for f in dirty["findings"])
+    assert dirty["schemaVersion"] == 2 and dirty["detail"] == "compact"
+    assert len(dirty["coverage"]["changedFiles"]) == 3
+    full = json.loads(run("diff", "HEAD", "--format", "json", "--json-detail", "full").stdout)
+    assert full["coverage"] == dirty["coverage"]
+    assert any("Analytics" in f["after"] for f in full["findings"])
     assert run("diff", "HEAD", "--format", "json").stdout == run("diff", "HEAD", "--format", "json").stdout
     run("diff", "HEAD", "--fail-on-findings", code=1)
     committed = json.loads(run("diff", "HEAD", "--head", "HEAD", "--format", "json").stdout)
@@ -57,6 +62,9 @@ with tempfile.TemporaryDirectory(prefix="patchwork-smoke-") as temporary:
     assert "::notice " in annotations and "::error " not in annotations
     run("diff", "does-not-exist", code=2)
     run("scan", "--format", "wat", code=2)
+    run("diff", "HEAD", "--format", "json", "--json-detail", "wat", code=2)
+    run("diff", "HEAD", "--json-detail", "full", code=2)
+    run("scan", "--format", "json", "--json-detail", "full", code=2)
     run("diff", "--before", str(repo), code=2)
     (repo / "Broken.swift").write_text("struct {")
     broken = run("diff", "HEAD", "--format", "json", code=2)

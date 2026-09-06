@@ -20,6 +20,8 @@ swift build
 
 実行結果は [docs/demo-output.txt](docs/demo-output.txt) にも保存しています。
 
+実PRでの出力比較と対照実験は [docs/review-output-v2.md](docs/review-output-v2.md) を参照してください。
+
 ## 実プロジェクトで使う
 
 ```sh
@@ -35,6 +37,9 @@ swift build
 # AIやスクリプトへ渡す。JSON以外は標準出力に混ぜない
 .build/debug/patchwork diff HEAD --path /path/to/MyApp --format json
 
+# 変更前後の完全な観測リストも必要な場合
+.build/debug/patchwork diff HEAD --path /path/to/MyApp --format json --json-detail full
+
 # サードパーティーや生成コードを除外（ファイル/ディレクトリの相対prefix、globではない）
 .build/debug/patchwork diff HEAD --path /path/to/MyApp --exclude Vendor --exclude Sources/Generated
 ```
@@ -43,7 +48,33 @@ Gitモードでは `--path` 内のリポジトリ全体を解析します。作�
 
 scanとディレクトリ比較は指定ディレクトリ配下を読み、`.gitignore` は解釈しません。全モードでシンボリックリンクをスキップし、`.build`, `.swiftpm`, `.git`, `Pods`, `Carthage`, `DerivedData` を除外します。テストコードもデフォルトで含まれます。
 
-## 初版で取る事実
+## レビュー向け出力（0.2）
+
+textは型ごとに観測をまとめます。同じ型内で前後とも名前が一意な関数・initializerの引数変更は、長い宣言を2本並べる代わりに「追加・削除された引数」で表示します。引数以外のアクセス修飾子・戻り値なども変わった場合、その部分も別に表示します。オーバーロードは名前だけでまとめません。この宣言要約を本体の対応付けには使いません。
+
+冒頭に、**変更されたSwiftファイル数・構造観測のある/ないファイル数**を出し、観測のない変更ファイルを列挙します。元データは両スナップショットのソース内容で、Gitモードもディレクトリ比較も同じ仕組みです。対象は除外設定・symlink除外などを適用した後の入力Swiftファイルであり、文書や除外ファイルを含むPR全体の網羅率ではありません。
+
+さらに、変更された入力ファイル内の、対象メンバーの本体比較状態を表示します。
+
+| 状態 | 意味 |
+| --- | --- |
+| `changed-metrics` | 本体のtoken列と、追跡する構造指標が変化。textでは対応する構造観測にまとめる |
+| `changed-syntax-only` | 本体のtoken列は変わったが、分岐等の追跡指標は同じ。通常diffで確認が必要 |
+| `not-compared` | 引数節変更・同一キーの重複・本体の追加/削除などで比較できなかった。理由と前後の位置を出す |
+
+比較した本体数とtoken列が同一だった本体数も表示します。同一本体の一覧は省略します。token比較はコメント・整形を除外し、呼び出し式・リテラルの変更を認識しますが、実行結果の正しさは判定しません。本体比較対象外のトップレベル関数やstored propertyのinitializer等は、ファイルの変更としては見えますが、個別本体の一覧には出ません。構造観測があるファイルでも、全変更を説明できているとは限りません。
+
+## JSON schema version 2
+
+`diff --format json` はデフォルトで `detail: compact` です。`findings` の各項目は `before` / `after` の全リストではなく **`removed` / `added`** を持ち、同じままの宣言・参照を省きます。引数の差分は必要な項目だけに `parameterChanges` を持ち、順序や引数以外の宣言変更も残します。`typeID` で型単位にグループ化できます。
+
+`--json-detail full` なら従来の `before` / `after` リストに加え、要約に使った引数情報を取得できます。両モードで `coverage`, `notices`, `limitations` は同一です。**schema 1向けに `findings[].after` 等を読んでいたスクリプトは、fullを指定するかschema 2へ対応してください。** fullでもschema番号は2です。
+
+`coverage.changedFiles` は各ファイルの追加/削除/変更、構文変化の有無、構造観測数を持ちます。`coverage.bodyComparisons` は変更または比較省略の一覧です。理由コードは `parameter-clause-changed`, `no-exact-member-match`, `ambiguous-member-identity`, `ambiguous-type-identity`, `body-added`, `body-removed`, `type-added`, `type-removed`, `tracked-counts-changed`, `tracked-counts-unchanged`。型の追加・削除では比較相手がない本体も明示します。
+
+`scan --format json` はsnapshot出力を継続し、`--json-detail` は指定できません。token列・元ソースは内部比較専用でJSONには出しません。
+
+## 観測する事実
 
 | ルールID | 観測内容 |
 | --- | --- |
@@ -74,7 +105,7 @@ scanとディレクトリ比較は指定ディレクトリ配下を読み、`.gi
 
 ## CIでの使い方
 
-まずは通知のみの運用を想定しています。GitHub Actionsのログに表示できる `--format github` を実装しています（実GitHub上での表示は未検証）。通常は観測があっても終了コード0。明示的に `--fail-on-findings` を付けると1になります。解析失敗は常に2です。
+まずは通知のみの運用を想定しています。GitHub Actionsのログに表示できる `--format github` を実装しています（実GitHub上での表示は未検証）。構造観測に加えて、観測のない変更ファイルや本体比較の状態もnoticeとして出します。通常は観測があっても終了コード0。明示的に `--fail-on-findings` を付けると構造観測がある場合に1になります。比較範囲の説明だけでは1にしません。解析失敗は常に2です。
 
 Patchworkバイナリが配置され、比較元の履歴を取得済みのrunnerで:
 

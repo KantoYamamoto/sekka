@@ -1,55 +1,55 @@
 Patchwork · structural delta (syntax-only)
 Examples/before → Examples/after
-Swift files: 1 → 1 · 8 observations
+Analyzed Swift files: 1 → 1
+Changed Swift files: 1 · with observations: 1 · without observations: 0
+8 observations. These counts are not a coverage percentage.
 
-Home.swift:9  HomeViewModel [type-references-changed]
-  Distinct explicit type expressions: 3 → 6 (not resolved fan-out)
-  + AnalyticsService
-  + Event
-  + FavoriteRepository
+Bodies in changed files: 2 compared · 0 token-identical · 2 not compared
+Body comparison checks tokens/counts, not behavior. Unchanged bodies are omitted below.
 
-Home.swift:9  HomeViewModel [members-changed]
-  Declared members: 4 → 7 (all access levels)
-  - init ( repository : ItemRepository )
-  + func track ( _ event : Event )
-  + init ( repository : ItemRepository , analytics : AnalyticsService , favorites : FavoriteRepository )
-  + private let analytics : AnalyticsService
-  + private let favorites : FavoriteRepository
+Home.swift:9  HomeViewModel
+  [type-references-changed] Distinct explicit type expressions: 3 → 6 (not resolved fan-out)
+    + AnalyticsService
+    + Event
+    + FavoriteRepository
+  [members-changed] Declared members: 4 → 7 (all access levels)
+    + func track ( _ event : Event )
+    + private let analytics : AnalyticsService
+    + private let favorites : FavoriteRepository
+    init — parameters (unique same-name declaration):
+      + analytics : AnalyticsService
+      + favorites : FavoriteRepository
+  [body-structure-changed] func purchase( _ item : Item ): body syntax counts changed
+    - control-flow sites: 0
+    - explicit self.property = sites: 0
+    - tokens: 8
+    + control-flow sites: 1
+    + explicit self.property = sites: 1
+    + tokens: 27
+  [direct-forwarding-shape] func track( _ event : Event ): single call passes every parameter unchanged; necessity/effects unknown
+    + analytics . track ( event )
+  [not-compared] init (parameters changed) (after:16)
+    Parameter clause changed on unique same-name declarations. Body comparison was skipped; review both bodies.
+  [not-compared] func track( _ event : Event ) (after:31)
+    No exact counterpart: declaration added/removed, renamed, or signature changed. Body not compared.
 
-Home.swift:23  HomeViewModel [body-structure-changed]
-  func purchase( _ item : Item ): body syntax counts changed
-  - control-flow sites: 0
-  - explicit self.property = sites: 0
-  - tokens: 8
-  + control-flow sites: 1
-  + explicit self.property = sites: 1
-  + tokens: 27
+Home.swift:3  PaymentMethod
+  [type-references-changed] Distinct explicit type expressions: 0 → 1 (not resolved fan-out)
+    + Card
+  [members-changed] Declared members: 1 → 3 (all access levels)
+    + card ( Card )
+    + wallet
 
-Home.swift:31  HomeViewModel [direct-forwarding-shape]
-  func track( _ event : Event ): single call passes every parameter unchanged; necessity/effects unknown
-  + analytics . track ( event )
+Home.swift:36  HomeView
+  [members-changed] Declared members: 1 → 3 (all access levels)
+    + @ State private var showFavorites
+    + @ State private var showPromotion
+  [body-structure-changed] property body: body syntax counts changed
+    - control-flow sites: 0
+    - closures: 1
+    - tokens: 11
+    + control-flow sites: 2
+    + closures: 2
+    + tokens: 36
 
-Home.swift:3  PaymentMethod [type-references-changed]
-  Distinct explicit type expressions: 0 → 1 (not resolved fan-out)
-  + Card
-
-Home.swift:3  PaymentMethod [members-changed]
-  Declared members: 1 → 3 (all access levels)
-  + card ( Card )
-  + wallet
-
-Home.swift:36  HomeView [members-changed]
-  Declared members: 1 → 3 (all access levels)
-  + @ State private var showFavorites
-  + @ State private var showPromotion
-
-Home.swift:40  HomeView [body-structure-changed]
-  property body: body syntax counts changed
-  - control-flow sites: 0
-  - closures: 1
-  - tokens: 11
-  + control-flow sites: 2
-  + closures: 2
-  + tokens: 36
-
-Coverage: explicit type syntax and selected body counts; unresolved calls, inferred types and effects are unknown.
+Scope: selected declarations/accessor/function bodies only. Unresolved calls, inferred types, unsupported syntax and effects remain unknown.

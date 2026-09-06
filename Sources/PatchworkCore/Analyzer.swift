@@ -19,6 +19,8 @@ public enum Analyzer {
         throw PatchworkError.message(
           "Cannot parse \(file.path). Analysis stopped; no partial clean result was produced.")
       }
+      result.sourceByPath[file.path] = file.source
+      result.tokensByPath[file.path] = tree.tokens(viewMode: .sourceAccurate).map(\.text)
       let visitor = DeclarationVisitor(file: file.path, tree: tree)
       visitor.walk(tree)
       result.types += visitor.records
@@ -86,13 +88,23 @@ private final class DeclarationVisitor: SyntaxVisitor {
 
   func member(
     _ node: some SyntaxProtocol, key: String, kind: String, signature: String,
-    body: BodyMetrics? = nil, forwarding: String? = nil
+    body: BodyMetrics? = nil, forwarding: String? = nil,
+    bodySyntax: Syntax? = nil, callableName: String? = nil,
+    parameterList: FunctionParameterListSyntax? = nil, signatureWithoutParameters: String? = nil
   ) {
     guard let index = stack.last else { return }
     records[index].members.append(
       Member(
         key: key, kind: kind, signature: signature, location: location(node), body: body,
-        forwardingCall: forwarding))
+        forwardingCall: forwarding, callableName: callableName,
+        parameters: parameterList.map {
+          $0.map { parameter in
+            var item = parameter
+            item.trailingComma = nil
+            return normalized(item)
+          }
+        }, signatureWithoutParameters: signatureWithoutParameters,
+        bodyTokens: bodySyntax.map { $0.tokens(viewMode: .sourceAccurate).map(\.text) }))
   }
 
   override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
@@ -155,7 +167,8 @@ private final class DeclarationVisitor: SyntaxVisitor {
       member(
         binding, key: key, kind: "property",
         signature: signature.trimmingCharacters(in: .whitespaces),
-        body: binding.accessorBlock.map(metrics))
+        body: binding.accessorBlock.map(metrics), bodySyntax: binding.accessorBlock.map(Syntax.init)
+      )
     }
     return .skipChildren
   }
@@ -177,10 +190,15 @@ private final class DeclarationVisitor: SyntaxVisitor {
     let key = "func \(node.name.text)" + normalized(node.signature.parameterClause)
     var signatureNode = node
     signatureNode.body = nil
+    var withoutParameters = signatureNode
+    withoutParameters.signature.parameterClause.parameters = []
     member(
       node, key: key, kind: "function", signature: normalized(signatureNode),
       body: node.body.map(metrics),
-      forwarding: forwarding(node.body, parameters: node.signature.parameterClause.parameters))
+      forwarding: forwarding(node.body, parameters: node.signature.parameterClause.parameters),
+      bodySyntax: node.body.map(Syntax.init), callableName: "func \(node.name.text)",
+      parameterList: node.signature.parameterClause.parameters,
+      signatureWithoutParameters: normalized(withoutParameters))
     parameters(node.signature.parameterClause.parameters, member: key)
     if let output = node.signature.returnClause {
       reference(output.type, role: "return-type", member: key)
@@ -192,10 +210,15 @@ private final class DeclarationVisitor: SyntaxVisitor {
     let key = "init" + normalized(node.signature.parameterClause)
     var signatureNode = node
     signatureNode.body = nil
+    var withoutParameters = signatureNode
+    withoutParameters.signature.parameterClause.parameters = []
     member(
       node, key: key, kind: "initializer", signature: normalized(signatureNode),
       body: node.body.map(metrics),
-      forwarding: forwarding(node.body, parameters: node.signature.parameterClause.parameters))
+      forwarding: forwarding(node.body, parameters: node.signature.parameterClause.parameters),
+      bodySyntax: node.body.map(Syntax.init), callableName: "init",
+      parameterList: node.signature.parameterClause.parameters,
+      signatureWithoutParameters: normalized(withoutParameters))
     parameters(node.signature.parameterClause.parameters, member: key)
     return .skipChildren
   }

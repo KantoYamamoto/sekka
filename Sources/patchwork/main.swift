@@ -2,7 +2,7 @@ import Foundation
 import PatchworkCore
 
 private let help = """
-  Patchwork 0.1.0-dev — Swift structural observations, without building the target.
+  Patchwork 0.2.0-dev — Swift structural observations, without building the target.
 
   Usage:
     patchwork scan [--path DIRECTORY] [--format text|json]
@@ -11,6 +11,7 @@ private let help = """
 
   Options:
     --format text|json|github  Output format (default: text; github requires Git diff)
+    --json-detail compact|full  Diff JSON detail (default: compact; schema version 2)
     --exclude PATH            Exclude a relative file/directory prefix; repeatable
     --fail-on-findings        Exit 1 for observations (default: exit 0)
     --head REF                Compare a committed head; default: working tree
@@ -36,6 +37,8 @@ private struct Options {
   var exclude: [String] = []
   var mergeBase = false
   var fail = false
+  var jsonDetail = JSONDetail.compact
+  var jsonDetailSpecified = false
 
   init(_ args: [String]) throws {
     guard let first = args.first, ["scan", "diff"].contains(first) else {
@@ -58,6 +61,13 @@ private struct Options {
       case "--after": after = try value()
       case "--head": head = try value()
       case "--format": format = try value()
+      case "--json-detail":
+        let raw = try value()
+        guard let detail = JSONDetail(rawValue: raw) else {
+          throw PatchworkError.message("Unknown JSON detail: \(raw)")
+        }
+        jsonDetail = detail
+        jsonDetailSpecified = true
       case "--exclude":
         let raw = try value()
         let item = raw.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
@@ -77,6 +87,9 @@ private struct Options {
     }
     guard ["text", "json", "github"].contains(format) else {
       throw PatchworkError.message("Unknown format: \(format)")
+    }
+    if jsonDetailSpecified && (command != "diff" || format != "json") {
+      throw PatchworkError.message("--json-detail requires diff --format json")
     }
     if command == "scan" {
       guard before == nil, after == nil, head == nil, !mergeBase, !fail, format != "github" else {
@@ -104,7 +117,7 @@ private func run() throws -> Int32 {
     return 0
   }
   if args == ["--version"] {
-    print("patchwork 0.1.0-dev")
+    print("patchwork 0.2.0-dev")
     return 0
   }
   let options = try Options(args)
@@ -149,7 +162,7 @@ private func run() throws -> Int32 {
     Analyzer.analyze(beforeFiles), Analyzer.analyze(afterFiles), beforeLabel: beforeLabel,
     afterLabel: afterLabel)
   switch options.format {
-  case "json": print(try Renderer.json(report))
+  case "json": print(try Renderer.json(report, detail: options.jsonDetail))
   case "github": print(Renderer.github(report))
   default: print(Renderer.text(report))
   }
