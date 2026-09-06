@@ -1,10 +1,10 @@
 # Sekka: 現在位置と次の作業
 
-更新日: 2026-09-06。これは試用意見を元にした暫定計画。日程の約束ではなく、依存順と判断の節目を示す。PR番号はまだなく、下記IDはローカルの作業単位。
+更新日: 2026-09-07。これは試用意見を元にした暫定計画。日程の約束ではなく、依存順と判断の節目を示す。下記IDは計画上の作業単位で、GitHubのIssue・PRへリンクする。
 
 **現在位置: M1（V01・PR01〜03・V02）を完了。Git読み取り改善のローカル検証も完了。レビューの手間削減は未検証。**
 
-**次にすること: Issue [#15](https://github.com/KantoYamamoto/sekka/issues/15)：GitHub Actions上のPR表示を確認し、Git読み取り改善PRもCIで検証する。その後はM2の未試用ケース比較。**
+**次にすること: Actions導入PR #17はマージ済み。Git読み取り改善PR #16でSwift差分のCI表示・成果物を検証する。その後はM2の未試用ケース比較。**
 
 ライセンス: [MIT](LICENSE)を採用（[判断0010](docs/decisions/0010-mit-license.md)）。
 
@@ -145,3 +145,5 @@
 ## GitHubでの追跡
 
 [M1 milestone](https://github.com/KantoYamamoto/sekka/milestone/1)のIssueとPRに目的・完了条件・検証結果を残す。実装者自身のレビューと独立レビューを区別する。検証済みの小さいPRはマージして進め、コンセプトに関わる変更はユーザーへ根拠を示す。
+
+自己利用のActions導入はユーザーの追加指示（Issue [#15](https://github.com/KantoYamamoto/sekka/issues/15)）で先行する。一般利用者向けのPR05・M3完了とは扱わない。

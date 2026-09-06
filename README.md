@@ -127,7 +127,7 @@ sekka diff BASE --head HEAD --show-diff 'Sources/Model.swift' --at after:123 --e
 
 ## CIでの使い方
 
-まずは通知のみの運用を想定しています。GitHub Actionsのログに表示できる `--format github` を実装しています（実GitHub上での表示は未検証）。構造観測に加えて、観測のない変更ファイルや本体比較の状態もnoticeとして出します。通常は観測があっても終了コード0。明示的に `--fail-on-findings` を付けると構造観測がある場合に1になります。比較範囲の説明だけでは1にしません。解析失敗は常に2です。
+まずは通知のみの運用を想定しています。GitHub Actionsのログに表示できる `--format github` を実装しています（annotation形式の実GitHub上での表示は未検証）。構造観測に加えて、観測のない変更ファイルや本体比較の状態もnoticeとして出します。通常は観測があっても終了コード0。明示的に `--fail-on-findings` を付けると構造観測がある場合に1になります。比較範囲の説明だけでは1にしません。解析失敗は常に2です。
 
 Sekkaバイナリが配置され、比較元の履歴を取得済みのrunnerで:
 
@@ -153,3 +153,5 @@ Sekkaのコードと文書は[MIT License](LICENSE)で公開しています。Co
 依存するSwiftSyntaxはApache License 2.0（Runtime Library Exception付き）です。SekkaのMITライセンスで依存ライブラリの条件を置き換えることはありません。[依存と配布時の確認事項](docs/references.md)を参照してください。
 
 Sekka自身のSwift変更では、[自己利用・比較検証の手順](docs/validation/protocol.md)に従い、新旧評価器の案内と通常diffを保存して改善点を記録します。
+
+自身のPRでは[GitHub Actions](.github/workflows/pr-review.yml)がテスト・CLIチェックと構造案内を実行します。PRのChecksからジョブ要約を開くと、変更ファイルへのリンクと展開可能な案内を確認できます。通常diffとJSONは実行ページのartifactに14日間保存します。評価器はそのPRのビルドであり、独立レビューではありません。
