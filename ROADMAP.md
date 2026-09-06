@@ -2,9 +2,9 @@
 
 更新日: 2026-09-07。これは試用意見を元にした暫定計画。日程の約束ではなく、依存順と判断の節目を示す。下記IDは計画上の作業単位で、GitHubのIssue・PRへリンクする。
 
-**現在位置: M1（V01・PR01〜03・V02）を完了。Git読み取り改善とActions上の自己利用検証も完了。レビューの手間削減は未検証。**
+**現在位置: M1（V01・PR01〜03・V02）を完了。Git読み取り改善とActions上の自己利用検証も完了。未試用2件の予備試行から出力反復を追加改善。独立比較によるレビューの手間削減は未検証。**
 
-**次にすること: [Issue #19](https://github.com/KantoYamamoto/sekka/issues/19)の未試用2ケース予備試行が進行中。確認先と通常diffを照合し、本比較の条件を具体化する。その後、M2の[V03-01 / Issue #8](https://github.com/KantoYamamoto/sekka/issues/8)で未試用のAPI・モデル変更PRと比較条件を固定する。独立した比較が未確保の間は、自己利用だけを根拠に新ルールや配布整備へ広げない。**
+**次にすること: [予備試行](docs/validation/review-pilots.md)で見つけた宣言反復を改善済み。M2本比較は未完了。[Issue #8](https://github.com/KantoYamamoto/sekka/issues/8)で別の未試用PRと独立した比較条件を固定する。今回の2件は未見ケースとして再利用しない。**
 
 ライセンス: [MIT](LICENSE)を採用（[判断0010](docs/decisions/0010-mit-license.md)）。
 
