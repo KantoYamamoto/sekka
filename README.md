@@ -75,7 +75,7 @@ textは型ごとに観測をまとめます。同じ型内で前後とも名前�
 
 `--json-detail full` なら従来の `before` / `after` リストに加え、要約に使った引数情報を取得できます。両モードで `coverage`, `notices`, `limitations` は同一です。**schema 1向けに `findings[].after` 等を読んでいたスクリプトは、fullを指定するかschema 2へ対応してください。** fullでもschema番号は2です。
 
-`coverage.changedFiles` は各ファイルの追加/削除/変更、構文変化の有無、構造観測数を持ちます。`coverage.bodyComparisons` は変更または比較省略の一覧です。理由コードは `parameter-clause-changed`, `no-exact-member-match`, `ambiguous-member-identity`, `ambiguous-type-identity`, `body-added`, `body-removed`, `type-added`, `type-removed`, `tracked-counts-changed`, `tracked-counts-unchanged`。型の追加・削除では比較相手がない本体も明示します。
+`coverage.changedFiles` は各ファイルの追加/削除/変更、構文変化の有無、構造観測数を持ちます。`coverage.bodyComparisons` は変更または比較省略の一覧です。理由コードは `parameter-clause-changed`, `no-exact-member-match`, `ambiguous-member-identity`, `ambiguous-type-identity`, `body-added`, `body-removed`, `type-added`, `type-removed`, `tracked-counts-changed`, `tracked-counts-unchanged`。型の追加・削除では比較相手がない本体もJSONに明示します。textでは宣言一覧と重なる追加・削除の本体説明を型ごとの件数にまとめます。既存型は宣言が追加だけ・削除だけの場合に限り集約し、改名や引数変更、曖昧な照合は個別に表示します。詳細は`coverage.bodyComparisons`を参照してください。
 
 `scan --format json` はsnapshot出力を継続し、`--json-detail` は指定できません。token列・元ソースは内部比較専用でJSONには出しません。
 

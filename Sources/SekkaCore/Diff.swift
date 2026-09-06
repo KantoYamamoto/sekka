@@ -196,7 +196,9 @@ public enum Renderer {
           }
         }
       }
-      for body in comparisons where body.status != "changed-metrics" {
+      let bodyPresentation = BodyPresentation(comparisons, findings: observations)
+      lines += bodyPresentation.summaries.map { "  [not-compared] " + $0 }
+      for body in bodyPresentation.individual {
         let at =
           body.afterLocation.map { "after:\($0.line)" } ?? "before:\(body.beforeLocation!.line)"
         lines.append("  [\(body.status)] \(body.member) (\(at))")
