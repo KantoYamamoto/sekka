@@ -122,4 +122,4 @@ swift test
 python3 Scripts/smoke.py .build/debug/patchwork
 ```
 
-設計・今後の候補は [docs/ideas.md](docs/ideas.md)、参考OSSと採用した考え方は [docs/references.md](docs/references.md) に記録しています。公開ライセンスはまだ決めていません。
+実装方針と選択理由は [判断記録](docs/decisions/README.md) に変更の都度残します。設計・今後の候補は [docs/ideas.md](docs/ideas.md)、参考OSSと採用した考え方は [docs/references.md](docs/references.md) に記録しています。公開ライセンスはまだ決めていません。
