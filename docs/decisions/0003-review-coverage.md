@@ -33,3 +33,5 @@
 ## 根拠・確認
 
 [比較範囲テスト](../../Tests/SekkaCoreTests/CoverageTests.swift)と[実PRでの検証](../review-output-v2.md)で、3ファイルの列挙と、本体だけが変わった8箇所を確認。対照実験の両版にも比較省略が表示される。
+
+2026-09-06追記：[0012](0012-body-summary.md)でtextの追加・削除に伴う比較省略を集約する。全レコードはJSONに保持する。

@@ -28,10 +28,9 @@ Home.swift:9  HomeViewModel
     + tokens: 27
   [direct-forwarding-shape] func track( _ event : Event ): single call passes every parameter unchanged; necessity/effects unknown
     + analytics . track ( event )
+  [not-compared] 1 bodies with added declarations; not compared. Declarations above; details: --format json → coverage.bodyComparisons.
   [not-compared] init (parameters changed) (after:16)
     Parameter clause changed on unique same-name declarations. Body comparison was skipped; review both bodies.
-  [not-compared] func track( _ event : Event ) (after:31)
-    No exact counterpart: declaration added/removed, renamed, or signature changed. Body not compared.
 
 Home.swift:3  PaymentMethod
   [type-references-changed] Distinct explicit type expressions: 0 → 1 (not resolved fan-out)
