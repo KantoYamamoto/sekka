@@ -35,3 +35,5 @@ PRコード自体をビルドするため自己検査である。別の対象ア
 - [runner環境](https://github.com/actions/runner-images/blob/main/images/macos/macos-26-Readme.md)でXcode 26.5を確認。
 - [ジョブ要約](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#adding-a-job-summary)とartifactを利用。
 - ローカルの要約生成テストに加え、実PRのActions・要約・artifactを確認して検証記録を追記する。
+
+初回実行でNode 20の廃止警告が表示されたため、checkout/upload-artifactを公式v7.0.1のコミットへ更新する。機能が通るだけでなく、不要な警告で構造案内が薄まらないことを確認する。検証は[実行記録](../validation/pr-actions.md)を参照。
