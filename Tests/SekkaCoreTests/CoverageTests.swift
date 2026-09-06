@@ -1,7 +1,7 @@
 import Foundation
 import Testing
 
-@testable import PatchworkCore
+@testable import SekkaCore
 
 private func compare(_ before: String, _ after: String) throws -> DiffReport {
   try Differ.compare(

@@ -1,4 +1,4 @@
-Patchwork · structural delta (syntax-only)
+Sekka · structural delta (syntax-only)
 Examples/before → Examples/after
 Analyzed Swift files: 1 → 1
 Changed Swift files: 1 · with observations: 1 · without observations: 0

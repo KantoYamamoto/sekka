@@ -1,13 +1,13 @@
 import Foundation
-import PatchworkCore
+import SekkaCore
 
 private let help = """
-  Patchwork 0.2.0-dev — Swift structural observations, without building the target.
+  Sekka 0.2.0-dev — Swift structural observations, without building the target.
 
   Usage:
-    patchwork scan [--path DIRECTORY] [--format text|json]
-    patchwork diff REF [--path REPOSITORY] [--head REF] [--merge-base]
-    patchwork diff --before DIRECTORY --after DIRECTORY
+    sekka scan [--path DIRECTORY] [--format text|json]
+    sekka diff REF [--path REPOSITORY] [--head REF] [--merge-base]
+    sekka diff --before DIRECTORY --after DIRECTORY
 
   Options:
     --format text|json|github  Output format (default: text; github requires Git diff)
@@ -42,7 +42,7 @@ private struct Options {
 
   init(_ args: [String]) throws {
     guard let first = args.first, ["scan", "diff"].contains(first) else {
-      throw PatchworkError.message(help)
+      throw SekkaError.message(help)
     }
     command = first
     var index = 1
@@ -50,7 +50,7 @@ private struct Options {
       let arg = args[index]
       func value() throws -> String {
         guard index + 1 < args.count, !args[index + 1].hasPrefix("--") else {
-          throw PatchworkError.message("Missing value for \(arg)")
+          throw SekkaError.message("Missing value for \(arg)")
         }
         index += 1
         return args[index]
@@ -64,7 +64,7 @@ private struct Options {
       case "--json-detail":
         let raw = try value()
         guard let detail = JSONDetail(rawValue: raw) else {
-          throw PatchworkError.message("Unknown JSON detail: \(raw)")
+          throw SekkaError.message("Unknown JSON detail: \(raw)")
         }
         jsonDetail = detail
         jsonDetailSpecified = true
@@ -72,40 +72,40 @@ private struct Options {
         let raw = try value()
         let item = raw.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
         guard !raw.hasPrefix("/"), !item.isEmpty, !item.split(separator: "/").contains("..") else {
-          throw PatchworkError.message("Exclude must be a relative file/directory prefix")
+          throw SekkaError.message("Exclude must be a relative file/directory prefix")
         }
         exclude.append(item)
       case "--merge-base": mergeBase = true
       case "--fail-on-findings": fail = true
       default:
         guard command == "diff", ref == nil, !arg.hasPrefix("-") else {
-          throw PatchworkError.message("Unknown argument: \(arg)")
+          throw SekkaError.message("Unknown argument: \(arg)")
         }
         ref = arg
       }
       index += 1
     }
     guard ["text", "json", "github"].contains(format) else {
-      throw PatchworkError.message("Unknown format: \(format)")
+      throw SekkaError.message("Unknown format: \(format)")
     }
     if jsonDetailSpecified && (command != "diff" || format != "json") {
-      throw PatchworkError.message("--json-detail requires diff --format json")
+      throw SekkaError.message("--json-detail requires diff --format json")
     }
     if command == "scan" {
       guard before == nil, after == nil, head == nil, !mergeBase, !fail, format != "github" else {
-        throw PatchworkError.message("scan accepts --path, --exclude and --format text|json only")
+        throw SekkaError.message("scan accepts --path, --exclude and --format text|json only")
       }
     } else if before != nil || after != nil {
       guard before != nil, after != nil, ref == nil, head == nil, !mergeBase else {
-        throw PatchworkError.message(
+        throw SekkaError.message(
           "Directory diff requires --before and --after, without Git options")
       }
       guard format != "github" else {
-        throw PatchworkError.message(
+        throw SekkaError.message(
           "github format requires Git mode so annotation paths match the repository")
       }
     } else if ref == nil {
-      throw PatchworkError.message("diff requires a Git ref or --before/--after directories")
+      throw SekkaError.message("diff requires a Git ref or --before/--after directories")
     }
   }
 }
@@ -117,7 +117,7 @@ private func run() throws -> Int32 {
     return 0
   }
   if args == ["--version"] {
-    print("patchwork 0.2.0-dev")
+    print("sekka 0.2.0-dev")
     return 0
   }
   let options = try Options(args)
@@ -155,7 +155,7 @@ private func run() throws -> Int32 {
     afterLabel = headCommit.map { "\(options.head!) [\($0.prefix(12))]" } ?? "working tree"
   }
   guard !beforeFiles.isEmpty || !afterFiles.isEmpty else {
-    throw PatchworkError.message(
+    throw SekkaError.message(
       "No Swift files found on either side; check the input paths and exclusions")
   }
   let report = try Differ.compare(
@@ -170,6 +170,6 @@ private func run() throws -> Int32 {
 }
 
 do { exit(try run()) } catch {
-  FileHandle.standardError.write(Data("patchwork: \(error)\n".utf8))
+  FileHandle.standardError.write(Data("sekka: \(error)\n".utf8))
   exit(2)
 }

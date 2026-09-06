@@ -2,7 +2,7 @@
 
 調査日: 2026-09-06。公開READMEと公式説明から設計の参考にした。以下のツールのルール実装をコピーしていない。
 
-| OSS | 参考にした点 | Patchworkでの扱い |
+| OSS | 参考にした点 | Sekkaでの扱い |
 | --- | --- | --- |
 | [SwiftLint](https://github.com/realm/SwiftLint) | 構文中心の通常lintと、ビルド情報を使うanalyzeの区別。ルールID・位置付きの診断・CI出力 | 初版は構文解析に限定。観測にはIDとソース位置を付ける。成功/観測/解析失敗を区別 |
 | [Periphery](https://github.com/peripheryapp/periphery) | ビルドが生成するindexを使う解析と、未使用宣言を追う参照情報の重要性 | 正確な参照解析には追加情報が必要と認識し、初版の型名記述を解決済みの依存と呼ばない |

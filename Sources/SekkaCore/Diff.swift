@@ -124,7 +124,7 @@ public enum Renderer {
 
   public static func text(_ snapshot: Snapshot) -> String {
     var lines = [
-      "Patchwork · syntax-only scan",
+      "Sekka · syntax-only scan",
       "\(snapshot.files) Swift files · \(snapshot.types.count) type/extension declarations", "",
     ]
     for type in snapshot.types {
@@ -146,7 +146,7 @@ public enum Renderer {
     let coverage = report.coverage
     let without = coverage.changedFiles.filter { $0.observationCount == 0 }
     var lines = [
-      "Patchwork · structural delta (syntax-only)",
+      "Sekka · structural delta (syntax-only)",
       "\(report.beforeLabel) → \(report.afterLabel)",
       "Analyzed Swift files: \(report.beforeFiles) → \(report.afterFiles)",
       "Changed Swift files: \(coverage.changedFiles.count) · with observations: \(coverage.changedFiles.count - without.count) · without observations: \(without.count)",
@@ -246,11 +246,11 @@ public enum Renderer {
         $0.message + "\nRemoved: " + delta.removed.joined(separator: "; ")
         + "\nAdded: " + delta.added.joined(separator: "; ") + "\n" + parameters
       return
-        "::notice \(position)title=\(escape("Patchwork / " + $0.rule, property: true))::\(escape($0.type + ": " + detail))"
+        "::notice \(position)title=\(escape("Sekka / " + $0.rule, property: true))::\(escape($0.type + ": " + detail))"
     }
     for file in report.coverage.changedFiles where file.observationCount == 0 {
       lines.append(
-        "::notice title=Patchwork coverage::"
+        "::notice title=Sekka coverage::"
           + escape(
             file.file + ": changed without structural observations; review the ordinary diff."))
     }
@@ -258,13 +258,13 @@ public enum Renderer {
       let position =
         body.afterLocation.map { "file=\(escape($0.file, property: true)),line=\($0.line)," } ?? ""
       let detail = body.type + "." + body.member + ": " + coverageExplanation(body.reason)
-      lines.append("::notice \(position)title=Patchwork body coverage::\(escape(detail))")
+      lines.append("::notice \(position)title=Sekka body coverage::\(escape(detail))")
     }
     lines += report.notices.map {
-      "::notice title=Patchwork coverage::\(escape($0.location.file + ": " + $0.message))"
+      "::notice title=Sekka coverage::\(escape($0.location.file + ": " + $0.message))"
     }
     lines.append(
-      "::notice title=Patchwork coverage::Syntax-only analysis; unresolved calls, inferred types and effects are unknown. \(report.findings.count) observations; \(report.coverage.changedFiles.count) changed Swift files; \(report.coverage.skippedBodyCount) body comparisons skipped."
+      "::notice title=Sekka coverage::Syntax-only analysis; unresolved calls, inferred types and effects are unknown. \(report.findings.count) observations; \(report.coverage.changedFiles.count) changed Swift files; \(report.coverage.skippedBodyCount) body comparisons skipped."
     )
     return lines.joined(separator: "\n")
   }

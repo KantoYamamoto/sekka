@@ -1,7 +1,7 @@
 import Foundation
 import Testing
 
-@testable import PatchworkCore
+@testable import SekkaCore
 
 private func snapshot(_ source: String, path: String = "App.swift") throws -> Snapshot {
   try Analyzer.analyze([(path, source)])
@@ -66,7 +66,7 @@ private func delta(_ before: String, _ after: String) throws -> DiffReport {
 }
 
 @Test func malformedSourceFailsInsteadOfAppearingClean() {
-  #expect(throws: PatchworkError.self) { try snapshot("struct {") }
+  #expect(throws: SekkaError.self) { try snapshot("struct {") }
 }
 
 @Test func conditionalDeclarationsRemainExplicitlyUnresolved() throws {

@@ -24,7 +24,7 @@ CIやAIが「観測なし」を利用する際、壊れた入力や誤ったGit 
 
 ## How — 実現方法
 
-[Inputs.swift](../../Sources/PatchworkCore/Inputs.swift)が入力エラーを投げ、[Analyzer.swift](../../Sources/PatchworkCore/Analyzer.swift)が構文エラーで停止する。[CLI](../../Sources/patchwork/main.swift)は解析完了後に出力し、例外はstderrと終了コード2へ変換する。観測による終了コード1は明示オプション時だけとする。
+[Inputs.swift](../../Sources/SekkaCore/Inputs.swift)が入力エラーを投げ、[Analyzer.swift](../../Sources/SekkaCore/Analyzer.swift)が構文エラーで停止する。[CLI](../../Sources/sekka/main.swift)は解析完了後に出力し、例外はstderrと終了コード2へ変換する。観測による終了コード1は明示オプション時だけとする。
 
 ## 制約・見直す条件
 
@@ -32,4 +32,4 @@ CIやAIが「観測なし」を利用する際、壊れた入力や誤ったGit 
 
 ## 根拠・確認
 
-[解析テスト](../../Tests/PatchworkCoreTests/AnalyzerTests.swift)と[CLIチェック](../../Scripts/smoke.py)で構文エラー、無効ref、空入力、終了コードを確認。これは網羅的な設計検証ではなく、入力失敗を隠さない契約の確認である。
+[解析テスト](../../Tests/SekkaCoreTests/AnalyzerTests.swift)と[CLIチェック](../../Scripts/smoke.py)で構文エラー、無効ref、空入力、終了コードを確認。これは網羅的な設計検証ではなく、入力失敗を隠さない契約の確認である。

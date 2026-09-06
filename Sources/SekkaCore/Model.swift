@@ -143,7 +143,7 @@ public struct DiffReport: Encodable, Sendable {
   public var coverage = ComparisonCoverage()
 }
 
-public enum PatchworkError: Error, CustomStringConvertible {
+public enum SekkaError: Error, CustomStringConvertible {
   case message(String)
   public var description: String {
     switch self {

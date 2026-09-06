@@ -24,7 +24,7 @@ textはtypeIDごとにまとめる。同じ型内で前後とも名前が一意�
 
 ## How — 実現方法
 
-[Coverage.swiftのMemberMatching](../../Sources/PatchworkCore/Coverage.swift)で名前の一意性を確認し、[Analyzer.swift](../../Sources/PatchworkCore/Analyzer.swift)が取得した引数列と引数以外の宣言を比較する。[Diff.swift](../../Sources/PatchworkCore/Diff.swift)で型単位に表示し、引数節が変わった本体は引き続き比較省略にする。
+[Coverage.swiftのMemberMatching](../../Sources/SekkaCore/Coverage.swift)で名前の一意性を確認し、[Analyzer.swift](../../Sources/SekkaCore/Analyzer.swift)が取得した引数列と引数以外の宣言を比較する。[Diff.swift](../../Sources/SekkaCore/Diff.swift)で型単位に表示し、引数節が変わった本体は引き続き比較省略にする。
 
 ## 制約・見直す条件
 
@@ -32,4 +32,4 @@ textはtypeIDごとにまとめる。同じ型内で前後とも名前が一意�
 
 ## 根拠・確認
 
-[比較範囲テスト](../../Tests/PatchworkCoreTests/CoverageTests.swift)でオーバーロード、順序変更、引数と戻り値・アクセス修飾子の同時変更を確認。[サンプル出力](../demo-output.txt)で型ごとの表示を確認できる。
+[比較範囲テスト](../../Tests/SekkaCoreTests/CoverageTests.swift)でオーバーロード、順序変更、引数と戻り値・アクセス修飾子の同時変更を確認。[サンプル出力](../demo-output.txt)で型ごとの表示を確認できる。

@@ -24,7 +24,7 @@ diff JSONはcompactを標準とし、`removed` / `added` と必要な引数差�
 
 ## How — 実現方法
 
-[CompactReport.swift](../../Sources/PatchworkCore/CompactReport.swift)で変更要素だけに変換する。[CLI](../../Sources/patchwork/main.swift)でdetailを選択し、旧フィールドを読む利用側にはfull指定またはschema移行を案内する。scanはsnapshot出力を維持する。
+[CompactReport.swift](../../Sources/SekkaCore/CompactReport.swift)で変更要素だけに変換する。[CLI](../../Sources/sekka/main.swift)でdetailを選択し、旧フィールドを読む利用側にはfull指定またはschema移行を案内する。scanはsnapshot出力を維持する。
 
 ## 制約・見直す条件
 
@@ -32,4 +32,4 @@ compactから完全な前後状態は復元しない。旧 `findings[].after` �
 
 ## 根拠・確認
 
-[検証結果](../review-output-v2.md)では29,817文字へ47.3%減。文字数でありtoken数・費用の削減率ではない。[テスト](../../Tests/PatchworkCoreTests/CoverageTests.swift)でcompact/fullの比較範囲情報が一致することを確認した。
+[検証結果](../review-output-v2.md)では29,817文字へ47.3%減。文字数でありtoken数・費用の削減率ではない。[テスト](../../Tests/SekkaCoreTests/CoverageTests.swift)でcompact/fullの比較範囲情報が一致することを確認した。

@@ -5,16 +5,16 @@ import subprocess
 import sys
 import tempfile
 
-binary = Path(sys.argv[1] if len(sys.argv) > 1 else ".build/debug/patchwork").resolve()
-assert binary.is_file(), f"Build patchwork first: {binary}"
+binary = Path(sys.argv[1] if len(sys.argv) > 1 else ".build/debug/sekka").resolve()
+assert binary.is_file(), f"Build sekka first: {binary}"
 checks = 0
 
-with tempfile.TemporaryDirectory(prefix="patchwork-smoke-") as temporary:
+with tempfile.TemporaryDirectory(prefix="sekka-smoke-") as temporary:
     repo = Path(temporary)
 
     def git(*args):
         return subprocess.run(
-            ["git", "-c", "user.name=Patchwork Tests", "-c", "user.email=tests@example.invalid", "-c", "commit.gpgsign=false", *args],
+            ["git", "-c", "user.name=Sekka Tests", "-c", "user.email=tests@example.invalid", "-c", "commit.gpgsign=false", *args],
             cwd=repo, check=True, text=True, capture_output=True,
         ).stdout.strip()
 

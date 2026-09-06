@@ -16,7 +16,7 @@ public enum Analyzer {
         Parser.parse(source: $0, swiftVersion: .v6)
       }
       guard !tree.hasError else {
-        throw PatchworkError.message(
+        throw SekkaError.message(
           "Cannot parse \(file.path). Analysis stopped; no partial clean result was produced.")
       }
       result.sourceByPath[file.path] = file.source

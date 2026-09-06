@@ -13,7 +13,7 @@ public enum Inputs {
     guard FileManager.default.fileExists(atPath: root.path, isDirectory: &isDirectory),
       isDirectory.boolValue
     else {
-      throw PatchworkError.message("Not a directory: \(path)")
+      throw SekkaError.message("Not a directory: \(path)")
     }
     var enumerationError: Error?
     guard
@@ -24,7 +24,7 @@ public enum Inputs {
           enumerationError = error
           return false
         })
-    else { throw PatchworkError.message("Cannot read directory: \(path)") }
+    else { throw SekkaError.message("Cannot read directory: \(path)") }
     var files: [(path: String, source: String)] = []
     for case let url as URL in enumerator {
       let values = try url.resourceValues(forKeys: [.isRegularFileKey, .isSymbolicLinkKey])
@@ -128,10 +128,10 @@ public enum Inputs {
     process.waitUntilExit()
     guard process.terminationStatus == 0 else {
       let detail = (try? String(contentsOf: errorURL, encoding: .utf8)) ?? "Git failed"
-      throw PatchworkError.message(detail.trimmingCharacters(in: .whitespacesAndNewlines))
+      throw SekkaError.message(detail.trimmingCharacters(in: .whitespacesAndNewlines))
     }
     guard let text = String(data: data, encoding: .utf8) else {
-      throw PatchworkError.message(
+      throw SekkaError.message(
         "Git returned non-UTF-8 data; this prototype supports UTF-8 sources and paths only.")
     }
     return text

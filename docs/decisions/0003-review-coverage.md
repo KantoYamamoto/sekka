@@ -24,7 +24,7 @@
 
 ## How — 実現方法
 
-[Coverage.swift](../../Sources/PatchworkCore/Coverage.swift)で両入力のソースを比較する。本体はコメント・整形を除くtokenの綴りを比較し、構造指標が同じなら `changed-syntax-only` とする。引数変更・重複ID等は `not-compared` と理由・前後位置を出す。除外後の入力Swiftと対象メンバーだけを扱う。
+[Coverage.swift](../../Sources/SekkaCore/Coverage.swift)で両入力のソースを比較する。本体はコメント・整形を除くtokenの綴りを比較し、構造指標が同じなら `changed-syntax-only` とする。引数変更・重複ID等は `not-compared` と理由・前後位置を出す。除外後の入力Swiftと対象メンバーだけを扱う。
 
 ## 制約・見直す条件
 
@@ -32,4 +32,4 @@
 
 ## 根拠・確認
 
-[比較範囲テスト](../../Tests/PatchworkCoreTests/CoverageTests.swift)と[実PRでの検証](../review-output-v2.md)で、3ファイルの列挙と、本体だけが変わった8箇所を確認。対照実験の両版にも比較省略が表示される。
+[比較範囲テスト](../../Tests/SekkaCoreTests/CoverageTests.swift)と[実PRでの検証](../review-output-v2.md)で、3ファイルの列挙と、本体だけが変わった8箇所を確認。対照実験の両版にも比較省略が表示される。

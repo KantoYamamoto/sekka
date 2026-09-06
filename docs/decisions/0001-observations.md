@@ -24,7 +24,7 @@ LLMに設計を評価させる案は文脈を扱える一方、毎回の入力�
 
 ## How — 実現方法
 
-[Analyzer.swift](../../Sources/PatchworkCore/Analyzer.swift)で構文情報を取得し、[Diff.swift](../../Sources/PatchworkCore/Diff.swift)で差を観測として出す。将来の固定文による「確認の観点」は [ideas.md](../ideas.md) に候補として残し、観測とは分ける。
+[Analyzer.swift](../../Sources/SekkaCore/Analyzer.swift)で構文情報を取得し、[Diff.swift](../../Sources/SekkaCore/Diff.swift)で差を観測として出す。将来の固定文による「確認の観点」は [ideas.md](../ideas.md) に候補として残し、観測とは分ける。
 
 ## 制約・見直す条件
 

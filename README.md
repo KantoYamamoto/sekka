@@ -1,4 +1,4 @@
-# Patchwork — Swiftの変更を、構造の変化として見る
+# Sekka — Swiftの変更を、構造の変化として見る
 
 Swift 6以降のコードを対象にした、実験段階のCLIです。LLM・対象アプリのビルド・Xcodeプロジェクトの読み込みは不要。Gitの変更前後から、設計を見直す材料になる構文上の事実を出します。
 
@@ -6,17 +6,20 @@ Swift 6以降のコードを対象にした、実験段階のCLIです。LLM・�
 
 現在位置・次の作業・マイルストーンは [ROADMAP.md](ROADMAP.md) にまとめています。0.2の実装は完了し、現在はレビューの負担を減らせるかを検証する段階です。
 
+Sekka（セッカ）は、葉を糸でつないで巣を作る鳥に由来します。旧名はPatchworkです。CLI名は`sekka`に変更しました。
+
 ## まず試す
 
 開発・動作確認環境: macOS / Swift 6.3.3。SwiftSyntax 603.0.1を固定して利用しています。古いSwift 6.xツールチェーンでのビルド互換性は未検証です。
 
 ```sh
-cd /path/to/patchwork
+git clone https://github.com/KantoYamamoto/sekka.git
+cd sekka
 swift build
-.build/debug/patchwork diff --before Examples/before --after Examples/after
+.build/debug/sekka diff --before Examples/before --after Examples/after
 ```
 
-最初の `swift build` は**Patchwork自体とその依存ライブラリ**をビルドします。以降、対象コードの解析はバイナリ単独で実行できます。初回の依存取得にはネットワークが必要ですが、解析はローカルで完結します。
+最初の `swift build` は**Sekka自体とその依存ライブラリ**をビルドします。以降、対象コードの解析はバイナリ単独で実行できます。初回の依存取得にはネットワークが必要ですが、解析はローカルで完結します。
 
 同梱例では、enum case追加、ViewModelの明示型参照増加、SwiftUIの状態・条件分岐・クロージャ増加、引数をそのまま渡すメソッド追加が見えます。fixtureの依存型は実装していません。ビルド不要で解析できることを試すためです。
 
@@ -28,22 +31,22 @@ swift build
 
 ```sh
 # 現在のファイルの構文情報を列挙
-.build/debug/patchwork scan --path /path/to/MyApp
+.build/debug/sekka scan --path /path/to/MyApp
 
 # 指定コミットと作業ツリーを比較（未コミットの変更も含む）
-.build/debug/patchwork diff HEAD --path /path/to/MyApp
+.build/debug/sekka diff HEAD --path /path/to/MyApp
 
 # PRブランチのコミット同士を、共通祖先から比較
-.build/debug/patchwork diff origin/main --head HEAD --merge-base --path /path/to/MyApp
+.build/debug/sekka diff origin/main --head HEAD --merge-base --path /path/to/MyApp
 
 # AIやスクリプトへ渡す。JSON以外は標準出力に混ぜない
-.build/debug/patchwork diff HEAD --path /path/to/MyApp --format json
+.build/debug/sekka diff HEAD --path /path/to/MyApp --format json
 
 # 変更前後の完全な観測リストも必要な場合
-.build/debug/patchwork diff HEAD --path /path/to/MyApp --format json --json-detail full
+.build/debug/sekka diff HEAD --path /path/to/MyApp --format json --json-detail full
 
 # サードパーティーや生成コードを除外（ファイル/ディレクトリの相対prefix、globではない）
-.build/debug/patchwork diff HEAD --path /path/to/MyApp --exclude Vendor --exclude Sources/Generated
+.build/debug/sekka diff HEAD --path /path/to/MyApp --exclude Vendor --exclude Sources/Generated
 ```
 
 Gitモードでは `--path` 内のリポジトリ全体を解析します。作業ツリー側は追跡済みファイルとGitで無視されていない未追跡ファイルを対象にし、削除・ステージ済み・未ステージの変更を含みます。`--head` を指定すると作業ツリーを読みません。Git checkoutや対象プロジェクトのスクリプト実行はしません。
@@ -109,19 +112,19 @@ textは型ごとに観測をまとめます。同じ型内で前後とも名前�
 
 まずは通知のみの運用を想定しています。GitHub Actionsのログに表示できる `--format github` を実装しています（実GitHub上での表示は未検証）。構造観測に加えて、観測のない変更ファイルや本体比較の状態もnoticeとして出します。通常は観測があっても終了コード0。明示的に `--fail-on-findings` を付けると構造観測がある場合に1になります。比較範囲の説明だけでは1にしません。解析失敗は常に2です。
 
-Patchworkバイナリが配置され、比較元の履歴を取得済みのrunnerで:
+Sekkaバイナリが配置され、比較元の履歴を取得済みのrunnerで:
 
 ```sh
-patchwork diff origin/main --head HEAD --merge-base --format github
+sekka diff origin/main --head HEAD --merge-base --format github
 ```
 
-PRでは「baseブランチ先端との差」より共通祖先からの比較が適します。shallow cloneでは必要な履歴を取得してください。リポジトリ公開・配布方法・実際のworkflowは、使い勝手を確かめてから決めます。
+PRでは「baseブランチ先端との差」より共通祖先からの比較が適します。shallow cloneでは必要な履歴を取得してください。配布方法・実際のworkflowは、使い勝手を確かめてから決めます。
 
 ## 開発
 
 ```sh
 swift test
-python3 Scripts/smoke.py .build/debug/patchwork
+python3 Scripts/smoke.py .build/debug/sekka
 ```
 
 実装方針と選択理由は [判断記録](docs/decisions/README.md) に変更の都度残します。設計・今後の候補は [docs/ideas.md](docs/ideas.md)、参考OSSと採用した考え方は [docs/references.md](docs/references.md) に記録しています。公開ライセンスはまだ決めていません。

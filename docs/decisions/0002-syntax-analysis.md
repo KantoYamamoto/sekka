@@ -24,7 +24,7 @@ IndexStoreやSourceKit、ビルド情報による意味解析は精度を高め�
 
 ## How — 実現方法
 
-[Analyzer.swift](../../Sources/PatchworkCore/Analyzer.swift)はSwift 6モードで解析する。型IDにはパス・種別・入れ子名・出現順を含め、extensionは別記録とする。[Model.swift](../../Sources/PatchworkCore/Model.swift)のlimitationsで名前解決・macro展開等の未対応範囲を伝える。
+[Analyzer.swift](../../Sources/SekkaCore/Analyzer.swift)はSwift 6モードで解析する。型IDにはパス・種別・入れ子名・出現順を含め、extensionは別記録とする。[Model.swift](../../Sources/SekkaCore/Model.swift)のlimitationsで名前解決・macro展開等の未対応範囲を伝える。
 
 ## 制約・見直す条件
 
@@ -32,4 +32,4 @@ IndexStoreやSourceKit、ビルド情報による意味解析は精度を高め�
 
 ## 根拠・確認
 
-[解析テスト](../../Tests/PatchworkCoreTests/AnalyzerTests.swift)で同名型の分離、推論型を捏造しないこと、継承節の扱いを確認。[参考OSS](../references.md)には通常lintと高度な解析を分ける考え方の参照元を記録した。
+[解析テスト](../../Tests/SekkaCoreTests/AnalyzerTests.swift)で同名型の分離、推論型を捏造しないこと、継承節の扱いを確認。[参考OSS](../references.md)には通常lintと高度な解析を分ける考え方の参照元を記録した。

@@ -22,8 +22,8 @@
 
 ユーザーが共有したローカルレポート（公開用の文書に本文を複製しない）:
 
-- [PR #81の初回レビュー](/Users/kanto/develop/ai-tutor-app/docs/reports/2026-09-06-patchwork/pr81/report.md)
-- [0.2でのPR #81・#78の再試用](/Users/kanto/develop/ai-tutor-app/docs/reports/2026-09-06-patchwork/review-v02/report.md)
+- PR #81の初回レビュー（ユーザー保管のローカル資料、本文非公開）
+- 0.2でのPR #81・#78の再試用（ユーザー保管のローカル資料、本文非公開）
 - 現状整理・旧タイマー削除に関する追加意見は、この会話で共有された内容。対象PRのID・独立した検証条件は未確認。
 
 ## 統合した方針
