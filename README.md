@@ -69,7 +69,7 @@ textは型ごとに観測をまとめます。同じ型内で前後とも名前�
 | `changed-syntax-only` | 本体のtoken列は変わったが、分岐等の追跡指標は同じ。通常diffで確認が必要 |
 | `not-compared` | 引数節変更・同一キーの重複・本体の追加/削除などで比較できなかった。理由と前後の位置を出す |
 
-比較した本体数とtoken列が同一だった本体数も表示します。同一本体の一覧は省略します。token比較はコメント・整形を除外し、呼び出し式・リテラルの変更を認識しますが、実行結果の正しさは判定しません。本体比較対象外のトップレベル関数やstored propertyのinitializer等は、ファイルの変更としては見えますが、個別本体の一覧には出ません。構造観測があるファイルでも、全変更を説明できているとは限りません。
+比較した本体数とtoken列が同一だった本体数も表示します。同一本体の一覧は省略します。token比較はコメント・整形を除外し、呼び出し式・リテラルの変更を認識しますが、実行結果の正しさは判定しません。本体比較対象外のトップレベル関数等は、ファイルの変更としては見えますが、個別本体の一覧には出ません。構造観測があるファイルでも、全変更を説明できているとは限りません。
 
 diffのtextでは、全`#if`分岐を読むという共通NOTEを一度だけ表示します。条件ヘッダーが前後で一致しない場合は位置付きで表示し、重複型の照合に関する注意は個別に残します。全位置の前後一覧はJSONの`notices`に保持します。
 
@@ -102,6 +102,7 @@ sekka diff BASE --head HEAD --show-diff 'Sources/Model.swift' --at after:123 --e
 | --- | --- |
 | `type-added` / `type-removed` | class / struct / actor / enum / protocol / extension の追加・削除 |
 | `type-header-changed` | 型宣言の属性・modifier・generic constraint・継承節の記述の変更（例: `@MainActor` の追加） |
+| `property-initializer-changed` | 一意に対応する型内プロパティの初期化式の追加・削除・トークン変更。値や副作用の良否は判定せず、宣言位置へ案内 |
 | `members-changed` | プロパティ・関数・initializer・enum case・typealiasの宣言の変更。全アクセスレベルを含む |
 | `type-references-changed` | 明示された型の式の集合の変化。プロパティ、引数、戻り値、継承節、case payload、typealiasが対象 |
 | `reference-sites-changed` | 型の式の集合は同じでも、それを書くメンバー・役割が変化 |
@@ -121,7 +122,7 @@ sekka diff BASE --head HEAD --show-diff 'Sources/Model.swift' --at after:123 --e
 - 型の識別はファイルパス＋種別＋入れ子の名前＋同名宣言の出現順です。移動・改名は削除と追加です。extensionは独立の記録とし、元の型には統合しません。
 - 関数の対応付けは名前＋引数節です。引数変更は宣言の変更として出し、本体同士を無理に対応付けません。同一キーが複数ある場合も本体比較をスキップします。
 - `#if` は全分岐を含みます。macroの展開、generic constraintの解決、module/target判定、呼び出しグラフ、純粋性は未対応です。
-- 関数内のローカル型、トップレベル関数、subscript、deinit、associatedtype等は初版の対象外です。stored propertyのinitializer値は比較しません。
+- 関数内のローカル型、トップレベル関数、subscript、deinit、associatedtype等は初版の対象外です。前後で一意に対応する型内プロパティのinitializerはトークン変更を案内します。型・プロパティの追加削除や改名、重複宣言はinitializerを個別対応させません。
 - 構文エラー・読み取りエラーがある場合は終了コード2で停止します。部分的な「観測なし」を成功として出しません。UTF-8のみ対応です。
 - JSONには常に `analysis: syntax-only`, `limitations`, `notices` を含めます。同じ入力・設定・ツールバージョンなら同じ並びで出します。
 
