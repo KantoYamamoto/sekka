@@ -90,7 +90,8 @@ private final class DeclarationVisitor: SyntaxVisitor {
     _ node: some SyntaxProtocol, key: String, kind: String, signature: String,
     body: BodyMetrics? = nil, forwarding: String? = nil,
     bodySyntax: Syntax? = nil, callableName: String? = nil,
-    parameterList: FunctionParameterListSyntax? = nil, signatureWithoutParameters: String? = nil
+    parameterList: FunctionParameterListSyntax? = nil, signatureWithoutParameters: String? = nil,
+    initializer: ExprSyntax? = nil
   ) {
     guard let index = stack.last else { return }
     records[index].members.append(
@@ -105,6 +106,7 @@ private final class DeclarationVisitor: SyntaxVisitor {
           }
         }, signatureWithoutParameters: signatureWithoutParameters,
         bodyTokens: bodySyntax.map { $0.tokens(viewMode: .sourceAccurate).map(\.text) },
+        initializerTokens: initializer.map { $0.tokens(viewMode: .sourceAccurate).map(\.text) },
         endLine: converter.location(for: node.endPositionBeforeTrailingTrivia).line))
   }
 
@@ -153,7 +155,7 @@ private final class DeclarationVisitor: SyntaxVisitor {
         signature += " : " + normalized(annotation.type)
         reference(annotation.type, role: "property-type", member: key)
       }
-      // Accessor changes matter, while literal initializer values are intentionally not compared.
+      // Keep initializer tokens separate from accessor bodies and declaration signatures.
       if let accessor = binding.accessorBlock {
         switch accessor.accessors {
         case .getter: signature += " { get }"
@@ -168,7 +170,9 @@ private final class DeclarationVisitor: SyntaxVisitor {
       member(
         binding, key: key, kind: "property",
         signature: signature.trimmingCharacters(in: .whitespaces),
-        body: binding.accessorBlock.map(metrics), bodySyntax: binding.accessorBlock.map(Syntax.init)
+        body: binding.accessorBlock.map(metrics),
+        bodySyntax: binding.accessorBlock.map(Syntax.init),
+        initializer: binding.initializer?.value
       )
     }
     return .skipChildren

@@ -1,6 +1,6 @@
 import Foundation
 
-private func sameTokens(_ before: [String]?, _ after: [String]?) -> Bool {
+func sameTokens(_ before: [String]?, _ after: [String]?) -> Bool {
   guard let before, let after else { return before == nil && after == nil }
   // Swift String equality normalizes Unicode. Here we need exact token spelling.
   return before.count == after.count

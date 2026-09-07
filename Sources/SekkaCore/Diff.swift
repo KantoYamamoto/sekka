@@ -76,6 +76,18 @@ public enum Differ {
         let previousGroup = oldMembers[key] ?? []
         guard previousGroup.count <= 1 else { continue }
         let previous = previousGroup.first
+        if let previous, member.kind == "property",
+          !sameTokens(previous.initializerTokens, member.initializerTokens)
+        {
+          let change =
+            previous.initializerTokens == nil
+            ? "added"
+            : member.initializerTokens == nil ? "removed" : "changed"
+          add(
+            "property-initializer-changed",
+            "\(key): initializer syntax \(change); behavior/effects unknown",
+            [], [], at: member.location)
+        }
         if let call = member.forwardingCall, call != previous?.forwardingCall {
           add(
             "direct-forwarding-shape",
@@ -178,7 +190,10 @@ public enum Renderer {
         .beforeLocation!
       lines.append("\(location.file):\(location.line)  \(name)")
       for finding in observations {
-        let position = finding.rule == "body-structure-changed" ? " (after:\(finding.location.line))" : ""
+        let position =
+          (finding.rule == "body-structure-changed"
+            || finding.rule == "property-initializer-changed")
+          ? " (after:\(finding.location.line))" : ""
         lines.append("  [\(finding.rule)] \(finding.message)\(position)")
         let delta = displayDelta(finding)
         if let referenceLines = finding.textReferenceLines {
@@ -220,7 +235,8 @@ public enum Renderer {
         "No structural observations in supported checks. Changed files/bodies above still require review."
       )
     }
-    lines += report.textNotices
+    lines +=
+      report.textNotices
       ?? report.notices.map { "NOTE \($0.location.file):\($0.location.line): \($0.message)" }
     lines.append(
       "Scope: selected declarations/accessor/function bodies only. Unresolved calls, inferred types, unsupported syntax and effects remain unknown."
