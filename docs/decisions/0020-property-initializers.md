@@ -24,4 +24,4 @@ Analyzerがbindingごとに式のtoken列をメモリ内へ保持する。Differ
 
 ## 根拠・確認
 
-[InitializerTests](../../Tests/SekkaCoreTests/InitializerTests.swift)と固定probeのstored-threshold / mixed-initializerで確認する。実行結果は検証記録に追記する。方針は[0002](0002-syntax-analysis.md)・[0003](0003-review-coverage.md)の構文限定と限界表示を維持する。
+[InitializerTests](../../Tests/SekkaCoreTests/InitializerTests.swift)と固定probeのstored-threshold / mixed-initializerで確認する。49 Swiftテストと15 probeの結果は[検証記録](../validation/property-initializers.md)を参照。方針は[0002](0002-syntax-analysis.md)・[0003](0003-review-coverage.md)の構文限定と限界表示を維持する。
