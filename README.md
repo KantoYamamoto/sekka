@@ -35,25 +35,13 @@ JSONが必要なら`--format json`、完全な前後一覧が必要なら`--json
 
 ## GitHub Actionsで使う
 
-このリポジトリでは、PRごとにテストとSekkaの解析を実行し、botコメント1件を更新します。コメントには確認ファイルへのリンク、折りたたみ可能な構造案内、比較SHAと解析限界を表示します。詳細では`├─`・`└─`・`│`で階層を表します。
-
-通常diff・text・JSONはActionsのartifactに14日間保存します。解析と投稿の権限を分け、PRのコードに投稿用tokenを渡しません。これはSekka自身での運用であり、他のリポジトリへそのまま導入できる配布用Actionではありません。[仕組みと導入上の前提](docs/ci.md)を参照してください。
+このリポジトリでは、PRごとにテストとSekkaの解析を実行し、botコメント1件を更新します。コメントには確認ファイルへのリンク、折りたたみ可能な構造案内、比較SHAと解析限界を表示します。
 
 ## 現在の段階
 
 複数ファイルのSwift差分から読む場所を選ぶ用途で試用しています。表示・diffへの導線・PR投稿は検証済みですが、通常diffのみのレビューより手間や見落としが減るか、構造を見直す助けになるかは確立していません。
 
 [ROADMAP](ROADMAP.md)に現在位置と次の検証、[目的と候補](docs/ideas.md)に将来案、[試用意見](docs/feedback-summary.md)に根拠をまとめています。対応構文の数だけを増やすことは開発目標にしません。
-
-## 開発に参加する
-
-[開発手順](docs/development.md)では、局所の変更とプロジェクト全体の目的の両方を確認します。実装方針と選択理由は[判断記録](docs/decisions/README.md)、検証結果は[検証手順と記録](docs/validation/protocol.md)から追えます。
-
-```sh
-swift test
-python3 Scripts/smoke.py .build/debug/sekka
-python3 -m unittest discover -s Scripts -p 'test_*.py'
-```
 
 ## ライセンス
 
