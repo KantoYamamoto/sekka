@@ -1,0 +1,80 @@
+[
+  {
+    "name": "logger-shared",
+    "question": "新しい送信窓口と既存Loggerの役割・呼び出し側の知識はどう変わるか。",
+    "context": "同じ業務イベントを各送信先へ配る窓口を一つに保つというチームの方針がある。実装は最適解として固定しない。",
+    "before": {
+      "Logger.swift": "struct Logger { func record(_ event: String) { systemLog(event); crashReport(event) } }",
+      "Checkout.swift": "struct Checkout { let logger: Logger; func buy() { logger.record(\"purchase\") } }"
+    },
+    "after": {
+      "Logger.swift": "struct Logger { func record(_ event: String) { systemLog(event); crashReport(event) } }",
+      "Checkout.swift": "struct Checkout { let logger: Logger; let analytics: Analytics; func buy() { logger.record(\"purchase\"); analytics.record(\"purchase\") } }",
+      "Analytics.swift": "struct Analytics { func record(_ event: String) { sendAnalytics(event) } }"
+    },
+    "exitCode": 0
+  },
+  {
+    "name": "logger-separated",
+    "question": "新しい送信窓口と既存Loggerの役割・呼び出し側の知識はどう変わるか。",
+    "context": "診断ログは常時、分析送信は同意と別ライフサイクルで扱う方針がある。分離には理由があるがこの簡略コードには同意処理は含めない。",
+    "before": {
+      "Logger.swift": "struct Logger { func record(_ event: String) { systemLog(event); crashReport(event) } }",
+      "Checkout.swift": "struct Checkout { let logger: Logger; func buy() { logger.record(\"purchase\") } }"
+    },
+    "after": {
+      "Logger.swift": "struct Logger { func record(_ event: String) { systemLog(event); crashReport(event) } }",
+      "Checkout.swift": "struct Checkout { let logger: Logger; let analytics: Analytics; func buy() { logger.record(\"purchase\"); analytics.record(\"purchase\") } }",
+      "Analytics.swift": "struct Analytics { func record(_ event: String) { sendAnalytics(event) } }"
+    },
+    "exitCode": 0
+  },
+  {
+    "name": "view-growth",
+    "question": "表示と状態の所有者が広がったか。独立した表示領域か、同じ画面の一つの状態か。",
+    "context": "販促領域は独立して状態を持てるという想定。分割が常に正しいとはしない。",
+    "before": {
+      "Home.swift": "import SwiftUI\nstruct HomeView: View {\n @State private var expanded = false\n var body: some View { VStack { Button(\"Details\") { expanded.toggle() }; if expanded { Text(\"Details\") } } }\n}"
+    },
+    "after": {
+      "Home.swift": "import SwiftUI\nstruct HomeView: View {\n @State private var expanded = false\n @State private var showPromotion = false\n var body: some View { VStack { Button(\"Details\") { expanded.toggle() }; if expanded { Text(\"Details\") }; Button(\"Promotion\") { showPromotion.toggle() }; if showPromotion { Text(\"Promotion\") } } }\n}"
+    },
+    "exitCode": 0
+  },
+  {
+    "name": "view-owned-part",
+    "question": "状態を子へ移す案は所有者の確認に役立つか。小さな分割を無条件に勧めないか。",
+    "context": "同じ販促領域を子Viewに配置する対照案。画面規模や再利用要件によっては一体のままでもよい。",
+    "before": {
+      "Home.swift": "import SwiftUI\nstruct HomeView: View {\n @State private var expanded = false\n var body: some View { VStack { Button(\"Details\") { expanded.toggle() }; if expanded { Text(\"Details\") } } }\n}"
+    },
+    "after": {
+      "Home.swift": "import SwiftUI\nstruct HomeView: View {\n @State private var expanded = false\n var body: some View { VStack { Button(\"Details\") { expanded.toggle() }; if expanded { Text(\"Details\") }; PromotionView() } }\n}\nstruct PromotionView: View {\n @State private var showPromotion = false\n var body: some View { VStack { Button(\"Promotion\") { showPromotion.toggle() }; if showPromotion { Text(\"Promotion\") } } }\n}"
+    },
+    "exitCode": 0
+  },
+  {
+    "name": "model-io",
+    "question": "モデルへ追加したメソッドはデータの計算か、外部との調整か。",
+    "context": "外部保存を別のサービスへ置く方針という想定。モデルに置く設計を一律に否定しない。",
+    "before": {
+      "Model.swift": "enum Payment { case cash }; struct Invoice { let total: Int }"
+    },
+    "after": {
+      "Model.swift": "enum Payment { case cash, card }; struct Invoice { let total: Int; func save(to store: Store) { store.save(self) } }"
+    },
+    "exitCode": 0
+  },
+  {
+    "name": "model-calculation",
+    "question": "データに閉じた自然な拡張まで、責務過多として扱わないか。",
+    "context": "純粋性はコードの意味や呼び出しまで確認が必要。ここでは単純な計算追加を対照とする。",
+    "before": {
+      "Model.swift": "enum Payment { case cash }; struct Invoice { let total: Int }"
+    },
+    "after": {
+      "Model.swift": "enum Payment { case cash, card }; struct Invoice { let total: Int; func discounted(by amount: Int) -> Int { total - amount } }"
+    },
+    "exitCode": 0
+  }
+]
