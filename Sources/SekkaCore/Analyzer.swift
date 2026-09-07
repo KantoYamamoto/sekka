@@ -75,7 +75,7 @@ private final class DeclarationVisitor: SyntaxVisitor {
         Notice(
           location: location(node),
           message:
-            "Repeated declaration identity: \(fullName). Matched by source order; conditional branches are not evaluated."
+            "Repeated declaration identity: \(fullName). Source order distinguishes records, not counterparts. When present on both sides, structural and body comparisons are skipped; inspect the ordinary diff. Conditional branches are not evaluated."
         ))
     }
   }
