@@ -17,6 +17,14 @@ public enum Differ {
       let ambiguousType =
         oldFamilies[family(type), default: []].count > 1
         || newFamilies[family(type), default: []].count > 1
+      // Occurrence IDs distinguish snapshot records, not identities across revisions.
+      // A wholly added/removed family is still known to be one-sided.
+      if ambiguousType,
+        !oldFamilies[family(type), default: []].isEmpty,
+        !newFamilies[family(type), default: []].isEmpty
+      {
+        continue
+      }
       func add(
         _ rule: String, _ message: String, _ previous: [String], _ current: [String],
         at: Location? = nil, parameterChanges: [ParameterChange] = []
