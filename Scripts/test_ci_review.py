@@ -1,6 +1,6 @@
 import unittest
 
-from ci_review import render_summary
+from ci_review import render_summary, tree_text
 
 
 class SummaryTests(unittest.TestCase):
@@ -23,3 +23,14 @@ class SummaryTests(unittest.TestCase):
         self.assertIn('残り10ファイル', result)
         self.assertIn('16,000文字', result)
         self.assertIn('Swift差分はありません', result)
+
+
+class TreeTests(unittest.TestCase):
+    def test_branches_preserve_hierarchy_and_clear_between_types(self):
+        source = "TypeA\n  change\n    removed\n    added\n  limitation\n\nTypeB\n  only\n    detail"
+        expected = "TypeA\n├─ change\n│  ├─ removed\n│  └─ added\n└─ limitation\n\nTypeB\n└─ only\n   └─ detail"
+        self.assertEqual(tree_text(source), expected)
+
+    def test_literal_symbols_and_non_indented_notes_are_preserved(self):
+        source = 'Header\n  + value: "│"\nNOTE scope remains unknown'
+        self.assertEqual(tree_text(source), 'Header\n└─ + value: "│"\nNOTE scope remains unknown')

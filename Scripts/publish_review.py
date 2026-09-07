@@ -80,9 +80,9 @@ def main():
             return
         body = MARKER + '\n' + render_summary(manifest, report, text, f'https://github.com/{repository}', str(number), run_url)
     else:
-        body = (MARKER + '\n## 🐦 Sekka — 結果を更新できませんでした\n\n'
+        body = (MARKER + '\n## Sekka — 結果を更新できませんでした\n\n'
                 f"対象: `{run['head_sha']}`\n\n"
-                '⚠️ チェックまたは解析が完了しなかったため、このコミットの構造案内はありません。設計の不合格を示すものではありません。\n\n'
+                'チェックまたは解析が完了しなかったため、このコミットの構造案内はありません。設計の不合格を示すものではありません。\n\n'
                 f'[実行ログを確認]({run_url})\n')
     if len(body) > 60000:
         raise ValueError('Rendered comment exceeds limit')
