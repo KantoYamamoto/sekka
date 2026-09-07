@@ -1,0 +1,32 @@
+name: Sekka PR comment
+
+on:
+  workflow_run:
+    workflows: [Sekka PR review]
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+  pull-requests: write
+
+concurrency:
+  group: sekka-comment-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # workflow_run uses the default branch. Never checkout the reviewed head here.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Update Sekka comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SEKKA_RUN_ID: ${{ github.event.workflow_run.id }}
+        run: python3 Scripts/publish_review.py

@@ -9,35 +9,67 @@ import subprocess
 from self_review import capture
 
 
+def tree_text(text):
+    """Show existing indentation as a tree, preserving labels and facts."""
+    lines = text.splitlines()
+    rendered = []
+    upcoming = set()
+    for line in reversed(lines):
+        spaces = len(line) - len(line.lstrip(' '))
+        level = spaces // 2
+        if not line.strip() or level == 0:
+            upcoming.clear()
+            rendered.append(line)
+            continue
+        upcoming = {depth for depth in upcoming if depth <= level}
+        prefix = ''.join('│  ' if depth in upcoming else '   ' for depth in range(1, level))
+        branch = '├─ ' if level in upcoming else '└─ '
+        rendered.append(prefix + branch + line[spaces:])
+        upcoming.add(level)
+    return '\n'.join(reversed(rendered))
+
+
 def render_summary(manifest, report, text, repo_url, pr_number, run_url):
     coverage = report["coverage"]
     swift_files = coverage["changedFiles"]
     unobserved = sum(f["observationCount"] == 0 for f in swift_files)
     lines = [
-        "# Sekka · PR review guide", "",
+        "## Sekka — レビューの入口", "",
         "構文上の変更から読む場所を選ぶ案内です。通常diffも確認してください。", "",
-        "| 変更Swiftファイル | 構造観測 | 観測のない変更ファイル | 本体比較省略 |",
+        "| Swift変更 | 構造観測 | 構造観測なし | 本体比較省略 |",
         "| ---: | ---: | ---: | ---: |",
         f"| {len(swift_files)} | {len(report['findings'])} | {unobserved} | {coverage['skippedBodyCount']} |",
         "",
     ]
     if not swift_files:
         lines += ["今回、解析対象のSwift差分はありません。設定・文書・スクリプトの変更は通常のPR diffで確認してください。", ""]
-    lines += ["## 確認するファイル", ""]
-    files = manifest["changedFiles"]
+    lines += ["### 確認するファイル", "", "Swiftの変更を先に表示します。観測の有無は確認済み範囲を意味しません。", ""]
+    swift_paths = {f["file"]: f for f in swift_files}
+    files = sorted(manifest["changedFiles"], key=lambda f: (f not in swift_paths, f))
     for file in files[:20]:
         anchor = hashlib.sha256(file.encode()).hexdigest()
         url = f"{repo_url}/pull/{pr_number}/files#diff-{anchor}" if pr_number else f"{repo_url}/commit/{manifest['head']}"
-        lines.append(f'- <a href="{html.escape(url, quote=True)}"><code>{html.escape(file)}</code></a>')
+        label = "解析対象外" if file not in swift_paths else ("構造観測なし" if swift_paths[file]["observationCount"] == 0 else "Swift変更")
+        lines.append(f'- [{label}] <a href="{html.escape(url, quote=True)}"><code>{html.escape(file)}</code></a>')
     if len(files) > 20:
         lines.append(f"残り{len(files) - 20}ファイルはmanifest.jsonとPRのFiles changedを参照してください。")
-    lines += ["", "<details><summary>Sekkaの構造案内を開く</summary>", "", "<pre>" + html.escape(text[:16000]) + "</pre>"]
-    if len(text) > 16000:
+    # The runner-local replay command cannot be copied into a local checkout.
+    display = "\n".join(line for line in text.splitlines() if not line.startswith("Inspect source hunks:"))
+    escaped = html.escape(tree_text(display))
+    # Bound the escaped payload too: source containing '<' can expand severalfold.
+    preview = escaped[:16000]
+    if len(escaped) > 16000 and "&" in preview and preview.rfind("&") > preview.rfind(";"):
+        preview = preview[:preview.rfind("&")]
+    lines += ["", "<details><summary>構造案内を開く</summary>", "", "<pre>" + preview + "</pre>"]
+    if len(escaped) > 16000:
         lines.append("表示を16,000文字で区切っています。完全版は成果物candidate.textを参照してください。")
     lines += [
         "", "</details>", "",
         f"比較: `{manifest['base']}` → `{manifest['head']}`", "",
-        "評価器はこのPRでビルドしたSekkaです。独立したレビューや設計の合否判定ではありません。", "",
+        "### この案内で分からないこと", "",
+        "- 構造観測があるファイルにも、未観測の変更が混在します。通常diffも読んでください。",
+        "- 本体比較は構文・トークンの比較です。動作や設計の正しさは判定しません。",
+        "- 評価器はこのPRでビルドしたSekkaです。独立したレビューではありません。", "",
         f"[実行と成果物]({run_url})：通常diff・完全なtext・JSON・入力IDと評価器hash。保存期間は14日です。",
     ]
     return "\n".join(lines) + "\n"
