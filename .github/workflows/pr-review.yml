@@ -35,7 +35,7 @@ jobs:
       - name: CLI and Git checks
         run: python3 Scripts/smoke.py .build/debug/sekka
       - name: Summary renderer checks
-        run: python3 -m unittest discover -s Scripts -p 'test_ci_review.py'
+        run: python3 -m unittest discover -s Scripts -p 'test_*.py'
       - name: Generate PR review guide
         env:
           SEKKA_BASE: ${{ github.event.pull_request.base.sha || github.sha }}
