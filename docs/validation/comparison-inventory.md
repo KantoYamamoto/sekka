@@ -19,4 +19,8 @@ bloom-timelapse PR #46の固定base `540a95c5bbf2a915fe2de37166dbc2c074a853c2` �
 
 ## 自己利用・Actions
 
-実装コミット後に旧評価器と比較し、通常diffと新旧結果を点検する。PRのjob summaryは新しいrenderer、投稿はdefault branchのrendererである。今回は新rendererの投稿dry-runと成果物をマージ前に確認し、マージ後の文書PRで実際のbot表示を確認する。実投稿の新表示確認が済むまで#34の運用確認を完了としない。
+実装コミット `3024f90` を親 `5646d35` と新旧バイナリで比較し、通常のSwift diffを全て読んだ。観測12件とcoverageは一致。新しい一覧は17パス（Swift 7・対象外10）で、PythonのPR rendererや文書の変更も初めてCLIから見える。textは5,895→6,860 bytesで965 bytes増えた。短縮効果ではなく、対象範囲を正しく示すための増加である。
+
+構造案内はInputChange/ComparisonInventoryとInputsの追加APIを示した。新規関数のraw Git解析やバイト比較の正しさ、Pythonの共有モデル利用は通常diffで点検した。全件一覧と詳細の二重表示は#35に残る。
+
+PRのjob summaryは新しいrenderer、投稿はdefault branchのrendererである。今回は新rendererの投稿dry-runと成果物をマージ前に確認し、マージ後の文書PRで実際のbot表示を確認する。実投稿の新表示確認が済むまで#34の運用確認を完了としない。
