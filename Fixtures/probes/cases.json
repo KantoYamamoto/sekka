@@ -1,0 +1,165 @@
+[
+  {
+    "name": "body-threshold",
+    "before": {
+      "App.swift": "struct Policy { func accepts(_ n: Int) -> Bool { n > 3 } }"
+    },
+    "after": {
+      "App.swift": "struct Policy { func accepts(_ n: Int) -> Bool { n > 8 } }"
+    },
+    "question": "Can a literal-only body change lead to the changed function?",
+    "exitCode": 0
+  },
+  {
+    "name": "stored-threshold",
+    "before": {
+      "App.swift": "struct Policy { static let limit = 3; func accepts(_ n: Int) -> Bool { n > Self.limit } }"
+    },
+    "after": {
+      "App.swift": "struct Policy { static let limit = 8; func accepts(_ n: Int) -> Bool { n > Self.limit } }"
+    },
+    "question": "Is a stored initializer change visible beyond the changed file?",
+    "exitCode": 0
+  },
+  {
+    "name": "mixed-initializer",
+    "before": {
+      "App.swift": "struct Policy { static let limit = 3; func accepts(_ n: Int) -> Bool { n > Self.limit } }"
+    },
+    "after": {
+      "App.swift": "struct Policy { static let limit = 8; func accepts(_ n: Int) -> Bool { n > Self.limit }; func reset() {} }"
+    },
+    "question": "Does an observed member addition hide another unobserved change in the same file?",
+    "exitCode": 0
+  },
+  {
+    "name": "top-level",
+    "before": {
+      "App.swift": "func accepts(_ n: Int) -> Bool { n > 3 }"
+    },
+    "after": {
+      "App.swift": "func accepts(_ n: Int) -> Bool { n > 8 }"
+    },
+    "question": "Is a top-level function change individually located?",
+    "exitCode": 0
+  },
+  {
+    "name": "call-argument",
+    "before": {
+      "App.swift": "struct Screen { func send() { log(mode: .normal) } }"
+    },
+    "after": {
+      "App.swift": "struct Screen { func send() { log(mode: .urgent) } }"
+    },
+    "question": "Does a changed call argument lead to its containing function?",
+    "exitCode": 0
+  },
+  {
+    "name": "enum-value",
+    "before": {
+      "App.swift": "enum Mode: String { case ready = \"r\" }"
+    },
+    "after": {
+      "App.swift": "enum Mode: String { case ready = \"ready\" }"
+    },
+    "question": "Is an enum raw-value change visible?",
+    "exitCode": 0
+  },
+  {
+    "name": "default-argument",
+    "before": {
+      "App.swift": "struct API { func run(limit: Int = 3) {} }"
+    },
+    "after": {
+      "App.swift": "struct API { func run(limit: Int = 8) {} }"
+    },
+    "question": "Is a default argument change distinct from body comparison?",
+    "exitCode": 0
+  },
+  {
+    "name": "computed-property",
+    "before": {
+      "App.swift": "struct Policy { var limit: Int { 3 } }"
+    },
+    "after": {
+      "App.swift": "struct Policy { var limit: Int { 8 } }"
+    },
+    "question": "How does a computed property compare to a stored initializer?",
+    "exitCode": 0
+  },
+  {
+    "name": "swiftui-extraction",
+    "before": {
+      "App.swift": "import SwiftUI\nstruct Screen: View { var body: some View { VStack { Text(\"A\"); Text(\"B\") } } }"
+    },
+    "after": {
+      "App.swift": "import SwiftUI\nstruct Screen: View { var body: some View { VStack { title; Text(\"B\") } }; var title: some View { Text(\"A\") } }"
+    },
+    "question": "Does extraction show both existing body and new component?",
+    "exitCode": 0
+  },
+  {
+    "name": "type-move",
+    "before": {
+      "Old.swift": "struct Model { func run() {} }"
+    },
+    "after": {
+      "New.swift": "struct Model { func run() {} }"
+    },
+    "question": "Does a move remain addition/removal rather than inferred identity?",
+    "exitCode": 0
+  },
+  {
+    "name": "type-delete",
+    "before": {
+      "App.swift": "struct Legacy { func work0() {}; func work1() {}; func work2() {}; func work3() {}; func work4() {}; func work5() {}; func work6() {}; func work7() {}; func work8() {}; func work9() {}; func work10() {}; func work11() {}; func work12() {}; func work13() {}; func work14() {}; func work15() {}; func work16() {}; func work17() {}; func work18() {}; func work19() {} }"
+    },
+    "after": {},
+    "question": "Are twenty removed bodies summarized without losing records?",
+    "exitCode": 0
+  },
+  {
+    "name": "forwarder",
+    "before": {
+      "App.swift": "struct Service { func send(_ value: Int) { store(value + 1) } }"
+    },
+    "after": {
+      "App.swift": "struct Service { func send(_ value: Int) { store(value) } }"
+    },
+    "question": "Is forwarding reported as syntax rather than unnecessary abstraction?",
+    "exitCode": 0
+  },
+  {
+    "name": "inactive-branch",
+    "before": {
+      "App.swift": "#if FEATURE\nstruct A { func run() { old() } }\n#endif"
+    },
+    "after": {
+      "App.swift": "#if FEATURE\nstruct A { func run() { new() } }\n#endif"
+    },
+    "question": "Are all conditional branches analyzed without build flags?",
+    "exitCode": 0
+  },
+  {
+    "name": "comment-only",
+    "before": {
+      "App.swift": "struct A { func run() {} }"
+    },
+    "after": {
+      "App.swift": "// changed explanation\nstruct A { func run() {} }"
+    },
+    "question": "Are comments distinguished from token changes?",
+    "exitCode": 0
+  },
+  {
+    "name": "invalid-source",
+    "before": {
+      "App.swift": "struct A {}"
+    },
+    "after": {
+      "App.swift": "struct A { func run( {"
+    },
+    "question": "Does invalid syntax fail instead of producing a clean report?",
+    "exitCode": 2
+  }
+]
