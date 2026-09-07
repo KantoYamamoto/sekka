@@ -63,4 +63,3 @@
 `python3 Scripts/review_probes.py`で合成ケースを再実行できる。Actionsでは既存のSwift/CLIチェックに追加し、`probes.json`をartifactへ保存する。私有アプリの生出力は含めない。今回の評価器hash: `06309e898c4622e29c6069e087844b849674272f27dd01d44217f404cf6c7c0a`。ケースhash: `8293bc4060c1d8b8abceafc0b3fd597db9600ee2a6e453fe44b6959d13473c4c`。
 
 実PRのActions最終結果とartifact照合はIssue #21に関連するPRへ記録する。文書・試験の作成者自身による確認であり、独立承認ではない。
-
