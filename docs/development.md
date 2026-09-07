@@ -29,4 +29,4 @@ Swiftの実装変更では[比較手順](validation/protocol.md)に従い、新�
 
 Sekkaが案内できた場所と、通常diff・周辺文脈で初めて分かったことを分けて記録する。READMEの読み順や開発計画の目的との一致は、現行のSekkaには評価できない。そこを人間・AIが点検する責任は残る。観測件数の増加を、全体の整合性の向上と同一視しない。
 
-固定の境界確認は`python3 Scripts/review_probes.py`で実行する。15ケースの結果は`.build/review-probes.json`に保存される。期待終了コードが合うことと、レビューの有用性は別である。
+固定の境界確認は`python3 Scripts/review_probes.py`で実行する。15ケースの結果は`.build/review-probes.json`に保存される。設計の問い6件は`--cases Fixtures/design-review/cases.json`で再実行でき、Actionsでも別の成果物に保存する。期待終了コードが合うことと、レビューの有用性は別である。
