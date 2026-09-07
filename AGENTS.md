@@ -1,6 +1,7 @@
 # Sekka development
 
 - Work in this repository. Target Swift 6+; do not build the analyzed app.
+- Before changing requirements or selecting the next task, follow `docs/development.md`: review both local responsibility placement and the project purpose, priorities and milestone gates. Integrate changes into the existing structure; remove stale or duplicate guidance. Read the resulting whole document/module, not only the patch. Use a brief rationale for small changes; do not demand a full redesign every time.
 - Read `ROADMAP.md` for current position, next task and milestone gates. When starting/completing a planned task, update its status and evidence links plus the current/next summary in the same change. Keep functionality completion separate from validation of user benefit; do not execute conditional milestones before their gates are met.
 - Use SwiftSyntax for syntax facts. Do not label textual type expressions as resolved dependencies, inferred purity, or proven effects.
 - Keep observations, analysis limitations, and design judgement separate. No LLM is required at runtime.
