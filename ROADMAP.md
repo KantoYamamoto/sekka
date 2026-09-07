@@ -4,7 +4,7 @@
 
 **現在位置: M1（V01・PR01〜03・V02）を完了。Git読み取り改善とActions上の自己利用検証も完了。予備試行2件の反復改善に続き、合成15種類・実変更2件で観測境界を確認。独立比較によるレビューの手間削減は未検証。**
 
-**次にすること: ユーザー追加依頼のIssue #24（PRコメントと読みやすい表示）を実装・実投稿検証する。その後Issue #22の初期値変更の案内へ戻る。**
+**次にすること: Issue #22の初期値変更の案内へ戻る。Issue #24はPRコメントの実投稿・罫線表示・同一コメント更新まで完了（[記録](docs/validation/pr-comments.md)、[PR #26](https://github.com/KantoYamamoto/sekka/pull/26)）。**
 
 ライセンス: [MIT](LICENSE)を採用（[判断0010](docs/decisions/0010-mit-license.md)）。
 
