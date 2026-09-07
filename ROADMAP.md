@@ -8,7 +8,7 @@
 
 構文差分・型別要約・引数差分・本体比較状態・diffへの案内・自身のCI/PRコメントは実装済みです。初期値変更の盲点修正も[PR #27](https://github.com/KantoYamamoto/sekka/pull/27)で完了しました。一方、既存の役割分担を見直す助けになるか、通常diffのみよりレビューの手間や見落としが減るかは未確立です。
 
-**次は[Issue #31](https://github.com/KantoYamamoto/sekka/issues/31)：変更した型表記に、同じままの明示型表記を併記する小さな表示実験。** #29の6ケースで、短い案内から既存Loggerが消えることを確認した。新ルールより既存情報の再編集を先に試す。独立比較の入力不足を理由に無関係な機能追加へは進まない。
+**次は[#8](https://github.com/KantoYamamoto/sekka/issues/8)の独立比較。入力・A/B資料・[評価手順](docs/validation/v03-01-plan.md)は準備済みで、客観的なレビュー担当の方法をユーザーへ確認する段階。** このセッションではサブエージェントを使わず、比較はまだ開始していない。[PR #33](https://github.com/KantoYamamoto/sekka/pull/33)の表示実験ではLoggerの手掛かりが増えた一方、Int等の再掲による負担も増えた（[記録](docs/validation/retained-context.md)）。出力先はCLI・JSON・PRを並列に扱い、[図も同じ観測の表現として試作](docs/validation/diagram-prototype.md)した。新ルールや図生成機能を追加して、この検証の代用にはしない。
 
 ## マイルストーンと判断の節目
 
@@ -16,8 +16,8 @@
 | --- | --- | --- |
 | M0・M1: 観測と読みやすさの土台 | 構文事実・限界・重複整理・diff到達が再現可能 | 完了。[M1検証](docs/validation/m1-output.md) |
 | R1: 目的と現状をつなぎ直す | 文書・計画を統合し、元の問いと観測・不足文脈を対応付ける | 完了。#28の再構成と[#29の6ケース検証](docs/validation/structural-questions.md) |
-| R2: 小さな改善か見送りを選ぶ | 現状出力・再編集・追加観測を比較し、対照例込みで一つ選ぶ | #29で再編集を選択。#31の小さな表示実験へ |
-| M2: 実レビューで利益を比較する | 確定した問いについて通常diffのみとの差と限界を記録 | #8〜#12はR1/R2による課題の再定義まで保留 |
+| R2: 小さな改善か見送りを選ぶ | 現状出力・再編集・追加観測を比較し、対照例込みで一つ選ぶ | #31で既存情報を再編集。材料と増える負担を検証 |
+| M2: 実レビューで利益を比較する | 確定した問いについて通常diffのみとの差と限界を記録 | #8の最初の比較を準備。他用途は比較条件を点検してから |
 | M3: 外部導入を整える | 有益だった用途を別環境でも再現できる | M2と用途判断の後。public/MIT・自身のCI完了とは別 |
 
 ## 1PR・1検証単位のタスク
@@ -26,11 +26,11 @@
 | --- | --- | --- |
 | [#28](https://github.com/KantoYamamoto/sekka/issues/28) 文書と開発方針の統合 | README/仕様/開発手順/ROADMAPの役割が明確。旧説明・重複・Issueの順序を整理 | 完了・[PR #30](https://github.com/KantoYamamoto/sekka/pull/30) |
 | [#29](https://github.com/KantoYamamoto/sekka/issues/29) 元の問いとの接続を検証 | 3場面と妥当な対照例を固定し、問い→観測→不足文脈を記録。次の一手か見送りを選ぶ | 完了・[記録](docs/validation/structural-questions.md)。独立比較ではない |
-| [#31](https://github.com/KantoYamamoto/sekka/issues/31) 既存表記を添える | Loggerの手掛かりと無関係なIntのノイズ、表示上限・JSON整合を確認 | 着手可能。依存解決や設計の判断は追加しない |
-| [#8](https://github.com/KantoYamamoto/sekka/issues/8) API・モデル比較 | 役割/APIの拡大について理由付き確認先を選べるか | #29後に課題を更新し、未読入力・比較条件を確保 |
-| [#9](https://github.com/KantoYamamoto/sekka/issues/9) SwiftUI比較 | 状態・表示の配置を考える入口になるか | 同上 |
-| [#10](https://github.com/KantoYamamoto/sekka/issues/10) 追加削除・分割比較 | 新しい窓口や分割と既存の配置を照らせるか | 同上 |
-| [#11](https://github.com/KantoYamamoto/sekka/issues/11) 小さい変更の比較 | 読む負担が利益を上回らないか | 同上。小変更を無理に重要視しない |
+| [#31](https://github.com/KantoYamamoto/sekka/issues/31) 既存表記を添える | Loggerの手掛かりと無関係なIntのノイズ、表示上限・JSON整合を確認 | 実装・ローカル検証済み。最終CIはPR #33で追跡 |
+| [#8](https://github.com/KantoYamamoto/sekka/issues/8) API・モデル比較 | 役割/APIの拡大について理由付き確認先を選べるか | Nuke PR #953と比較コミット・条件・A/B資料を固定。独立した担当の方法を確認待ち |
+| [#9](https://github.com/KantoYamamoto/sekka/issues/9) SwiftUI比較 | 状態・表示の配置を考える入口になるか | #8の初回比較条件を点検してから |
+| [#10](https://github.com/KantoYamamoto/sekka/issues/10) 追加削除・分割比較 | 新しい窓口や分割と既存の配置を照らせるか | #8の初回比較条件を点検してから |
+| [#11](https://github.com/KantoYamamoto/sekka/issues/11) 小さい変更の比較 | 読む負担が利益を上回らないか | #8の初回比較条件を点検してから。小変更を無理に重要視しない |
 | [#12](https://github.com/KantoYamamoto/sekka/issues/12) 投資判断 | 継続・用途限定・方向修正と次の一手を根拠付きで記録 | #8〜#11の課題再定義と実測後 |
 | [#18](https://github.com/KantoYamamoto/sekka/issues/18) トップレベルの個別案内 | 現行の具体的な不足として保持 | 保留。#29または実比較で目的への寄与が確認されたら検討 |
 

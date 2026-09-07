@@ -202,6 +202,7 @@ public enum Renderer {
           lines += delta.removed.map { "    - \($0)" }
           lines += delta.added.map { "    + \($0)" }
         }
+        lines += ReferencePresentation.contextLines(finding)
         for change in finding.parameterChanges {
           lines.append("    \(change.member) — parameters (unique same-name declaration):")
           lines += change.removed.map { "      - \($0)" }

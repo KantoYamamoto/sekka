@@ -80,12 +80,20 @@ private struct CompactFinding: Encodable {
   let removed: [String]
   let added: [String]
   let parameterChanges: [CompactParameterChange]?
+  let unchangedTypeExpressions: [String]?
+  let omittedUnchangedTypeExpressionCount: Int?
   init(_ finding: Finding) {
     rule = finding.rule
     typeID = finding.typeID
     type = finding.type
     location = finding.location
     message = finding.message
+    let retained = ReferencePresentation.retainedExpressions(finding)
+    unchangedTypeExpressions =
+      retained.isEmpty ? nil : Array(retained.prefix(ReferencePresentation.contextLimit))
+    omittedUnchangedTypeExpressionCount =
+      retained.count > ReferencePresentation.contextLimit
+      ? retained.count - ReferencePresentation.contextLimit : nil
     let delta = displayDelta(finding)
     removed = delta.removed
     added = delta.added
