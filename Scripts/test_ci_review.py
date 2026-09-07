@@ -7,7 +7,9 @@ class SummaryTests(unittest.TestCase):
     def render(self, files, text):
         return render_summary(
             {"base": "a" * 40, "head": "b" * 40, "changedFiles": files},
-            {"findings": [], "coverage": {"changedFiles": [], "skippedBodyCount": 0}},
+            {"findings": [], "coverage": {"changedFiles": [], "skippedBodyCount": 0},
+             "inventory": {"scope": "test", "changes": [
+                 {"file": f, "change": "modified", "analysis": "non-swift"} for f in files]}},
             text, "https://github.com/KantoYamamoto/sekka", "1", "https://github.com/run",
         )
 
@@ -23,6 +25,28 @@ class SummaryTests(unittest.TestCase):
         self.assertIn('残り10ファイル', result)
         self.assertIn('16,000文字', result)
         self.assertIn('Swift差分はありません', result)
+
+    def test_shared_inventory_is_the_file_source_and_units_are_explicit(self):
+        result = render_summary(
+            {"base": "a" * 40, "head": "b" * 40, "changedFiles": ["stale.md"]},
+            {"findings": [], "coverage": {"changedFiles": [], "skippedBodyCount": 0},
+             "inventory": {"scope": "git-revisions", "changes": [
+                 {"file": "current.md", "change": "added", "analysis": "non-swift"}]}},
+            "", "https://github.com/KantoYamamoto/sekka", "1", "https://github.com/run")
+        self.assertIn('current.md', result)
+        self.assertNotIn('stale.md', result)
+        self.assertIn('構造観測（件）', result)
+        self.assertIn('本体比較省略（本体）', result)
+
+    def test_untrusted_inventory_status_does_not_become_html(self):
+        result = render_summary(
+            {"base": "a" * 40, "head": "b" * 40, "changedFiles": []},
+            {"findings": [], "coverage": {"changedFiles": [], "skippedBodyCount": 0},
+             "inventory": {"scope": "<img>", "changes": [
+                 {"file": "doc.md", "analysis": "<img src=x>"}]}},
+            "", "https://github.com/KantoYamamoto/sekka", "1", "https://github.com/run")
+        self.assertNotIn('<img', result)
+        self.assertIn('解析状態不明', result)
 
 
 class TreeTests(unittest.TestCase):

@@ -151,10 +151,11 @@ public struct DiffReport: Encodable, Sendable {
   public let notices: [Notice]
   public let limitations: [String]
   public var coverage = ComparisonCoverage()
+  public var inventory: ComparisonInventory? = nil
   var textNotices: [String]? = nil
   enum CodingKeys: String, CodingKey {
     case schemaVersion, analysis, detail, beforeLabel, afterLabel, beforeFiles, afterFiles
-    case findings, notices, limitations, coverage
+    case findings, notices, limitations, coverage, inventory
   }
 }
 

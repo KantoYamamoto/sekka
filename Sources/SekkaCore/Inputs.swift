@@ -8,44 +8,9 @@ public enum Inputs {
   public static func directory(_ path: String, excluding: [String] = []) throws -> [(
     path: String, source: String
   )] {
-    let root = URL(fileURLWithPath: path).standardizedFileURL.resolvingSymlinksInPath()
-    var isDirectory: ObjCBool = false
-    guard FileManager.default.fileExists(atPath: root.path, isDirectory: &isDirectory),
-      isDirectory.boolValue
-    else {
-      throw SekkaError.message("Not a directory: \(path)")
-    }
-    var enumerationError: Error?
-    guard
-      let enumerator = FileManager.default.enumerator(
-        at: root,
-        includingPropertiesForKeys: [.isRegularFileKey, .isSymbolicLinkKey, .isDirectoryKey],
-        errorHandler: { _, error in
-          enumerationError = error
-          return false
-        })
-    else { throw SekkaError.message("Cannot read directory: \(path)") }
-    var files: [(path: String, source: String)] = []
-    for case let url as URL in enumerator {
-      let values = try url.resourceValues(forKeys: [.isRegularFileKey, .isSymbolicLinkKey])
-      if values.isSymbolicLink == true {
-        enumerator.skipDescendants()
-        continue
-      }
-      // Foundation can enumerate /var under its /private/var alias on macOS.
-      let resolvedPath = url.resolvingSymlinksInPath().path
-      let prefix = root.path == "/" ? "/" : root.path + "/"
-      guard resolvedPath.hasPrefix(prefix) else { continue }
-      let relative = String(resolvedPath.dropFirst(prefix.count))
-      if excluded(relative, extra: excluding) {
-        enumerator.skipDescendants()
-        continue
-      }
-      guard values.isRegularFile == true, relative.hasSuffix(".swift") else { continue }
-      files.append((relative, try String(contentsOf: url, encoding: .utf8)))
-    }
-    if let enumerationError { throw enumerationError }
-    return files.sorted { $0.path < $1.path }
+    try inventoryFiles(path, excluding: excluding).filter { $0.key.hasSuffix(".swift") }
+      .map { (path: $0.key, source: try String(contentsOf: $0.value, encoding: .utf8)) }
+      .sorted { $0.path < $1.path }
   }
 
   public static func gitRoot(_ path: String) throws -> String {
@@ -129,14 +94,14 @@ public enum Inputs {
     return files
   }
 
-  private static func excluded(_ path: String, extra: [String]) -> Bool {
+  static func excluded(_ path: String, extra: [String]) -> Bool {
     if path.split(separator: "/").contains(where: { defaultExclusions.contains(String($0)) }) {
       return true
     }
     return extra.contains { path == $0 || path.hasPrefix($0 + "/") }
   }
 
-  private static func runGit(_ arguments: [String], at root: String) throws -> String {
+  static func runGit(_ arguments: [String], at root: String) throws -> String {
     let data = try runGitData(arguments, at: root)
     guard let text = String(data: data, encoding: .utf8) else {
       throw SekkaError.message(

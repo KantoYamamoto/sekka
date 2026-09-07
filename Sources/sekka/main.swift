@@ -147,12 +147,14 @@ private func run() throws -> Int32 {
   let afterFiles: [(path: String, source: String)]
   let beforeLabel: String
   let afterLabel: String
+  let inventory: ComparisonInventory
   var replay: [String] = ["sekka", "diff"]
   if let before = options.before, let after = options.after {
     beforeFiles = try Inputs.directory(before, excluding: options.exclude)
     afterFiles = try Inputs.directory(after, excluding: options.exclude)
     beforeLabel = before
     afterLabel = after
+    inventory = try Inputs.directoryChanges(before: before, after: after, excluding: options.exclude)
     replay += ["--before", URL(fileURLWithPath: before).standardizedFileURL.path,
       "--after", URL(fileURLWithPath: after).standardizedFileURL.path]
   } else {
@@ -173,19 +175,21 @@ private func run() throws -> Int32 {
       ? "merge-base(\(ref), \(options.head ?? "HEAD")) [\(base.prefix(12))]"
       : "\(ref) [\(base.prefix(12))]"
     afterLabel = headCommit.map { "\(options.head!) [\($0.prefix(12))]" } ?? "working tree"
+    inventory = try Inputs.gitChanges(from: base, to: headCommit, at: root, excluding: options.exclude)
     replay += [base, "--path", root]
     if let headCommit { replay += ["--head", headCommit] }
   }
   for excluded in options.exclude { replay += ["--exclude", excluded] }
-  guard !beforeFiles.isEmpty || !afterFiles.isEmpty else {
+  guard !beforeFiles.isEmpty || !afterFiles.isEmpty || !inventory.changes.isEmpty else {
     throw SekkaError.message(
       "No Swift files found on either side; check the input paths and exclusions")
   }
   let beforeSnapshot = try Analyzer.analyze(beforeFiles)
   let afterSnapshot = try Analyzer.analyze(afterFiles)
-  let report = Differ.compare(
+  var report = Differ.compare(
     beforeSnapshot, afterSnapshot, beforeLabel: beforeLabel,
     afterLabel: afterLabel)
+  report.inventory = inventory
   let fingerprint = try options.format == "text"
     ? Inputs.fingerprint(before: beforeSnapshot, after: afterSnapshot) : nil
   if let expected = options.expectInput, expected != fingerprint {

@@ -111,4 +111,40 @@ with tempfile.TemporaryDirectory(prefix="sekka-smoke-") as temporary:
     (repo / "Empty").mkdir()
     run("diff", "--before", str(repo / "Empty"), "--after", str(repo / "Empty"), code=2)
 
+    # Comparison inventory includes paths that Swift parsing never sees.
+    inventory_base = git("rev-parse", "HEAD")
+    (repo / "README.md").write_text("Documentation only\n")
+    (repo / "image.bin").write_bytes(bytes([0, 255, 1]))
+    git("add", "README.md", "image.bin")
+    git("commit", "-m", "non-Swift changes")
+    metadata = json.loads(run("diff", inventory_base, "--head", "HEAD", "--format", "json").stdout)
+    assert [(x["file"], x["analysis"]) for x in metadata["inventory"]["changes"]] == [
+        ("README.md", "non-swift"), ("image.bin", "non-swift")]
+    assert metadata["coverage"]["changedFiles"] == []
+    text = run("diff", inventory_base, "--head", "HEAD").stdout
+    assert "Changes exist, but none are analyzed as Swift" in text and "README.md" in text
+    full = json.loads(run("diff", inventory_base, "--head", "HEAD", "--format", "json", "--json-detail", "full").stdout)
+    assert full["inventory"] == metadata["inventory"]
+
+    (repo / "Model.swift").chmod(0o755)
+    (repo / "README.md").unlink()
+    (repo / "line\nbreak.md").write_text("Untracked\n")
+    (repo / "Link.swift").symlink_to("Model.swift")
+    (repo / "Excluded.swift").write_text("struct { invalid")
+    worktree = json.loads(run("diff", "HEAD", "--exclude", "Excluded.swift", "--format", "json").stdout)
+    items = {x["file"]: x for x in worktree["inventory"]["changes"]}
+    assert items["Model.swift"]["change"] == "modified"
+    assert items["README.md"]["change"] == "deleted"
+    assert items["line\nbreak.md"]["change"] == "added"
+    assert items["Link.swift"]["analysis"] == "unsupported-file-kind"
+    assert items["Excluded.swift"]["analysis"] == "excluded"
+    assert "Ignored.swift" not in items
+
+    (repo / "DocsBefore").mkdir()
+    (repo / "DocsAfter").mkdir()
+    (repo / "DocsAfter/README.md").write_text("No Swift in either directory\n")
+    docs_only = json.loads(run("diff", "--before", str(repo / "DocsBefore"), "--after", str(repo / "DocsAfter"), "--format", "json").stdout)
+    assert docs_only["beforeFiles"] == docs_only["afterFiles"] == 0
+    assert docs_only["inventory"]["changes"][0]["file"] == "README.md"
+
 print(f"PASS: {checks} CLI/Git checks")

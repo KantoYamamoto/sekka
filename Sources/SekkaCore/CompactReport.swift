@@ -113,6 +113,7 @@ private struct CompactReport: Encodable {
   let afterFiles: Int
   let findings: [CompactFinding]
   let coverage: ComparisonCoverage
+  let inventory: ComparisonInventory?
   let notices: [Notice]
   let limitations: [String]
   init(_ report: DiffReport) {
@@ -122,6 +123,7 @@ private struct CompactReport: Encodable {
     afterFiles = report.afterFiles
     findings = report.findings.map(CompactFinding.init)
     coverage = report.coverage
+    inventory = report.inventory
     notices = report.notices
     limitations = report.limitations
   }

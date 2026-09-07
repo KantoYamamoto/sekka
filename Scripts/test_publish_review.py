@@ -50,7 +50,8 @@ class PublishTests(unittest.TestCase):
 
     def test_escape_expansion_is_bounded_and_runner_command_removed(self):
         body = render_summary({'base': 'a'*40, 'head': 'b'*40, 'changedFiles': []},
-                              {'coverage': {'changedFiles': [], 'skippedBodyCount': 0}, 'findings': []},
+                              {'coverage': {'changedFiles': [], 'skippedBodyCount': 0}, 'findings': [],
+                               'inventory': {'scope': 'test', 'changes': []}},
                               '<'*16000 + '\nInspect source hunks: runner-only', 'https://github.com/o/r', '1', 'https://github.com/run')
         self.assertLess(len(body), 18000)
         self.assertNotIn('runner-only', body)
