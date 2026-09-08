@@ -24,9 +24,9 @@
 .build/debug/sekka diff HEAD --path /path/to/MyApp --exclude Vendor --exclude Sources/Generated
 ```
 
-Gitモードでは `--path` 内のリポジトリ全体を解析します。作業ツリー側は追跡済みファイルとGitで無視されていない未追跡ファイルを対象にし、削除・ステージ済み・未ステージの変更を含みます。`--head` を指定すると作業ツリーを読みません。Git checkoutや対象プロジェクトのスクリプト実行はしません。
+Gitモードでは `--path` 内のリポジトリ全体を解析します。作業ツリー側は追跡済みファイルとGitで無視されていない未追跡ファイルを対象にし、削除・ステージ済み・未ステージの変更を含みます。`--head` を指定すると作業ツリーを読みません。Git checkoutや対象プロジェクトのスクリプト実行はしません。外部filter・textconv・external diff・fsmonitorを無効化し、submodule内部のdirty状態を探索しません。filter正規化を伴う通常Gitとは変更表示が異なる場合があります。
 
-scanとディレクトリ比較は指定ディレクトリ配下を読み、`.gitignore` は解釈しません。全モードでシンボリックリンクをスキップし、`.build`, `.swiftpm`, `.git`, `Pods`, `Carthage`, `DerivedData` を除外します。テストコードもデフォルトで含まれます。
+scanとディレクトリ比較は指定ディレクトリ配下を読み、`.gitignore` は解釈しません。Swiftの解析入力では全モードでシンボリックリンクをスキップし、`.build`, `.swiftpm`, `.git`, `Pods`, `Carthage`, `DerivedData` を除外します。テストコードもデフォルトで含まれます。
 
 ## レビュー向け出力
 

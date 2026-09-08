@@ -113,7 +113,7 @@ public enum Inputs {
   private static func runGitData(_ arguments: [String], at root: String, input: Data? = nil) throws -> Data {
     let process = Process()
     process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-    process.arguments = ["git", "-C", root] + arguments
+    process.arguments = ["git", "-c", "core.fsmonitor=false", "-C", root] + arguments
     // A temporary stderr file prevents stdout/stderr pipe deadlocks on large repositories.
     let errorURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
     FileManager.default.createFile(atPath: errorURL.path, contents: nil)
