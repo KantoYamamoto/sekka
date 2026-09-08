@@ -34,7 +34,7 @@ textは型ごとに観測をまとめます。同じ型内で前後とも名前�
 
 型参照サイトのtext差分では、同じ宣言を前後それぞれ一度だけ表示し、その下に役割と型表記をまとめます。完全な参照サイトはJSONで確認できます。型表記集合が変わる場合は、同じ型宣言に残る表記を最大5件、既存の文脈として添えます。実際の依存先や関連性の推定ではなく、省略があれば件数と詳細への案内を出します。
 
-冒頭に、**変更されたSwiftファイル数・構造観測のある/ないファイル数**を出し、観測のない変更ファイルを列挙します。元データは両スナップショットのソース内容で、Gitモードもディレクトリ比較も同じ仕組みです。対象は除外設定・symlink除外などを適用した後の入力Swiftファイルであり、文書や除外ファイルを含むPR全体の網羅率ではありません。
+冒頭の確認先一覧は、解析したSwift変更を先に、同じファイルの構造観測件数・`changed-syntax-only`本体数・`not-compared`本体数を一行にまとめます。「構造観測なし」の別一覧は作りません。個別観測・本体が出ない構文変更は`file diff only`、token列が同一のソース変更は`comments/formatting only`と区別します。件数はレビュー済み範囲やリスク順位ではありません。
 
 さらに、変更された入力ファイル内の、対象メンバーの本体比較状態を表示します。
 
@@ -69,7 +69,7 @@ sekka diff BASE --head HEAD --show-diff 'Sources/Model.swift' --at after:123 --e
 
 `--json-detail full` なら`before` / `after` リストに加え、要約に使った引数情報を取得できます。両モードで `inventory`, `coverage`, `notices`, `limitations` は同一です。fullでもschema番号は2です。
 
-`coverage.changedFiles` は各ファイルの追加/削除/変更、構文変化の有無、構造観測数を持ちます。`coverage.bodyComparisons` は変更または比較省略の一覧です。理由コードは `parameter-clause-changed`, `no-exact-member-match`, `ambiguous-member-identity`, `ambiguous-type-identity`, `body-added`, `body-removed`, `type-added`, `type-removed`, `tracked-counts-changed`, `tracked-counts-unchanged`。型の追加・削除では比較相手がない本体もJSONに明示します。textでは宣言一覧と重なる追加・削除の本体説明を型ごとの件数にまとめます。既存型は宣言が追加だけ・削除だけの場合に限り集約し、改名や引数変更、曖昧な照合は個別に表示します。詳細は`coverage.bodyComparisons`を参照してください。
+`coverage.changedFiles` は各ファイルの追加/削除/変更、構文変化の有無、構造観測数を持ちます。`coverage.bodyComparisons` は変更または比較省略の一覧です。理由コードは `parameter-clause-changed`, `no-exact-member-match`, `ambiguous-member-identity`, `ambiguous-type-identity`, `body-added`, `body-removed`, `type-added`, `type-removed`, `tracked-counts-changed`, `tracked-counts-unchanged`。型の追加・削除では比較相手がない本体もJSONに明示します。textでは宣言一覧と重なる追加・削除の本体説明を型ごとの件数にまとめ、先頭3本体のbefore/after行番号と省略数を添えます。既存型は宣言が追加だけ・削除だけの場合に限り集約し、改名や引数変更、曖昧な照合は個別に表示します。詳細は`coverage.bodyComparisons`を参照してください。
 
 `scan --format json` はsnapshotを出力し、`--json-detail` は指定できません。token列・元ソースは内部比較専用でJSONには出しません。
 
@@ -79,7 +79,7 @@ sekka diff BASE --head HEAD --show-diff 'Sources/Model.swift' --at after:123 --e
 
 Git比較はバイナリ・モード変更・リンクを含む変更パスを列挙し、worktreeでは非ignoredのuntrackedも含めます。renameは追加/削除です。ディレクトリ比較は通常ファイルの内容が対象で、リンクと既定除外パスを探索せず、モードだけの変更は扱いません。追加の `--exclude` は解析から除外する指定で、変更一覧には残ります。indexから外れたパスもbaseと内容・modeを照合します。Gitが一覧に出さなくても解析済みSwiftのraw source差分は補い、その場合はscopeに明記します。
 
-textは先頭20パスと省略数、JSONは完全な一覧を返します。非Swiftだけの変更も表示します。Swift入力も変更もない空の比較は終了コード2です。対象外ファイルへの `--show-diff` は対応せず、通常のGit diffを使います。`--expect-input` は解析したSwift入力の一致確認で、非Swiftまで含む変更全体のIDではありません。
+textはSwift変更を先に最大20パスと省略数、JSONは完全な一覧を返します。非Swiftだけの変更も表示します。Swift入力も変更もない空の比較は終了コード2です。対象外ファイルへの `--show-diff` は対応せず、通常のGit diffを使います。`--expect-input` は解析したSwift入力の一致確認で、非Swiftまで含む変更全体のIDではありません。
 
 ## 観測する事実
 
@@ -110,4 +110,3 @@ textは先頭20パスと省略数、JSONは完全な一覧を返します。非S
 - 関数内のローカル型、トップレベル関数、subscript、deinit、associatedtype等は現在の対象外です。前後で一意に対応する型内プロパティのinitializerはトークン変更を案内します。型・プロパティの追加削除や改名、重複宣言はinitializerを個別対応させません。
 - 構文エラー・読み取りエラーがある場合は終了コード2で停止します。部分的な「観測なし」を成功として出しません。UTF-8のみ対応です。
 - JSONには常に `analysis: syntax-only`, `limitations`, `notices` を含めます。同じ入力・設定・ツールバージョンなら同じ並びで出します。
-

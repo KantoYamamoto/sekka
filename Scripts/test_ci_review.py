@@ -21,8 +21,8 @@ class SummaryTests(unittest.TestCase):
 
     def test_summary_is_bounded_and_reports_omissions(self):
         result = self.render([f'{i}.swift' for i in range(30)], 'x' * 20000)
-        self.assertEqual(result.count('/pull/1/files#diff-'), 20)
-        self.assertIn('残り10ファイル', result)
+        self.assertEqual(result.count('/pull/1/files#diff-'), 5)
+        self.assertIn('残り25パス', result)
         self.assertIn('16,000文字', result)
         self.assertIn('Swift差分はありません', result)
 
@@ -37,6 +37,20 @@ class SummaryTests(unittest.TestCase):
         self.assertNotIn('stale.md', result)
         self.assertIn('構造観測（件）', result)
         self.assertIn('本体比較省略（本体）', result)
+
+    def test_file_entry_combines_structure_and_body_states(self):
+        result = render_summary(
+            {"base": "a", "head": "b"},
+            {"findings": [], "inventory": {"scope": "test", "changes": [
+                {"file": "App.swift", "analysis": "swift"}]},
+             "coverage": {"changedFiles": [{"file": "App.swift", "observationCount": 0, "syntaxChanged": True}],
+                          "skippedBodyCount": 1, "bodyComparisons": [
+                              {"afterLocation": {"file": "App.swift"}, "status": "changed-syntax-only"},
+                              {"beforeLocation": {"file": "App.swift"}, "status": "not-compared"}]}},
+            "", "https://github.com/example/repo", "1", "https://github.com/run")
+        self.assertIn('構造観測 0件 / 本体token変更 1本体（構造指標は同じ） / 本体未比較 1本体', result)
+        self.assertEqual(result.count('/pull/1/files#diff-'), 1)
+        self.assertNotIn('[構造観測なし]', result)
 
     def test_untrusted_inventory_status_does_not_become_html(self):
         result = render_summary(

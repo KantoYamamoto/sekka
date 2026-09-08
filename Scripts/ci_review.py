@@ -50,7 +50,12 @@ def render_summary(manifest, report, text, repo_url, pr_number, run_url):
     inventory_by_path = {item["file"]: item for item in changes}
     files = sorted(inventory_by_path, key=lambda f: (f not in swift_paths, f))
     lines += [f"比較対象の変更: {len(files)}パス。対象範囲: {html.escape(inventory['scope'])}", ""]
-    for file in files[:20]:
+    bodies_by_path = {}
+    for body in coverage.get("bodyComparisons", []):
+        location = body.get("afterLocation") or body["beforeLocation"]
+        bodies_by_path.setdefault(location["file"], []).append(body)
+
+    def file_line(file):
         anchor = hashlib.sha256(file.encode()).hexdigest()
         url = f"{repo_url}/pull/{pr_number}/files#diff-{anchor}" if pr_number else f"{repo_url}/commit/{manifest['head']}"
         label = {
@@ -58,10 +63,33 @@ def render_summary(manifest, report, text, repo_url, pr_number, run_url):
             "excluded": "除外・未解析", "unsupported-file-kind": "非通常ファイル・未解析",
         }.get(inventory_by_path[file]["analysis"], "解析状態不明")
         if file in swift_paths:
-            label = "構造観測なし" if swift_paths[file]["observationCount"] == 0 else "Swift変更"
-        lines.append(f'- [{label}] <a href="{html.escape(url, quote=True)}"><code>{html.escape(file)}</code></a>')
-    if len(files) > 20:
-        lines.append(f"残り{len(files) - 20}ファイルはcandidate.compactのinventory.changesとPRのFiles changedを参照してください。")
+            item = swift_paths[file]
+            bodies = bodies_by_path.get(file, [])
+            labels = [f"構造観測 {item['observationCount']}件"]
+            syntax_only = sum(b["status"] == "changed-syntax-only" for b in bodies)
+            skipped = sum(b["status"] == "not-compared" for b in bodies)
+            if syntax_only:
+                labels.append(f"本体token変更 {syntax_only}本体（構造指標は同じ）")
+            if skipped:
+                labels.append(f"本体未比較 {skipped}本体")
+            if not item["syntaxChanged"]:
+                labels.append("コメント・整形のみ")
+            elif not item["observationCount"] and not bodies:
+                labels.append("ファイルdiffで確認")
+            label = " / ".join(labels)
+        return f'- <a href="{html.escape(url, quote=True)}"><code>{html.escape(file)}</code></a> — [{html.escape(label)}]'
+
+    analyzed = [file for file in files if file in swift_paths]
+    remaining = [file for file in files if file not in swift_paths]
+    lines += [file_line(file) for file in analyzed[:20]]
+    if len(analyzed) > 20:
+        lines.append(f"残り{len(analyzed) - 20}Swiftファイルはcandidate.compactのinventory.changesとPRのFiles changedを参照してください。")
+    if remaining:
+        lines += ["", f"<details><summary>その他の変更 {len(remaining)}パス（解析状態付き）</summary>", ""]
+        lines += [file_line(file) for file in remaining[:5]]
+        if len(remaining) > 5:
+            lines.append(f"残り{len(remaining) - 5}パスはcandidate.compactのinventory.changesとPRのFiles changedを参照してください。")
+        lines += ["", "</details>"]
     # The runner-local replay command cannot be copied into a local checkout.
     display = "\n".join(line for line in text.splitlines() if not line.startswith("Inspect source hunks:"))
     escaped = html.escape(tree_text(display))

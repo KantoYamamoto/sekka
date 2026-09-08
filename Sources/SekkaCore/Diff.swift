@@ -172,22 +172,19 @@ public enum Renderer {
     var lines = [
       "Sekka · structural delta (syntax-only)",
       "\(report.beforeLabel) → \(report.afterLabel)",
-    ] + (report.inventory?.textLines ?? []) + [
+    ] + ReviewEntry.textLines(report) + [
       "Analyzed Swift files: \(report.beforeFiles) → \(report.afterFiles)",
       "Changed Swift files: \(coverage.changedFiles.count) · with observations: \(coverage.changedFiles.count - without.count) · without observations: \(without.count)",
       "\(report.findings.count) observations. These counts are not a coverage percentage.", "",
     ]
-    if !without.isEmpty {
-      lines.append("Changed files without structural observations (review the ordinary diff):")
-      lines += without.map {
-        "  \($0.file) [\($0.change)]" + ($0.syntaxChanged ? "" : " — comments/formatting only")
-      }
-      lines.append("")
-    }
     lines += [
       "Bodies in changed files: \(coverage.comparedBodyCount) compared · \(coverage.unchangedBodyCount) token-identical · \(coverage.skippedBodyCount) not compared",
-      "Body comparison checks tokens/counts, not behavior. Unchanged bodies are omitted below.", "",
+      "Body comparison checks tokens/counts, not behavior. Unchanged bodies are omitted below.",
     ]
+    if coverage.bodyComparisons.contains(where: { $0.status == "changed-syntax-only" }) {
+      lines.append("changed-syntax-only: body tokens changed; tracked structural counts did not.")
+    }
+    lines.append("")
     let findings = Dictionary(grouping: report.findings, by: \.typeID)
     let bodies = Dictionary(grouping: coverage.bodyComparisons, by: \.typeID)
     for id in Set(findings.keys).union(bodies.keys).sorted() {
@@ -236,7 +233,9 @@ public enum Renderer {
         let at =
           body.afterLocation.map { "after:\($0.line)" } ?? "before:\(body.beforeLocation!.line)"
         lines.append("  [\(body.status)] \(body.member) (\(at))")
-        lines.append("    " + coverageExplanation(body.reason))
+        if body.status != "changed-syntax-only" {
+          lines.append("    " + coverageExplanation(body.reason))
+        }
       }
       lines.append("")
     }

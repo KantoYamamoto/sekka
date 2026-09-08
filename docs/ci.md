@@ -14,7 +14,7 @@ sekka diff origin/main --head HEAD --merge-base --format github
 
 [解析workflow](../.github/workflows/pr-review.yml)はread-onlyでPR版Sekkaをビルドし、テスト・CLIチェック・構造案内・固定probeを実行します。[投稿workflow](../.github/workflows/pr-comment.yml)はdefault branchのコードで結果を読み、現在のhead/baseを照合してbotコメント1件を更新します。古いheadの結果は投稿しません。
 
-コメントとジョブ要約は同じレンダラーを使います。CLI/JSONと共通のinventoryから確認ファイルのリンクを先に示し（最大20件・省略数と完全版への入口付き）、罫線付きの詳細を折りたたみます。長い行は横スクロールし、詳細表示は16,000文字に制限します。完全版のtext/JSON、通常diff、入力ID・評価器hash、境界15件のprobes.jsonと設計の問い6件のdesign-review.jsonはartifactへ14日間保存します。
+コメントとジョブ要約は同じレンダラーを使います。CLI/JSONと共通のinventory・coverageからSwift確認先のリンクと構造観測・本体比較状態を先に示します（最大20件）。その他の変更は件数を常時表示し、最大5パスを折りたたみます。どちらも省略数と完全版への入口を表示します。罫線付きの型別詳細も折りたたみます。長い行は横スクロールし、詳細表示は16,000文字に制限します。完全版のtext/JSON、通常diff、入力ID・評価器hash、境界15件のprobes.jsonと設計の問い6件のdesign-review.jsonはartifactへ14日間保存します。
 
 テストや解析に失敗した場合、現在のheadに対応するコメントを結果更新失敗の案内へ差し替えます。APIの権限不足やartifact不整合などで投稿できない場合は投稿workflowのログを確認してください。
 
