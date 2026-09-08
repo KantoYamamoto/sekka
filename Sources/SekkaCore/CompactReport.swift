@@ -115,6 +115,7 @@ private struct CompactReport: Encodable {
   let coverage: ComparisonCoverage
   let inventory: ComparisonInventory?
   let notices: [Notice]
+  let omittedUnchangedConditionalNoticeCount: Int?
   let limitations: [String]
   init(_ report: DiffReport) {
     beforeLabel = report.beforeLabel
@@ -124,7 +125,10 @@ private struct CompactReport: Encodable {
     findings = report.findings.map(CompactFinding.init)
     coverage = report.coverage
     inventory = report.inventory
-    notices = report.notices
+    let changed = Set(report.coverage.changedFiles.map(\.file))
+    notices = report.notices.filter { $0.conditionalHeader == nil || changed.contains($0.location.file) }
+    let omitted = report.notices.count - notices.count
+    omittedUnchangedConditionalNoticeCount = omitted == 0 ? nil : omitted
     limitations = report.limitations
   }
 }

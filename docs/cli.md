@@ -46,7 +46,7 @@ textは型ごとに観測をまとめます。同じ型内で前後とも名前�
 
 比較した本体数とtoken列が同一だった本体数も表示します。同一本体の一覧は省略します。token比較はコメント・整形を除外し、呼び出し式・リテラルの変更を認識しますが、実行結果の正しさは判定しません。本体比較対象外のトップレベル関数等は、ファイルの変更としては見えますが、個別本体の一覧には出ません。構造観測があるファイルでも、全変更を説明できているとは限りません。
 
-diffのtextでは、全`#if`分岐を読むという共通NOTEを一度だけ表示します。条件ヘッダーが前後で一致しない場合は位置付きで表示し、重複型の照合に関する注意は個別に残します。全位置の前後一覧はJSONの`notices`に保持します。
+diffのtextでは、全`#if`分岐を読むという共通NOTEを一度だけ表示します。条件ヘッダーが前後で一致しない場合は位置付きで表示し、重複型の照合に関する注意は個別に残します。全位置の前後一覧はfull JSONの`notices`に保持します。
 
 ## 案内から通常diffへ進む
 
@@ -69,7 +69,9 @@ sekka diff BASE --head HEAD --show-diff 'Sources/Model.swift' --at after:123 --e
 
 型表記集合の変更では、`unchangedTypeExpressions`に共通の表記を辞書順で最大5件含めます。残りがあれば`omittedUnchangedTypeExpressionCount`を持ちます。全件はfullのbefore/after共通部分から確認できます。
 
-`--json-detail full` なら`before` / `after` リストに加え、要約に使った引数情報を取得できます。両モードで `inventory`, `coverage`, `notices`, `limitations` は同一です。fullでもschema番号は2です。
+`--json-detail full` なら`before` / `after` リストに加え、要約に使った引数情報を取得できます。両モードで `inventory`, `coverage`, `limitations` は同一です。fullでもschema番号は2です。
+
+compactの`notices`は未変更Swiftファイルの条件コンパイル位置を省き、省略があれば`omittedUnchangedConditionalNoticeCount`を持ちます。全分岐を読む共通制約は`limitations`に残ります。変更ファイルの条件位置と、曖昧な照合などその他の注意は保持します。全位置は`--json-detail full`の`notices`で取得できます。入力の構文解析やエラー検出は省略しません。
 
 `coverage.changedFiles` は各ファイルの追加/削除/変更、構文変化の有無、構造観測数を持ちます。`coverage.bodyComparisons` は変更または比較省略の一覧です。理由コードは `parameter-clause-changed`, `no-exact-member-match`, `ambiguous-member-identity`, `ambiguous-type-identity`, `body-added`, `body-removed`, `type-added`, `type-removed`, `tracked-counts-changed`, `tracked-counts-unchanged`。型の追加・削除では比較相手がない本体もJSONに明示します。textでは宣言一覧と重なる追加・削除の本体説明を型ごとの件数にまとめ、先頭3本体のbefore/after行番号と省略数を添えます。既存型は宣言が追加だけ・削除だけの場合に限り集約し、改名や引数変更、曖昧な照合は個別に表示します。詳細は`coverage.bodyComparisons`を参照してください。
 

@@ -7,7 +7,7 @@ enum NoticePresentation {
     var lines: [String] = []
     if !old.isEmpty || !new.isEmpty {
       lines.append(
-        "NOTE All #if branches are included, regardless of build configuration. Blocks: \(old.count) → \(new.count). Positions before/after: --format json → notices."
+        "NOTE All #if branches are included, regardless of build configuration. Blocks: \(old.count) → \(new.count). Positions before/after: --format json --json-detail full → notices."
       )
       // Match a multiset of headers per file, ignoring line shifts and body changes.
       // An unmatched header is not proof that a whole block was added/deleted.

@@ -117,8 +117,8 @@ public enum Differ {
       afterFiles: after.files,
       findings: findings,
       notices: before.notices.map {
-        Notice(location: $0.location, message: "Before: " + $0.message)
-      } + after.notices.map { Notice(location: $0.location, message: "After: " + $0.message) },
+        Notice(location: $0.location, message: "Before: " + $0.message, conditionalHeader: $0.conditionalHeader)
+      } + after.notices.map { Notice(location: $0.location, message: "After: " + $0.message, conditionalHeader: $0.conditionalHeader) },
       limitations: after.limitations,
       coverage: CoverageBuilder.build(before, after, findings: findings))
     report.textNotices = NoticePresentation.lines(before: before.notices, after: after.notices)
