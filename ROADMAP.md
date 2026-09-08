@@ -8,7 +8,7 @@
 
 構文差分・型別要約・引数差分・本体比較状態・diffへの案内・自身のCI/PRコメントは実装済みです。初期値変更の盲点修正も[PR #27](https://github.com/KantoYamamoto/sekka/pull/27)で完了しました。一方、既存の役割分担を見直す助けになるか、通常diffのみよりレビューの手間や見落としが減るかは未確立です。
 
-**全変更一覧（#34）・Git実行境界（#45）・確認先の統合実装（#35/PR #47）は完了。現在は#36で、再現した初期値・片側宣言の移動を修正している。次は#38の再掲ノイズ比較。** [試用報告](docs/validation/bloom-feedback.md)に基づき、解析項目追加より入口を整える。#35の新しいPRレンダラーは次の実投稿で確認する。
+**全変更一覧（#34）・Git実行境界（#45）・確認先統合（#35）・初期値と片側宣言の移動（#36）は完了。現在は#38で比較したcompact JSONのNOTE整理を実装検証中。次は未読入力でのM2比較を組み直す。** [試用報告](docs/validation/bloom-feedback.md)に基づき、解析項目追加より入口を整えた。#35の新しいPRレンダラーは[PR #48の実コメント](https://github.com/KantoYamamoto/sekka/pull/48#issuecomment-5582855713)をブラウザで確認済み。
 
 [#8の独立A/B比較](docs/validation/v03-01-results.md)は実施済み。両担当はほぼ同じ確認先に到達し、Sekka固有の利益は確認できなかった。中断・検索失敗があるため速度比較は判定不能。#41は[修正・固定入力検証済み](docs/validation/ambiguous-structure.md)。#35/#38で読む負担を整理してから未読入力で次の比較を選ぶ。Mermaid生成は保留。[Sekka自身の試用報告](docs/validation/sekka-pr-feedback.md)も統合し、当面は大きなSwift PRへのopt-in CLI/artifactを利用仮説とする。全PRの常設botは推奨しない。
 
@@ -33,9 +33,9 @@
 | [#34](https://github.com/KantoYamamoto/sekka/issues/34) 全変更一覧 | CLI/JSON/PRで非Swift・除外・解析済みの対象範囲が一致 | 完了・PR #43/#44の最終CI・実コメント確認。[検証記録](docs/validation/comparison-inventory.md) |
 | [#41](https://github.com/KantoYamamoto/sekka/issues/41) 同名宣言の対応 | extension先頭追加を既存メンバーの置換と誤表示しない | 完了。[PR #42](https://github.com/KantoYamamoto/sekka/pull/42)の最終CI・実コメントを確認 |
 | [#45](https://github.com/KantoYamamoto/sekka/issues/45) Gitの実行境界 | 対象repoのfilter/fsmonitorを実行せず一覧を取得する | 完了・[PR #46](https://github.com/KantoYamamoto/sekka/pull/46)。独立実装レビュー・最終CI・実コメント確認 |
-| [#35](https://github.com/KantoYamamoto/sekka/issues/35) 確認先を統合 | 本体のみ・比較相手なしへの入口と詳細が重複しない | PR #47マージ・CI/dry-run完了。次のPRで実投稿確認。[記録](docs/validation/integrated-review-index.md) |
-| [#36](https://github.com/KantoYamamoto/sekka/issues/36) 初期値の案内 | フォールバック再現と前後式/hunk表示の比較 | 再現完了・hunk選択の修正を実装検証中。[判断0028](docs/decisions/0028-declaration-navigation.md) |
-| [#38](https://github.com/KantoYamamoto/sekka/issues/38) 再掲ノイズ | 既存型表記とcompact JSONのnoticeを、省略・任意表示含めて比較 | #34の対象範囲を使い、#35と整合。1検証 |
+| [#35](https://github.com/KantoYamamoto/sekka/issues/35) 確認先を統合 | 本体のみ・比較相手なしへの入口と詳細が重複しない | 完了・PR #47/#48の最終CI・実投稿・展開表示を確認。[記録](docs/validation/integrated-review-index.md) |
+| [#36](https://github.com/KantoYamamoto/sekka/issues/36) 初期値の案内 | フォールバック再現と前後式/hunk表示の比較 | 完了・PR #48の最終CIと実コメント確認。[記録](docs/validation/declaration-navigation.md) |
+| [#38](https://github.com/KantoYamamoto/sekka/issues/38) 再掲ノイズ | 既存型表記とcompact JSONのnoticeを、省略・任意表示含めて比較 | 比較完了・NOTE整理を実装検証中。既存型表記は暫定維持。[判断0029](docs/decisions/0029-compact-notice-scope.md) |
 | [#39](https://github.com/KantoYamamoto/sekka/issues/39) 試用配布 | 1環境で初回導入時間・実行互換性・成果物由来を検証 | #34/#35の後。Homebrewや広範なM3導入は含めない |
 | [#8](https://github.com/KantoYamamoto/sekka/issues/8) API・モデル比較 | 役割/APIの拡大について理由付き確認先を選べるか | 初回完了・[結果と制約](docs/validation/v03-01-results.md)。M2全体は未完了 |
 | [#9](https://github.com/KantoYamamoto/sekka/issues/9) SwiftUI比較 | 状態・表示の配置を考える入口になるか | #34/#41と出力整理の後、未読入力・資料取得・読取り順を固定して選び直す |
