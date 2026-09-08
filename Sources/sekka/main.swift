@@ -12,7 +12,7 @@ private let help = """
   Options:
     --format text|json|github  Output format (default: text; github requires Git diff)
     --json-detail compact|full  Diff JSON detail (default: compact; schema version 2)
-    --exclude PATH            Exclude a relative file/directory prefix; repeatable
+    --exclude PATH            Exclude a relative prefix from Swift analysis; repeatable
     --fail-on-findings        Exit 1 for observations (default: exit 0)
     --head REF                Compare a committed head; default: working tree
     --merge-base              Compare against merge-base(REF, HEAD/--head)
@@ -23,8 +23,9 @@ private let help = """
     --version                 Show version
 
   Git mode analyzes the entire repository, even when --path is a subdirectory.
-  Working tree includes staged/unstaged/untracked non-ignored Swift files.
-  Directory mode does not interpret .gitignore. Symlinks are skipped in both modes.
+  Working tree includes staged/unstaged/untracked non-ignored files; only Swift is parsed.
+  Directory mode does not interpret .gitignore. Symlinks are not parsed; Git inventory lists them.
+  Git filters/fsmonitor are disabled. Submodule worktrees are not inspected.
   Defaults exclude .build, .swiftpm, .git, Pods, Carthage, DerivedData.
   Exit codes: 0 success, 1 observations with --fail-on-findings, 2 input/analysis error.
   """

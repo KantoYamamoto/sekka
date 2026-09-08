@@ -28,8 +28,11 @@ extension Inputs {
   ) throws -> ComparisonInventory {
     let base = try revision(base, at: root)
     let head = try head.map { try revision($0, at: root) }
-    var arguments = ["diff", "--raw", "--no-abbrev", "--no-renames", "--no-ext-diff", "--no-textconv",
-      "--ignore-submodules=none", "-z", base]
+    var arguments: [String] = []
+    if head == nil { arguments = try disabledFilterConfiguration(at: root) }
+    arguments += [
+      "diff", "--raw", "--no-abbrev", "--no-renames", "--no-ext-diff", "--no-textconv",
+      "--ignore-submodules=dirty", "-z", base]
     if let head { arguments.append(head) }
     arguments.append("--")
     let fields = try runGit(arguments, at: root).split(separator: "\0", omittingEmptySubsequences: false)
@@ -91,8 +94,28 @@ extension Inputs {
       }
     }
     return ComparisonInventory(
-      scope: head == nil ? "git-worktree (tracked changes and non-ignored untracked paths)" : "git-revisions (all changed paths)",
+      scope: head == nil
+        ? "git-worktree (tracked changes and non-ignored untracked paths; filters disabled; submodule worktrees not inspected)"
+        : "git-revisions (all changed paths)",
       changes: changes.values.sorted { $0.file < $1.file })
+  }
+
+  private static func disabledFilterConfiguration(at root: String) throws -> [String] {
+    // --no-ext-diff/--no-textconv do not disable clean/process filters.
+    let keys = try runGit(["config", "--null", "--list", "--name-only"], at: root)
+    let drivers = Set(keys.split(separator: "\0").compactMap { key -> String? in
+      guard key.hasPrefix("filter."), let dot = key.lastIndex(of: "."),
+        ["clean", "smudge", "process", "required"].contains(String(key[key.index(after: dot)...]))
+      else { return nil }
+      return String(key[..<dot])
+    })
+    guard !drivers.contains(where: { $0.contains("=") }) else {
+      throw SekkaError.message("Unsupported filter driver name; cannot safely disable Git filters")
+    }
+    return drivers.sorted().flatMap { driver in
+      ["-c", driver + ".clean=", "-c", driver + ".smudge=",
+        "-c", driver + ".process=", "-c", driver + ".required=false"]
+    }
   }
 
   public static func directoryChanges(

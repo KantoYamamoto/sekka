@@ -165,4 +165,36 @@ with tempfile.TemporaryDirectory(prefix="sekka-smoke-") as temporary:
     assert "Copy1.swift" in {x["file"] for x in hinted["coverage"]["changedFiles"]}
     assert "Copy1.swift" in {x["file"] for x in hinted["inventory"]["changes"]}
 
+with tempfile.TemporaryDirectory(prefix="sekka-git-filters-") as temporary:
+    repo = Path(temporary)
+    git("init", "-b", "main")
+    (repo / "Model.swift").write_text("struct Model {}\n")
+    (repo / "README.md").write_text("before\n")
+    git("add", ".")
+    git("commit", "-m", "filter test base")
+    (repo / ".gitattributes").write_text("*.md filter=marker\n")
+    (repo / "README.md").write_text("after\n")
+    git("config", "filter.marker.clean", "touch clean-ran; cat")
+    git("config", "filter.marker.required", "true")
+    git("config", "core.fsmonitor", "touch fsmonitor-ran; echo invalid")
+    result = json.loads(run("diff", "HEAD", "--format", "json").stdout)
+    assert not (repo / "clean-ran").exists()
+    assert not (repo / "fsmonitor-ran").exists()
+    assert "README.md" in {x["file"] for x in result["inventory"]["changes"]}
+    git("config", "filter.marker.process", "touch process-ran; exit 1")
+    result = json.loads(run("diff", "HEAD", "--format", "json").stdout)
+    assert not (repo / "process-ran").exists()
+    assert not (repo / "clean-ran").exists()
+    assert not (repo / "fsmonitor-ran").exists()
+    assert "README.md" in {x["file"] for x in result["inventory"]["changes"]}
+
+    # '=' cannot be represented unambiguously in Git's -c key=value override.
+    git("config", "filter.equals=marker.clean", "touch escaped-filter-ran; cat")
+    run("diff", "HEAD", code=2)
+    assert not (repo / "escaped-filter-ran").exists()
+    # Committed snapshots never need worktree normalization or filter overrides.
+    fixed = json.loads(run("diff", "HEAD", "--head", "HEAD", "--format", "json").stdout)
+    assert fixed["inventory"]["changes"] == []
+    assert not (repo / "escaped-filter-ran").exists()
+
 print(f"PASS: {checks} CLI/Git checks")
