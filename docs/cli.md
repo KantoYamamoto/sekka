@@ -77,7 +77,7 @@ sekka diff BASE --head HEAD --show-diff 'Sources/Model.swift' --at after:123 --e
 
 `diff` の `inventory` は比較入力の変更パス一覧です。`scope` が収集範囲、`changes` が `file`・`change`（added/deleted/modified）・`analysis`（swift/non-swift/excluded/unsupported-file-kind）を保持します。`coverage` は従来どおり解析したSwiftソースと選択した本体の比較状態であり、全変更の網羅率ではありません。
 
-Git比較はバイナリ・モード変更・リンクを含む変更パスを列挙し、worktreeでは非ignoredのuntrackedも含めます。renameは追加/削除です。ディレクトリ比較は通常ファイルの内容が対象で、リンクと既定除外パスを探索せず、モードだけの変更は扱いません。追加の `--exclude` は解析から除外する指定で、変更一覧には残ります。
+Git比較はバイナリ・モード変更・リンクを含む変更パスを列挙し、worktreeでは非ignoredのuntrackedも含めます。renameは追加/削除です。ディレクトリ比較は通常ファイルの内容が対象で、リンクと既定除外パスを探索せず、モードだけの変更は扱いません。追加の `--exclude` は解析から除外する指定で、変更一覧には残ります。indexから外れたパスもbaseと内容・modeを照合します。Gitが一覧に出さなくても解析済みSwiftのraw source差分は補い、その場合はscopeに明記します。
 
 textは先頭20パスと省略数、JSONは完全な一覧を返します。非Swiftだけの変更も表示します。Swift入力も変更もない空の比較は終了コード2です。対象外ファイルへの `--show-diff` は対応せず、通常のGit diffを使います。`--expect-input` は解析したSwift入力の一致確認で、非Swiftまで含む変更全体のIDではありません。
 
