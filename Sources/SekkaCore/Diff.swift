@@ -172,6 +172,7 @@ public enum Renderer {
     var lines = [
       "Sekka · structural delta (syntax-only)",
       "\(report.beforeLabel) → \(report.afterLabel)",
+    ] + (report.inventory?.textLines ?? []) + [
       "Analyzed Swift files: \(report.beforeFiles) → \(report.afterFiles)",
       "Changed Swift files: \(coverage.changedFiles.count) · with observations: \(coverage.changedFiles.count - without.count) · without observations: \(without.count)",
       "\(report.findings.count) observations. These counts are not a coverage percentage.", "",
@@ -284,6 +285,9 @@ public enum Renderer {
         + "\nAdded: " + delta.added.joined(separator: "; ") + "\n" + parameters
       return
         "::notice \(position)title=\(escape("Sekka / " + $0.rule, property: true))::\(escape($0.type + ": " + detail))"
+    }
+    if let inventory = report.inventory {
+      lines.append("::notice title=Sekka comparison scope::" + escape(inventory.textLines.joined(separator: "\n")))
     }
     for file in report.coverage.changedFiles where file.observationCount == 0 {
       lines.append(

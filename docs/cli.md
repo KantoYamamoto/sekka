@@ -67,11 +67,19 @@ sekka diff BASE --head HEAD --show-diff 'Sources/Model.swift' --at after:123 --e
 
 型表記集合の変更では、`unchangedTypeExpressions`に共通の表記を辞書順で最大5件含めます。残りがあれば`omittedUnchangedTypeExpressionCount`を持ちます。全件はfullのbefore/after共通部分から確認できます。
 
-`--json-detail full` なら`before` / `after` リストに加え、要約に使った引数情報を取得できます。両モードで `coverage`, `notices`, `limitations` は同一です。fullでもschema番号は2です。
+`--json-detail full` なら`before` / `after` リストに加え、要約に使った引数情報を取得できます。両モードで `inventory`, `coverage`, `notices`, `limitations` は同一です。fullでもschema番号は2です。
 
 `coverage.changedFiles` は各ファイルの追加/削除/変更、構文変化の有無、構造観測数を持ちます。`coverage.bodyComparisons` は変更または比較省略の一覧です。理由コードは `parameter-clause-changed`, `no-exact-member-match`, `ambiguous-member-identity`, `ambiguous-type-identity`, `body-added`, `body-removed`, `type-added`, `type-removed`, `tracked-counts-changed`, `tracked-counts-unchanged`。型の追加・削除では比較相手がない本体もJSONに明示します。textでは宣言一覧と重なる追加・削除の本体説明を型ごとの件数にまとめます。既存型は宣言が追加だけ・削除だけの場合に限り集約し、改名や引数変更、曖昧な照合は個別に表示します。詳細は`coverage.bodyComparisons`を参照してください。
 
 `scan --format json` はsnapshotを出力し、`--json-detail` は指定できません。token列・元ソースは内部比較専用でJSONには出しません。
+
+## 比較対象と解析範囲
+
+`diff` の `inventory` は比較入力の変更パス一覧です。`scope` が収集範囲、`changes` が `file`・`change`（added/deleted/modified）・`analysis`（swift/non-swift/excluded/unsupported-file-kind）を保持します。`coverage` は従来どおり解析したSwiftソースと選択した本体の比較状態であり、全変更の網羅率ではありません。
+
+Git比較はバイナリ・モード変更・リンクを含む変更パスを列挙し、worktreeでは非ignoredのuntrackedも含めます。renameは追加/削除です。ディレクトリ比較は通常ファイルの内容が対象で、リンクと既定除外パスを探索せず、モードだけの変更は扱いません。追加の `--exclude` は解析から除外する指定で、変更一覧には残ります。indexから外れたパスもbaseと内容・modeを照合します。Gitが一覧に出さなくても解析済みSwiftのraw source差分は補い、その場合はscopeに明記します。
+
+textは先頭20パスと省略数、JSONは完全な一覧を返します。非Swiftだけの変更も表示します。Swift入力も変更もない空の比較は終了コード2です。対象外ファイルへの `--show-diff` は対応せず、通常のGit diffを使います。`--expect-input` は解析したSwift入力の一致確認で、非Swiftまで含む変更全体のIDではありません。
 
 ## 観測する事実
 

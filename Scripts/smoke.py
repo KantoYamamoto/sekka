@@ -111,4 +111,58 @@ with tempfile.TemporaryDirectory(prefix="sekka-smoke-") as temporary:
     (repo / "Empty").mkdir()
     run("diff", "--before", str(repo / "Empty"), "--after", str(repo / "Empty"), code=2)
 
+    # Comparison inventory includes paths that Swift parsing never sees.
+    inventory_base = git("rev-parse", "HEAD")
+    (repo / "README.md").write_text("Documentation only\n")
+    (repo / "image.bin").write_bytes(bytes([0, 255, 1]))
+    git("add", "README.md", "image.bin")
+    git("commit", "-m", "non-Swift changes")
+    metadata = json.loads(run("diff", inventory_base, "--head", "HEAD", "--format", "json").stdout)
+    assert [(x["file"], x["analysis"]) for x in metadata["inventory"]["changes"]] == [
+        ("README.md", "non-swift"), ("image.bin", "non-swift")]
+    assert metadata["coverage"]["changedFiles"] == []
+    text = run("diff", inventory_base, "--head", "HEAD").stdout
+    assert "Changes exist, but none are analyzed as Swift" in text and "README.md" in text
+    full = json.loads(run("diff", inventory_base, "--head", "HEAD", "--format", "json", "--json-detail", "full").stdout)
+    assert full["inventory"] == metadata["inventory"]
+
+    (repo / "Model.swift").chmod(0o755)
+    (repo / "README.md").unlink()
+    (repo / "line\nbreak.md").write_text("Untracked\n")
+    (repo / "Link.swift").symlink_to("Model.swift")
+    (repo / "Excluded.swift").write_text("struct { invalid")
+    worktree = json.loads(run("diff", "HEAD", "--exclude", "Excluded.swift", "--format", "json").stdout)
+    items = {x["file"]: x for x in worktree["inventory"]["changes"]}
+    assert items["Model.swift"]["change"] == "modified"
+    assert items["README.md"]["change"] == "deleted"
+    assert items["line\nbreak.md"]["change"] == "added"
+    assert items["Link.swift"]["analysis"] == "unsupported-file-kind"
+    assert items["Excluded.swift"]["analysis"] == "excluded"
+    assert "Ignored.swift" not in items
+
+    (repo / "DocsBefore").mkdir()
+    (repo / "DocsAfter").mkdir()
+    (repo / "DocsAfter/README.md").write_text("No Swift in either directory\n")
+    docs_only = json.loads(run("diff", "--before", str(repo / "DocsBefore"), "--after", str(repo / "DocsAfter"), "--format", "json").stdout)
+    assert docs_only["beforeFiles"] == docs_only["afterFiles"] == 0
+    assert docs_only["inventory"]["changes"][0]["file"] == "README.md"
+
+    # Index removal alone is not a content change in a base-to-worktree comparison.
+    (repo / "Retained.md").write_text("retained\n")
+    git("add", "Retained.md")
+    git("commit", "-m", "retained comparison base")
+    git("rm", "--cached", "Retained.md")
+    same = json.loads(run("diff", "HEAD", "--exclude", "Excluded.swift", "--format", "json").stdout)
+    assert not any(x["file"] == "Retained.md" for x in same["inventory"]["changes"])
+    (repo / "Retained.md").write_text("changed\n")
+    changed = json.loads(run("diff", "HEAD", "--exclude", "Excluded.swift", "--format", "json").stdout)
+    assert next(x for x in changed["inventory"]["changes"] if x["file"] == "Retained.md")["change"] == "modified"
+
+    # Git index hints must not hide Swift changes already read by the analyzer.
+    git("update-index", "--assume-unchanged", "Copy1.swift")
+    (repo / "Copy1.swift").write_text("struct Copy { var added: Int }\n")
+    hinted = json.loads(run("diff", "HEAD", "--exclude", "Excluded.swift", "--format", "json").stdout)
+    assert "Copy1.swift" in {x["file"] for x in hinted["coverage"]["changedFiles"]}
+    assert "Copy1.swift" in {x["file"] for x in hinted["inventory"]["changes"]}
+
 print(f"PASS: {checks} CLI/Git checks")
