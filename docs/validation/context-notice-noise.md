@@ -1,5 +1,7 @@
 # 再掲文脈と条件コンパイル位置: #38
 
+[PR #49](https://github.com/KantoYamamoto/sekka/pull/49)マージ済み。最終head `eea9291` のActions `34211864954` が成功。8成果物でcompact notices 0・省略22・full notices 22を照合し、実コメント `5583050995` のheadとfull位置への案内を確認した。
+
 2026-09-08。既存の設計6ケース、`struct Report { let finding: Finding }`へ`let location: Location`を追加する合成例、Sekka PR #33を使った編集比較。rawはignoredの`.build/context-noise`。独立レビューではなく既読入力の比較である。
 
 | 比較 | 結果と判断 |
