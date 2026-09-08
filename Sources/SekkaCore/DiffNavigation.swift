@@ -17,36 +17,15 @@ public enum DiffNavigation {
       guard parts.count == 2, ["before", "after"].contains(parts[0]),
         let line = Int(parts[1]), line > 0
       else { throw SekkaError.message("--at must be before:LINE or after:LINE (positive line)") }
-      let oldSide = parts[0] == "before"
-      let snapshot = oldSide ? before : after
-      let members = snapshot.types.flatMap(\.members).filter {
-        $0.location.file == file && $0.body != nil
-          && $0.location.line <= line && ($0.endLine ?? $0.location.line) >= line
-      }
-      let matches = report.coverage.bodyComparisons.filter {
-        let location = oldSide ? $0.beforeLocation : $0.afterLocation
-        return members.count == 1 && location == members[0].location
-      }
-      if members.count == 1, matches.count == 1,
-        !["ambiguous-member-identity", "ambiguous-type-identity", "no-exact-member-match"].contains(matches[0].reason)
+      if let ranges = declarationRanges(
+        before: before, after: after, report: report, file: file,
+        line: line, oldSide: parts[0] == "before")
       {
-        let match = matches[0]
-        func range(_ snapshot: Snapshot, _ location: Location?) -> ClosedRange<Int>? {
-          guard let location else { return nil }
-          let candidates = snapshot.types.filter { $0.id == match.typeID }.flatMap(\.members)
-            .filter { $0.location == location && $0.body != nil }
-          guard candidates.count == 1, let end = candidates[0].endLine else { return nil }
-          return location.line...end
-        }
-        let oldRange = range(before, match.beforeLocation)
-        let newRange = range(after, match.afterLocation)
-        if (match.beforeLocation == nil || oldRange != nil)
-          && (match.afterLocation == nil || newRange != nil)
-        {
-          selected = hunks.filter { $0.overlaps(oldRange, before: true) || $0.overlaps(newRange, before: false) }
-          scope = "Hunks overlapping declaration \(at); includes context and may include adjacent changes."
-        } else {
-          scope = "Declaration correspondence unavailable; showing all file hunks."
+        selected = hunks.filter { $0.overlaps(ranges.before, before: true) || $0.overlaps(ranges.after, before: false) }
+        scope = "Hunks overlapping declaration \(at); includes context and may include adjacent changes."
+        scope += " Selected \(selected.count) of \(hunks.count) file hunks."
+        if !selected.isEmpty && selected.count == hunks.count {
+          scope += " All file hunks overlap this selection; hunks are not clipped to declaration boundaries."
         }
       } else {
         scope = "Declaration correspondence unavailable; showing all file hunks."
@@ -59,6 +38,62 @@ public enum DiffNavigation {
       "Hunk ranges: -before +after. Source text is not a correctness verdict.",
       selected.isEmpty ? "No textual hunk overlaps this selection." : selected.map(\.text).joined(separator: "\n"),
     ].joined(separator: "\n")
+  }
+
+  private struct DeclarationRanges {
+    let before: ClosedRange<Int>?
+    let after: ClosedRange<Int>?
+  }
+
+  private static func declarationRanges(
+    before: Snapshot, after: Snapshot, report: DiffReport, file: String,
+    line: Int, oldSide: Bool
+  ) -> DeclarationRanges? {
+    let snapshot = oldSide ? before : after
+    let candidates = snapshot.types.flatMap { type in
+      type.members.filter {
+        $0.location.file == file && ($0.body != nil || $0.kind == "property")
+          && $0.location.line <= line && ($0.endLine ?? $0.location.line) >= line
+      }.map { (type, $0) }
+    }
+    guard candidates.count == 1 else { return nil }
+    let (type, member) = candidates[0]
+    func family(_ snapshot: Snapshot) -> [TypeRecord] {
+      snapshot.types.filter { $0.location.file == file && $0.kind == type.kind && $0.name == type.name }
+    }
+    let oldTypes = family(before)
+    let newTypes = family(after)
+    guard oldTypes.count <= 1, newTypes.count <= 1 else { return nil }
+    func range(_ member: Member?) -> ClosedRange<Int>? {
+      guard let member, let end = member.endLine else { return nil }
+      return member.location.line...end
+    }
+    if member.kind == "property" {
+      // Initializers are not accessor bodies. Select their stored binding ranges directly.
+      let old = oldTypes.first?.members.filter { $0.key == member.key } ?? []
+      let new = newTypes.first?.members.filter { $0.key == member.key } ?? []
+      guard old.count <= 1, new.count <= 1,
+        old.first == nil || range(old.first) != nil,
+        new.first == nil || range(new.first) != nil else { return nil }
+      return DeclarationRanges(before: range(old.first), after: range(new.first))
+    }
+    let matches = report.coverage.bodyComparisons.filter {
+      $0.typeID == type.id && (oldSide ? $0.beforeLocation : $0.afterLocation) == member.location
+    }
+    guard matches.count == 1,
+      !["ambiguous-member-identity", "ambiguous-type-identity"].contains(matches[0].reason)
+    else { return nil }
+    let match = matches[0]
+    // A missing counterpart prevents comparison, but not navigation on the known side.
+    func bodyRange(_ types: [TypeRecord], _ location: Location?) -> ClosedRange<Int>? {
+      guard let location else { return nil }
+      let members = types.flatMap(\.members).filter { $0.location == location && $0.body != nil }
+      return members.count == 1 ? range(members[0]) : nil
+    }
+    let old = bodyRange(oldTypes, match.beforeLocation)
+    let new = bodyRange(newTypes, match.afterLocation)
+    guard (match.beforeLocation == nil || old != nil), (match.afterLocation == nil || new != nil) else { return nil }
+    return DeclarationRanges(before: old, after: new)
   }
 
   private struct Hunk {
