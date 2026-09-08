@@ -147,4 +147,22 @@ with tempfile.TemporaryDirectory(prefix="sekka-smoke-") as temporary:
     assert docs_only["beforeFiles"] == docs_only["afterFiles"] == 0
     assert docs_only["inventory"]["changes"][0]["file"] == "README.md"
 
+    # Index removal alone is not a content change in a base-to-worktree comparison.
+    (repo / "Retained.md").write_text("retained\n")
+    git("add", "Retained.md")
+    git("commit", "-m", "retained comparison base")
+    git("rm", "--cached", "Retained.md")
+    same = json.loads(run("diff", "HEAD", "--exclude", "Excluded.swift", "--format", "json").stdout)
+    assert not any(x["file"] == "Retained.md" for x in same["inventory"]["changes"])
+    (repo / "Retained.md").write_text("changed\n")
+    changed = json.loads(run("diff", "HEAD", "--exclude", "Excluded.swift", "--format", "json").stdout)
+    assert next(x for x in changed["inventory"]["changes"] if x["file"] == "Retained.md")["change"] == "modified"
+
+    # Git index hints must not hide Swift changes already read by the analyzer.
+    git("update-index", "--assume-unchanged", "Copy1.swift")
+    (repo / "Copy1.swift").write_text("struct Copy { var added: Int }\n")
+    hinted = json.loads(run("diff", "HEAD", "--exclude", "Excluded.swift", "--format", "json").stdout)
+    assert "Copy1.swift" in {x["file"] for x in hinted["coverage"]["changedFiles"]}
+    assert "Copy1.swift" in {x["file"] for x in hinted["inventory"]["changes"]}
+
 print(f"PASS: {checks} CLI/Git checks")

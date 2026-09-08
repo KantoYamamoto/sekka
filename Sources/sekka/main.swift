@@ -189,7 +189,7 @@ private func run() throws -> Int32 {
   var report = Differ.compare(
     beforeSnapshot, afterSnapshot, beforeLabel: beforeLabel,
     afterLabel: afterLabel)
-  report.inventory = inventory
+  report.inventory = inventory.includingSwiftChanges(report.coverage.changedFiles)
   let fingerprint = try options.format == "text"
     ? Inputs.fingerprint(before: beforeSnapshot, after: afterSnapshot) : nil
   if let expected = options.expectInput, expected != fingerprint {

@@ -101,8 +101,8 @@ public enum Inputs {
     return extra.contains { path == $0 || path.hasPrefix($0 + "/") }
   }
 
-  static func runGit(_ arguments: [String], at root: String) throws -> String {
-    let data = try runGitData(arguments, at: root)
+  static func runGit(_ arguments: [String], at root: String, input: Data? = nil) throws -> String {
+    let data = try runGitData(arguments, at: root, input: input)
     guard let text = String(data: data, encoding: .utf8) else {
       throw SekkaError.message(
         "Git returned non-UTF-8 data; this prototype supports UTF-8 sources and paths only.")

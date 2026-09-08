@@ -10,6 +10,16 @@ public struct InputChange: Codable, Equatable, Sendable {
 public struct ComparisonInventory: Codable, Equatable, Sendable {
   public let scope: String
   public let changes: [InputChange]
+
+  public func includingSwiftChanges(_ files: [ChangedFile]) -> ComparisonInventory {
+    let known = Set(changes.map(\.file))
+    let additional = files.filter { !known.contains($0.file) }.map {
+      InputChange(file: $0.file, change: $0.change, analysis: "swift")
+    }
+    return ComparisonInventory(
+      scope: scope + (additional.isEmpty ? "" : "; also includes raw Swift-source changes"),
+      changes: (changes + additional).sorted { $0.file < $1.file })
+  }
 }
 
 extension Inputs {
@@ -18,12 +28,13 @@ extension Inputs {
   ) throws -> ComparisonInventory {
     let base = try revision(base, at: root)
     let head = try head.map { try revision($0, at: root) }
-    var arguments = ["diff", "--raw", "--no-renames", "--no-ext-diff", "--no-textconv",
+    var arguments = ["diff", "--raw", "--no-abbrev", "--no-renames", "--no-ext-diff", "--no-textconv",
       "--ignore-submodules=none", "-z", base]
     if let head { arguments.append(head) }
     arguments.append("--")
     let fields = try runGit(arguments, at: root).split(separator: "\0", omittingEmptySubsequences: false)
     var changes: [String: InputChange] = [:]
+    var previous: [String: (mode: String, object: String)] = [:]
     var index = 0
     while index < fields.count - 1 {
       let header = fields[index].split(separator: " ")
@@ -36,6 +47,7 @@ extension Inputs {
         throw SekkaError.message("Unsupported Git changed-file inventory entry")
       }
       let modes = [String(header[0].dropFirst()), String(header[1])]
+      if modes[0] != "000000" { previous[path] = (modes[0], String(header[2])) }
       let regular = modes.allSatisfy { ["000000", "100644", "100755"].contains($0) }
       changes[path] = InputChange(
         file: path, change: status == "A" ? "added" : status == "D" ? "deleted" : "modified",
@@ -47,9 +59,34 @@ extension Inputs {
       for path in names.split(separator: "\0").map(String.init) {
         let url = URL(fileURLWithPath: root).appendingPathComponent(path)
         let values = try url.resourceValues(forKeys: [.isRegularFileKey, .isSymbolicLinkKey])
+        let regular = values.isRegularFile == true && values.isSymbolicLink != true
+        if let prior = previous[path] {
+          // Untracked means absent from the index, not absent from the comparison base.
+          let mode: String
+          let object: String
+          if values.isSymbolicLink == true {
+            mode = "120000"
+            let destination = try FileManager.default.destinationOfSymbolicLink(atPath: url.path)
+            object = try runGit(["hash-object", "--no-filters", "--stdin"], at: root,
+              input: Data(destination.utf8)).trimmingCharacters(in: .newlines)
+          } else if regular {
+            let attributes = try FileManager.default.attributesOfItem(atPath: url.path)
+            let permissions = (attributes[.posixPermissions] as? NSNumber)?.intValue ?? 0
+            mode = permissions & 0o111 == 0 ? "100644" : "100755"
+            object = try runGit(["hash-object", "--no-filters", "--", url.path], at: root)
+              .trimmingCharacters(in: .newlines)
+          } else {
+            mode = "unsupported"
+            object = ""
+          }
+          if prior.mode == mode && prior.object == object {
+            changes.removeValue(forKey: path)
+            continue
+          }
+        }
         changes[path] = InputChange(
-          file: path, change: "added",
-          analysis: analysisStatus(path, regular: values.isRegularFile == true && values.isSymbolicLink != true,
+          file: path, change: previous[path] == nil ? "added" : "modified",
+          analysis: analysisStatus(path, regular: regular,
             excluding: excluding))
       }
     }
