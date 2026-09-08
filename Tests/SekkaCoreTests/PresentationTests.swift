@@ -66,3 +66,27 @@ private func presentationReport(_ before: String, _ after: String) throws -> Dif
   #expect(Renderer.text(duplicate).contains("Repeated declaration identity"))
   #expect(Renderer.text(duplicate).contains("Repeated type identity"))
 }
+
+@Test func reviewIndexDistinguishesBodyOnlyFileOnlyAndTrivia() throws {
+  let old = [("Body.swift", "struct A { func f() { old() } }"),
+    ("Top.swift", "func f() { old() }"), ("Comment.swift", "struct C {}")]
+  let new = [("Body.swift", "struct A { func f() { new() } }"),
+    ("Top.swift", "func f() { new() }"), ("Comment.swift", "// note\nstruct C {}")]
+  let report = try Differ.compare(Analyzer.analyze(old), Analyzer.analyze(new), beforeLabel: "a", afterLabel: "b")
+  let text = Renderer.text(report)
+  #expect(text.contains("Body.swift [modified; 0 structural observations; 1 changed-syntax-only bodies]"))
+  #expect(text.contains("Top.swift [modified; 0 structural observations; file diff only]"))
+  #expect(text.contains("Comment.swift [modified; 0 structural observations; comments/formatting only]"))
+  #expect(!text.contains("Changed files without structural observations"))
+  #expect(text.components(separatedBy: "tracked structural counts did not").count - 1 == 1)
+}
+
+@Test func lifecycleSummaryKeepsBoundedSourcePositionsInLineOrder() throws {
+  let members = (0..<12).map { "func f\($0)() {}" }.joined(separator: "\n")
+  let report = try presentationReport("struct A {}", "struct A {\n" + members + "\n}")
+  let text = Renderer.text(report)
+  #expect(text.contains("after:2, after:3, after:4; +9 more"))
+  #expect(report.coverage.bodyComparisons.count == 12)
+  let removed = try presentationReport("struct A {\n" + members + "\n}", "struct A {}")
+  #expect(Renderer.text(removed).contains("before:2, before:3, before:4; +9 more"))
+}

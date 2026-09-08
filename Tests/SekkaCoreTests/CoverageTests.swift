@@ -22,7 +22,7 @@ private func object(_ text: String) throws -> [String: Any] {
   #expect(report.coverage.changedFiles[0].observationCount == 0)
   #expect(report.coverage.bodyComparisons[0].status == "changed-syntax-only")
   #expect(report.coverage.comparedBodyCount == 1)
-  #expect(Renderer.text(report).contains("Changed files without structural observations"))
+  #expect(Renderer.text(report).contains("0 structural observations; 1 changed-syntax-only bodies"))
   #expect(Renderer.github(report).contains("Body tokens changed"))
 }
 

@@ -55,7 +55,7 @@ import Testing
   #expect(text.contains("Changed paths: 25"))
   #expect(text.contains("5 more paths"))
   #expect(text.contains("Changes exist, but none are analyzed as Swift"))
-  #expect(!text.contains("docs/24.md"))
+  #expect(!text.contains("docs/9.md"))
   for detail in [JSONDetail.compact, .full] {
     let object = try JSONSerialization.jsonObject(with: Data(Renderer.json(report, detail: detail).utf8)) as! [String: Any]
     let data = try JSONSerialization.data(withJSONObject: object["inventory"]!)

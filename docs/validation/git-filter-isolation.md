@@ -1,5 +1,7 @@
 # Git filterの実行境界: #45
 
+[PR #46](https://github.com/KantoYamamoto/sekka/pull/46)はマージ済み。最終head `0246ba2` のActions `34185844354` が成功し、8成果物と実コメント `5579049643` のhead・変更9パスを確認した。別の実装レビュアーもCLI/Git 39チェックと固定commit間のgitlink変更保持を検証し、重要な指摘はなかった。
+
 2026-09-08。[判断0026](../decisions/0026-git-filter-isolation.md)。Gitのraw diffでもclean filterが起動することを、一時repoの無害なmarkerで再現した。対象repoのコードを実行しない契約を補強する。
 
 修正後は、required clean filter・process filter・fsmonitorを設定した一時repoでもmarkerが作られず、READMEの変更を含むinventoryを取得できた。Swift 58テストとCLI/Git 39チェックが通過した。
