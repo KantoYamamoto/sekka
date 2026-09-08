@@ -8,9 +8,9 @@
 
 構文差分・型別要約・引数差分・本体比較状態・diffへの案内・自身のCI/PRコメントは実装済みです。初期値変更の盲点修正も[PR #27](https://github.com/KantoYamamoto/sekka/pull/27)で完了しました。一方、既存の役割分担を見直す助けになるか、通常diffのみよりレビューの手間や見落としが減るかは未確立です。
 
-**次は比較対象全体の欠落を直す#34、その共有モデルで確認先を統合する#35、初期値の案内を再現・比較する#36。** [新しい試用報告](docs/validation/bloom-feedback.md)で、大きいPRの索引としての利益と非Swift変更の省略が具体化した。[判断0023](docs/decisions/0023-review-entry.md)に従い、解析項目追加より先に入口を整える。
+**全変更一覧はPR #43で実装済み。次は、その共有モデルで確認先を統合する#35、初期値の案内を再現・比較する#36。** [試用報告](docs/validation/bloom-feedback.md)で具体化した非Swift変更の省略は、実入力でも修正を確認した。[判断0023](docs/decisions/0023-review-entry.md)に従い、解析項目追加より先に入口を整える。実コメントの運用検証は#34で追跡する。
 
-[#8の独立A/B比較](docs/validation/v03-01-results.md)は実施済み。両担当はほぼ同じ確認先に到達し、Sekka固有の利益は確認できなかった。中断・検索失敗があるため速度比較は判定不能。#41は[修正・固定入力検証済み](docs/validation/ambiguous-structure.md)。#34を先に修正し、#35/#38で読む負担を整理してから未読入力で次の比較を選ぶ。Mermaid生成は保留。[Sekka自身の試用報告](docs/validation/sekka-pr-feedback.md)も統合し、当面は大きなSwift PRへのopt-in CLI/artifactを利用仮説とする。全PRの常設botは推奨しない。
+[#8の独立A/B比較](docs/validation/v03-01-results.md)は実施済み。両担当はほぼ同じ確認先に到達し、Sekka固有の利益は確認できなかった。中断・検索失敗があるため速度比較は判定不能。#41は[修正・固定入力検証済み](docs/validation/ambiguous-structure.md)。#35/#38で読む負担を整理してから未読入力で次の比較を選ぶ。Mermaid生成は保留。[Sekka自身の試用報告](docs/validation/sekka-pr-feedback.md)も統合し、当面は大きなSwift PRへのopt-in CLI/artifactを利用仮説とする。全PRの常設botは推奨しない。
 
 ## マイルストーンと判断の節目
 
@@ -30,7 +30,7 @@
 | [#28](https://github.com/KantoYamamoto/sekka/issues/28) 文書と開発方針の統合 | README/仕様/開発手順/ROADMAPの役割が明確。旧説明・重複・Issueの順序を整理 | 完了・[PR #30](https://github.com/KantoYamamoto/sekka/pull/30) |
 | [#29](https://github.com/KantoYamamoto/sekka/issues/29) 元の問いとの接続を検証 | 3場面と妥当な対照例を固定し、問い→観測→不足文脈を記録。次の一手か見送りを選ぶ | 完了・[記録](docs/validation/structural-questions.md)。独立比較ではない |
 | [#31](https://github.com/KantoYamamoto/sekka/issues/31) 既存表記を添える | Loggerの手掛かりと無関係なIntのノイズ、表示上限・JSON整合を確認 | 完了・PR #33の最終CIと実コメント確認済み |
-| [#34](https://github.com/KantoYamamoto/sekka/issues/34) 全変更一覧 | CLI/JSON/PRで非Swift・除外・解析済みの対象範囲が一致 | 実装・検証中、1 PR |
+| [#34](https://github.com/KantoYamamoto/sekka/issues/34) 全変更一覧 | CLI/JSON/PRで非Swift・除外・解析済みの対象範囲が一致 | PR #43実装・最終CI完了。[検証記録](docs/validation/comparison-inventory.md)。運用確認をIssueで追跡 |
 | [#41](https://github.com/KantoYamamoto/sekka/issues/41) 同名宣言の対応 | extension先頭追加を既存メンバーの置換と誤表示しない | 完了。[PR #42](https://github.com/KantoYamamoto/sekka/pull/42)の最終CI・実コメントを確認 |
 | [#35](https://github.com/KantoYamamoto/sekka/issues/35) 確認先を統合 | 本体のみ・比較相手なしへの入口と詳細が重複しない | #34の共有モデルの後、1 PR |
 | [#36](https://github.com/KantoYamamoto/sekka/issues/36) 初期値の案内 | フォールバック再現と前後式/hunk表示の比較 | 1検証。結果から実装を選ぶ |
