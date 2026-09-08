@@ -1,0 +1,137 @@
+[
+  {
+    "name": "dispatch-spread",
+    "question": "この変更を受け入れる前に、既存の配置まで立ち返る理由があるか。ある場合は具体的な根拠、ない場合はその範囲を示す。",
+    "context": "送信方針と各送信先のライフサイクルは未提示。",
+    "before": {
+      "Logger.swift": "struct Logger {\n    func record(_ event: String) {\n        systemLog(event)\n        crashReport(event)\n    }\n}\n",
+      "Checkout.swift": "struct Checkout {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "SignIn.swift": "struct SignIn {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "Profile.swift": "struct Profile {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n"
+    },
+    "after": {
+      "Logger.swift": "struct Logger {\n    func record(_ event: String) {\n        systemLog(event)\n        crashReport(event)\n    }\n}\n",
+      "Checkout.swift": "struct Checkout {\n    let logger: Logger\n    let analytics: Analytics\n    func completed(_ event: String) {\n        logger.record(event)\n        analytics.record(event)\n    }\n}\n",
+      "SignIn.swift": "struct SignIn {\n    let logger: Logger\n    let analytics: Analytics\n    func completed(_ event: String) {\n        logger.record(event)\n        analytics.record(event)\n    }\n}\n",
+      "Profile.swift": "struct Profile {\n    let logger: Logger\n    let analytics: Analytics\n    func completed(_ event: String) {\n        logger.record(event)\n        analytics.record(event)\n    }\n}\n",
+      "Analytics.swift": "struct Analytics {\n    func record(_ event: String) {\n        sendAnalytics(event)\n    }\n}\n"
+    },
+    "exitCode": 0,
+    "reviewExpectation": "3型に同じ2呼出しの組合せが追加されたことと、以前から複数送信を束ねるLogger.recordを照らせる。中央化を唯一の正解にしない。"
+  },
+  {
+    "name": "dispatch-growth",
+    "question": "この変更を受け入れる前に、既存の配置まで立ち返る理由があるか。ある場合は具体的な根拠、ない場合はその範囲を示す。",
+    "context": "送信方針と各送信先のライフサイクルは未提示。",
+    "before": {
+      "Logger.swift": "struct Logger {\n    func record(_ event: String) {\n        systemLog(event)\n        crashReport(event)\n    }\n}\n",
+      "Checkout.swift": "struct Checkout {\n    let logger: Logger\n    let analytics: Analytics\n    func completed(_ event: String) {\n        logger.record(event)\n        analytics.record(event)\n    }\n}\n",
+      "SignIn.swift": "struct SignIn {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "Profile.swift": "struct Profile {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "Analytics.swift": "struct Analytics {\n    func record(_ event: String) {\n        sendAnalytics(event)\n    }\n}\n"
+    },
+    "after": {
+      "Logger.swift": "struct Logger {\n    func record(_ event: String) {\n        systemLog(event)\n        crashReport(event)\n    }\n}\n",
+      "Checkout.swift": "struct Checkout {\n    let logger: Logger\n    let analytics: Analytics\n    func completed(_ event: String) {\n        logger.record(event)\n        analytics.record(event)\n    }\n}\n",
+      "SignIn.swift": "struct SignIn {\n    let logger: Logger\n    let analytics: Analytics\n    func completed(_ event: String) {\n        logger.record(event)\n        analytics.record(event)\n    }\n}\n",
+      "Profile.swift": "struct Profile {\n    let logger: Logger\n    let analytics: Analytics\n    func completed(_ event: String) {\n        logger.record(event)\n        analytics.record(event)\n    }\n}\n",
+      "Analytics.swift": "struct Analytics {\n    func record(_ event: String) {\n        sendAnalytics(event)\n    }\n}\n"
+    },
+    "exitCode": 0,
+    "reviewExpectation": "同じ組合せの配置が1型から3型へ広がる。既存の重複を全て新設と表示しない。"
+  },
+  {
+    "name": "dispatch-contained",
+    "question": "この変更を受け入れる前に、既存の配置まで立ち返る理由があるか。ある場合は具体的な根拠、ない場合はその範囲を示す。",
+    "context": "送信方針と各送信先のライフサイクルは未提示。",
+    "before": {
+      "Logger.swift": "struct Logger {\n    func record(_ event: String) {\n        systemLog(event)\n        crashReport(event)\n    }\n}\n",
+      "Checkout.swift": "struct Checkout {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "SignIn.swift": "struct SignIn {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "Profile.swift": "struct Profile {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n"
+    },
+    "after": {
+      "Logger.swift": "struct Logger {\n    let analytics: Analytics\n    func record(_ event: String) {\n        systemLog(event)\n        crashReport(event)\n        analytics.record(event)\n    }\n}\n",
+      "Checkout.swift": "struct Checkout {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "SignIn.swift": "struct SignIn {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "Profile.swift": "struct Profile {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "Analytics.swift": "struct Analytics {\n    func record(_ event: String) {\n        sendAnalytics(event)\n    }\n}\n"
+    },
+    "exitCode": 0,
+    "reviewExpectation": "送信先は増えるが呼び出し側3型は同じ。追加が窓口内部に留まる点を区別する。ただし同意要件などは不明なので最適解と断定しない。"
+  },
+  {
+    "name": "consent-separated",
+    "question": "この変更を受け入れる前に、既存の配置まで立ち返る理由があるか。ある場合は具体的な根拠、ない場合はその範囲を示す。",
+    "context": "同意セッションは診断記録とは独立した寿命を持つ。",
+    "before": {
+      "Logger.swift": "struct Logger {\n    func record(_ event: String) {\n        systemLog(event)\n        crashReport(event)\n    }\n}\n",
+      "Checkout.swift": "struct Checkout {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "SignIn.swift": "struct SignIn {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "Profile.swift": "struct Profile {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n"
+    },
+    "after": {
+      "Logger.swift": "struct Logger {\n    func record(_ event: String) {\n        systemLog(event)\n        crashReport(event)\n    }\n}\n",
+      "Checkout.swift": "struct Checkout {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "SignIn.swift": "struct SignIn {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "Profile.swift": "struct Profile {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "Analytics.swift": "struct Analytics {\n    func record(_ event: String) {\n        sendAnalytics(event)\n    }\n}\n",
+      "ConsentSession.swift": "struct ConsentSession {\n    let analytics: Analytics\n    let consent: Bool\n    func accepted(_ event: String) {\n        guard consent else { return }\n        analytics.record(event)\n    }\n}\n"
+    },
+    "exitCode": 0,
+    "reviewExpectation": "別クラスというだけでLogger統合を勧めない。コードにguardがあり同じ組合せの反復はない。"
+  },
+  {
+    "name": "single-site",
+    "question": "この変更を受け入れる前に、既存の配置まで立ち返る理由があるか。ある場合は具体的な根拠、ない場合はその範囲を示す。",
+    "context": "送信方針と各送信先のライフサイクルは未提示。",
+    "before": {
+      "Logger.swift": "struct Logger {\n    func record(_ event: String) {\n        systemLog(event)\n        crashReport(event)\n    }\n}\n",
+      "Checkout.swift": "struct Checkout {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "SignIn.swift": "struct SignIn {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "Profile.swift": "struct Profile {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n"
+    },
+    "after": {
+      "Logger.swift": "struct Logger {\n    func record(_ event: String) {\n        systemLog(event)\n        crashReport(event)\n    }\n}\n",
+      "Checkout.swift": "struct Checkout {\n    let logger: Logger\n    let analytics: Analytics\n    func completed(_ event: String) {\n        logger.record(event)\n        analytics.record(event)\n    }\n}\n",
+      "SignIn.swift": "struct SignIn {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "Profile.swift": "struct Profile {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "Analytics.swift": "struct Analytics {\n    func record(_ event: String) {\n        sendAnalytics(event)\n    }\n}\n"
+    },
+    "exitCode": 0,
+    "reviewExpectation": "組合せがあるのは1型だけ。反復の拡大という根拠はない。単一箇所でも検討は可能だが多箇所の変更負担を捏造しない。"
+  },
+  {
+    "name": "natural-model",
+    "question": "この変更を受け入れる前に、既存の配置まで立ち返る理由があるか。ある場合は具体的な根拠、ない場合はその範囲を示す。",
+    "context": "単純な計算の追加。",
+    "before": {
+      "Model.swift": "enum Payment { case cash }\nstruct Invoice { let total: Int }\n"
+    },
+    "after": {
+      "Model.swift": "enum Payment { case cash, card }\nstruct Invoice { let total: Int; func discounted(by amount: Int) -> Int { total - amount } }\n"
+    },
+    "exitCode": 0,
+    "reviewExpectation": "メソッドやcase増加だけで設計の見直しを要求しない。"
+  },
+  {
+    "name": "dispatch-separate-policy",
+    "question": "この変更を受け入れる前に、既存の配置まで立ち返る理由があるか。ある場合は具体的な根拠、ない場合はその範囲を示す。",
+    "context": "分析送信は同意・保存期間・寿命が診断ログと異なる。簡略コードは同意処理を省いている。",
+    "before": {
+      "Logger.swift": "struct Logger {\n    func record(_ event: String) {\n        systemLog(event)\n        crashReport(event)\n    }\n}\n",
+      "Checkout.swift": "struct Checkout {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "SignIn.swift": "struct SignIn {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n",
+      "Profile.swift": "struct Profile {\n    let logger: Logger\n    func completed(_ event: String) {\n        logger.record(event)\n    }\n}\n"
+    },
+    "after": {
+      "Logger.swift": "struct Logger {\n    func record(_ event: String) {\n        systemLog(event)\n        crashReport(event)\n    }\n}\n",
+      "Checkout.swift": "struct Checkout {\n    let logger: Logger\n    let analytics: Analytics\n    func completed(_ event: String) {\n        logger.record(event)\n        analytics.record(event)\n    }\n}\n",
+      "SignIn.swift": "struct SignIn {\n    let logger: Logger\n    let analytics: Analytics\n    func completed(_ event: String) {\n        logger.record(event)\n        analytics.record(event)\n    }\n}\n",
+      "Profile.swift": "struct Profile {\n    let logger: Logger\n    let analytics: Analytics\n    func completed(_ event: String) {\n        logger.record(event)\n        analytics.record(event)\n    }\n}\n",
+      "Analytics.swift": "struct Analytics {\n    func record(_ event: String) {\n        sendAnalytics(event)\n    }\n}\n"
+    },
+    "exitCode": 0,
+    "reviewExpectation": "同じコードの事実はdispatch-spreadと同じ。分離理由を踏まえ、Loggerに直接統合以外の呼び出し側共通化や独立維持も候補にできる。"
+  }
+]
