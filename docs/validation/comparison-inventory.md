@@ -29,7 +29,11 @@ bloom-timelapse PR #46の固定base `540a95c5bbf2a915fe2de37166dbc2c074a853c2` �
 
 構造案内はInputChange/ComparisonInventoryとInputsの追加APIを示した。新規関数のraw Git解析やバイト比較の正しさ、Pythonの共有モデル利用は通常diffで点検した。全件一覧と詳細の二重表示は#35に残る。
 
-PRのjob summaryは新しいrenderer、投稿はdefault branchのrendererである。今回は新rendererの投稿dry-runと成果物をマージ前に確認し、マージ後の文書PRで実際のbot表示を確認する。実投稿の新表示確認が済むまで#34の運用確認を完了としない。
+PRのjob summaryは新しいrenderer、投稿はdefault branchのrendererである。[PR #43](https://github.com/KantoYamamoto/sekka/pull/43)の最終head `45b65b6` の[Actions](https://github.com/KantoYamamoto/sekka/actions/runs/34184601523)が成功。8成果物・17パス・実コメントのheadを確認した。同じartifactを新rendererで投稿dry-runし、単位表記と非Swift区分を確認してからマージした。
+
+修正後の独立実装レビューでも、同内容・内容変更・symlink・assume-unchangedの実CLI結果が確認され、追加の重要な回帰指摘はなかった。
+
+新rendererによる実投稿は、マージ後のこの検証文書を変更するPRで確認する。非Swiftだけの変更一覧、Swift変更0との区別、単位、比較headを確認し、PR本文と[#34](https://github.com/KantoYamamoto/sekka/issues/34)に実コメントとActionsのリンクを残す。これは表示の運用確認であり、レビュー利益の実証ではない。
 
 
 修正コミット `f1fba79` は親 `84187a2` と新旧バイナリで自己利用し、通常Swift diffを全読。固定Git入力のため観測・coverage・inventoryは一致した。修正効果はworktreeの35 CLI/Gitチェックで確認した。
