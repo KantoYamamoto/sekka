@@ -39,7 +39,7 @@ private func navigate(_ before: String, _ after: String, at: String?) throws -> 
   #expect(output.contains("-  func run()"))
   #expect(output.contains("Hunks overlapping"))
   let fallback = try navigate(
-    "struct A { func old() {} }", "struct A { func new() {} }", at: "after:1")
+    "struct A { func f() {}\nfunc f() {} }", "struct A { func f() { change() }\nfunc f() {} }", at: "after:1")
   #expect(fallback.contains("showing all file hunks"))
   #expect(try navigate("func f() { a() }", "func f() { b() }", at: "after:1")
     .contains("showing all file hunks"))
@@ -51,4 +51,41 @@ private func navigate(_ before: String, _ after: String, at: String?) throws -> 
   let c = try Analyzer.analyze([("A.swift", "// moved\nstruct A {}"), ("B.swift", "struct B {}")])
   #expect(try Inputs.fingerprint(before: a, after: b) == Inputs.fingerprint(before: a, after: a))
   #expect(try Inputs.fingerprint(before: a, after: c) != Inputs.fingerprint(before: a, after: a))
+}
+
+@Test func propertyRangesExcludeUnrelatedHunksAndKeepLongInitializers() throws {
+  let gap = String(repeating: "  // gap\n", count: 12)
+  for (old, new) in [("let x = 3", "let x = 8"), ("var x: Int", "var x: Int = 8"),
+    ("var x: Int = 3", "var x: Int"),
+    ("let x = [\n" + String(repeating: "0,\n", count: 20) + "3]", "let x = [\n" + String(repeating: "0,\n", count: 20) + "8]")]
+  {
+    let before = "struct A {\n  " + old + "\n" + gap + "  func other() { old() }\n}"
+    let after = "struct A {\n  " + new + "\n" + gap + "  func other() { new() }\n}"
+    for side in ["before:2", "after:2"] {
+      let result = try navigate(before, after, at: side)
+      #expect(result.contains("Selected 1 of 2 file hunks"))
+      #expect(!result.contains("func other()"))
+    }
+  }
+}
+
+@Test func oneSidedMembersNavigateWithoutClaimingPairing() throws {
+  let gap = String(repeating: "  // gap\n", count: 12)
+  let before = "struct A {\n" + gap + "  func other() { old() }\n}"
+  let after = "struct A {\n  func added() { work() }\n" + gap + "  func other() { new() }\n}"
+  #expect(try navigate(before, after, at: "after:2").contains("Selected 1 of 2 file hunks"))
+  #expect(try navigate(after, before, at: "before:2").contains("Selected 1 of 2 file hunks"))
+  let all = try navigate("", after, at: "after:2")
+  #expect(all.contains("All file hunks overlap this selection"))
+  #expect(all.contains("hunks are not clipped"))
+}
+
+@Test func ambiguousPropertySelectionsRetainFileFallback() throws {
+  for (old, new, at) in [
+    ("struct A { var x = 1, y = 2 }", "struct A { var x = 1, y = 3 }", "after:1"),
+    ("struct A { var x = 1\nvar x = 2 }", "struct A { var x = 3\nvar x = 2 }", "after:1"),
+    ("struct A { var x = 1 }\nstruct A {}", "struct A { var x = 3 }\nstruct A {}", "after:1")]
+  {
+    #expect(try navigate(old, new, at: at).contains("showing all file hunks"))
+  }
 }
