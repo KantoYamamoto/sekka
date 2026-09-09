@@ -6,6 +6,7 @@
 - Use SwiftSyntax for syntax facts. Do not label textual type expressions as resolved dependencies, inferred purity, or proven effects.
 - Keep observations, analysis limitations, and design judgement separate. No LLM is required at runtime.
 - Preserve deterministic JSON ordering and source locations. Malformed/unreadable input must fail, not produce a partial clean report.
+- External OSS used as evaluation input is strictly read-only: no comments, issues, PRs, reactions, forks or other upstream changes. Fetch fixed source only; do not execute its scripts. Track evaluation work only in Sekka.
 - Compare Git snapshots without checkout/reset or executing target build scripts.
 - Run `swift test` and `python3 Scripts/smoke.py .build/debug/sekka` after analysis/CLI changes.
 - Product direction and deferred ideas belong in `docs/ideas.md`; OSS references belong in `docs/references.md`.
