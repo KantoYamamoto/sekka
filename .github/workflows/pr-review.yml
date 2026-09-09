@@ -42,10 +42,10 @@ jobs:
           SEKKA_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
           SEKKA_PR: ${{ github.event.pull_request.number }}
         run: python3 Scripts/ci_review.py
-      - name: Call sequence experiment checks
+      - name: Structural context experiment checks
         run: |
-          swift test --package-path Experiments/CallSequences --scratch-path .build/call-sequence-experiment
-          python3 Experiments/CallSequences/verify.py --binary .build/call-sequence-experiment/debug/call-sequence-probe --output .build/pr-review/call-sequences.json
+          swift test --package-path Experiments/StructuralContext --scratch-path .build/structural-context
+          python3 Experiments/StructuralContext/verify.py --binary .build/structural-context/debug/context-probe --output .build/pr-review/structural-context.json
       - name: Exercise review boundaries
         run: python3 Scripts/review_probes.py --output .build/pr-review/probes.json
       - name: Exercise structural review questions
@@ -59,7 +59,7 @@ jobs:
           retention-days: 14
           include-hidden-files: true
           path: |
-            .build/pr-review/call-sequences.json
+            .build/pr-review/structural-context.json
             .build/pr-review/manifest.json
             .build/pr-review/candidate.text
             .build/pr-review/candidate.compact

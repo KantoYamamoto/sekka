@@ -1,4 +1,4 @@
-import CallSequenceExperiment
+import StructuralContext
 import Foundation
 
 func sources(at path: String) throws -> [(String, String)] {
@@ -40,9 +40,9 @@ func sources(at path: String) throws -> [(String, String)] {
 
 do {
   guard CommandLine.arguments.count == 3 else {
-    throw NSError(domain: "Usage: call-sequence-probe BEFORE_DIR AFTER_DIR", code: 2)
+    throw NSError(domain: "Usage: context-probe BEFORE_DIR AFTER_DIR", code: 2)
   }
-  let report = try CallSequences.compare(
+  let report = try ClassContext.compare(
     before: sources(at: CommandLine.arguments[1]), after: sources(at: CommandLine.arguments[2]))
   let encoder = JSONEncoder()
   encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
