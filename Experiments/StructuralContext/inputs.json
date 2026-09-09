@@ -1,0 +1,344 @@
+[
+  {
+    "id": "wordpress-25208",
+    "repository": "wordpress-mobile/WordPress-iOS",
+    "base": "3fd67eee55d19a17b0576f0b9fe9c3787cb7a074",
+    "head": "b167166f2458a66ff015ccd6ed826561dafc28a7",
+    "scope": "changed Swift files plus explicitly selected context; not whole repository",
+    "context": [
+      "WordPress/Classes/ViewRelated/Gutenberg/GutenbergMediaPickerHelper.swift"
+    ],
+    "files": [
+      {
+        "side": "before",
+        "path": "Modules/Package.swift",
+        "blob": "d91e96ae2a5eddad2ff2918ca5674c29a76a77e0",
+        "sha256": "d9749825273f562a2c6b774020b37eb8ca5b6c12099f2552d20a2aa61a63b544",
+        "bytes": 26624
+      },
+      {
+        "side": "before",
+        "path": "Tests/KeystoneTests/Tests/Features/Gutenberg/EditorConfigurationTests.swift",
+        "blob": "5248560372d4b755dd7d7258d41cc2a64ba94f12",
+        "sha256": "8142138b3a1b05f9004494c7ffda2815d449569b8801b1314fcaa07fdc323a2c",
+        "bytes": 6249
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/Utility/BuildInformation/FeatureFlagOverrideStore.swift",
+        "blob": "2bdd21a0e48379b64cc2f6fb45fa10f73366c88b",
+        "sha256": "4fabacf36d3924534788b0811d5bbe6fd2c0c238c482030005b7e67d63248a6b",
+        "bytes": 1826
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/Utility/Editor/EditorConfiguration+Blog.swift",
+        "blob": "4f22103b8d44cae254e54c3e1671eb834f5a6bb8",
+        "sha256": "f0ba3f2ab2e661c696b9f664ed364104e6a1ea0bd4e96daf07aea5e17cd81596",
+        "bytes": 3933
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/Utility/Editor/EditorDependencyManager.swift",
+        "blob": "9797fda68568d757cec7e493ec97296c62f3b0c4",
+        "sha256": "c0b210da4379b6cbe72d8ad4d0df31b6034f1293d8c64f510015a4085f7df434",
+        "bytes": 7998
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Blog/Blog Dashboard/BlogDashboardViewController.swift",
+        "blob": "95b699878c6ebc0eecfa6e446c4d585feb084299",
+        "sha256": "5747cab266d7f5e9d3d31ba7d5216d498ce1ac0797da48b11e18db0c3e790f76",
+        "bytes": 8887
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Blog/Blog Dashboard/ViewModel/BlogDashboardViewModel.swift",
+        "blob": "5dc18d4db83d919dc239ab19a79ae3b8c31167b4",
+        "sha256": "f032878ec6583c176d4b97db8e4fc6c305ab14fddade7acf933c9f9a0e4ea1b6",
+        "bytes": 11339
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Comments/Controllers/Editor/CommentGutenbergEditorViewController.swift",
+        "blob": "a9c98db8282b08dfc72dc15803653ea0f0399fb9",
+        "sha256": "13627238a9747d5bec91b6e31ee684cb4b87f0570bcb860feadf0d2348263ff8",
+        "bytes": 4158
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/CustomPostTypes/CustomPostEditor.swift",
+        "blob": "47d054d4c4f5ada95fd4e37d43f3a6aee05bf6ac",
+        "sha256": "16cee1feec81fe64f813280a57b2c7cf935ae902cac294fada4602216210b40d",
+        "bytes": 4189
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/CustomPostTypes/CustomPostMainView.swift",
+        "blob": "f5509f31c933b57bfa86e950ea0246766ee08499",
+        "sha256": "807a0119f93dc434b26e546543f2e6c2ec79d740d4371c0aa094833abbb97175",
+        "bytes": 5874
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/NewGutenberg/NewGutenbergViewController.swift",
+        "blob": "d0610e1a9335250c71b48522399b870215aebac8",
+        "sha256": "1c8fd6dcdd498acb7e30bf112f2ad245eea120067a6fa9ec5072734a6fcf5088",
+        "bytes": 25291
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/NewGutenberg/PostGBKEditorViewController.swift",
+        "blob": "d53c60d0f6656d860392ef077e73806c76b8b849",
+        "sha256": "326cd991f62eb462e9f2684c8aec678ad2c2c42430a22d4d3494b2916cc8bd4c",
+        "bytes": 15748
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/NewGutenberg/SimpleGBKViewController.swift",
+        "blob": "ddd80ffb923ed5cafa9d4243515eaa6fa9c67aa3",
+        "sha256": "d4dc447c52ff3508a6023ca6cd13ac64c1e232f3e3b470315b1ecfb7eda872a4",
+        "bytes": 4913
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Post/Controllers/PostListViewController.swift",
+        "blob": "678d455f0363c547b23425e560bddd1169e03ae5",
+        "sha256": "d237803a884486135752ff84c128d61f27533adf1ffcd16ea4c6e94b71cfe33f",
+        "bytes": 12961
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Gutenberg/GutenbergMediaPickerHelper.swift",
+        "blob": "55f428440fc20e5b47196560f7807c12028e8364",
+        "sha256": "7a57dd6422cf278009a129c876a9515f435d6d839c12ce9ee7cad83485c784e5",
+        "bytes": 5113
+      },
+      {
+        "side": "after",
+        "path": "Modules/Package.swift",
+        "blob": "42e8a993315fe4aa1fe9073d8628b37d2296e0e2",
+        "sha256": "b04dbf1cacec1d24bb12d82340416ae4d2a5c7058ff23620edfc73d3f4fcb6d8",
+        "bytes": 26662
+      },
+      {
+        "side": "after",
+        "path": "Tests/KeystoneTests/Tests/Features/Gutenberg/EditorConfigurationTests.swift",
+        "blob": "9619becc4cabce498250ac9695cc221e31172816",
+        "sha256": "4ff7fa2ee4cc06ee57373a85a604c1a50197938b26d5880934f2442a40924cfb",
+        "bytes": 6351
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/Utility/BuildInformation/FeatureFlagOverrideStore.swift",
+        "blob": "bc4856ab3dd9169629f1991054b9be4b7b8cbbc5",
+        "sha256": "b36f66779d34b69d2ec80984eeb8d77d5c98b620d1f12dc71d2134ccb6d7066d",
+        "bytes": 2362
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/Utility/Editor/EditorConfiguration+Blog.swift",
+        "blob": "31db321f865ff722041eb258b2758b193052c8ef",
+        "sha256": "047c4644795b3f8943ba9a89701ad43a8a6643ebf02f2cba045c01785bd6a883",
+        "bytes": 3933
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/Utility/Editor/EditorDependencyManager.swift",
+        "blob": "e23da80f1004ca46e9c286e6f27b90f801d42f60",
+        "sha256": "b5245db3b764888c47d884ff3808b65f8a1917f4ae0fdcad3b1e27f65c216551",
+        "bytes": 9499
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Blog/Blog Dashboard/BlogDashboardViewController.swift",
+        "blob": "a0c1849c2483a0c181a42a05762e9277d64a4f2a",
+        "sha256": "b06c2a53e2e68f7255e8c4731b2b78f565de8ca95b7b3b2806233901d389d2ff",
+        "bytes": 8930
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Blog/Blog Dashboard/ViewModel/BlogDashboardViewModel.swift",
+        "blob": "9517e269055e1b396e4706f77305ec6f0979582c",
+        "sha256": "1d0ebd897f8113141b6034c2037028db611fe9bdd67578f5d365f6d303b8c62e",
+        "bytes": 11350
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Comments/Controllers/Editor/CommentGutenbergEditorViewController.swift",
+        "blob": "eec12eecbc6086bb6bf82c82484af9e2afd6e8e3",
+        "sha256": "2464138b05bd9f1b4016865394b3caeb5e362836067a4f9090a4cf4d45fc8b89",
+        "bytes": 4237
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/CustomPostTypes/CustomPostEditor.swift",
+        "blob": "30726571efc0eb8796d1437a27efb9322c4a86fc",
+        "sha256": "1bba2fb65068e6ff1ebf9eb41fa44e640b5958983607ba8839762fa333011680",
+        "bytes": 1118
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/CustomPostTypes/CustomPostMainView.swift",
+        "blob": "93307317d86ea1d728e9bc63531cda9cf8e49d26",
+        "sha256": "a08baca4aa770ad82648e7dbffe49433498412ff33df72c18068d76e767e6b34",
+        "bytes": 6091
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/NewGutenberg/CustomPostEditorViewController.swift",
+        "blob": "fe4c7bb68df835d7e1523d8928fe3d66f966b2a4",
+        "sha256": "7dc00571e9f02ed283d65b267fa0ce2e2df1ba694afbff1d37de58b3ab71c136",
+        "bytes": 8901
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/NewGutenberg/NewGutenbergViewController.swift",
+        "blob": "3389be7f16939347afede4462b9846a423de7631",
+        "sha256": "0fb73bc223648893cfc1ee4aa8337d3e4ee89e391d5e265be55bd60f97164062",
+        "bytes": 26637
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/NewGutenberg/PostEditorStrings.swift",
+        "blob": "a3b1199b93b23cf6afe7815582ee642b85e26f36",
+        "sha256": "aacb14d9ff363fa99efb0c02e037db3e48d08c1309fff14a41b6f5318ff61edd",
+        "bytes": 1764
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/NewGutenberg/PostGBKEditorViewController.swift",
+        "blob": "f5e745a77137bf27ade57429117515ca23fc08bf",
+        "sha256": "7c96d6596dd4084b3b5ffffdf97e597e4f3d8c3142f02e69312b7e7e734372f7",
+        "bytes": 13404
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Post/Controllers/PostListViewController.swift",
+        "blob": "310082c72f7df2919fbd589d92f296e126f8677d",
+        "sha256": "8555bbe4a155ed266f4a7d2443856088edd44e5b73697d647cdd71628e234942",
+        "bytes": 12978
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Gutenberg/GutenbergMediaPickerHelper.swift",
+        "blob": "55f428440fc20e5b47196560f7807c12028e8364",
+        "sha256": "7a57dd6422cf278009a129c876a9515f435d6d839c12ce9ee7cad83485c784e5",
+        "bytes": 5113
+      }
+    ]
+  },
+  {
+    "id": "wordpress-25855",
+    "repository": "wordpress-mobile/WordPress-iOS",
+    "base": "52326781ba95a74557600f93c57cc322fd6ebdd3",
+    "head": "35fff933f9c1929c2a3d00bada034fdc04925cc9",
+    "scope": "changed Swift files plus explicitly selected context; not whole repository",
+    "context": [
+      "WordPress/Classes/ViewRelated/NewGutenberg/CustomPostEditorViewController.swift"
+    ],
+    "files": [
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Gutenberg/GutenbergMediaPickerHelper.swift",
+        "blob": "d3c917580c20552ecdcb08686e892863d1432a7f",
+        "sha256": "7c7fc0518e7f9754bf7dd44a83c989b8471982797604b63f335f084e4fe5bf39",
+        "bytes": 5489
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/NewGutenberg/NewGutenbergViewController.swift",
+        "blob": "da9dbb146837406a8cd617f2f69daa88e895d613",
+        "sha256": "572a76911453c2facbb39dfff41aa8782b605c543e31330562c490e218503246",
+        "bytes": 28279
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/NewGutenberg/PostGBKEditorViewController.swift",
+        "blob": "2fe894311e9a8e82c5e1b50ba19e694a0d181f21",
+        "sha256": "693c6a5c500bb2f5a358c54ce06e6fe1698c678fd8d5830375bac5e8ab0920fb",
+        "bytes": 15370
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/NewGutenberg/CustomPostEditorViewController.swift",
+        "blob": "0e5b1d209c9cd92bd6a9a92c5f0f79283207cb69",
+        "sha256": "eed62608cf9a83c004307f1bcab415636971c1bb46b3f4d9e469fbc285306e2d",
+        "bytes": 9692
+      },
+      {
+        "side": "after",
+        "path": "Tests/KeystoneTests/Tests/Features/Gutenberg/PostGBKEditorViewControllerTests.swift",
+        "blob": "e5a06596f534d59e827bcea81d68ec2053f4e526",
+        "sha256": "a200b37065aea773b1f05d8f94ceba46172735db2abd9096265d5851b8d4bf8a",
+        "bytes": 1349
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Gutenberg/GutenbergMediaPickerHelper.swift",
+        "blob": "75963550f770bdcb17bf319b2300ea977abb992f",
+        "sha256": "68559d801fce628f6f4572523bde38cf666db0c5607c251f26a833f3257f611d",
+        "bytes": 5759
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/NewGutenberg/NewGutenbergViewController.swift",
+        "blob": "0109635afcc2f49f6053018c69e8d78c6c89b869",
+        "sha256": "45987fb3b58256842b0cc318cc387445b21be5bc46733ef1d71d7eca874a2c6c",
+        "bytes": 25039
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/NewGutenberg/PostGBKEditorViewController.swift",
+        "blob": "1e4dae14129b1b5ce8ac7ebe6a4dbaeba0f1bc0e",
+        "sha256": "da74e7d52faab62bbbb0677194430b90a0368bc40979e9bc9b69ea71003a7efd",
+        "bytes": 18357
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/NewGutenberg/CustomPostEditorViewController.swift",
+        "blob": "0e5b1d209c9cd92bd6a9a92c5f0f79283207cb69",
+        "sha256": "eed62608cf9a83c004307f1bcab415636971c1bb46b3f4d9e469fbc285306e2d",
+        "bytes": 9692
+      }
+    ]
+  },
+  {
+    "id": "firefox-34338",
+    "repository": "mozilla-mobile/firefox-ios",
+    "base": "0ee840f2388fcc75a84d09e240619598f719a58f",
+    "head": "0ed3b39a19b27a1d3e2e54aad9373a5125a93288",
+    "scope": "changed Swift files plus explicitly selected context; not whole repository",
+    "context": [],
+    "files": [
+      {
+        "side": "before",
+        "path": "firefox-ios/Client/Frontend/Home/Homepage/TopSites/TopSitesMiddleware.swift",
+        "blob": "076b0f89ab1b17099cdc97be380395bb7d34e82b",
+        "sha256": "15dcb51bb39d0319d40bdbcb227999fcfe0564afc212a54fa5b70cb1d6091709",
+        "bytes": 11352
+      },
+      {
+        "side": "before",
+        "path": "firefox-ios/firefox-ios-tests/Tests/ClientTests/Frontend/Homepage/Redux/TopSitesMiddlewareTests.swift",
+        "blob": "d9a6aa09e4f9cf84561dc1368e356ae34638143d",
+        "sha256": "ec00488c4c3c8a5210ca277613e27c345bb600abfec02fa86e39eabf50332e8f",
+        "bytes": 36196
+      },
+      {
+        "side": "after",
+        "path": "firefox-ios/Client/Frontend/Home/Homepage/TopSites/TopSitesMiddleware.swift",
+        "blob": "ebfbc3f22b934c555ec7f691bec385c6114b62a3",
+        "sha256": "126f5eec31c3768195b4c1374cb35c8b26d852d4422f99768acf796ce2d5d21f",
+        "bytes": 12520
+      },
+      {
+        "side": "after",
+        "path": "firefox-ios/firefox-ios-tests/Tests/ClientTests/Frontend/Homepage/Redux/TopSitesMiddlewareTests.swift",
+        "blob": "14e0510aab09c576a67426a38df416c30ab2dcf8",
+        "sha256": "d2a881e8d32caebe4ed0c738785a346f5a4b6c2039176c5b3fcefff2f4507714",
+        "bytes": 37380
+      }
+    ]
+  }
+]
