@@ -1,6 +1,6 @@
 # 固定した配置抽出を別の実変更で確かめる
 
-2026-09-13、[#62](https://github.com/KantoYamamoto/sekka/issues/62)。#57の抽出器を変更せず、追加実装を既存構造へどう組み込むかという問いへの寄与を調べる。本番への採用は未決定。
+2026-09-13、[#62](https://github.com/KantoYamamoto/sekka/issues/62)。#57の抽出器を変更せず、追加実装を既存構造へどう組み込むかという問いへの寄与を調べる。継承中心の試作の本番採用は見送る。
 
 ## 固定した条件
 
@@ -34,7 +34,23 @@ Aは通常diffと選択ソースだけからcheckpoint、Bは機械出力だけ�
 
 ## レビュー結果・次の判断
 
-独立レビュー中。採用/見送りの判断は結果と一緒にここへ統合する。
+Aは通常diff/ソースからWordPressで3問、Nukeで2問を得た。Bは出力先読みで具体的な配置の問いを得られず、ソースを読むと同じ5領域へ到達した。数は不具合数でも検出精度でもない。
+
+| 配置の問い（両レビュー） | 既存構造の根拠と現配置を保つ理由 | 機械出力の寄与 |
+| --- | --- | --- |
+| WordPress: option組立てをroutingに保つか、source descriptorへ寄せるか | 既存のMediaPickerSourceでgateは共有済み。routingは既にapp依存の構成地点。V1/V2のUI寿命まで統合しない | 該当するrouting enum/メソッドの関係は出ない |
+| WordPress: picker構築だけを共有するか | 既存makeStockPhotos/showStockPhotosPickerと新StockPhotosPickerSheetに同じdata source/service/welcomeの構築がある。選択結果とdismissの境界は異なる | 除外したCoordinatorのパスは弱い入口。構築の接点はソースから初めて分かった |
+| WordPress: asset変換の方針をadapterとimporterのどちらへ置くか | stockPhotosAsset専用の変換と共通のファイル名処理は分けて考える。importerの定義が入力外で結論不可 | 接点も変換内容も出ない |
+| Nuke: 同期protocolのrefinementでasync能力を足すか | 既存registry/decoder契約・同期fast pathを保つ理由がある。PR本文の互換要件も現配置を支持 | 新protocolの除外パスのみ。契約はソースと本文から |
+| Nuke: 共通decode入口を保つか、実行adapterを分けるか | network/disk側が既に同じ入口を使い、operationとqueueの寿命を保持する。汎用queueへdecode知識を移さない。response生成も今回既に共有された | 既存呼び出し元・共通入口・所有者の関係は出ない |
+
+代表位置はWordPress afterの`MediaPickerMenu+External.swift:19`と`StockPhotosPickerSheet.swift:10`、Nuke afterの`AsyncPipelineTask.swift:44`と既存の`TaskLoadImage.swift:31`・`TaskFetchOriginalImage.swift:57`。位置の前提は上記固定SHAとmanifest。詳細な根拠と反対理由はGit管理外の`review-a.md`/`review-b.md`に保持した。
+
+PR本文は両者ともcheckpoint後に読み、Nukeの同期cache API制限を受けて、許可された入力内の`ImagePipeline+Cache.swift:225`付近を追加で確認した。この発見を機械出力や初回ソースレビューの成果へ混ぜない。本文のテスト成功報告も、本検証では実行・検証していない。
+
+Bのskipped一覧は対象外と弱い読む場所を示すが、具体的な配置の根拠にはならず、変更と無関係な除外も含む。妥当な拡張を積極的に問題扱いする出力ではなかったが、候補0件なので空hookを誤警告しない精度を確認したとは言えない。Nukeはソースと要件から現配置を支持する対照になった。WordPressの未取得module契約は結論を限定する。
+
+**次は[#63](https://github.com/KantoYamamoto/sekka/issues/63)。継承中心の試作は本番採用を見送り、変更宣言から既存実装との接点を検索する方式へ置換する。** 今回は単なる表示改善では届かない。未変更の構築と共有する呼び出し表記、既存の共通入口と呼び出し位置を同じ索引から取り出す仮説を試す。解決済み依存や意味上の重複とは呼ばず、共通化の反対根拠も残す。[判断0036](../decisions/0036-change-context-retrieval.md)参照。この2件は以後既知入力であり、次の方式を当てた成功は未見の有用性ではない。
 
 ## 再現
 
@@ -47,3 +63,5 @@ python3 Experiments/StructuralContext/fetch.py --manifest Experiments/Structural
 ```
 
 当時の抽出器を厳密に再現するときは上記commitのpackageを使う。manifest変更だけで他実験の既定入力を置換しないよう、取得スクリプトに`--manifest`を追加した。入力取得先は新規ディレクトリに限る。ローカルの取得/検証結果と固定packetは`.build/context-holdout`。
+
+取得スクリプトのmanifest指定は固定1blobで動作・hash一致を確認した。全238件は資料準備時のGET取得でblob ID/サイズ/SHA-256を照合済み。固定packetの246ファイル（ソース238と各caseのdiff/出力/stderr/PR本文）のhash一覧のSHA-256は`67c37bd989c57ae42bb908cd486cb55e3371df5c0886faeb3af8042d40495bda`。Swift解析器は変更していないため、本件で本番Swiftテストをローカル再実行していない。
