@@ -11,7 +11,7 @@ python3 Experiments/StructuralContext/verify.py --binary .build/structural-conte
 .build/structural-context/debug/context-probe .build/oss-context-input/wordpress-25208/before .build/oss-context-input/wordpress-25208/after
 ```
 
-Swift 6以降とSwiftSyntax 603.0.1が必要。`context-probe BEFORE AFTER`はJSONを出す。`addedTypeDeclarations`が空でも実装不足とはしない。名前・引数ラベルだけ一致する別の型表記は`addedTypeOtherSpellings`へ分け、本体のない宣言も`unavailable`として残す。全く候補が出なくても構造が適切だとは判定できない。
+Swift 6以降とSwiftSyntax 603.0.1が必要。`context-probe BEFORE AFTER`はJSONを出す。各slotで親・兄弟・追加型のbefore/after宣言集合を並べる。同じメソッド表記は`exactSpelling`、名前・引数ラベルだけ一致する別表記は`otherSpellings`へ分け、本体のない宣言も`unavailable`として残す。空配列は入力内に該当宣言がないという意味で、実装不足とはしない。集合を示すだけで、前後メソッドの対応やコード移動を断定しない。全く候補が出なくても構造が適切だとは判定できない。
 
 トップレベルのnongeneric classと単純なextensionだけを照合。同名型・メンバー宣言の条件分岐・限定付きextensionは保守的に候補から外す。関数本体内の#ifは宣言の有無を変えないため、この除外条件ではない。入力配下のドット名は除外するが、入力ルート/祖先の名前とFinderの非表示属性は除外条件にしない。ルート自身/配下のsymlinkと構文エラーは終了2で部分出力せず停止する。祖先symlinkは正規化して許容。本番のGit入力・ignore設定とは別。
 

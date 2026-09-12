@@ -41,7 +41,7 @@ with tempfile.TemporaryDirectory(prefix='sekka-context-') as directory:
     family = report['families'][0]
     assert len(report['families']) == 1
     assert family['addedType']['location']['file'] == 'New.swift'
-    assert family['slots'][0]['existingPeers'][0]['method']['location']['line'] == 2
+    assert family['slots'][0]['peers'][0]['after']['exactSpelling'][0]['location']['line'] == 2
     results.append({'case': 'unchanged-context-hidden-metadata', 'report': report})
     assert run(after, after)['families'] == []
     (after / 'Broken.swift').write_text('struct {')
@@ -73,11 +73,18 @@ if args.oss_input:
         if case['id'] == 'wordpress-25208':
             assert len(report['families']) == 1
             slots = report['families'][0]['slots']
-            media = next(s for s in slots if 'didRequestMediaFromSiteMediaLibrary:' in s['parentMethod']['selector'])
-            assert media['parentMethod']['location']['line'] == 145
-            assert media['existingPeers'][0]['method']['location']['line'] == 262
-            history = next(s for s in slots if 'didUpdateHistoryState:' in s['parentMethod']['selector'])
-            assert history['addedTypeOtherSpellings'][0]['location']['line'] == 67
+            media = next(s for s in slots if 'didRequestMediaFromSiteMediaLibrary:' in s['parent']['after']['exactSpelling'][0]['selector'])
+            assert media['parent']['after']['exactSpelling'][0]['location']['line'] == 145
+            assert media['peers'][0]['after']['exactSpelling'][0]['location']['line'] == 262
+            media_before = media['parent']['before']
+            assert (media_before['exactSpelling'] + media_before['otherSpellings'])[0]['body'] == 'empty'
+            history = next(s for s in slots if 'didUpdateHistoryState:' in s['parent']['after']['exactSpelling'][0]['selector'])
+            assert history['added']['after']['otherSpellings'][0]['location']['line'] == 67
+            assert history['parent']['before']['exactSpelling'][0]['body'] == 'statements'
+            assert history['parent']['before']['exactSpelling'][0]['location']['line'] == 119
+            assert history['parent']['after']['exactSpelling'][0]['body'] == 'empty'
+            assert history['peers'][0]['before']['exactSpelling'] == []
+            assert history['peers'][0]['before']['otherSpellings'] == []
         else:
             assert report['families'] == []
         results.append({'case': case['id'], 'report': report})

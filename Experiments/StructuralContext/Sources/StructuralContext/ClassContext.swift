@@ -25,16 +25,22 @@ public struct TypeSite: Codable, Sendable {
   public let location: Location
 }
 
-public struct Implementation: Codable, Sendable {
-  public let type: TypeSite
-  public let method: Method
+public struct MethodSet: Codable, Sendable {
+  public let exactSpelling: [Method]
+  public let otherSpellings: [Method]
+}
+
+public struct MemberHistory: Codable, Sendable {
+  public let typeName: String
+  public let before: MethodSet
+  public let after: MethodSet
 }
 
 public struct Slot: Codable, Sendable {
-  public let parentMethod: Method
-  public let existingPeers: [Implementation]
-  public let addedTypeDeclarations: [Method]
-  public let addedTypeOtherSpellings: [Method]
+  public let spelling: String
+  public let parent: MemberHistory
+  public let peers: [MemberHistory]
+  public let added: MemberHistory
 }
 
 public struct Family: Codable, Sendable {
@@ -75,17 +81,15 @@ public enum ClassContext {
         var slots: [Slot] = []
         for key in parent.methods.keys.sorted() {
           guard let methods = parent.methods[key], methods.count == 1, methods[0].body == .empty else { continue }
-          let implementations = peers.compactMap { peer -> Implementation? in
+          let implementations = peers.compactMap { peer -> MemberHistory? in
             guard let matches = peer.methods[key], matches.count == 1,
               matches[0].overrideWritten, matches[0].body == .statements else { return nil }
-            return Implementation(type: peer.site, method: matches[0])
+            return history(peer, before: old.classes[peer.site.name]?.first, anchor: methods[0])
           }
           guard !implementations.isEmpty else { continue }
-          let otherSpellings = added.methods.values.flatMap { $0 }.filter {
-            $0.selector == methods[0].selector && $0.spelling != key
-          }.sorted { ($0.spelling, $0.location.file, $0.location.line) < ($1.spelling, $1.location.file, $1.location.line) }
-          slots.append(Slot(parentMethod: methods[0], existingPeers: implementations,
-            addedTypeDeclarations: added.methods[key, default: []], addedTypeOtherSpellings: otherSpellings))
+          slots.append(Slot(spelling: key,
+            parent: history(parent, before: old.classes[parentName]?.first, anchor: methods[0]),
+            peers: implementations, added: history(added, before: nil, anchor: methods[0])))
         }
         if !slots.isEmpty {
           families.append(Family(addedType: added.site, parentCandidate: parent.site, slots: slots))
@@ -98,17 +102,29 @@ public enum ClassContext {
       limitations: [
         "Candidates share written inheritance names; these are not resolved types or runtime dispatch paths.",
         "Empty body means no statements. An intentional hook is not a defect; no placement is recommended.",
-        "Empty addedTypeDeclarations means no matching declaration in the supplied input, not missing behavior.",
-        "addedTypeOtherSpellings shares the name and argument labels but not the complete signature spelling; equivalence is unknown.",
+        "Empty exactSpelling means no matching declaration in that side's supplied input, not missing behavior.",
+        "otherSpellings shares the name and argument labels but not the complete signature spelling; equivalence is unknown.",
         "Only unambiguous top-level nongeneric classes and simple extensions are joined. Conditional or constrained declarations are skipped.",
         "External code, macros, aliases and inferred types are not resolved. Exact type spellings may miss equivalent signatures.",
-        "Before checks name presence and unambiguous class candidates, not declaration pairing. Existing peer bodies may also have changed.",
+        "Before and after are declaration sets for the same written class name and selector, not paired methods or proof of a code move.",
         "No family does not establish that the change fits the existing structure.",
       ], beforeFileCount: before.count, afterFileCount: after.count,
       families: families, skipped: [("before", old.reasons), ("after", new.reasons)].flatMap { side, reasons in
         reasons.filter { reason in relevantNames.contains { reason.hasPrefix($0 + ":") } }
           .map { "\(side): \($0)" }
       }.sorted())
+  }
+
+  private static func history(_ after: ClassInfo, before: ClassInfo?, anchor: Method) -> MemberHistory {
+    func matching(_ info: ClassInfo?) -> MethodSet {
+      let methods = info?.methods.values.flatMap { $0 } ?? []
+      let candidates = methods.filter { $0.selector == anchor.selector }.sorted {
+        ($0.spelling, $0.location.file, $0.location.line) < ($1.spelling, $1.location.file, $1.location.line)
+      }
+      return MethodSet(exactSpelling: candidates.filter { $0.spelling == anchor.spelling },
+        otherSpellings: candidates.filter { $0.spelling != anchor.spelling })
+    }
+    return MemberHistory(typeName: after.site.name, before: matching(before), after: matching(after))
   }
 
   private static func collect(_ files: [(String, String)]) throws -> Index {

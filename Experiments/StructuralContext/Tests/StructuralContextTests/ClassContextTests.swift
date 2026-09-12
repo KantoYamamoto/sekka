@@ -22,21 +22,21 @@ private func compare(_ added: String, context: String = existing) throws -> Cont
   #expect(result.families.count == 1)
   #expect(family.addedType.name == "New")
   #expect(family.parentCandidate.location.line == 1)
-  #expect(family.slots.first?.parentMethod.location.line == 2)
-  #expect(family.slots.first?.existingPeers.first?.method.location.line == 5)
-  #expect(family.slots.first?.addedTypeDeclarations.isEmpty == true)
+  #expect(family.slots.first?.parent.after.exactSpelling.first?.location.line == 2)
+  #expect(family.slots.first?.peers.first?.after.exactSpelling.first?.location.line == 5)
+  #expect(family.slots.first?.added.after.exactSpelling.isEmpty == true)
   #expect(result.limitations.contains { $0.contains("intentional hook") })
 }
 
 @Test func alreadyImplementedAddedClassShowsItsDeclaration() throws {
   let result = try compare("class New: Host { override func media(_ value: Request) { other(value) } }")
-  #expect(result.families.first?.slots.first?.addedTypeDeclarations.count == 1)
-  #expect(result.families.first?.slots.first?.addedTypeDeclarations.first?.body == .statements)
+  #expect(result.families.first?.slots.first?.added.after.exactSpelling.count == 1)
+  #expect(result.families.first?.slots.first?.added.after.exactSpelling.first?.body == .statements)
 }
 
 @Test func extensionImplementationIsIncluded() throws {
   let result = try compare("class New: Host {}\nextension New { override func media(_ value: Request) {} }")
-  #expect(result.families.first?.slots.first?.addedTypeDeclarations.first?.body == .empty)
+  #expect(result.families.first?.slots.first?.added.after.exactSpelling.first?.body == .empty)
 }
 
 @Test func ambiguityAndConditionalDeclarationsDoNotJoin() throws {
@@ -91,14 +91,14 @@ private func compare(_ added: String, context: String = existing) throws -> Cont
 @Test func unresolvedEquivalentSpellingsRemainVisibleAsAlternatives() throws {
   let result = try compare("class New: Host { override func media(_ value: Module.Request) { use(value) } }")
   let slot = try #require(result.families.first?.slots.first)
-  #expect(slot.addedTypeDeclarations.isEmpty)
-  #expect(slot.addedTypeOtherSpellings.count == 1)
-  #expect(slot.addedTypeOtherSpellings.first?.spelling.contains("Module . Request") == true)
+  #expect(slot.added.after.exactSpelling.isEmpty)
+  #expect(slot.added.after.otherSpellings.count == 1)
+  #expect(slot.added.after.otherSpellings.first?.spelling.contains("Module . Request") == true)
 }
 
 @Test func declarationWithoutBodyIsNotMissingDeclaration() throws {
   let result = try compare("class New: Host { @_silgen_name(\"media\") override func media(_ value: Request) }")
-  #expect(result.families.first?.slots.first?.addedTypeDeclarations.first?.body == .unavailable)
+  #expect(result.families.first?.slots.first?.added.after.exactSpelling.first?.body == .unavailable)
 }
 
 @Test func genericQualifiedAndEffectBoundariesDoNotInventMatches() throws {
@@ -116,8 +116,8 @@ private func compare(_ added: String, context: String = existing) throws -> Cont
     ("Parent.swift", "extension Host { func media(_ value: Request) {} }"),
     ("Peer.swift", "extension Old { override func media(_ value: Request) { use(value) } }")]
   let result = try ClassContext.compare(before: files, after: files + [("New.swift", "class New: Host {}")])
-  #expect(result.families.first?.slots.first?.parentMethod.location.file == "Parent.swift")
-  #expect(result.families.first?.slots.first?.existingPeers.first?.method.location.file == "Peer.swift")
+  #expect(result.families.first?.slots.first?.parent.after.exactSpelling.first?.location.file == "Parent.swift")
+  #expect(result.families.first?.slots.first?.peers.first?.after.exactSpelling.first?.location.file == "Peer.swift")
 }
 
 @Test func beforeAmbiguityIsExplainedWithItsSide() throws {
@@ -125,6 +125,28 @@ private func compare(_ added: String, context: String = existing) throws -> Cont
     after: [("Old.swift", existing), ("New.swift", "class New: Host {}")])
   #expect(result.families.isEmpty)
   #expect(result.skipped.contains { $0.hasPrefix("before: Host:") })
+}
+
+@Test func intentionalSeparationShowsOppositeBodyStatesAcrossSnapshots() throws {
+  let before = "class Host { func media(_ value: Request) { use(value) } }\nclass Old: Host {}"
+  let result = try ClassContext.compare(before: [("Old.swift", before)],
+    after: [("Old.swift", existing), ("New.swift", "class New: Host {}")])
+  let slot = try #require(result.families.first?.slots.first)
+  #expect(slot.parent.before.exactSpelling.first?.body == .statements)
+  #expect(slot.parent.after.exactSpelling.first?.body == .empty)
+  #expect(slot.peers.first?.before.exactSpelling.isEmpty == true)
+  #expect(slot.peers.first?.after.exactSpelling.first?.body == .statements)
+  // The sets show the placement change without claiming that these are paired implementations.
+}
+
+@Test func beforeSignatureDifferencesAndOverloadsStayVisibleWithoutPairing() throws {
+  let before = "class Host { func media(_ value: Module.Request) {}\nfunc media(_ value: String) {} }\nclass Old: Host {}"
+  let result = try ClassContext.compare(before: [("Old.swift", before)],
+    after: [("Old.swift", existing), ("New.swift", "class New: Host {}")])
+  let parent = try #require(result.families.first?.slots.first?.parent)
+  #expect(parent.before.exactSpelling.isEmpty)
+  #expect(parent.before.otherSpellings.count == 2)
+  #expect(parent.after.exactSpelling.count == 1)
 }
 
 @Test func orderingIsDeterministicAndInputPolicyDoesNotChangeFacts() throws {
