@@ -9,8 +9,9 @@ import subprocess
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--output', type=Path, required=True)
+parser.add_argument('--manifest', type=Path, default=Path(__file__).with_name('inputs.json'))
 args = parser.parse_args()
-manifest = json.loads(Path(__file__).with_name('inputs.json').read_text())
+manifest = json.loads(args.manifest.read_text())
 # Require a fresh destination: stale files must not change the analysis scope.
 args.output.mkdir(parents=True, exist_ok=False)
 for case in manifest:

@@ -1,0 +1,1688 @@
+[
+  {
+    "id": "wordpress-ios-25624",
+    "repository": "wordpress-mobile/WordPress-iOS",
+    "base": "9aa73328cf429f144750d406cb937723c44237f4",
+    "head": "989a00e0d8453dbd92a8a2ca7cb2ff637bbaa9fe",
+    "scope": "all changed Swift files plus all Swift files under WordPress/Classes/ViewRelated/Media/; not whole repository",
+    "contextPrefix": "WordPress/Classes/ViewRelated/Media/",
+    "files": [
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/CircularProgressView.swift",
+        "blob": "3f3ce064082fb1ea40b19350f39905e15589dbc7",
+        "bytes": 13688,
+        "sha256": "52ca7621b198aa2b456ef64061544ff744fe74d935d793c7c1f316facc684f7c"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/Crop/ImageCropOverlayView.swift",
+        "blob": "b5cbf800a5e8941386e7ad176bb236fa21862b83",
+        "bytes": 1657,
+        "sha256": "aa598cb2d1ffafbd3b78af2a5707ac81262062f1878b84c9b3a9d01fa4b8756b"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/Crop/ImageCropViewController.swift",
+        "blob": "a2ff5df0545993ced86e71a755b42f8ac78a48c4",
+        "bytes": 5490,
+        "sha256": "67fc819567e391b9a0e5eba3f4aa5e8f457406cefed1855626f96106cf151bd1"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/External/ExternalMediaDataSource.swift",
+        "blob": "48a89f538fb588d899fc9e0a0b9ab1c45c24331d",
+        "bytes": 609,
+        "sha256": "2c42bfa8f8c4b54bd781390ef967d93ca6fae7aa802255a11e23bb2a6d3d09ba"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/External/ExternalMediaPickerCollectionCell.swift",
+        "blob": "7ee79240e2f8d630fa5b32caf1242567086359ca",
+        "bytes": 1590,
+        "sha256": "214e2568b4c733afa9792a37fde7372845159e21b352ce6792d1a5dc532328ae"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/External/ExternalMediaPickerViewController.swift",
+        "blob": "a8eff83c0bf5a9d9dbde95710f8b51d52dd5ea6f",
+        "bytes": 11510,
+        "sha256": "0abad9e222705921a645bb98ec4e9e28647fb7370719985d82dea6c407c9fd7b"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/External/ExternalMediaSelectionTitleView.swift",
+        "blob": "c3978f140fd65b58086c6bade4df3904e279611e",
+        "bytes": 1990,
+        "sha256": "2ed5f694978b586b58c7978218dfb9960492e778fed0088bd90ad17caaaa3903"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/GIFAlertStrings.swift",
+        "blob": "3115c370f128065a5edbe17bbdc6e751e7429917",
+        "bytes": 603,
+        "sha256": "9d85fe4fc20c26099a1554369f811cc7cf1e37dd63bfd0b1410fda3fa93922bd"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/Lightbox/LightboxImagePageViewController.swift",
+        "blob": "5a21aba17a85ed76acdda4398b3601331e70f8f8",
+        "bytes": 4340,
+        "sha256": "d5e6b96641ec95ffb0194504fe9676f07e0eeedce49ead934c2417803f0e3c80"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/Lightbox/LightboxImageScrollView.swift",
+        "blob": "8ada05076367c8b6b52241a361bd997e12ab8ff8",
+        "bytes": 4315,
+        "sha256": "3b63f915aa0d776d567fbd3962215e9b4ab77ac04d6d564cc4452ae17dc48098"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/Lightbox/LightboxItem.swift",
+        "blob": "24c7e9c0a0304865b960f58d7209ec884e25e849",
+        "bytes": 339,
+        "sha256": "88f5ae6cadad310570328774487ef97754d1e848d19a5587c31700bb04fe77ca"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/Lightbox/LightboxView.swift",
+        "blob": "b7ec0d7b3b8c00726c436c973c41f4c65eb14308",
+        "bytes": 534,
+        "sha256": "03cf7a84f899441096d8fd29eb4540c984f1a8b95e249ae984e8f9cbeb68a376"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/Lightbox/LightboxViewController.swift",
+        "blob": "6d4571de2b152a06c4b4ed3eaf51f839198065ec",
+        "bytes": 10242,
+        "sha256": "4ad988f22d7e95785777c8e116e8e00dd85047f0d23288ea8352de3b9da120b1"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaItemViewController.swift",
+        "blob": "414db9ccd68a3b65d6af685a63f0c23226e2df83",
+        "bytes": 21516,
+        "sha256": "886a181e1b7b51b81b88b262a53ed676e94302feeeb2328cf62aefd54c31b1d8"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaLibraryRouting.swift",
+        "blob": "7f4a8b10c96f0a1d6394ff02ca021aa63f04dee2",
+        "bytes": 1692,
+        "sha256": "49a5affd213ef6e236439fb15d469dbf0e9d4270d6fda53885c2afbd1e13f62f"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaNoticeNavigationCoordinator.swift",
+        "blob": "c8687888d8c6810f09d95890b6ea261aaaf2c36a",
+        "bytes": 3122,
+        "sha256": "a598fbd0efe808d032069626b3cafbd9f7c0482eb26846acfb55d25a5e81de5d"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Helpers/MediaPickerController.swift",
+        "blob": "82acdb88f254536355e6a7509946826d63890cf5",
+        "bytes": 6052,
+        "sha256": "cd41466f0c6c9e7fbbf69ad419dcf8a488b4fd616d669a021082b163e712a055"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Helpers/MediaPickerMenuController.swift",
+        "blob": "ec379be630b94c0144a8f077d6175f1af630ab3a",
+        "bytes": 2675,
+        "sha256": "1034f46497f739413b242a27f68b195d6364fcf43e92b7ce3163615e67546fab"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/MediaPicker.swift",
+        "blob": "b8151fcdf81c8ea733ed4526ebf248d1ff9c4211",
+        "bytes": 3648,
+        "sha256": "c6fbe395532064aa7e0beb6c678add6dd119f6b7da402ff3d4dd503432a127f1"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Menu/MediaPickerMenu+Camera.swift",
+        "blob": "fd9c084db3afbc3851c763b33b097a7c81db3dc9",
+        "bytes": 5208,
+        "sha256": "abdfe817d4377a4efbcf0e786f069c3933f47ef763dfded4c0252f7c3926be6e"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Menu/MediaPickerMenu+External.swift",
+        "blob": "2ca79686ca98a07d4a28aade4174e640c8c729b4",
+        "bytes": 1618,
+        "sha256": "2be27ffb4fd780df4fa6aa76a437f67ea227a78ec1e0ac51f36384cec3d0a98f"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Menu/MediaPickerMenu+ImagePlayground.swift",
+        "blob": "fd35b6246e869e83b3d235da421f49be7312a2df",
+        "bytes": 3816,
+        "sha256": "4b728620417124d1d3c1a03b8d46931ee5eae0e527b6d80f7b92a309f010abf3"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Menu/MediaPickerMenu+Photos.swift",
+        "blob": "243851fcd7568de18d5d01653eb041401a89bde9",
+        "bytes": 1506,
+        "sha256": "67b5ddb81583ed3eacf9dd2b4f3567745f899b2fa228325db4bd7467d5630093"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Menu/MediaPickerMenu+SiteMedia.swift",
+        "blob": "8c1ecb7b822dc099ecbad047637f07a1f7769fab",
+        "bytes": 1294,
+        "sha256": "7789693827f61f3a5a344b8bbf94f6633a89d2d30cf89c3bf19d75f11b624139"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Menu/MediaPickerMenu.swift",
+        "blob": "44b5d70dc64b72790609c72fa4879191f376951a",
+        "bytes": 1884,
+        "sha256": "8fd12320dfc220533cebceddb5e805094d73cd6e72488b10a9a97a7422787a00"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaProgressCoordinatorNoticeViewModel.swift",
+        "blob": "dd93e35ee466d19510cad07f13282ce6cbe7c798",
+        "bytes": 8066,
+        "sha256": "345a2a08363dd8bf1fd29f025463a5a142301bd54f3d060b7f1aecf7a6091fee"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/NSItemProvider+Exportable.swift",
+        "blob": "22f1c56e5d37d4fa58da433a44fe855a05209c6f",
+        "bytes": 649,
+        "sha256": "0e70111dae65a191c3f7600075036af45fde31868b54fbf2a9e479e8b135cb6a"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/NoResultsViewController+MediaLibrary.swift",
+        "blob": "fda10b9be5179b1b0edc5c223e32a8172f7ce546",
+        "bytes": 1477,
+        "sha256": "2c348ba39fd5428cf12ad14a63908dde46024b81010540e0fdb723dbea4714f8"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/PHPickerController+Extensions.swift",
+        "blob": "a07567be0e54a805f3cbd003924466742a5cf320",
+        "bytes": 4985,
+        "sha256": "9b6711d9e97b9023a871844c60ca014cf4b9c2959f1b1953060444e8bb0f6b07"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/Preview/MediaPreviewController.swift",
+        "blob": "294ea77c9e06228effff0b48d71e6b21e007f5bd",
+        "bytes": 3909,
+        "sha256": "9517b79b6c98927921cdbba3eba3cfae0c8613fd26de68db495a2721cf63b038"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Controllers/SiteMediaAddMediaMenuController.swift",
+        "blob": "518bc2af9fc9301dcb58a745379619c0f4e49d51",
+        "bytes": 7446,
+        "sha256": "2277e473d9fa43271a9849c3273df6d334dc7b6bfab84a39e89ac955483c1305"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Controllers/SiteMediaCollectionViewController.swift",
+        "blob": "34fda5dbca0ffb53fdf4bc34b9000d1144d0409e",
+        "bytes": 26241,
+        "sha256": "ee6237a0d886b43894ed8cecef518dd13add70b5ebd831369ad4ae37721e8925"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Controllers/SiteMediaPreviewViewController.swift",
+        "blob": "9123319a2ccae44077cd65329971ff41b4413bd1",
+        "bytes": 3756,
+        "sha256": "a106560f2700f696d53ce459fa155e5a8c2d535a4ef3a170620ddf1db9bd482d"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Helpers/SiteMediaFilterButtonView.swift",
+        "blob": "ac0ff54f88b7710583e312339ccfd1ccfe0226ec",
+        "bytes": 1458,
+        "sha256": "ed246dc5193a41bdb80d4517547115bcb8211db6e577effa36be46b78d4fd378"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Helpers/SiteMediaImageLoadingController.swift",
+        "blob": "a24d7be8501bbb137e815520dca90a8ddb4dbfc8",
+        "bytes": 1415,
+        "sha256": "4866e11c19e02ac5a038ecde8dccfa89969aa2010a7bb8615b474cbeec9f714f"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/SiteMediaPageViewController.swift",
+        "blob": "dad11518d69f7fb24ba6c7990400fd15236d7af0",
+        "bytes": 5125,
+        "sha256": "2d81f54b04a4ad788556c120a83c157a81cd2a978e186104dddd878c6466ba7c"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/SiteMediaPickerViewController.swift",
+        "blob": "a213832ac041da93a7c94bd4c5e0bd968c98f765",
+        "bytes": 5335,
+        "sha256": "3b54bad22cb84cf1c2288490e924c37fbe5597805c26117398c013ea79f85ef0"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/SiteMediaViewController.swift",
+        "blob": "8ec1704a3fb7cbddb8d76ec4deeaf698d4f5d5b6",
+        "bytes": 14610,
+        "sha256": "4766233451b93e548e3adac45d1525dfd34c6e986e4224329655aaf20f24946b"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/MediaStorageDetailsView.swift",
+        "blob": "61cf4a68d1bd01d44d32f9c889e86f13f1e07aaf",
+        "bytes": 23275,
+        "sha256": "e153deed1be63ed4504d9325124e50fdddae3e2301dcf0692b8c879900758c63"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/SiteMediaCollectionCell.swift",
+        "blob": "319f36ef7726c3e439a115d6b71448a1bd013738",
+        "bytes": 8832,
+        "sha256": "a0292cb1c27581a987da8159168c44f0751cbf5db70d0e3f91ab1aec26692ea9"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/SiteMediaCollectionCellSelectionOverlayView.swift",
+        "blob": "6367688a5c081c31b2ac0999e47d012186d3b16d",
+        "bytes": 2380,
+        "sha256": "417fe36139f145df7fa745805da090952a006969a114f3c824058c8849c7634f"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/SiteMediaCollectionCellViewModel.swift",
+        "blob": "aabd213b016913f160712a616c6c7d36e53f9fc8",
+        "bytes": 9402,
+        "sha256": "3958a0ff2cf32888fd361ada24537261ad93a48ee54ed6f9b5c70f991e7af735"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/SiteMediaDocumentInfoView.swift",
+        "blob": "6c536803aac644ba3f4424fa52f3df21e7fec3d7",
+        "bytes": 1874,
+        "sha256": "ef8c629cc92b4382fd1f3194cc16bc92d69af6f725c9dd1938cdc3b2cf8be88f"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/SiteMediaImageView.swift",
+        "blob": "4a6aebc6d1d785567a6bd2dcb3ad5d86cf626e1b",
+        "bytes": 3394,
+        "sha256": "470764d77f845f6d1c65caf8100c4c429af783bf6beca5b66b9ac007b1581e83"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/SiteMediaSelectionTitleView.swift",
+        "blob": "430fbd88a02d46b49f725b795e5dcb967b1e4c20",
+        "bytes": 2411,
+        "sha256": "32a19d06c225d60e6695dfe0751c775a6f43f3cbe40b64a94abcdbd0d013649a"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/SiteMediaVideoDurationView.swift",
+        "blob": "e97c038eb00235fee2ecf440bba44c0180bc1d92",
+        "bytes": 1357,
+        "sha256": "3c0af21052e9531ef8d93f8f7f837c58de1c76561d7aa88807902afc2b97e534"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/AztecMediaPickingCoordinator.swift",
+        "blob": "24880e1f02a899bb2e1aa0418f84adbc09f9d781",
+        "bytes": 3270,
+        "sha256": "6614cb864bc39ef6c2fd4a8369d14f3d5e1cbc2beb723f426749923f1b303eb0"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/DefaultStockPhotosService.swift",
+        "blob": "ef1a35b39a872898f66209d6b7d4f178a42399eb",
+        "bytes": 2356,
+        "sha256": "fe03db7d575cfa8231262de05d5e45e725200dd0da9e26e7a174f96ce632caf6"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/Pageable.swift",
+        "blob": "5039d95cbbd14243682135227e77f81343a4cf92",
+        "bytes": 113,
+        "sha256": "da97573e29bcf2b5d226b6b2cb4027269ab58e852ee3e16e6890218897d27301"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/ResultsPage.swift",
+        "blob": "dd3829b699dc0d81149fc6ecdc267a811bb63e00",
+        "bytes": 110,
+        "sha256": "a93447842dc13d14998a229c6335e879ca3fdb38678ddbd86d0ee63d8c58d0bd"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosDataLoader.swift",
+        "blob": "4646804d45c9b35fa40d9e4f28d2d32417540c4b",
+        "bytes": 1932,
+        "sha256": "55ce9eea8b454f920477788735fcd18b2a45aa350d22fc50bbfd10d11110a017"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosDataSource.swift",
+        "blob": "f14920cb31c7a6cce901affdb63a55df218e8acc",
+        "bytes": 1918,
+        "sha256": "a0c1b811754b54bb4d518f73b75a0cb024d20745723924afed8b90424fee38c0"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosMedia.swift",
+        "blob": "06d5a47f71bb37c56842df90a0f0f7f45b5a6998",
+        "bytes": 2860,
+        "sha256": "33b2611556793176a0852dc8fcfce8a4ab21fcd2d669fbbd107d86415a5b2670"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosPageable.swift",
+        "blob": "3f7998dbb4653715a809ae0fe03e95c7793b22e3",
+        "bytes": 1406,
+        "sha256": "1a6e2e56cf2c7f846576d901958c5efeef3dd88b2f2bb40c32cffdbc5f284d83"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosResultsPage.swift",
+        "blob": "dab42db34ee367ba6ca5155854301c7b14421def",
+        "bytes": 579,
+        "sha256": "7f7b9d0308e68252869c8e02c18f1bd9f6cb414bd56cc5df19afb20d81984b60"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosService.swift",
+        "blob": "1568501747dc286e34b03f306153a3320a0fddcd",
+        "bytes": 452,
+        "sha256": "17cd72470108ec356804b6f55b8a4c0e5333dbd966cd5bf4b5b1f1020f83b9ff"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosStrings.swift",
+        "blob": "83c4b286c4fe83edd2dcaab3aed1a51800c70845",
+        "bytes": 721,
+        "sha256": "248b53ba4509736a338ecba4b4688d808578aa93fbb1fd6ba8487dd13ba7cad9"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosWelcomeView.swift",
+        "blob": "1fffa5bdf92f159a206e211c818eae5636397de6",
+        "bytes": 2554,
+        "sha256": "ce3e4a98055449d26e40780adc85867dea03011497ea7b203b8e7f8893733eaa"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/V2/MediaUploadPolicyFactory.swift",
+        "blob": "e0c23f775abaca83574679a86306b1e6df22f103",
+        "bytes": 1426,
+        "sha256": "3368f9b948e7329028ef8df8252a5564420806d747933405ff1401ba404df901"
+      },
+      {
+        "side": "before",
+        "path": "WordPress/Classes/ViewRelated/Media/V2/MediaUploaderRegistry.swift",
+        "blob": "eff67421c4b083788b89d7d85ddb2ee87e36c4c4",
+        "bytes": 1572,
+        "sha256": "cf3e226265598688b62714d125788cd84a50c3a3791ad0b390a9514eb80c2004"
+      },
+      {
+        "side": "after",
+        "path": "Tests/KeystoneTests/Tests/Features/Media/V2/ExternalRemoteMediaAdapterTests.swift",
+        "blob": "d940759860c11a2ed6ac7772617c91050a412208",
+        "bytes": 1923,
+        "sha256": "1fd1a36eb91b266f61b0f622575dbf5708624791b890e0fa7f6146a8156b82c6"
+      },
+      {
+        "side": "after",
+        "path": "Tests/KeystoneTests/Tests/Features/Media/V2/MediaLibraryRoutingExternalSourcesTests.swift",
+        "blob": "ee58252d6f77f5590c64d87a6143128462a9ba00",
+        "bytes": 1898,
+        "sha256": "9ac48350436623c0c6913f090615446b29df3cd9bce027b485580609360dd124"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/CircularProgressView.swift",
+        "blob": "3f3ce064082fb1ea40b19350f39905e15589dbc7",
+        "bytes": 13688,
+        "sha256": "52ca7621b198aa2b456ef64061544ff744fe74d935d793c7c1f316facc684f7c"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/Crop/ImageCropOverlayView.swift",
+        "blob": "b5cbf800a5e8941386e7ad176bb236fa21862b83",
+        "bytes": 1657,
+        "sha256": "aa598cb2d1ffafbd3b78af2a5707ac81262062f1878b84c9b3a9d01fa4b8756b"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/Crop/ImageCropViewController.swift",
+        "blob": "a2ff5df0545993ced86e71a755b42f8ac78a48c4",
+        "bytes": 5490,
+        "sha256": "67fc819567e391b9a0e5eba3f4aa5e8f457406cefed1855626f96106cf151bd1"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/External/ExternalMediaDataSource.swift",
+        "blob": "48a89f538fb588d899fc9e0a0b9ab1c45c24331d",
+        "bytes": 609,
+        "sha256": "2c42bfa8f8c4b54bd781390ef967d93ca6fae7aa802255a11e23bb2a6d3d09ba"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/External/ExternalMediaPickerCollectionCell.swift",
+        "blob": "7ee79240e2f8d630fa5b32caf1242567086359ca",
+        "bytes": 1590,
+        "sha256": "214e2568b4c733afa9792a37fde7372845159e21b352ce6792d1a5dc532328ae"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/External/ExternalMediaPickerViewController.swift",
+        "blob": "a8eff83c0bf5a9d9dbde95710f8b51d52dd5ea6f",
+        "bytes": 11510,
+        "sha256": "0abad9e222705921a645bb98ec4e9e28647fb7370719985d82dea6c407c9fd7b"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/External/ExternalMediaSelectionTitleView.swift",
+        "blob": "c3978f140fd65b58086c6bade4df3904e279611e",
+        "bytes": 1990,
+        "sha256": "2ed5f694978b586b58c7978218dfb9960492e778fed0088bd90ad17caaaa3903"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/GIFAlertStrings.swift",
+        "blob": "3115c370f128065a5edbe17bbdc6e751e7429917",
+        "bytes": 603,
+        "sha256": "9d85fe4fc20c26099a1554369f811cc7cf1e37dd63bfd0b1410fda3fa93922bd"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/Lightbox/LightboxImagePageViewController.swift",
+        "blob": "5a21aba17a85ed76acdda4398b3601331e70f8f8",
+        "bytes": 4340,
+        "sha256": "d5e6b96641ec95ffb0194504fe9676f07e0eeedce49ead934c2417803f0e3c80"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/Lightbox/LightboxImageScrollView.swift",
+        "blob": "8ada05076367c8b6b52241a361bd997e12ab8ff8",
+        "bytes": 4315,
+        "sha256": "3b63f915aa0d776d567fbd3962215e9b4ab77ac04d6d564cc4452ae17dc48098"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/Lightbox/LightboxItem.swift",
+        "blob": "24c7e9c0a0304865b960f58d7209ec884e25e849",
+        "bytes": 339,
+        "sha256": "88f5ae6cadad310570328774487ef97754d1e848d19a5587c31700bb04fe77ca"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/Lightbox/LightboxView.swift",
+        "blob": "b7ec0d7b3b8c00726c436c973c41f4c65eb14308",
+        "bytes": 534,
+        "sha256": "03cf7a84f899441096d8fd29eb4540c984f1a8b95e249ae984e8f9cbeb68a376"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/Lightbox/LightboxViewController.swift",
+        "blob": "6d4571de2b152a06c4b4ed3eaf51f839198065ec",
+        "bytes": 10242,
+        "sha256": "4ad988f22d7e95785777c8e116e8e00dd85047f0d23288ea8352de3b9da120b1"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaItemViewController.swift",
+        "blob": "414db9ccd68a3b65d6af685a63f0c23226e2df83",
+        "bytes": 21516,
+        "sha256": "886a181e1b7b51b81b88b262a53ed676e94302feeeb2328cf62aefd54c31b1d8"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaLibraryRouting.swift",
+        "blob": "4af7d06df7131082a567a7eb787df6b4e1be3a2d",
+        "bytes": 3609,
+        "sha256": "9b5834a7aad9abfb2140cc8652e31430e2784c59452fed9c27a2912a8207b6c0"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaNoticeNavigationCoordinator.swift",
+        "blob": "c8687888d8c6810f09d95890b6ea261aaaf2c36a",
+        "bytes": 3122,
+        "sha256": "a598fbd0efe808d032069626b3cafbd9f7c0482eb26846acfb55d25a5e81de5d"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Helpers/MediaPickerController.swift",
+        "blob": "82acdb88f254536355e6a7509946826d63890cf5",
+        "bytes": 6052,
+        "sha256": "cd41466f0c6c9e7fbbf69ad419dcf8a488b4fd616d669a021082b163e712a055"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Helpers/MediaPickerMenuController.swift",
+        "blob": "ec379be630b94c0144a8f077d6175f1af630ab3a",
+        "bytes": 2675,
+        "sha256": "1034f46497f739413b242a27f68b195d6364fcf43e92b7ce3163615e67546fab"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/MediaPicker.swift",
+        "blob": "b8151fcdf81c8ea733ed4526ebf248d1ff9c4211",
+        "bytes": 3648,
+        "sha256": "c6fbe395532064aa7e0beb6c678add6dd119f6b7da402ff3d4dd503432a127f1"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Menu/MediaPickerMenu+Camera.swift",
+        "blob": "fd9c084db3afbc3851c763b33b097a7c81db3dc9",
+        "bytes": 5208,
+        "sha256": "abdfe817d4377a4efbcf0e786f069c3933f47ef763dfded4c0252f7c3926be6e"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Menu/MediaPickerMenu+External.swift",
+        "blob": "2ca79686ca98a07d4a28aade4174e640c8c729b4",
+        "bytes": 1618,
+        "sha256": "2be27ffb4fd780df4fa6aa76a437f67ea227a78ec1e0ac51f36384cec3d0a98f"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Menu/MediaPickerMenu+ImagePlayground.swift",
+        "blob": "fd35b6246e869e83b3d235da421f49be7312a2df",
+        "bytes": 3816,
+        "sha256": "4b728620417124d1d3c1a03b8d46931ee5eae0e527b6d80f7b92a309f010abf3"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Menu/MediaPickerMenu+Photos.swift",
+        "blob": "243851fcd7568de18d5d01653eb041401a89bde9",
+        "bytes": 1506,
+        "sha256": "67b5ddb81583ed3eacf9dd2b4f3567745f899b2fa228325db4bd7467d5630093"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Menu/MediaPickerMenu+SiteMedia.swift",
+        "blob": "8c1ecb7b822dc099ecbad047637f07a1f7769fab",
+        "bytes": 1294,
+        "sha256": "7789693827f61f3a5a344b8bbf94f6633a89d2d30cf89c3bf19d75f11b624139"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaPicker/Menu/MediaPickerMenu.swift",
+        "blob": "44b5d70dc64b72790609c72fa4879191f376951a",
+        "bytes": 1884,
+        "sha256": "8fd12320dfc220533cebceddb5e805094d73cd6e72488b10a9a97a7422787a00"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/MediaProgressCoordinatorNoticeViewModel.swift",
+        "blob": "dd93e35ee466d19510cad07f13282ce6cbe7c798",
+        "bytes": 8066,
+        "sha256": "345a2a08363dd8bf1fd29f025463a5a142301bd54f3d060b7f1aecf7a6091fee"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/NSItemProvider+Exportable.swift",
+        "blob": "22f1c56e5d37d4fa58da433a44fe855a05209c6f",
+        "bytes": 649,
+        "sha256": "0e70111dae65a191c3f7600075036af45fde31868b54fbf2a9e479e8b135cb6a"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/NoResultsViewController+MediaLibrary.swift",
+        "blob": "fda10b9be5179b1b0edc5c223e32a8172f7ce546",
+        "bytes": 1477,
+        "sha256": "2c348ba39fd5428cf12ad14a63908dde46024b81010540e0fdb723dbea4714f8"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/PHPickerController+Extensions.swift",
+        "blob": "a07567be0e54a805f3cbd003924466742a5cf320",
+        "bytes": 4985,
+        "sha256": "9b6711d9e97b9023a871844c60ca014cf4b9c2959f1b1953060444e8bb0f6b07"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/Preview/MediaPreviewController.swift",
+        "blob": "294ea77c9e06228effff0b48d71e6b21e007f5bd",
+        "bytes": 3909,
+        "sha256": "9517b79b6c98927921cdbba3eba3cfae0c8613fd26de68db495a2721cf63b038"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Controllers/SiteMediaAddMediaMenuController.swift",
+        "blob": "518bc2af9fc9301dcb58a745379619c0f4e49d51",
+        "bytes": 7446,
+        "sha256": "2277e473d9fa43271a9849c3273df6d334dc7b6bfab84a39e89ac955483c1305"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Controllers/SiteMediaCollectionViewController.swift",
+        "blob": "34fda5dbca0ffb53fdf4bc34b9000d1144d0409e",
+        "bytes": 26241,
+        "sha256": "ee6237a0d886b43894ed8cecef518dd13add70b5ebd831369ad4ae37721e8925"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Controllers/SiteMediaPreviewViewController.swift",
+        "blob": "9123319a2ccae44077cd65329971ff41b4413bd1",
+        "bytes": 3756,
+        "sha256": "a106560f2700f696d53ce459fa155e5a8c2d535a4ef3a170620ddf1db9bd482d"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Helpers/SiteMediaFilterButtonView.swift",
+        "blob": "ac0ff54f88b7710583e312339ccfd1ccfe0226ec",
+        "bytes": 1458,
+        "sha256": "ed246dc5193a41bdb80d4517547115bcb8211db6e577effa36be46b78d4fd378"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Helpers/SiteMediaImageLoadingController.swift",
+        "blob": "a24d7be8501bbb137e815520dca90a8ddb4dbfc8",
+        "bytes": 1415,
+        "sha256": "4866e11c19e02ac5a038ecde8dccfa89969aa2010a7bb8615b474cbeec9f714f"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/SiteMediaPageViewController.swift",
+        "blob": "dad11518d69f7fb24ba6c7990400fd15236d7af0",
+        "bytes": 5125,
+        "sha256": "2d81f54b04a4ad788556c120a83c157a81cd2a978e186104dddd878c6466ba7c"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/SiteMediaPickerViewController.swift",
+        "blob": "a213832ac041da93a7c94bd4c5e0bd968c98f765",
+        "bytes": 5335,
+        "sha256": "3b54bad22cb84cf1c2288490e924c37fbe5597805c26117398c013ea79f85ef0"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/SiteMediaViewController.swift",
+        "blob": "8ec1704a3fb7cbddb8d76ec4deeaf698d4f5d5b6",
+        "bytes": 14610,
+        "sha256": "4766233451b93e548e3adac45d1525dfd34c6e986e4224329655aaf20f24946b"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/MediaStorageDetailsView.swift",
+        "blob": "61cf4a68d1bd01d44d32f9c889e86f13f1e07aaf",
+        "bytes": 23275,
+        "sha256": "e153deed1be63ed4504d9325124e50fdddae3e2301dcf0692b8c879900758c63"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/SiteMediaCollectionCell.swift",
+        "blob": "319f36ef7726c3e439a115d6b71448a1bd013738",
+        "bytes": 8832,
+        "sha256": "a0292cb1c27581a987da8159168c44f0751cbf5db70d0e3f91ab1aec26692ea9"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/SiteMediaCollectionCellSelectionOverlayView.swift",
+        "blob": "6367688a5c081c31b2ac0999e47d012186d3b16d",
+        "bytes": 2380,
+        "sha256": "417fe36139f145df7fa745805da090952a006969a114f3c824058c8849c7634f"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/SiteMediaCollectionCellViewModel.swift",
+        "blob": "aabd213b016913f160712a616c6c7d36e53f9fc8",
+        "bytes": 9402,
+        "sha256": "3958a0ff2cf32888fd361ada24537261ad93a48ee54ed6f9b5c70f991e7af735"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/SiteMediaDocumentInfoView.swift",
+        "blob": "6c536803aac644ba3f4424fa52f3df21e7fec3d7",
+        "bytes": 1874,
+        "sha256": "ef8c629cc92b4382fd1f3194cc16bc92d69af6f725c9dd1938cdc3b2cf8be88f"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/SiteMediaImageView.swift",
+        "blob": "4a6aebc6d1d785567a6bd2dcb3ad5d86cf626e1b",
+        "bytes": 3394,
+        "sha256": "470764d77f845f6d1c65caf8100c4c429af783bf6beca5b66b9ac007b1581e83"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/SiteMediaSelectionTitleView.swift",
+        "blob": "430fbd88a02d46b49f725b795e5dcb967b1e4c20",
+        "bytes": 2411,
+        "sha256": "32a19d06c225d60e6695dfe0751c775a6f43f3cbe40b64a94abcdbd0d013649a"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/SiteMedia/Views/SiteMediaVideoDurationView.swift",
+        "blob": "e97c038eb00235fee2ecf440bba44c0180bc1d92",
+        "bytes": 1357,
+        "sha256": "3c0af21052e9531ef8d93f8f7f837c58de1c76561d7aa88807902afc2b97e534"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/AztecMediaPickingCoordinator.swift",
+        "blob": "24880e1f02a899bb2e1aa0418f84adbc09f9d781",
+        "bytes": 3270,
+        "sha256": "6614cb864bc39ef6c2fd4a8369d14f3d5e1cbc2beb723f426749923f1b303eb0"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/DefaultStockPhotosService.swift",
+        "blob": "ef1a35b39a872898f66209d6b7d4f178a42399eb",
+        "bytes": 2356,
+        "sha256": "fe03db7d575cfa8231262de05d5e45e725200dd0da9e26e7a174f96ce632caf6"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/Pageable.swift",
+        "blob": "5039d95cbbd14243682135227e77f81343a4cf92",
+        "bytes": 113,
+        "sha256": "da97573e29bcf2b5d226b6b2cb4027269ab58e852ee3e16e6890218897d27301"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/ResultsPage.swift",
+        "blob": "dd3829b699dc0d81149fc6ecdc267a811bb63e00",
+        "bytes": 110,
+        "sha256": "a93447842dc13d14998a229c6335e879ca3fdb38678ddbd86d0ee63d8c58d0bd"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosDataLoader.swift",
+        "blob": "4646804d45c9b35fa40d9e4f28d2d32417540c4b",
+        "bytes": 1932,
+        "sha256": "55ce9eea8b454f920477788735fcd18b2a45aa350d22fc50bbfd10d11110a017"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosDataSource.swift",
+        "blob": "f14920cb31c7a6cce901affdb63a55df218e8acc",
+        "bytes": 1918,
+        "sha256": "a0c1b811754b54bb4d518f73b75a0cb024d20745723924afed8b90424fee38c0"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosMedia.swift",
+        "blob": "06d5a47f71bb37c56842df90a0f0f7f45b5a6998",
+        "bytes": 2860,
+        "sha256": "33b2611556793176a0852dc8fcfce8a4ab21fcd2d669fbbd107d86415a5b2670"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosPageable.swift",
+        "blob": "3f7998dbb4653715a809ae0fe03e95c7793b22e3",
+        "bytes": 1406,
+        "sha256": "1a6e2e56cf2c7f846576d901958c5efeef3dd88b2f2bb40c32cffdbc5f284d83"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosResultsPage.swift",
+        "blob": "dab42db34ee367ba6ca5155854301c7b14421def",
+        "bytes": 579,
+        "sha256": "7f7b9d0308e68252869c8e02c18f1bd9f6cb414bd56cc5df19afb20d81984b60"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosService.swift",
+        "blob": "1568501747dc286e34b03f306153a3320a0fddcd",
+        "bytes": 452,
+        "sha256": "17cd72470108ec356804b6f55b8a4c0e5333dbd966cd5bf4b5b1f1020f83b9ff"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosStrings.swift",
+        "blob": "83c4b286c4fe83edd2dcaab3aed1a51800c70845",
+        "bytes": 721,
+        "sha256": "248b53ba4509736a338ecba4b4688d808578aa93fbb1fd6ba8487dd13ba7cad9"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/StockPhotos/StockPhotosWelcomeView.swift",
+        "blob": "1fffa5bdf92f159a206e211c818eae5636397de6",
+        "bytes": 2554,
+        "sha256": "ce3e4a98055449d26e40780adc85867dea03011497ea7b203b8e7f8893733eaa"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/V2/ExternalSources/ExternalMediaPickerSheet.swift",
+        "blob": "c7ff57110959fece831cfb3502b5e6bfe6377229",
+        "bytes": 3009,
+        "sha256": "fafd8271d83574bd58331493782979e09dfcdc481d23c437bd9bbc2ddb9a12ca"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/V2/ExternalSources/ExternalRemoteMedia+Adapter.swift",
+        "blob": "f8323ef51b138763e8213851dda86cc4bce22932",
+        "bytes": 1914,
+        "sha256": "a46882f04e91786db514258536ce9f519096af30448f67c4f89b4c263bcfad8a"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/V2/ExternalSources/ImagePlaygroundPickerSheet.swift",
+        "blob": "63774531d2c84bcf6409329864fcf7b616e29b20",
+        "bytes": 2305,
+        "sha256": "e0cd9536d19046fa1b2f93a53eba32e6774e2f52ed97b8f9c2ab572d2dc873cc"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/V2/ExternalSources/StockPhotosPickerSheet.swift",
+        "blob": "65439338dcf16646c482a22eb82c81bd462923d1",
+        "bytes": 948,
+        "sha256": "0525667df6c1f8422afa41b605a5f97d6ca37366af6ea39e929196094c732648"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/V2/MediaUploadPolicyFactory.swift",
+        "blob": "e0c23f775abaca83574679a86306b1e6df22f103",
+        "bytes": 1426,
+        "sha256": "3368f9b948e7329028ef8df8252a5564420806d747933405ff1401ba404df901"
+      },
+      {
+        "side": "after",
+        "path": "WordPress/Classes/ViewRelated/Media/V2/MediaUploaderRegistry.swift",
+        "blob": "eff67421c4b083788b89d7d85ddb2ee87e36c4c4",
+        "bytes": 1572,
+        "sha256": "cf3e226265598688b62714d125788cd84a50c3a3791ad0b390a9514eb80c2004"
+      }
+    ]
+  },
+  {
+    "id": "nuke-879",
+    "repository": "kean/Nuke",
+    "base": "63a8fcbd6621340a2410bc3e9575ac97058615f4",
+    "head": "5aa0d5f5a8f82615df20157fe0a3aea18bd50712",
+    "scope": "all changed Swift files plus all Swift files under Sources/Nuke/; not whole repository",
+    "contextPrefix": "Sources/Nuke/",
+    "files": [
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Caching/Cache.swift",
+        "blob": "d4f197eca8e2c499ef66ad56002da377481c955f",
+        "bytes": 7885,
+        "sha256": "30d3d4250ae8d1e00b6c286f6f3eed69288f300d2f33ab595892d33511b0ac16"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Caching/DataCache.swift",
+        "blob": "96c5fe22ef96098932ffefe7aa5f7a2aa96cf57a",
+        "bytes": 17962,
+        "sha256": "8f7db72c009b327e817e3e0aec4660c98f38dbc1d7e9e263d1393df87ed65ef4"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Caching/DataCaching.swift",
+        "blob": "c1a3e24a9bb6e47d513c2aa6cd6148211cda8f32",
+        "bytes": 764,
+        "sha256": "bc6fe41a87a777e24335c0226eaf79c2adad5ba767103a89d6c944da85dd3c8b"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Caching/ImageCache.swift",
+        "blob": "71e8f740db344be75b18b4e71811fcbf92a8f767",
+        "bytes": 4387,
+        "sha256": "913c3960936e6390e5a6ebd3494f594c4011da497fae0b7c904aecebdc02592b"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Caching/ImageCaching.swift",
+        "blob": "ce0c685370400f235da85e8f5c64582948d80f0c",
+        "bytes": 1171,
+        "sha256": "76832be0af16a7385916976df6072f9f5378ecc1d230fe8c59adb5ecccc973ed"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Decoding/AssetType.swift",
+        "blob": "99c97b801bcb41cf79ff6f06b3431d71355aa3fe",
+        "bytes": 3910,
+        "sha256": "3196488872366ca903140bf91bc30bb48a5f55191b3ddb3eafee3610153f4736"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Decoding/ImageDecoderRegistry.swift",
+        "blob": "735baddc02b9673166235cacc599bdb265414ec8",
+        "bytes": 2796,
+        "sha256": "16e3109ea17d3f496a2d605913f1f4dee99006080f80bb99818020a08198a13c"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Decoding/ImageDecoders+Default.swift",
+        "blob": "a043d85d018e7e8f4bd3fe2d8924422b81d78942",
+        "bytes": 7712,
+        "sha256": "63e5c82cb698fa3eb68113153f926155a0ee72de4fd7b36109ad14d2f2ae3cf9"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Decoding/ImageDecoders+Empty.swift",
+        "blob": "4e06d2bb2e12baee2f7c1c294a2982d6215b57ac",
+        "bytes": 1315,
+        "sha256": "92ef4bb111d99c5478e034ad63d2acc6f4879b0d4688ac8d9c505d9d0a795bd0"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Decoding/ImageDecoding.swift",
+        "blob": "d97a7ae3df7b2f699120e6365e30ed3df231682a",
+        "bytes": 2451,
+        "sha256": "3dfcebe42ecf4ed7d6c652e28aff2be8a72c45f49c0bd6f7beb183094c2d9e68"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Encoding/ImageEncoders+Default.swift",
+        "blob": "c1819276054a25c22b35caa5b906114c7ff4d9b3",
+        "bytes": 1341,
+        "sha256": "de5c76eb48f434108afdb7ea242cc477a551addf5c380a873aa418d76f446557"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Encoding/ImageEncoders+ImageIO.swift",
+        "blob": "7ac19bccfcc40a3aa2a75a7acc8c59b73b14b689",
+        "bytes": 2540,
+        "sha256": "093a8123559b7033df5689867d068324dde9fbb6f42fdb63c68979e4f37a93f7"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Encoding/ImageEncoders.swift",
+        "blob": "48044c762795f230a00588b79f939047928ed271",
+        "bytes": 677,
+        "sha256": "8d54050800f753e6f1e12ab9eb643b09db529cf7b53b1850927978790a51846c"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Encoding/ImageEncoding.swift",
+        "blob": "f9355d288dd884acc41b45f812a6f991dc5879c4",
+        "bytes": 1011,
+        "sha256": "8b719183082ac7f7d683fe8e5e4087c66d193c04470d889e06728e29491ad80d"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/ImageContainer.swift",
+        "blob": "21851f5b6e80784944202de982f97bc088edd44e",
+        "bytes": 4050,
+        "sha256": "b6bbea816a385cf2e4f8ca545ae8b9af5ab6b8809053f5990ea56bf257e01a39"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/ImageRequest.swift",
+        "blob": "93441dc5ea674d699884aeef4dfc2524a319682e",
+        "bytes": 21974,
+        "sha256": "fc80c266cfd316cae8b7e6f453cabc73d91d626527beef72ed0ede01e80adfe4"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/ImageResponse.swift",
+        "blob": "e779c8de8260c3eb1e625b1f4a76be1b158339b4",
+        "bytes": 1724,
+        "sha256": "b027ee887ec93bc4423d2c43fc5d387faeb9e5c43bf631867c6c6fd2d4093627"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/ImageTask.swift",
+        "blob": "f1c4ce84b6f2ea55007e5e82b0c98d1624be55ef",
+        "bytes": 11534,
+        "sha256": "bcc79afc88720917d7f86d9e83fec8b631659dc4faacecfd5957453ef7b5bac4"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Internal/Extensions.swift",
+        "blob": "655198786d445e10d719e6b6bb856dbf5d69fcf4",
+        "bytes": 1606,
+        "sha256": "f8adc575e52f17d79fcabacef221bc40dc4d3e12a0c0f4a0080908a84e86f8f9"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Internal/Graphics.swift",
+        "blob": "979c44f46fd4ad14d02402b4ad4046890950cf0a",
+        "bytes": 16026,
+        "sha256": "53c206d205e8aea12cd0d0705a241e5a0d61fb6b528897ac3093c28a88683360"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Internal/ImagePublisher.swift",
+        "blob": "fde0d5379973766dfad5cfd85c093092d74ffa3a",
+        "bytes": 2797,
+        "sha256": "29d2cdcb78059f29a41c6443f58dd1346abadb462efa5d3c2a609eedd69cad9b"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Internal/ImageRequestKeys.swift",
+        "blob": "3a6c1b2733a362eb0d3bb37eb951b1d7e6e7a84e",
+        "bytes": 3574,
+        "sha256": "6e2785388207266f110e4b1702c7b1f5f8a4173cf71dda5a1b9bd1cee2296ffb"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Internal/LinkedList.swift",
+        "blob": "bfbce50f9469d8b0f4200f2ff2e58a572b840cfd",
+        "bytes": 2783,
+        "sha256": "8209d48b0667707bd250e8d0ec7ca00c9d3ac7356b1662800da067010b47e8c8"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Internal/Log.swift",
+        "blob": "a7b49817ea620ded409868d0d8907a9a5c3d1ede",
+        "bytes": 1199,
+        "sha256": "6f610f239a106c32e3ac7b4d8c83fd2e00ed151e36a55b6fb1adc47aa3be688b"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Internal/Mutex.swift",
+        "blob": "0c3be67f5f10b7cf83f3899de601c85835f18e8e",
+        "bytes": 1126,
+        "sha256": "ca93f38d09ba395843b813d2ff96aa97030de4a5fcf9044f92b434759820f03c"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Internal/RateLimiter.swift",
+        "blob": "50d2566e3c55f8fc56abe9047554c2e1f0236734",
+        "bytes": 3929,
+        "sha256": "11c064e07259d0bde5cf897e299e5272521b0b48828d7dd4dbf67688b1ec20f1"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Internal/ResumableData.swift",
+        "blob": "b6a66b0021eed369d989a60ebb5ed469f965fa00",
+        "bytes": 4484,
+        "sha256": "26432c8355362ed170d07c20cea9c813d6c728a8f20cf0f8fde2cc01f413faf4"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Internal/TaskQueue.swift",
+        "blob": "07a59014bd6614f1c51f15012e2415bcd77b439d",
+        "bytes": 6910,
+        "sha256": "aac19a9e3b3556b23a9d5b989eeb4b80138e1227b4d1d0abb915f4988d0f4fc9"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Loading/DataLoader.swift",
+        "blob": "0795292b8062c3bef7f93f346cd345e75fa6b5ee",
+        "bytes": 10439,
+        "sha256": "a9b2a51cfbe5979e7108d8fd63961c45119a3ce4d06169d65a3de715648396c9"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Loading/DataLoading.swift",
+        "blob": "9d27fc65d7a5744f42611357a84b74022adfb14f",
+        "bytes": 798,
+        "sha256": "5d05c255ddc7dd8d987f8aa0d62241c97adaac25e3a86f6a285cf47cea0da6de"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Pipeline/Deprecated.swift",
+        "blob": "356043efa984ebab7459a6218a2c58de27bf040d",
+        "bytes": 4898,
+        "sha256": "352665d13f3524763cecaf1146a2791e82f04a33ffc6035610242e48ad0aaa0f"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Pipeline/ImagePipeline+Cache.swift",
+        "blob": "38812e1bb38a72e5dd8194c91662351338d6a5ca",
+        "bytes": 9808,
+        "sha256": "acd69174756507031ef39c9243da94197e92a0e1430df459f092417d5ea00553"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Pipeline/ImagePipeline+Configuration.swift",
+        "blob": "a89583e167f45da86f026815be95edc34cd6aa7c",
+        "bytes": 13587,
+        "sha256": "a76ad168b728d14fa9383d3d000f2cfa66b15578a94df684780497cb24f74b77"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Pipeline/ImagePipeline+Delegate.swift",
+        "blob": "c2cdd38b2b8e02ff21bf141b5cb843800326693c",
+        "bytes": 7678,
+        "sha256": "4c5a490b8ce79711b3adf481b5489340c90fb7b827ed010efc3e8b5094ffee0a"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Pipeline/ImagePipeline+Error.swift",
+        "blob": "f31d2f21f50da10fbafcf095296c294d6b22129e",
+        "bytes": 3369,
+        "sha256": "6906ffb71dbccf5213eb0ad4095d32cfe7164ddbdbac7b14bc81334fbb101df7"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Pipeline/ImagePipeline.swift",
+        "blob": "da21dd6f7747e1048ce01a2c49dbdc8ed519f7f7",
+        "bytes": 11532,
+        "sha256": "05aa4c8f517a0e9bd16c0b4fe1adbc756fd124d335156df6014efabc04943ea1"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Pipeline/ImagePipelineActor.swift",
+        "blob": "77c9c4b6ffab859dd2cffa4693cf8299da7e477b",
+        "bytes": 583,
+        "sha256": "10df9d6ca6f9c324c4319e8a8fa607f1f2d6cc4ded69ed7e710d427d1ed55cb2"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Prefetching/ImagePrefetcher.swift",
+        "blob": "f4bc276ac019d768605849486ba9e4311dc4e328",
+        "bytes": 8060,
+        "sha256": "1d901de00e86fc54b5d681834959319a37bce9772efa7069c87eeab7dee3dfa8"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Processing/ImageDecompression.swift",
+        "blob": "0db974b6b6457d5dc9bde5ef98f4ad03b24605f4",
+        "bytes": 1019,
+        "sha256": "c2d3c33d064023b9a1af19a6d135da2fa11206a4287f3669bf3f6914bf3f429c"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Processing/ImageProcessing.swift",
+        "blob": "e96bef90caae26b356e9444751a252520d8b2a41",
+        "bytes": 4272,
+        "sha256": "02f8d546f42caca37bd17ec1e47fdc8f7e55815e0af4bbd488df5ffb193c21e0"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Processing/ImageProcessingOptions.swift",
+        "blob": "c70773cb1a795cd8f0cf3c1ab1ed999e5bdb4a97",
+        "bytes": 2739,
+        "sha256": "47308588090c529899ddb9dcc22dcb66764bb447b745c2adf0f352d7e2b11df2"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Processing/ImageProcessors+Anonymous.swift",
+        "blob": "9fa44ff4df139ba56055ab1c9da767519a35b633",
+        "bytes": 843,
+        "sha256": "206c1b32660e68230175d76510e43757936fbff8075ac340d179ce9ef047493f"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Processing/ImageProcessors+Circle.swift",
+        "blob": "9d84036cfb254facdfbe501eec511cac8ad63db5",
+        "bytes": 1059,
+        "sha256": "b04d39d7f4ad960790537fa4bcc41b13a6c74f7e40cd56a9ed5915c358901479"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Processing/ImageProcessors+Composition.swift",
+        "blob": "6f6453868b452e9f0b717a003c8e1e0d6461ab07",
+        "bytes": 2374,
+        "sha256": "c3f69790f80f37332d37fca17255f56449fce0b93aa87af42c74b6b8f0a71026"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Processing/ImageProcessors+CoreImage.swift",
+        "blob": "b3073a71e1cb821e4df1a225faa621530b26e7ff",
+        "bytes": 6205,
+        "sha256": "3617155d1d07a41d32f6f31e5922b50e3f6a02350232ebbfa143713cadaeb11f"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Processing/ImageProcessors+GaussianBlur.swift",
+        "blob": "98666f49115d15952da3c3829d33d5885f168223",
+        "bytes": 2975,
+        "sha256": "be09a5e5a3a3a17c87f94da90f234f9bf5a7314f3e660f73e7fda73de9585620"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Processing/ImageProcessors+Resize.swift",
+        "blob": "44d91372ff0cc9116ffdc18c7a96afe163749966",
+        "bytes": 3913,
+        "sha256": "8e34cc84e888fcf474968f0164e2e46abbe78380eb741bb69ff813f7b3656127"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Processing/ImageProcessors+RoundedCorners.swift",
+        "blob": "27fdf5be621af934595441a7cc30f77755a3d7f7",
+        "bytes": 1693,
+        "sha256": "32bde3ad2d940d88f8de95fbbb63cd8fcb2f686de9c8407d4cba7632a6358a3a"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Processing/ImageProcessors.swift",
+        "blob": "1ae9244f99658e40d446b49763f0564a900fbc2d",
+        "bytes": 5182,
+        "sha256": "483f07d3201c5d87ee0510d7754e78620f24e73ebdfcd8b7cba3189f79a6819f"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Tasks/AsyncPipelineTask.swift",
+        "blob": "e8a72cb8db385deff4481dcb1921ed455d82d11c",
+        "bytes": 2103,
+        "sha256": "45b64c41b6398201d43f007bd6f042c168d58ddbe8a1f85015ebc020d2e9c46a"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Tasks/AsyncTask.swift",
+        "blob": "44c6d7c2d4ab9ec0f7f774eba97c0eefafb04f86",
+        "bytes": 12301,
+        "sha256": "b4611be596df8387d57acf224f66943081db9073fb45ff0d187107e907086884"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Tasks/TaskFetchOriginalData.swift",
+        "blob": "3e113ef40dcfb8e8f8ba77bfd3ad754b82cb2d2e",
+        "bytes": 12633,
+        "sha256": "9cbf72ef43071df5956c212b5e3f3e52737c005bed2369f7ae6607f3b2dafa99"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Tasks/TaskFetchOriginalImage.swift",
+        "blob": "13381814ed11bd33c3b6fac77f94e0f98038e3f5",
+        "bytes": 3867,
+        "sha256": "f08bf34a371caeb61d7c387b557f1ca144c168aa79dabca9c0498473f7318329"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Tasks/TaskLoadData.swift",
+        "blob": "0a2b3b41fa2a075b67932334407e0d6f893dfa4d",
+        "bytes": 1366,
+        "sha256": "d1f6ed65f9a9dfc5e157783c7637491d946b50e516c4322f86878d1525b84ffc"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Nuke/Tasks/TaskLoadImage.swift",
+        "blob": "1dd8219ce6612adffc47c1de288053b4fe126877",
+        "bytes": 8345,
+        "sha256": "66f5b5009e0c30fa451f013c5e8cc093522582c4124dd0653f8987cecfb3ac9a"
+      },
+      {
+        "side": "before",
+        "path": "Tests/NukeTests/ImagePipelineTests/ImagePipelineDecodingTests.swift",
+        "blob": "f98d4784c53f52fafdd127aa6855e66b1e6e4856",
+        "bytes": 3039,
+        "sha256": "5f759f2a52f85616de7f5f20931ad426f69f9ab34478d69998e7a4169d545fc2"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Caching/Cache.swift",
+        "blob": "d4f197eca8e2c499ef66ad56002da377481c955f",
+        "bytes": 7885,
+        "sha256": "30d3d4250ae8d1e00b6c286f6f3eed69288f300d2f33ab595892d33511b0ac16"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Caching/DataCache.swift",
+        "blob": "96c5fe22ef96098932ffefe7aa5f7a2aa96cf57a",
+        "bytes": 17962,
+        "sha256": "8f7db72c009b327e817e3e0aec4660c98f38dbc1d7e9e263d1393df87ed65ef4"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Caching/DataCaching.swift",
+        "blob": "c1a3e24a9bb6e47d513c2aa6cd6148211cda8f32",
+        "bytes": 764,
+        "sha256": "bc6fe41a87a777e24335c0226eaf79c2adad5ba767103a89d6c944da85dd3c8b"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Caching/ImageCache.swift",
+        "blob": "71e8f740db344be75b18b4e71811fcbf92a8f767",
+        "bytes": 4387,
+        "sha256": "913c3960936e6390e5a6ebd3494f594c4011da497fae0b7c904aecebdc02592b"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Caching/ImageCaching.swift",
+        "blob": "ce0c685370400f235da85e8f5c64582948d80f0c",
+        "bytes": 1171,
+        "sha256": "76832be0af16a7385916976df6072f9f5378ecc1d230fe8c59adb5ecccc973ed"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Decoding/AssetType.swift",
+        "blob": "99c97b801bcb41cf79ff6f06b3431d71355aa3fe",
+        "bytes": 3910,
+        "sha256": "3196488872366ca903140bf91bc30bb48a5f55191b3ddb3eafee3610153f4736"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Decoding/ImageDecoderRegistry.swift",
+        "blob": "735baddc02b9673166235cacc599bdb265414ec8",
+        "bytes": 2796,
+        "sha256": "16e3109ea17d3f496a2d605913f1f4dee99006080f80bb99818020a08198a13c"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Decoding/ImageDecoders+Default.swift",
+        "blob": "a043d85d018e7e8f4bd3fe2d8924422b81d78942",
+        "bytes": 7712,
+        "sha256": "63e5c82cb698fa3eb68113153f926155a0ee72de4fd7b36109ad14d2f2ae3cf9"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Decoding/ImageDecoders+Empty.swift",
+        "blob": "4e06d2bb2e12baee2f7c1c294a2982d6215b57ac",
+        "bytes": 1315,
+        "sha256": "92ef4bb111d99c5478e034ad63d2acc6f4879b0d4688ac8d9c505d9d0a795bd0"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Decoding/ImageDecoding.swift",
+        "blob": "f5b0a58f77c9dc4cc40ad30a38687a65679ff21e",
+        "bytes": 4196,
+        "sha256": "7d40dc91f6c095edafd68c2e057829f1ca2ca7e5208ac7b18c5626c1ba49f596"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Encoding/ImageEncoders+Default.swift",
+        "blob": "c1819276054a25c22b35caa5b906114c7ff4d9b3",
+        "bytes": 1341,
+        "sha256": "de5c76eb48f434108afdb7ea242cc477a551addf5c380a873aa418d76f446557"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Encoding/ImageEncoders+ImageIO.swift",
+        "blob": "7ac19bccfcc40a3aa2a75a7acc8c59b73b14b689",
+        "bytes": 2540,
+        "sha256": "093a8123559b7033df5689867d068324dde9fbb6f42fdb63c68979e4f37a93f7"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Encoding/ImageEncoders.swift",
+        "blob": "48044c762795f230a00588b79f939047928ed271",
+        "bytes": 677,
+        "sha256": "8d54050800f753e6f1e12ab9eb643b09db529cf7b53b1850927978790a51846c"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Encoding/ImageEncoding.swift",
+        "blob": "f9355d288dd884acc41b45f812a6f991dc5879c4",
+        "bytes": 1011,
+        "sha256": "8b719183082ac7f7d683fe8e5e4087c66d193c04470d889e06728e29491ad80d"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/ImageContainer.swift",
+        "blob": "21851f5b6e80784944202de982f97bc088edd44e",
+        "bytes": 4050,
+        "sha256": "b6bbea816a385cf2e4f8ca545ae8b9af5ab6b8809053f5990ea56bf257e01a39"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/ImageRequest.swift",
+        "blob": "93441dc5ea674d699884aeef4dfc2524a319682e",
+        "bytes": 21974,
+        "sha256": "fc80c266cfd316cae8b7e6f453cabc73d91d626527beef72ed0ede01e80adfe4"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/ImageResponse.swift",
+        "blob": "e779c8de8260c3eb1e625b1f4a76be1b158339b4",
+        "bytes": 1724,
+        "sha256": "b027ee887ec93bc4423d2c43fc5d387faeb9e5c43bf631867c6c6fd2d4093627"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/ImageTask.swift",
+        "blob": "f1c4ce84b6f2ea55007e5e82b0c98d1624be55ef",
+        "bytes": 11534,
+        "sha256": "bcc79afc88720917d7f86d9e83fec8b631659dc4faacecfd5957453ef7b5bac4"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Internal/Extensions.swift",
+        "blob": "655198786d445e10d719e6b6bb856dbf5d69fcf4",
+        "bytes": 1606,
+        "sha256": "f8adc575e52f17d79fcabacef221bc40dc4d3e12a0c0f4a0080908a84e86f8f9"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Internal/Graphics.swift",
+        "blob": "979c44f46fd4ad14d02402b4ad4046890950cf0a",
+        "bytes": 16026,
+        "sha256": "53c206d205e8aea12cd0d0705a241e5a0d61fb6b528897ac3093c28a88683360"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Internal/ImagePublisher.swift",
+        "blob": "fde0d5379973766dfad5cfd85c093092d74ffa3a",
+        "bytes": 2797,
+        "sha256": "29d2cdcb78059f29a41c6443f58dd1346abadb462efa5d3c2a609eedd69cad9b"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Internal/ImageRequestKeys.swift",
+        "blob": "3a6c1b2733a362eb0d3bb37eb951b1d7e6e7a84e",
+        "bytes": 3574,
+        "sha256": "6e2785388207266f110e4b1702c7b1f5f8a4173cf71dda5a1b9bd1cee2296ffb"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Internal/LinkedList.swift",
+        "blob": "bfbce50f9469d8b0f4200f2ff2e58a572b840cfd",
+        "bytes": 2783,
+        "sha256": "8209d48b0667707bd250e8d0ec7ca00c9d3ac7356b1662800da067010b47e8c8"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Internal/Log.swift",
+        "blob": "ae6e702e06e0e24ca914779e04a5c35dc8d9f652",
+        "bytes": 1644,
+        "sha256": "0e35bf6615af86e442d1cbc590939ad27a26f647ac10d7ada2c7164ee9d1afdd"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Internal/Mutex.swift",
+        "blob": "0c3be67f5f10b7cf83f3899de601c85835f18e8e",
+        "bytes": 1126,
+        "sha256": "ca93f38d09ba395843b813d2ff96aa97030de4a5fcf9044f92b434759820f03c"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Internal/RateLimiter.swift",
+        "blob": "50d2566e3c55f8fc56abe9047554c2e1f0236734",
+        "bytes": 3929,
+        "sha256": "11c064e07259d0bde5cf897e299e5272521b0b48828d7dd4dbf67688b1ec20f1"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Internal/ResumableData.swift",
+        "blob": "b6a66b0021eed369d989a60ebb5ed469f965fa00",
+        "bytes": 4484,
+        "sha256": "26432c8355362ed170d07c20cea9c813d6c728a8f20cf0f8fde2cc01f413faf4"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Internal/TaskQueue.swift",
+        "blob": "07a59014bd6614f1c51f15012e2415bcd77b439d",
+        "bytes": 6910,
+        "sha256": "aac19a9e3b3556b23a9d5b989eeb4b80138e1227b4d1d0abb915f4988d0f4fc9"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Loading/DataLoader.swift",
+        "blob": "0795292b8062c3bef7f93f346cd345e75fa6b5ee",
+        "bytes": 10439,
+        "sha256": "a9b2a51cfbe5979e7108d8fd63961c45119a3ce4d06169d65a3de715648396c9"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Loading/DataLoading.swift",
+        "blob": "9d27fc65d7a5744f42611357a84b74022adfb14f",
+        "bytes": 798,
+        "sha256": "5d05c255ddc7dd8d987f8aa0d62241c97adaac25e3a86f6a285cf47cea0da6de"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Pipeline/Deprecated.swift",
+        "blob": "356043efa984ebab7459a6218a2c58de27bf040d",
+        "bytes": 4898,
+        "sha256": "352665d13f3524763cecaf1146a2791e82f04a33ffc6035610242e48ad0aaa0f"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Pipeline/ImagePipeline+Cache.swift",
+        "blob": "38812e1bb38a72e5dd8194c91662351338d6a5ca",
+        "bytes": 9808,
+        "sha256": "acd69174756507031ef39c9243da94197e92a0e1430df459f092417d5ea00553"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Pipeline/ImagePipeline+Configuration.swift",
+        "blob": "a89583e167f45da86f026815be95edc34cd6aa7c",
+        "bytes": 13587,
+        "sha256": "a76ad168b728d14fa9383d3d000f2cfa66b15578a94df684780497cb24f74b77"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Pipeline/ImagePipeline+Delegate.swift",
+        "blob": "c2cdd38b2b8e02ff21bf141b5cb843800326693c",
+        "bytes": 7678,
+        "sha256": "4c5a490b8ce79711b3adf481b5489340c90fb7b827ed010efc3e8b5094ffee0a"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Pipeline/ImagePipeline+Error.swift",
+        "blob": "f31d2f21f50da10fbafcf095296c294d6b22129e",
+        "bytes": 3369,
+        "sha256": "6906ffb71dbccf5213eb0ad4095d32cfe7164ddbdbac7b14bc81334fbb101df7"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Pipeline/ImagePipeline.swift",
+        "blob": "da21dd6f7747e1048ce01a2c49dbdc8ed519f7f7",
+        "bytes": 11532,
+        "sha256": "05aa4c8f517a0e9bd16c0b4fe1adbc756fd124d335156df6014efabc04943ea1"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Pipeline/ImagePipelineActor.swift",
+        "blob": "77c9c4b6ffab859dd2cffa4693cf8299da7e477b",
+        "bytes": 583,
+        "sha256": "10df9d6ca6f9c324c4319e8a8fa607f1f2d6cc4ded69ed7e710d427d1ed55cb2"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Prefetching/ImagePrefetcher.swift",
+        "blob": "f4bc276ac019d768605849486ba9e4311dc4e328",
+        "bytes": 8060,
+        "sha256": "1d901de00e86fc54b5d681834959319a37bce9772efa7069c87eeab7dee3dfa8"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Processing/ImageDecompression.swift",
+        "blob": "0db974b6b6457d5dc9bde5ef98f4ad03b24605f4",
+        "bytes": 1019,
+        "sha256": "c2d3c33d064023b9a1af19a6d135da2fa11206a4287f3669bf3f6914bf3f429c"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Processing/ImageProcessing.swift",
+        "blob": "e96bef90caae26b356e9444751a252520d8b2a41",
+        "bytes": 4272,
+        "sha256": "02f8d546f42caca37bd17ec1e47fdc8f7e55815e0af4bbd488df5ffb193c21e0"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Processing/ImageProcessingOptions.swift",
+        "blob": "c70773cb1a795cd8f0cf3c1ab1ed999e5bdb4a97",
+        "bytes": 2739,
+        "sha256": "47308588090c529899ddb9dcc22dcb66764bb447b745c2adf0f352d7e2b11df2"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Processing/ImageProcessors+Anonymous.swift",
+        "blob": "9fa44ff4df139ba56055ab1c9da767519a35b633",
+        "bytes": 843,
+        "sha256": "206c1b32660e68230175d76510e43757936fbff8075ac340d179ce9ef047493f"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Processing/ImageProcessors+Circle.swift",
+        "blob": "9d84036cfb254facdfbe501eec511cac8ad63db5",
+        "bytes": 1059,
+        "sha256": "b04d39d7f4ad960790537fa4bcc41b13a6c74f7e40cd56a9ed5915c358901479"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Processing/ImageProcessors+Composition.swift",
+        "blob": "6f6453868b452e9f0b717a003c8e1e0d6461ab07",
+        "bytes": 2374,
+        "sha256": "c3f69790f80f37332d37fca17255f56449fce0b93aa87af42c74b6b8f0a71026"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Processing/ImageProcessors+CoreImage.swift",
+        "blob": "b3073a71e1cb821e4df1a225faa621530b26e7ff",
+        "bytes": 6205,
+        "sha256": "3617155d1d07a41d32f6f31e5922b50e3f6a02350232ebbfa143713cadaeb11f"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Processing/ImageProcessors+GaussianBlur.swift",
+        "blob": "98666f49115d15952da3c3829d33d5885f168223",
+        "bytes": 2975,
+        "sha256": "be09a5e5a3a3a17c87f94da90f234f9bf5a7314f3e660f73e7fda73de9585620"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Processing/ImageProcessors+Resize.swift",
+        "blob": "44d91372ff0cc9116ffdc18c7a96afe163749966",
+        "bytes": 3913,
+        "sha256": "8e34cc84e888fcf474968f0164e2e46abbe78380eb741bb69ff813f7b3656127"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Processing/ImageProcessors+RoundedCorners.swift",
+        "blob": "27fdf5be621af934595441a7cc30f77755a3d7f7",
+        "bytes": 1693,
+        "sha256": "32bde3ad2d940d88f8de95fbbb63cd8fcb2f686de9c8407d4cba7632a6358a3a"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Processing/ImageProcessors.swift",
+        "blob": "1ae9244f99658e40d446b49763f0564a900fbc2d",
+        "bytes": 5182,
+        "sha256": "483f07d3201c5d87ee0510d7754e78620f24e73ebdfcd8b7cba3189f79a6819f"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Tasks/AsyncPipelineTask.swift",
+        "blob": "e9776e0f9bb4e2fc1de1a9d2ed962cb4d9c5e6d3",
+        "bytes": 2755,
+        "sha256": "ea01b67ba7d548a07dbefa88957d94cea8c19ec96738c805d8eca55b2dc55176"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Tasks/AsyncTask.swift",
+        "blob": "44c6d7c2d4ab9ec0f7f774eba97c0eefafb04f86",
+        "bytes": 12301,
+        "sha256": "b4611be596df8387d57acf224f66943081db9073fb45ff0d187107e907086884"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Tasks/TaskFetchOriginalData.swift",
+        "blob": "3e113ef40dcfb8e8f8ba77bfd3ad754b82cb2d2e",
+        "bytes": 12633,
+        "sha256": "9cbf72ef43071df5956c212b5e3f3e52737c005bed2369f7ae6607f3b2dafa99"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Tasks/TaskFetchOriginalImage.swift",
+        "blob": "13381814ed11bd33c3b6fac77f94e0f98038e3f5",
+        "bytes": 3867,
+        "sha256": "f08bf34a371caeb61d7c387b557f1ca144c168aa79dabca9c0498473f7318329"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Tasks/TaskLoadData.swift",
+        "blob": "0a2b3b41fa2a075b67932334407e0d6f893dfa4d",
+        "bytes": 1366,
+        "sha256": "d1f6ed65f9a9dfc5e157783c7637491d946b50e516c4322f86878d1525b84ffc"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Nuke/Tasks/TaskLoadImage.swift",
+        "blob": "1dd8219ce6612adffc47c1de288053b4fe126877",
+        "bytes": 8345,
+        "sha256": "66f5b5009e0c30fa451f013c5e8cc093522582c4124dd0653f8987cecfb3ac9a"
+      },
+      {
+        "side": "after",
+        "path": "Tests/NukeTests/ImagePipelineTests/ImagePipelineDecodingTests.swift",
+        "blob": "d74ede524bdb4bba86d21162554edad3e8f1336c",
+        "bytes": 4992,
+        "sha256": "5d83630f8c4ffe1e90fbb597c297c2c5c27e54e4a31419f16d6eea2fca26398b"
+      }
+    ]
+  }
+]
