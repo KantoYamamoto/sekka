@@ -1,17 +1,16 @@
-# 呼び出し並びの拡大: 実験
+# 呼び出し反復の実験（終了）
 
-**これはSekkaの製品機能ではありません。** #54で、同じ隣接呼び出し表記の配置が増える事実と、変更していない既存位置を取り出す仮説を検証します。設計判断・重複した責務・解決済みの依存とは呼びません。
+#54の試作コードと常設CIは#57で撤去した。[公開OSS検証](../../docs/validation/oss-structural-context.md)では、本来の配置の問いに届かず、次は[既存構造との関係](../StructuralContext/README.md)を検証する。本番へ採用した機能ではない。
+
+結果・限界は[検証記録](../../docs/validation/call-sequence-experiment.md)、判断は[0032](../../docs/decisions/0032-call-sequence-experiment.md)に残す。再現には固定した旧実装を作業ツリーと別のディレクトリへ展開する。
 
 ```sh
-swift test --package-path Experiments/CallSequences --scratch-path .build/call-sequence-experiment
-python3 Experiments/CallSequences/verify.py --binary .build/call-sequence-experiment/debug/call-sequence-probe --output .build/call-sequence-results.json
-swift run --package-path Experiments/CallSequences --scratch-path .build/call-sequence-experiment call-sequence-probe BEFORE_DIR AFTER_DIR
+set -e
+mkdir -p .build/archived-call-sequences
+git archive --output=.build/archived-call-sequences/input.tar a172e609c2701806287c2b0111ab0b7e0f6a93e0 Experiments/CallSequences Fixtures/structural-reconsideration
+tar -xf .build/archived-call-sequences/input.tar -C .build/archived-call-sequences
+swift test --package-path .build/archived-call-sequences/Experiments/CallSequences --scratch-path .build/archived-call-sequences/build
+python3 .build/archived-call-sequences/Experiments/CallSequences/verify.py --binary .build/archived-call-sequences/build/debug/call-sequence-probe --output .build/archived-call-sequences/result.json
 ```
 
-Swift 6以降、SwiftSyntax 603.0.1。対象ソースは解析するだけで実行・ビルドしません。初回にこの実験とSwiftSyntaxをビルドします。ディレクトリ全体の`.swift`を読み、入力配下の名前が`.`で始まるパスを除外（入力ルートや祖先の名前・Finderの非表示属性は除外条件にしない）、入力ルート自身/配下のsymlinkと構文エラーは失敗にします（祖先のsymlinkは正規化して許容）。本番のGit比較・除外設定とは別の限定した入力です。
-
-出力は`expansions`の各組にトークン表記とbefore/afterの位置。単位は関数宣言の配置数で、実行回数ではありません。既存同名関数の前後対応は行わず、各スナップショットの配置集合を数えます。同じ関数内の反復は最初の位置1件です。
-
-完全一致だけなので、名前が変わると関連を拾えません。逆に同じ表記でもレシーバー型や意図は異なるため、同じ処理だとは断定できません。クロージャ・ローカル関数・条件コンパイル内、return/代入/try/await/trailing closureは対象外。普通の分岐内は読みますが条件を評価しません。出力なしは問題なしを意味しません。既存Loggerのような移動先の自動選定も行いません。
-
-採用する場合は本番の入力・観測モデルへ統合してこの実験を撤去するか、見送って削除するかを判断します。第2の製品CLIとして保守する計画ではありません。[判断0032](../../docs/decisions/0032-call-sequence-experiment.md)を参照してください。
+展開先はこの用途だけに使う。対象アプリをビルド・実行する手順ではない。

@@ -8,7 +8,7 @@
 
 構文差分・型別要約・引数差分・本体比較状態・diffへの案内・自身のCI/PRコメントは実装済みです。初期値変更の盲点修正も[PR #27](https://github.com/KantoYamamoto/sekka/pull/27)で完了しました。一方、既存の役割分担を見直す助けになるか、通常diffのみよりレビューの手間や見落としが減るかは未確立です。
 
-**現在は#56の公開OSS検証で、反復抽出だけでは本来の配置の問いに届かないことを確認。次は#57で追加型と既存の親・兄弟の実装を結ぶ材料を検証する。人間の確認待ちは解除済み。** 元事例は非公開のため公開OSSで代替し、対象OSSには読み取り以外の操作を行わない。[0031](docs/decisions/0031-structural-success.md)の成功条件を維持し、[0033](docs/decisions/0033-public-structural-evidence.md)で検証範囲を定めた。
+**現在は#57で追加型と既存の親・兄弟の前後配置を抽出し、配置の問いと妥当な分離の両方を考える材料を検証済み。本番には未採用。** 変更後だけの表示をやめ、今回親から子へ分離した処理を読み違えない形へ修正した。次は選定に使っていない変更と意図的な拡張点の対照で、誤誘導と取りこぼしを確かめる。反復試作はコードと常設CIから撤去し、結果と履歴再現手順を残した。[0031](docs/decisions/0031-structural-success.md)の目的とLLM不要の決定論性を固定し、既存方式自体は置換できる。対象OSSは読み取り専用。人間の確認待ちはない。
 
 目指す成功は、局所修正としては成立する追加について、変更と既存構造の関係を根拠に、配置を見直す案まで検討できること。妥当な分離・自然な拡張を根拠なく問題扱いしない。#52では送信の組合せを呼び出し側へ広げる案と窓口の内部に留める案など[7例](Fixtures/structural-reconsideration/cases.json)を比較した。
 
@@ -27,14 +27,14 @@
 
 ## 次の1PR・1検証
 
-[#59](https://github.com/KantoYamamoto/sekka/issues/59)でAGENTSを目的・判断境界・引き継ぎ中心に整理。修正後は#57のローカル試作とレビュー結果の記録・PR化を再開する。実装は検証済みだが、本番への採用判断は未完了。
+[#59](https://github.com/KantoYamamoto/sekka/issues/59)のAGENTS整理は[PR #60](https://github.com/KantoYamamoto/sekka/pull/60)で完了。#57の作業を再開し、実装・材料レビュー・自己利用まで完了した。本番への採用判断は未完了。
 
 | 作業 | 完了条件 | 現在 |
 | --- | --- | --- |
 | [#52](https://github.com/KantoYamamoto/sekka/issues/52) 関係の材料を検証 | 現行出力・手作業カード・通常diffを対照と照合。位置・具体的な再検討・誤誘導を記録 | 完了。[材料評価の結果](docs/validation/structural-reconsideration-results.md)。通常diff側も同じ問いに到達、固有の利益は未確認 |
 | [#54](https://github.com/KantoYamamoto/sekka/issues/54) 最小の機械抽出 | #52で論点の根拠になった事実に限り、前後・曖昧さ・対照の試験と自己利用を実施 | 抽出・対照検証済み。[結果](docs/validation/call-sequence-experiment.md)。既知実PR3件は0件。利益未確認・本番未採用 |
 | [#56](https://github.com/KantoYamamoto/sekka/issues/56) 公開OSSで配置を照合 | 機能追加・後続の共有化・局所追加の対照を固定し、必要な関係と現行の不足を分ける | 検証済み。[結果](docs/validation/oss-structural-context.md)。WordPressの問いは反復0件、Firefoxはテストの反復5件。独立ソースレビューでも配置の問いを確認 |
-| [#57](https://github.com/KantoYamamoto/sekka/issues/57) 関係抽出の検証 | 追加型と既存の親・兄弟の実装位置を結び、曖昧さ・妥当な空hook・既に実装する対照を確認 | 次の1検証。本番へルールを追加せず、反復方式の拡張を見送る |
+| [#57](https://github.com/KantoYamamoto/sekka/issues/57) 関係抽出の検証 | 追加型と既存の親・兄弟の前後配置を結び、曖昧さ・妥当な分離・実装済みの対照を確認 | 18単体テスト・CLI境界・実入力・材料レビュー・自己利用を検証。[記録](docs/validation/class-context-experiment.md)。自身のPR/CIで最終確認 |
 | 未読実変更の検証 | 自動抽出した材料で、変更一覧から構造の問いへ進めたかを独立比較 | 上記材料の検証後。#56は後続修正を知った選定であり未読A/Bに数えない |
 
 ## 既存タスクの位置付け
