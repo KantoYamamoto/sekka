@@ -1,6 +1,6 @@
 # Sekka: 現在位置と次の作業
 
-更新日: 2026-09-09。現在の計画の正本。変更理由は[0021](docs/decisions/0021-whole-project.md)・[0023](docs/decisions/0023-review-entry.md)、以前の計画と完了履歴は[見直し前のROADMAP](https://github.com/KantoYamamoto/sekka/blob/fca2987/ROADMAP.md)で追えます。
+更新日: 2026-09-12。現在の計画の正本。変更理由は[0021](docs/decisions/0021-whole-project.md)・[0023](docs/decisions/0023-review-entry.md)、以前の計画と完了履歴は[見直し前のROADMAP](https://github.com/KantoYamamoto/sekka/blob/fca2987/ROADMAP.md)で追えます。
 
 ## 目的と現在位置
 
@@ -26,6 +26,8 @@
 | M3: 外部導入を整える | 有益だった用途を別環境でも再現できる | M2と用途判断の後。public/MIT・自身のCI完了とは別 |
 
 ## 次の1PR・1検証
+
+[#59](https://github.com/KantoYamamoto/sekka/issues/59)でAGENTSを目的・判断境界・引き継ぎ中心に整理。修正後は#57のローカル試作とレビュー結果の記録・PR化を再開する。実装は検証済みだが、本番への採用判断は未完了。
 
 | 作業 | 完了条件 | 現在 |
 | --- | --- | --- |

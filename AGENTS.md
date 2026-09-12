@@ -1,21 +1,28 @@
 # Sekka development
 
-- Work in this repository. Target Swift 6+; do not build the analyzed app.
-- Before changing requirements or selecting the next task, follow `docs/development.md`: review both local responsibility placement and the project purpose, priorities and milestone gates. Integrate changes into the existing structure; remove stale or duplicate guidance. Read the resulting whole document/module, not only the patch. Use a brief rationale for small changes; do not demand a full redesign every time.
-- Read `ROADMAP.md` for current position, next task and milestone gates. When starting/completing a planned task, update its status and evidence links plus the current/next summary in the same change. Keep functionality completion separate from validation of user benefit; do not execute conditional milestones before their gates are met.
-- Use SwiftSyntax for syntax facts. Do not label textual type expressions as resolved dependencies, inferred purity, or proven effects.
-- Keep observations, analysis limitations, and design judgement separate. No LLM is required at runtime.
-- Preserve deterministic JSON ordering and source locations. Malformed/unreadable input must fail, not produce a partial clean report.
-- External OSS used as evaluation input is strictly read-only: no comments, issues, PRs, reactions, forks or other upstream changes. Fetch fixed source only; do not execute its scripts. Track evaluation work only in Sekka.
-- Compare Git snapshots without checkout/reset or executing target build scripts.
-- Run `swift test` and `python3 Scripts/smoke.py .build/debug/sekka` after analysis/CLI changes.
-- Product direction and deferred ideas belong in `docs/ideas.md`; OSS references belong in `docs/references.md`.
-- Before implementation, read `docs/decisions/README.md` and the relevant decision records. For each substantive choice about behavior, analysis accuracy, scope, interfaces, or tradeoffs, add/update a decision record in the same change/commit. Do not defer this to a later documentation task.
-- Follow `docs/decisions/TEMPLATE.md`: lead with a short Japanese "こういう場合はこうする" rule, then concretely record purpose/context, what, why, why not, how, limitations, revisit conditions, and evidence. Separate user requirements, implementation choices, and unverified hypotheses. Do not invent historical reasons or validation results.
-- Keep one decision per record and link the index, implementation and relevant tests/reports. Minor implementation details can update an existing record; do not create a record for every edit. If a policy changes, preserve the old reasoning, mark it superseded, and link the replacement in both directions. Keep README usage and `docs/ideas.md` consistent.
-- The user authorized a public GitHub repository and selected Sekka on 2026-09-06. Local Git commits are authorized. Keep private app source and raw review outputs out of Git.
+## 目的と判断の境界
 
-- For each substantive Swift implementation commit, run `Scripts/self_review.py` against its parent with a saved pre-change evaluator and the current binary. Read the generated ordinary diff as well as Sekka output, record actionable observations in `docs/validation/`, and update ROADMAP. Self-review is not independent M2 validation; do not restructure input code merely to make it visible to Sekka. See `docs/validation/protocol.md`.
-- Track work in GitHub issues and small pull requests using gh. Link purpose, acceptance criteria, decisions and validation. Do not push implementation commits directly to main. After passing checks and ordinary-diff self-review, routine scoped PRs may be merged to continue; clearly record that review was by the implementing agent, not independent approval. Escalate conceptual/scope decisions to the user.
-- There are no current external users; backward compatibility is not required. Prefer a simpler useful contract over compatibility adapters, but document contract changes and keep analysis limitations truthful.
-- After opening/updating a PR, inspect its GitHub Actions run and job summary/artifact when presentation changes. Do not merge a PR with required verification still running or failing. PR-built Sekka is self-evaluation, not independent approval.
+Sekkaの成功は、PRの局所的な修正から「既存構造へどう組み込むか、根本から見直す必要はないか」を、具体的な根拠で考え直せること。変更一覧や観測件数だけでは成功としない。ツール自体はCLI/ActionsでLLMを使わず、同じ入力と設定から同じ結果を返す。
+
+この目的のための実装・解析方式・出力契約・実験の撤去や置換は委任済み。後方互換は不要。コードとプロジェクト全体の両方で、既存の枠に継ぎ足す案と構造を見直す案を比較する。人間の判断が必要な未確定要件や、目的・許可範囲の変更がある場合に止めて通知する。
+
+## 守る制約
+
+- Swift 6以降を対象とする。現在はSwiftSyntaxで構文を読むが、採用方式そのものは固定しない。観測・不明な範囲・設計判断を分け、未解決の型表記や呼び出しを解決済みの依存・純粋性・副作用と断定しない。
+- 入力とソース位置を追跡可能にする。読み取り・解析に失敗した部分結果を「問題なし」として返さない。対象のcheckout/reset、ビルド、スクリプトやGit外部filterの実行を伴わず比較する。
+- 検証対象の外部OSSは読み取り専用。コメント・Issue・PR・fork等、先方へ影響する操作をしない。課題と進捗はSekkaのGitHubで扱い、私有コードや生レビュー出力を公開Gitへ入れない。
+- サブエージェントはレビュー時のみ使用する。
+
+## 作業に応じた参照先
+
+次の仕事や優先順位を選ぶときは[ROADMAP](ROADMAP.md)と対応Issueを確認する。全体への組み込みは[開発方針](docs/development.md)、重要な選択の理由は[判断記録](docs/decisions/README.md)、評価や自己利用は[検証手順](docs/validation/protocol.md)を参照する。毎回すべてを読み直す必要はない。
+
+重要な選択は、変更と一緒に[テンプレート](docs/decisions/TEMPLATE.md)の「こういう場合はこうする」と具体的な目的・理由・別案・限界を残す。小変更は既存記録へ統合する。READMEは利用の入口、ROADMAP/Issueは現在の計画、検証記録は証拠とし、同じ説明を増殖させない。
+
+## 完了と引き継ぎ
+
+Issueと小さなPRで進める。実装の初稿で止めず、変更に見合うテスト・通常diffのレビュー・必要な修正まで終える。Swift変更の一つのまとまりではSekkaも自己利用し、役立った材料と普通のコード読解で分かったことを区別する。自己利用に合わせて対象コードを歪めない。
+
+本番の解析/CLI変更には`swift test`と`python3 Scripts/smoke.py .build/debug/sekka`、実験には対象package/CLIの検証を使う。新しい変更・失敗・未確認の懸念がなければ同じ検証を繰り返さない。PRの必須Actionsを確認し、表示変更時は実コメント/成果物も点検する。成功後の通常のmergeは委任済み。実装者レビューと独立レビューは区別する。
+
+着手時・方針変更時・検証の節目・中断/完了時に、対応Issueへ現在位置、根拠、次の一手、判断待ちの有無を残す。長時間作業でも一区切りごとに更新し、再開に必要なbranch/commit・PR・結果や再現手順へのリンクを添える。Issue本文とROADMAPは最新の計画、コメントは経過の記録とし、未完了の検証を引き継ぐ。
