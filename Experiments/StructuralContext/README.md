@@ -17,4 +17,6 @@ Swift 6以降とSwiftSyntax 603.0.1が必要。`context-probe BEFORE AFTER`はJS
 
 OSS再現には`gh`の読み取り認証とネットワークが必要。`fetch.py`はGETで固定blobを取得し、Git blob ID・SHA-256・サイズを照合する。出力先は新規に限り、途中失敗した入力を解析しない。再試行は別の新規ディレクトリへ行う。後続PRの入力は事後の照合専用で、未読レビューには渡さない。第三者ソースはGitへ保存せず、元のライセンスを維持する。
 
+別の固定入力には`fetch.py --manifest MANIFEST --output NEW_DIRECTORY`を使う。[未見入力の検証](../../docs/validation/context-holdout.md)は`holdout-inputs.json`を使い、抽出条件を変更せず評価する。
+
 全変更Swiftファイルと明示した関連ファイルの全文を選択している。全リポジトリではないため、参照や実装が「存在しない」とは断定できない。対象アプリのビルド・スクリプト実行はしない。対象OSSへのコメント・Issue・PR・その他の変更は一切行わない。

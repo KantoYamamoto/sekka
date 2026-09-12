@@ -1,6 +1,6 @@
 # Sekka: 現在位置と次の作業
 
-更新日: 2026-09-12。現在の計画の正本。変更理由は[0021](docs/decisions/0021-whole-project.md)・[0023](docs/decisions/0023-review-entry.md)、以前の計画と完了履歴は[見直し前のROADMAP](https://github.com/KantoYamamoto/sekka/blob/fca2987/ROADMAP.md)で追えます。
+更新日: 2026-09-13。現在の計画の正本。変更理由は[0021](docs/decisions/0021-whole-project.md)・[0023](docs/decisions/0023-review-entry.md)、以前の計画と完了履歴は[見直し前のROADMAP](https://github.com/KantoYamamoto/sekka/blob/fca2987/ROADMAP.md)で追えます。
 
 ## 目的と現在位置
 
@@ -8,7 +8,7 @@
 
 構文差分・型別要約・引数差分・本体比較状態・diffへの案内・自身のCI/PRコメントは実装済みです。初期値変更の盲点修正も[PR #27](https://github.com/KantoYamamoto/sekka/pull/27)で完了しました。一方、既存の役割分担を見直す助けになるか、通常diffのみよりレビューの手間や見落としが減るかは未確立です。
 
-**現在は#57で追加型と既存の親・兄弟の前後配置を抽出し、配置の問いと妥当な分離の両方を考える材料を検証済み。本番には未採用。** 変更後だけの表示をやめ、今回親から子へ分離した処理を読み違えない形へ修正した。次は選定に使っていない変更と意図的な拡張点の対照で、誤誘導と取りこぼしを確かめる。反復試作はコードと常設CIから撤去し、結果と履歴再現手順を残した。[0031](docs/decisions/0031-structural-success.md)の目的とLLM不要の決定論性を固定し、既存方式自体は置換できる。対象OSSは読み取り専用。人間の確認待ちはない。
+**#57の前後配置の試作はPR #61で完了。本番には未採用。#62の別2変更では配置候補0件・具体的な問いはソースからのみ得た。次は#63で、変更宣言から既存実装の接点を検索する方式へ作り直す。** 変更後だけの表示をやめ、今回親から子へ分離した処理を読み違えない形へ修正した。WordPressの外部媒体追加とNukeの非同期デコード追加では、ともに関係候補0件。継承中心の試作は本番採用を見送り、特定の形へのルール追加を作業目標にしない。反復試作はコードと常設CIから撤去し、結果と履歴再現手順を残した。[0031](docs/decisions/0031-structural-success.md)の目的とLLM不要の決定論性を固定し、既存方式自体は置換できる。対象OSSは読み取り専用。人間の確認待ちはない。
 
 目指す成功は、局所修正としては成立する追加について、変更と既存構造の関係を根拠に、配置を見直す案まで検討できること。妥当な分離・自然な拡張を根拠なく問題扱いしない。#52では送信の組合せを呼び出し側へ広げる案と窓口の内部に留める案など[7例](Fixtures/structural-reconsideration/cases.json)を比較した。
 
@@ -27,15 +27,17 @@
 
 ## 次の1PR・1検証
 
-[#59](https://github.com/KantoYamamoto/sekka/issues/59)のAGENTS整理は[PR #60](https://github.com/KantoYamamoto/sekka/pull/60)で完了。#57の作業を再開し、実装・材料レビュー・自己利用まで完了した。本番への採用判断は未完了。
+[#59](https://github.com/KantoYamamoto/sekka/issues/59)のAGENTS整理は[PR #60](https://github.com/KantoYamamoto/sekka/pull/60)で完了。#57は[PR #61](https://github.com/KantoYamamoto/sekka/pull/61)のCI/実投稿確認まで完了。[#62](https://github.com/KantoYamamoto/sekka/issues/62)の独立比較も完了。次は[#63](https://github.com/KantoYamamoto/sekka/issues/63)の方式置換。本番への新機能採用はまだない。
 
 | 作業 | 完了条件 | 現在 |
 | --- | --- | --- |
 | [#52](https://github.com/KantoYamamoto/sekka/issues/52) 関係の材料を検証 | 現行出力・手作業カード・通常diffを対照と照合。位置・具体的な再検討・誤誘導を記録 | 完了。[材料評価の結果](docs/validation/structural-reconsideration-results.md)。通常diff側も同じ問いに到達、固有の利益は未確認 |
 | [#54](https://github.com/KantoYamamoto/sekka/issues/54) 最小の機械抽出 | #52で論点の根拠になった事実に限り、前後・曖昧さ・対照の試験と自己利用を実施 | 抽出・対照検証済み。[結果](docs/validation/call-sequence-experiment.md)。既知実PR3件は0件。利益未確認・本番未採用 |
 | [#56](https://github.com/KantoYamamoto/sekka/issues/56) 公開OSSで配置を照合 | 機能追加・後続の共有化・局所追加の対照を固定し、必要な関係と現行の不足を分ける | 検証済み。[結果](docs/validation/oss-structural-context.md)。WordPressの問いは反復0件、Firefoxはテストの反復5件。独立ソースレビューでも配置の問いを確認 |
-| [#57](https://github.com/KantoYamamoto/sekka/issues/57) 関係抽出の検証 | 追加型と既存の親・兄弟の前後配置を結び、曖昧さ・妥当な分離・実装済みの対照を確認 | 18単体テスト・CLI境界・実入力・材料レビュー・自己利用を検証。[記録](docs/validation/class-context-experiment.md)。自身のPR/CIで最終確認 |
-| 未読実変更の検証 | 自動抽出した材料で、変更一覧から構造の問いへ進めたかを独立比較 | 上記材料の検証後。#56は後続修正を知った選定であり未読A/Bに数えない |
+| [#57](https://github.com/KantoYamamoto/sekka/issues/57) 関係抽出の検証 | 追加型と既存の親・兄弟の前後配置を結び、曖昧さ・妥当な分離・実装済みの対照を確認 | 18単体テスト・CLI境界・実入力・材料レビュー・自己利用を検証。[記録](docs/validation/class-context-experiment.md)。PR #61のActions 34700408558と9成果物・実投稿一致を確認済み |
+| [#62](https://github.com/KantoYamamoto/sekka/issues/62) 未見実変更の検証 | 固定抽出器で配置の問いへ進めたかと誤誘導/取りこぼしを独立比較し、方式を選ぶ | [結果](docs/validation/context-holdout.md)。両方0件、両レビューの5領域の問いはソースから。継承中心の本番採用を見送り、#63へ |
+
+| [#63](https://github.com/KantoYamamoto/sekka/issues/63) 変更と既存実装の接点 | 同じ索引から呼び出し表記の共有と既存入口の使用位置を前後で提示。曖昧さ・不要な統合・ノイズを検証 | 次。[判断0036](docs/decisions/0036-change-context-retrieval.md)。#62の2件は以後既知材料として扱う |
 
 ## 既存タスクの位置付け
 
@@ -56,7 +58,7 @@
 | [#9](https://github.com/KantoYamamoto/sekka/issues/9) SwiftUI比較 | 状態・表示の配置を考える入口になるか | #52の関係の材料を踏まえて課題を再定義し、未読入力を固定する |
 | [#10](https://github.com/KantoYamamoto/sekka/issues/10) 追加削除・分割比較 | 新しい窓口や分割と既存の配置を照らせるか | 削除の1例は#50で実施済み。追加・分割は未完了。#52の関係の材料を踏まえて課題を再定義し、未読入力を固定する |
 | [#11](https://github.com/KantoYamamoto/sekka/issues/11) 小さい変更の比較 | 読む負担が利益を上回らないか | #52の関係の材料を踏まえて課題を再定義し、未読入力を固定する。小変更を無理に重要視しない |
-| [#12](https://github.com/KantoYamamoto/sekka/issues/12) 投資判断 | 継続・用途限定・方向修正と次の一手を根拠付きで記録 | 成功条件の選択は0031で完了。公開OSS #56で不足する関係を確認。最終的な有用性・投資判断は未完了 |
+| [#12](https://github.com/KantoYamamoto/sekka/issues/12) 投資判断 | 継続・用途限定・方向修正と次の一手を根拠付きで記録 | 成功条件の選択は0031で完了。#62で継承中心の本番採用を見送り、#63の方式置換へ。最終的な有用性・投資判断は未完了 |
 | [#18](https://github.com/KantoYamamoto/sekka/issues/18) トップレベルの個別案内 | 現行の具体的な不足として保持 | 保留。#29または実比較で目的への寄与が確認されたら検討 |
 
 ## 完了済みの根拠
