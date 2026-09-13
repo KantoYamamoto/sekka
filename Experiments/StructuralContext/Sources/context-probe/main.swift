@@ -39,15 +39,22 @@ func sources(at path: String) throws -> [(String, String)] {
 }
 
 do {
-  guard CommandLine.arguments.count == 3 else {
-    throw NSError(domain: "Usage: context-probe BEFORE_DIR AFTER_DIR", code: 2)
+  var arguments = Array(CommandLine.arguments.dropFirst())
+  let asText = arguments.last == "--text"
+  if asText { arguments.removeLast() }
+  guard arguments.count == 2 else {
+    throw NSError(domain: "Usage: context-probe BEFORE_DIR AFTER_DIR [--text]", code: 2)
   }
-  let report = try ClassContext.compare(
-    before: sources(at: CommandLine.arguments[1]), after: sources(at: CommandLine.arguments[2]))
+  let report = try DeclarationContext.compare(
+    before: sources(at: arguments[0]), after: sources(at: arguments[1]))
   let encoder = JSONEncoder()
   encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
-  FileHandle.standardOutput.write(try encoder.encode(report))
-  FileHandle.standardOutput.write(Data([10]))
+  if asText {
+    FileHandle.standardOutput.write(Data(report.text().utf8))
+  } else {
+    FileHandle.standardOutput.write(try encoder.encode(report))
+    FileHandle.standardOutput.write(Data([10]))
+  }
 } catch {
   FileHandle.standardError.write(Data("\(error)\n".utf8))
   exit(2)

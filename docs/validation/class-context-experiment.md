@@ -50,4 +50,4 @@ Firefoxでは抑制guardと独立した広告取得Taskの寿命を揃えるべ�
 
 本番への採用は保留する。この材料が具体的な問いへ進むことは確認したが、継承と空hookという狭い形に限られる。次は選定に使っていない変更と意図的な拡張点を対照に、不要な改修への誘導と取りこぼしを確かめる。必要な関係がこの形に収まらなければ枠組みを見直す。成功条件0031を維持し、継承のないLoggerやプロジェクト全体の整合まで扱えたとは主張しない。
 
-再現は[実験README](../../Experiments/StructuralContext/README.md)。最終の前後配置は `.build/oss-structural-study/context-timeline.json`、Swiftログは同ディレクトリの`context-timeline-tests.log`。初期出力とレビューcheckpointは同ディレクトリに保持し、途中の中断時間を評価に使わない。#56の資料PR #58はActions 34323595500成功・実投稿5597943047と成果物一致を確認後にmerge済み。
+旧class抽出の再現は[実験READMEの履歴手順](../../Experiments/StructuralContext/README.md#以前のclass配置抽出を再現する)。#63で常設実装を置換したため、固定commitを使う。最終の前後配置は `.build/oss-structural-study/context-timeline.json`、Swiftログは同ディレクトリの`context-timeline-tests.log`。初期出力とレビューcheckpointは同ディレクトリに保持し、途中の中断時間を評価に使わない。#56の資料PR #58はActions 34323595500成功・実投稿5597943047と成果物一致を確認後にmerge済み。

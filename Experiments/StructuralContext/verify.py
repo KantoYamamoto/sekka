@@ -12,6 +12,7 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--binary', type=Path, required=True)
 parser.add_argument('--output', type=Path, required=True)
 parser.add_argument('--oss-input', type=Path)
+parser.add_argument('--text-output', type=Path)
 args = parser.parse_args()
 binary = str(args.binary.resolve())
 results = []
@@ -28,22 +29,26 @@ with tempfile.TemporaryDirectory(prefix='sekka-context-') as directory:
     root = Path(directory) / '.parent'
     before, after = root / 'before', root / '.after'
     before.mkdir(parents=True); after.mkdir()
-    existing = 'class Host { func media(_ value: Request) {} }\nclass Old: Host { override func media(_ value: Request) { show(value) } }'
+    existing = 'struct Menu { func open() { Service(); Welcome() } }'
     for side in [before, after]:
         (side / 'Old.swift').write_text(existing)
         (side / '.ignored').mkdir()
         (side / '.ignored' / 'broken.swift').write_text('struct {')
         if hasattr(os, 'chflags') and hasattr(stat, 'UF_HIDDEN'):
             os.chflags(side / 'Old.swift', stat.UF_HIDDEN)
-    (after / 'New.swift').write_text('class New: Host {}')
+    (after / 'New.swift').write_text('struct Sheet { var body: View { Welcome(); Service() } }')
     report = run(before, after)
     assert report['beforeFileCount'] == 1 and report['afterFileCount'] == 2
-    family = report['families'][0]
-    assert len(report['families']) == 1
-    assert family['addedType']['location']['file'] == 'New.swift'
-    assert family['slots'][0]['peers'][0]['after']['exactSpelling'][0]['location']['line'] == 2
+    context = report['contexts'][0]
+    assert len(report['contexts']) == 1
+    assert context['after']['file'] == 'New.swift'
+    assert context['sharedCalls'][0]['before']['site']['declaration'] == 'Menu.open()'
     results.append({'case': 'unchanged-context-hidden-metadata', 'report': report})
-    assert run(after, after)['families'] == []
+    assert run(after, after)['contexts'] == []
+    text = subprocess.check_output([binary, str(before), str(after), '--text']).decode()
+    assert '┌ after New.swift:1' in text and 'before Old.swift:1' in text
+    assert '呼び出し先は未解決' in text
+    text_samples = ['Case: unchanged-context-hidden-metadata\n' + text]
     (after / 'Broken.swift').write_text('struct {')
     failed = subprocess.run([binary, str(before), str(after)], capture_output=True)
     assert failed.returncode == 2 and failed.stdout == b''
@@ -57,10 +62,8 @@ with tempfile.TemporaryDirectory(prefix='sekka-context-') as directory:
     assert failed.returncode == 2 and failed.stdout == b''
 
 if args.oss_input:
-    manifest = json.loads(Path(__file__).with_name('inputs.json').read_text())
+    manifest = json.loads(Path(__file__).with_name('holdout-inputs.json').read_text())
     for case in manifest:
-        if case['id'] == 'wordpress-25855':
-            continue  # Retrospective evidence, not an additional test case.
         root = args.oss_input / case['id']
         for side in ['before', 'after']:
             entries = [f for f in case['files'] if f['side'] == side]
@@ -70,25 +73,32 @@ if args.oss_input:
         report = run(root / 'before', root / 'after')
         for side in ['before', 'after']:
             assert report[side + 'FileCount'] == sum(f['side'] == side for f in case['files'])
-        if case['id'] == 'wordpress-25208':
-            assert len(report['families']) == 1
-            slots = report['families'][0]['slots']
-            media = next(s for s in slots if 'didRequestMediaFromSiteMediaLibrary:' in s['parent']['after']['exactSpelling'][0]['selector'])
-            assert media['parent']['after']['exactSpelling'][0]['location']['line'] == 145
-            assert media['peers'][0]['after']['exactSpelling'][0]['location']['line'] == 262
-            media_before = media['parent']['before']
-            assert (media_before['exactSpelling'] + media_before['otherSpellings'])[0]['body'] == 'empty'
-            history = next(s for s in slots if 'didUpdateHistoryState:' in s['parent']['after']['exactSpelling'][0]['selector'])
-            assert history['added']['after']['otherSpellings'][0]['location']['line'] == 67
-            assert history['parent']['before']['exactSpelling'][0]['body'] == 'statements'
-            assert history['parent']['before']['exactSpelling'][0]['location']['line'] == 119
-            assert history['parent']['after']['exactSpelling'][0]['body'] == 'empty'
-            assert history['peers'][0]['before']['exactSpelling'] == []
-            assert history['peers'][0]['before']['otherSpellings'] == []
+        if case['id'] == 'wordpress-ios-25624':
+            context = next(c for c in report['contexts'] if c['after']['declaration'] == 'StockPhotosPickerSheet.body')
+            assert context['after']['line'] == 9
+            neighbor = context['sharedCalls'][0]
+            assert neighbor['before']['site']['line'] == 19
+            assert neighbor['after'][0]['site']['line'] == 19
+            assert neighbor['after'][0]['spellings'] == neighbor['before']['spellings']
+            assert neighbor['before']['spellings'] == ['DefaultStockPhotosService(api:)', 'StockPhotosDataSource(service:)', 'StockPhotosWelcomeView()']
         else:
-            assert report['families'] == []
+            context = next(c for c in report['contexts'] if c['after']['declaration'] == 'AsyncPipelineTask.decode(_:decoder:_:)')
+            group = next(g for g in report['selectorGroups'] if g['selector'] == context['sameSelector'])
+            assert context['before'][0]['line'] == 44 and context['after']['line'] == 44
+            assert [c['site']['line'] for c in group['before']] == [57, 36]
+            assert [c['site']['line'] for c in group['after']] == [57, 36]
+            assert len(group['declarationCandidates']) == 1
+            helper = next(c for c in report['contexts'] if c['after']['declaration'] == 'makeImageResponse(_:context:)')
+            assert len(helper['sharedCalls'][0]['before']['spellings']) == 2
+            assert helper['sharedCalls'][0]['after'][0]['spellings'] == []
+        # Calls can have unresolved receivers even when one declared selector matches.
         results.append({'case': case['id'], 'report': report})
+        if args.text_output:
+            text_samples.append('Case: ' + case['id'] + '\n' + subprocess.check_output([binary, str(root / 'before'), str(root / 'after'), '--text']).decode())
 
 args.output.parent.mkdir(parents=True, exist_ok=True)
 args.output.write_text(json.dumps({'meaning': 'Syntax candidates, not design judgement or review benefit.', 'results': results}, indent=2) + '\n')
+if args.text_output:
+    args.text_output.parent.mkdir(parents=True, exist_ok=True)
+    args.text_output.write_text('\n'.join(text_samples))
 print('PASS: deterministic context, file counts/locations, hidden metadata, malformed input and symlink rejection')

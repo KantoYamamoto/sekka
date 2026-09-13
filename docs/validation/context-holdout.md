@@ -62,6 +62,6 @@ python3 Experiments/StructuralContext/fetch.py --manifest Experiments/Structural
 .build/structural-context/debug/context-probe .build/context-holdout-input/nuke-879/before .build/context-holdout-input/nuke-879/after
 ```
 
-当時の抽出器を厳密に再現するときは上記commitのpackageを使う。manifest変更だけで他実験の既定入力を置換しないよう、取得スクリプトに`--manifest`を追加した。入力取得先は新規ディレクトリに限る。ローカルの取得/検証結果と固定packetは`.build/context-holdout`。
+当時の抽出器は[履歴手順](../../Experiments/StructuralContext/README.md#以前のclass配置抽出を再現する)で上記commitのpackageを取り出して使う。#63以降の常設packageは別方式なので、上記入力へ現行バイナリを当てても本記録の0件は再現しない。manifest変更だけで他実験の既定入力を置換しないよう、取得スクリプトに`--manifest`を追加した。入力取得先は新規ディレクトリに限る。ローカルの取得/検証結果と固定packetは`.build/context-holdout`。
 
 取得スクリプトのmanifest指定は固定1blobで動作・hash一致を確認した。全238件は資料準備時のGET取得でblob ID/サイズ/SHA-256を照合済み。固定packetの246ファイル（ソース238と各caseのdiff/出力/stderr/PR本文）のhash一覧のSHA-256は`67c37bd989c57ae42bb908cd486cb55e3371df5c0886faeb3af8042d40495bda`。Swift解析器は変更していないため、本件で本番Swiftテストをローカル再実行していない。

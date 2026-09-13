@@ -8,7 +8,9 @@
 
 構文差分・型別要約・引数差分・本体比較状態・diffへの案内・自身のCI/PRコメントは実装済みです。初期値変更の盲点修正も[PR #27](https://github.com/KantoYamamoto/sekka/pull/27)で完了しました。一方、既存の役割分担を見直す助けになるか、通常diffのみよりレビューの手間や見落としが減るかは未確立です。
 
-**#57の前後配置の試作はPR #61で完了。本番には未採用。#62の別2変更では配置候補0件・具体的な問いはソースからのみ得た。次は#63で、変更宣言から既存実装の接点を検索する方式へ作り直す。** 変更後だけの表示をやめ、今回親から子へ分離した処理を読み違えない形へ修正した。WordPressの外部媒体追加とNukeの非同期デコード追加では、ともに関係候補0件。継承中心の試作は本番採用を見送り、特定の形へのルール追加を作業目標にしない。反復試作はコードと常設CIから撤去し、結果と履歴再現手順を残した。[0031](docs/decisions/0031-structural-success.md)の目的とLLM不要の決定論性を固定し、既存方式自体は置換できる。対象OSSは読み取り専用。人間の確認待ちはない。
+**現在は#63の「変更宣言と既存実装の接点」方式を検証中。既知2材料・27テスト・修正レビュー・自己利用は完了し、[PR #65](https://github.com/KantoYamamoto/sekka/pull/65)の最終CIを確認する。** 次は[#10](https://github.com/KantoYamamoto/sekka/issues/10)で未見の追加・分割を独立比較する。ノイズと読む負担が残るため、本番への採用はまだない。人間の判断待ちはない。
+
+反復と継承形の試作は本番へ進めず、常設実装を置換した。成功条件[0031](docs/decisions/0031-structural-success.md)とLLM不要の決定論性を維持し、方式は[0036](docs/decisions/0036-change-context-retrieval.md)で選び直した。対象OSSは読み取り専用。
 
 目指す成功は、局所修正としては成立する追加について、変更と既存構造の関係を根拠に、配置を見直す案まで検討できること。妥当な分離・自然な拡張を根拠なく問題扱いしない。#52では送信の組合せを呼び出し側へ広げる案と窓口の内部に留める案など[7例](Fixtures/structural-reconsideration/cases.json)を比較した。
 
@@ -22,23 +24,17 @@
 | R1: 目的と現状をつなぎ直す | 文書・計画を統合し、元の問いと観測・不足文脈を対応付ける | 完了。#28の再構成と[#29の6ケース検証](docs/validation/structural-questions.md) |
 | R2: 小さな改善か見送りを選ぶ | 現状出力・再編集・追加観測を比較し、対照例込みで一つ選ぶ | #31で既存情報を再編集。材料と増える負担を検証 |
 | R3: 比較範囲と確認先を統合する | 対象外を隠さず、未比較箇所へ重複せず到達できる | 機能・固定入力検証は完了（#34/#35/#36/#38）。未比較詳細の重さは#50で残存確認 |
-| M2: 構造を見直す気づきを検証する | 既存構造との関係と再検討する配置を根拠付きで挙げ、対照を誤誘導しない。実PRで普通のdiffとの差を記録 | #52の材料検証 → 最小抽出の検証 → 未読実変更の順。#8/#50の索引比較とは区別 |
+| M2: 構造を見直す気づきを検証する | 既存構造との関係と再検討する配置を根拠付きで挙げ、対照を誤誘導しない。実PRで普通のdiffとの差を記録 | #62で旧方式を見送り、#63で接点の材料を確認。新方式の未見評価は#10。#8/#50の索引比較とは区別 |
 | M3: 外部導入を整える | 有益だった用途を別環境でも再現できる | M2と用途判断の後。public/MIT・自身のCI完了とは別 |
 
 ## 次の1PR・1検証
 
-[#59](https://github.com/KantoYamamoto/sekka/issues/59)のAGENTS整理は[PR #60](https://github.com/KantoYamamoto/sekka/pull/60)で完了。#57は[PR #61](https://github.com/KantoYamamoto/sekka/pull/61)のCI/実投稿確認まで完了。[#62](https://github.com/KantoYamamoto/sekka/issues/62)の独立比較も完了。次は[#63](https://github.com/KantoYamamoto/sekka/issues/63)の方式置換。本番への新機能採用はまだない。
-
 | 作業 | 完了条件 | 現在 |
 | --- | --- | --- |
-| [#52](https://github.com/KantoYamamoto/sekka/issues/52) 関係の材料を検証 | 現行出力・手作業カード・通常diffを対照と照合。位置・具体的な再検討・誤誘導を記録 | 完了。[材料評価の結果](docs/validation/structural-reconsideration-results.md)。通常diff側も同じ問いに到達、固有の利益は未確認 |
-| [#54](https://github.com/KantoYamamoto/sekka/issues/54) 最小の機械抽出 | #52で論点の根拠になった事実に限り、前後・曖昧さ・対照の試験と自己利用を実施 | 抽出・対照検証済み。[結果](docs/validation/call-sequence-experiment.md)。既知実PR3件は0件。利益未確認・本番未採用 |
-| [#56](https://github.com/KantoYamamoto/sekka/issues/56) 公開OSSで配置を照合 | 機能追加・後続の共有化・局所追加の対照を固定し、必要な関係と現行の不足を分ける | 検証済み。[結果](docs/validation/oss-structural-context.md)。WordPressの問いは反復0件、Firefoxはテストの反復5件。独立ソースレビューでも配置の問いを確認 |
-| [#57](https://github.com/KantoYamamoto/sekka/issues/57) 関係抽出の検証 | 追加型と既存の親・兄弟の前後配置を結び、曖昧さ・妥当な分離・実装済みの対照を確認 | 18単体テスト・CLI境界・実入力・材料レビュー・自己利用を検証。[記録](docs/validation/class-context-experiment.md)。PR #61のActions 34700408558と9成果物・実投稿一致を確認済み |
-| [#62](https://github.com/KantoYamamoto/sekka/issues/62) 未見実変更の検証 | 固定抽出器で配置の問いへ進めたかと誤誘導/取りこぼしを独立比較し、方式を選ぶ | [結果](docs/validation/context-holdout.md)。両方0件、両レビューの5領域の問いはソースから。継承中心の本番採用を見送り、#63へ |
+| [#63](https://github.com/KantoYamamoto/sekka/issues/63) 変更と既存実装の接点 | 表記の共有と既存入口の使用位置を前後で提示。曖昧さ・誤誘導・ノイズを検証 | [記録](docs/validation/change-context-experiment.md)。27単体/CLI/既知2材料・独立修正レビュー・自己利用済み。PR #65で最終確認 |
+| [#10](https://github.com/KantoYamamoto/sekka/issues/10) 追加・分割の未見比較 | 固定した新方式と普通のdiffを独立比較し、配置の問い・現配置の支持・読む負担を根拠付きで評価 | 次。#62で既読になったWordPress/Nukeは使い回さず、別の入力と条件を先に固定する |
 
-| [#63](https://github.com/KantoYamamoto/sekka/issues/63) 変更と既存実装の接点 | 同じ索引から呼び出し表記の共有と既存入口の使用位置を前後で提示。曖昧さ・不要な統合・ノイズを検証 | 次。[判断0036](docs/decisions/0036-change-context-retrieval.md)。#62の2件は以後既知材料として扱う |
-
+AGENTS整理は[#59/PR #60](https://github.com/KantoYamamoto/sekka/pull/60)で完了。直前の方式/材料の履歴は下の根拠を参照する。
 ## 既存タスクの位置付け
 
 | 作業 | 成果物・完了条件 | 状態・再開条件 |
@@ -56,12 +52,16 @@
 | [#39](https://github.com/KantoYamamoto/sekka/issues/39) 試用配布 | 1環境で初回導入時間・実行互換性・成果物由来を検証 | #52と未読実変更で目的への利益を確認してから再開可否を選ぶ。Homebrewや広範なM3導入は含めない |
 | [#8](https://github.com/KantoYamamoto/sekka/issues/8) API・モデル比較 | 役割/APIの拡大について理由付き確認先を選べるか | 初回完了・[結果と制約](docs/validation/v03-01-results.md)。M2全体は未完了 |
 | [#9](https://github.com/KantoYamamoto/sekka/issues/9) SwiftUI比較 | 状態・表示の配置を考える入口になるか | #52の関係の材料を踏まえて課題を再定義し、未読入力を固定する |
-| [#10](https://github.com/KantoYamamoto/sekka/issues/10) 追加削除・分割比較 | 新しい窓口や分割と既存の配置を照らせるか | 削除の1例は#50で実施済み。追加・分割は未完了。#52の関係の材料を踏まえて課題を再定義し、未読入力を固定する |
+| [#10](https://github.com/KantoYamamoto/sekka/issues/10) 追加削除・分割比較 | 新しい窓口や分割と既存の配置を照らせるか | 削除1例は#50で実施済み。追加・分割を#63の新方式で次に検証する。上の次作業が現在の計画 |
 | [#11](https://github.com/KantoYamamoto/sekka/issues/11) 小さい変更の比較 | 読む負担が利益を上回らないか | #52の関係の材料を踏まえて課題を再定義し、未読入力を固定する。小変更を無理に重要視しない |
 | [#12](https://github.com/KantoYamamoto/sekka/issues/12) 投資判断 | 継続・用途限定・方向修正と次の一手を根拠付きで記録 | 成功条件の選択は0031で完了。#62で継承中心の本番採用を見送り、#63の方式置換へ。最終的な有用性・投資判断は未完了 |
 | [#18](https://github.com/KantoYamamoto/sekka/issues/18) トップレベルの個別案内 | 現行の具体的な不足として保持 | 保留。#29または実比較で目的への寄与が確認されたら検討 |
 
 ## 完了済みの根拠
+
+- [#52の材料評価](docs/validation/structural-reconsideration-results.md)・[#54の反復抽出](docs/validation/call-sequence-experiment.md)：問いに必要な材料と検出の狭さを確認。反復試作は撤去。
+- [#56の公開OSS照合](docs/validation/oss-structural-context.md)・[#57の前後配置](docs/validation/class-context-experiment.md)：既存の親/兄弟との関係と妥当な分離を確認。PR #61のCI/実投稿まで完了。
+- [#62の別2変更の独立比較](docs/validation/context-holdout.md)：旧class抽出は両方0件。問いはソースからのみ得て、本番採用を見送り。PR #64のCI/実投稿まで完了。
 
 - [Git読み取り改善](docs/validation/git-batch.md)：同じ出力で実行時間を削減。
 - [自己利用CI](docs/validation/pr-actions.md)・[PRコメント](docs/validation/pr-comments.md)：投稿・更新・罫線・diffリンクを確認。
