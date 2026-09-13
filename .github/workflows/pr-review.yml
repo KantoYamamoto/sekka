@@ -45,7 +45,7 @@ jobs:
       - name: Structural context experiment checks
         run: |
           swift test --package-path Experiments/StructuralContext --scratch-path .build/structural-context
-          python3 Experiments/StructuralContext/verify.py --binary .build/structural-context/debug/context-probe --output .build/pr-review/structural-context.json
+          python3 Experiments/StructuralContext/verify.py --binary .build/structural-context/debug/context-probe --output .build/pr-review/structural-context.json --text-output .build/pr-review/structural-context.text
       - name: Exercise review boundaries
         run: python3 Scripts/review_probes.py --output .build/pr-review/probes.json
       - name: Exercise structural review questions
@@ -60,6 +60,7 @@ jobs:
           include-hidden-files: true
           path: |
             .build/pr-review/structural-context.json
+            .build/pr-review/structural-context.text
             .build/pr-review/manifest.json
             .build/pr-review/candidate.text
             .build/pr-review/candidate.compact

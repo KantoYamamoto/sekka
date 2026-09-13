@@ -12,6 +12,7 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--binary', type=Path, required=True)
 parser.add_argument('--output', type=Path, required=True)
 parser.add_argument('--oss-input', type=Path)
+parser.add_argument('--text-output', type=Path)
 args = parser.parse_args()
 binary = str(args.binary.resolve())
 results = []
@@ -47,6 +48,7 @@ with tempfile.TemporaryDirectory(prefix='sekka-context-') as directory:
     text = subprocess.check_output([binary, str(before), str(after), '--text']).decode()
     assert '┌ after New.swift:1' in text and 'before Old.swift:1' in text
     assert '呼び出し先は未解決' in text
+    text_samples = ['Case: unchanged-context-hidden-metadata\n' + text]
     (after / 'Broken.swift').write_text('struct {')
     failed = subprocess.run([binary, str(before), str(after)], capture_output=True)
     assert failed.returncode == 2 and failed.stdout == b''
@@ -86,9 +88,17 @@ if args.oss_input:
             assert [c['site']['line'] for c in group['before']] == [57, 36]
             assert [c['site']['line'] for c in group['after']] == [57, 36]
             assert len(group['declarationCandidates']) == 1
+            helper = next(c for c in report['contexts'] if c['after']['declaration'] == 'makeImageResponse(_:context:)')
+            assert len(helper['sharedCalls'][0]['before']['spellings']) == 2
+            assert helper['sharedCalls'][0]['after'][0]['spellings'] == []
         # Calls can have unresolved receivers even when one declared selector matches.
         results.append({'case': case['id'], 'report': report})
+        if args.text_output:
+            text_samples.append('Case: ' + case['id'] + '\n' + subprocess.check_output([binary, str(root / 'before'), str(root / 'after'), '--text']).decode())
 
 args.output.parent.mkdir(parents=True, exist_ok=True)
 args.output.write_text(json.dumps({'meaning': 'Syntax candidates, not design judgement or review benefit.', 'results': results}, indent=2) + '\n')
+if args.text_output:
+    args.text_output.parent.mkdir(parents=True, exist_ok=True)
+    args.text_output.write_text('\n'.join(text_samples))
 print('PASS: deterministic context, file counts/locations, hidden metadata, malformed input and symlink rejection')

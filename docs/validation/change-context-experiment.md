@@ -35,4 +35,6 @@ class/空hook/兄弟overrideという固定形から、関数とproperty binding
 
 今回の材料は本番へ自動採用しない。新しい入口が既知の問いへ届くことと、未知の変更で読む手間を減らし不要な改修へ誘導しないことを分ける。次は抽出器と読む範囲を固定した別入力で、この利益と負担を比較する。出力の件数増加を成功条件にしない。
 
-再現は[実験README](../../Experiments/StructuralContext/README.md)。ローカルの段階別出力/試験/生レビューは`.build/change-context`。最終の自己利用、再レビューとPR/Actionsの結果は完了時に統合する。
+再現は[実験README](../../Experiments/StructuralContext/README.md)。ローカルの段階別出力/試験/生レビューは`.build/change-context`。実装の自己利用は`8cfde4d`→`c0eb0b3`で行い、新旧本番評価器のSHA-256とfull JSONは同一だった。12パス/Swift6/28観測/31本体未比較は置換の入口を示すが、4件の不備と前後の誤誘導は通常diff・合成検証・独立レビューから分かった。再レビューで4件と前後表示の解消を確認。実装後の文書/Actions成果物追加ではSwiftを変えず、同じ自己利用を再実行していない。
+
+最終の出力はWordPressが材料7宣言/5selector group、JSON 23,283 bytes、text 13,895 bytes/95行。Nukeは材料10宣言/4group、JSON 31,704 bytes、text 16,077 bytes/145行。署名・前後の事実を増やした代償であり、省トークン化の成果とは呼ばない。PRのActionsには合成材料のJSONに加えて罫線textも成果物として保存する。最終PR/CIのreceiptは対応Issueに残す。

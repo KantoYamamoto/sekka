@@ -8,7 +8,7 @@
 
 構文差分・型別要約・引数差分・本体比較状態・diffへの案内・自身のCI/PRコメントは実装済みです。初期値変更の盲点修正も[PR #27](https://github.com/KantoYamamoto/sekka/pull/27)で完了しました。一方、既存の役割分担を見直す助けになるか、通常diffのみよりレビューの手間や見落としが減るかは未確立です。
 
-**#57の前後配置の試作はPR #61で完了。本番には未採用。#62の別2変更では配置候補0件・具体的な問いはソースからのみ得た。次は#63で、変更宣言から既存実装の接点を検索する方式へ作り直す。** 変更後だけの表示をやめ、今回親から子へ分離した処理を読み違えない形へ修正した。WordPressの外部媒体追加とNukeの非同期デコード追加では、ともに関係候補0件。継承中心の試作は本番採用を見送り、特定の形へのルール追加を作業目標にしない。反復試作はコードと常設CIから撤去し、結果と履歴再現手順を残した。[0031](docs/decisions/0031-structural-success.md)の目的とLLM不要の決定論性を固定し、既存方式自体は置換できる。対象OSSは読み取り専用。人間の確認待ちはない。
+**#57の前後配置の試作はPR #61で完了。本番には未採用。#62の別2変更では配置候補0件・具体的な問いはソースからのみ得た。#63で変更宣言から既存実装の接点を検索する方式へ置換し、既知材料/27テスト/修正レビューまで確認した。** 変更後だけの表示をやめ、今回親から子へ分離した処理を読み違えない形へ修正した。WordPressの外部媒体追加とNukeの非同期デコード追加では、ともに関係候補0件。継承中心の試作は本番採用を見送り、特定の形へのルール追加を作業目標にしない。反復試作はコードと常設CIから撤去し、結果と履歴再現手順を残した。[0031](docs/decisions/0031-structural-success.md)の目的とLLM不要の決定論性を固定し、既存方式自体は置換できる。対象OSSは読み取り専用。人間の確認待ちはない。
 
 目指す成功は、局所修正としては成立する追加について、変更と既存構造の関係を根拠に、配置を見直す案まで検討できること。妥当な分離・自然な拡張を根拠なく問題扱いしない。#52では送信の組合せを呼び出し側へ広げる案と窓口の内部に留める案など[7例](Fixtures/structural-reconsideration/cases.json)を比較した。
 
@@ -27,7 +27,7 @@
 
 ## 次の1PR・1検証
 
-[#59](https://github.com/KantoYamamoto/sekka/issues/59)のAGENTS整理は[PR #60](https://github.com/KantoYamamoto/sekka/pull/60)で完了。#57は[PR #61](https://github.com/KantoYamamoto/sekka/pull/61)のCI/実投稿確認まで完了。[#62](https://github.com/KantoYamamoto/sekka/issues/62)の独立比較も完了。次は[#63](https://github.com/KantoYamamoto/sekka/issues/63)の方式置換。本番への新機能採用はまだない。
+[#59](https://github.com/KantoYamamoto/sekka/issues/59)のAGENTS整理は[PR #60](https://github.com/KantoYamamoto/sekka/pull/60)で完了。#57は[PR #61](https://github.com/KantoYamamoto/sekka/pull/61)のCI/実投稿確認まで完了。[#62](https://github.com/KantoYamamoto/sekka/issues/62)の独立比較も完了。[#63](https://github.com/KantoYamamoto/sekka/issues/63)の方式置換も既知材料・修正レビュー・自己利用まで完了し、PR/CIで最終確認する。本番への新機能採用はまだない。
 
 | 作業 | 完了条件 | 現在 |
 | --- | --- | --- |
@@ -37,7 +37,7 @@
 | [#57](https://github.com/KantoYamamoto/sekka/issues/57) 関係抽出の検証 | 追加型と既存の親・兄弟の前後配置を結び、曖昧さ・妥当な分離・実装済みの対照を確認 | 18単体テスト・CLI境界・実入力・材料レビュー・自己利用を検証。[記録](docs/validation/class-context-experiment.md)。PR #61のActions 34700408558と9成果物・実投稿一致を確認済み |
 | [#62](https://github.com/KantoYamamoto/sekka/issues/62) 未見実変更の検証 | 固定抽出器で配置の問いへ進めたかと誤誘導/取りこぼしを独立比較し、方式を選ぶ | [結果](docs/validation/context-holdout.md)。両方0件、両レビューの5領域の問いはソースから。継承中心の本番採用を見送り、#63へ |
 
-| [#63](https://github.com/KantoYamamoto/sekka/issues/63) 変更と既存実装の接点 | 同じ索引から呼び出し表記の共有と既存入口の使用位置を前後で提示。曖昧さ・不要な統合・ノイズを検証 | 次。[判断0036](docs/decisions/0036-change-context-retrieval.md)。#62の2件は以後既知材料として扱う |
+| [#63](https://github.com/KantoYamamoto/sekka/issues/63) 変更と既存実装の接点 | 同じ索引から呼び出し表記の共有と既存入口の使用位置を前後で提示。曖昧さ・不要な統合・ノイズを検証 | [検証記録](docs/validation/change-context-experiment.md)。27単体/CLI/既知2材料・独立修正レビュー・自己利用を確認。ノイズと未知入力での利益は未解決 |
 
 ## 既存タスクの位置付け
 
