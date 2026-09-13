@@ -16,7 +16,13 @@
 
 Alamofireの参照は`ProcessInfo.processInfo.systemUptime`。DataRequest/DownloadRequest各2、AuthenticationInterceptorの2宣言各1が減少し、各宣言に`Instant()`が増加する。未変更の`Source/Core/WebSocketRequest.swift`内sendPingではbefore/afterとも286,296行に2参照。#10で人間相当の読解から既に得た問いを材料化した確認であり、予測や固有の見落とし削減の証拠ではない。
 
-独立実装レビューで関数値の明示ラベルとgeneric型引数の消失を指摘され修正した。型引数内のドットをreceiverと誤る可能性も実装者が修正し対照を追加。生記録は`.build/reference-delta/code-review.md`。条件付きSPI/外部要件/責務の一致は未解決で、移行漏れと断定しない。
+独立実装レビューで関数値の明示ラベルとgeneric型引数の消失を指摘され修正した。型引数内のドットをreceiverと誤る可能性も実装者が修正し対照を追加。修正後の再レビューで解消を確認。生記録は`.build/reference-delta/code-review.md`。条件付きSPI/外部要件/責務の一致は未解決で、移行漏れと断定しない。
+
+## 自己利用
+
+`9014fe250c17cd73c2f7deacc8e93a1b77061e25`→`2f089f37de5d925e514df74a5317fb5d4cad1d91`を本番Sekkaで比較。13変更path、6Swift、26観測、32本体未比較。旧型の撤去と新しい索引/レポートの範囲は案内されたが、参照キーの欠陥は独立レビューと通常読解から得た。mainとトップレベルテストはfile diffとして確認した。
+
+新旧の本番バイナリSHA-256は同じ`e43a9ae5edfbeb5cd0958bb29546958e44b027e7654be7fab9747c119ab535d4`、full JSONも一致。本番機能は変わっていないため性能改善の証拠にはしない。結果と通常diff読解は`.build/self-review/reference-delta`。後続の文書/mergeコミットでSwiftを変えていないため、この検証を繰り返さない。
 
 ## 再現と次
 

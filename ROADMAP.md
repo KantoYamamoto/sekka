@@ -8,7 +8,7 @@
 
 構文差分・型別要約・引数差分・本体比較状態・diffへの案内・自身のCI/PRコメントは実装済みです。初期値変更の盲点修正も[PR #27](https://github.com/KantoYamamoto/sekka/pull/27)で完了しました。一方、既存の役割分担を見直す助けになるか、通常diffのみよりレビューの手間や見落としが減るかは未確立です。
 
-**#10の未見2変更の独立比較を完了。中心的な配置の根拠は通常読解から得ており、#63の方式は本番採用しない。** 次は[#66](https://github.com/KantoYamamoto/sekka/issues/66)で、変更で減った参照と既存実装に残る参照を結ぶ方式へ置換する。[比較記録](docs/validation/retrieval-holdout.md)・[判断0037](docs/decisions/0037-reference-delta.md)。人間の判断待ちはない。
+**#10の未見2変更の独立比較を完了。中心的な配置の根拠は通常読解から得ており、#63の方式は本番採用しない。** [#66](https://github.com/KantoYamamoto/sekka/issues/66)の参照差方式は実装・18テスト・独立修正レビュー・既知OSS・自己利用を完了。[PR #68](https://github.com/KantoYamamoto/sekka/pull/68)で最終CI/成果物を確認し、その後に別の未見入力を比較する。[比較記録](docs/validation/retrieval-holdout.md)・[判断0037](docs/decisions/0037-reference-delta.md)。人間の判断待ちはない。
 
 反復と継承形の試作は本番へ進めず、常設実装を置換した。成功条件[0031](docs/decisions/0031-structural-success.md)とLLM不要の決定論性を維持し、方式は[0036](docs/decisions/0036-change-context-retrieval.md)で選び直した。対象OSSは読み取り専用。
 
@@ -31,7 +31,7 @@
 
 | 作業 | 完了条件 | 現在 |
 | --- | --- | --- |
-| [#66](https://github.com/KantoYamamoto/sekka/issues/66) 参照差と残存位置 | 変更で減った明示参照と別宣言で残る位置を示す。部分/全移行・妥当な分離・曖昧さの対照、独立レビュー、自己利用、Actions | 次。実験を置換。本番への採用と未見評価は別の節目 |
+| [#66](https://github.com/KantoYamamoto/sekka/issues/66) 参照差と残存位置 | 変更で減った明示参照と別宣言で残る位置を示す。部分/全移行・妥当な分離・曖昧さの対照、独立レビュー、自己利用、Actions | [実験記録](docs/validation/reference-delta.md)。実装・18テスト・修正レビュー・自己利用済み。PR #68のCI後に方式を固定して未見評価へ |
 
 AGENTS整理は[#59/PR #60](https://github.com/KantoYamamoto/sekka/pull/60)で完了。直前の方式/材料の履歴は下の根拠を参照する。
 ## 既存タスクの位置付け
