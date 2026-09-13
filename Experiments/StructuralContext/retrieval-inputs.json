@@ -1,0 +1,778 @@
+[
+  {
+    "id": "swift-log-390",
+    "repository": "apple/swift-log",
+    "base": "3612813963f8f3ec777e6110e2bb749252b29ac4",
+    "head": "9a8c50753a41b413017bc9e09366620f4a59e80b",
+    "scope": "all changed files plus Swift files under Sources/; not whole repository",
+    "contextPrefix": "Sources/",
+    "files": [
+      {
+        "side": "before",
+        "path": ".github/workflows/main.yml",
+        "blob": "1ca7345fe1d9724c4d8e9d9289423bd8d78e5e3d",
+        "bytes": 2839,
+        "sha256": "460bbc7b0e96b007fc7d024bf4f664387a3b3f677479ce4c75e5e5e4c8da5eaf"
+      },
+      {
+        "side": "before",
+        "path": ".github/workflows/pull_request.yml",
+        "blob": "79429caafefae4254acb120214e4ae113d5c829c",
+        "bytes": 3041,
+        "sha256": "42701ccea4191d87653981ea3d0b6bd54af678f63897fc3103c69774ceb96b3f"
+      },
+      {
+        "side": "before",
+        "path": "Package.swift",
+        "blob": "a2cdb67885afd8ceb83eb62cd444abd1a7274885",
+        "bytes": 1763,
+        "sha256": "232fa97e1472ad8a6f0133385c44dc64e3c617eef24d015399a4cb730c5e4072"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Logging/Locks.swift",
+        "blob": "1cc81fe0688254f2c1b9f5bb5fe1452259c91cf5",
+        "bytes": 9874,
+        "sha256": "ae0f3c37dfe116a16143ffb22441fb6768017f2f8d74d01551d1ebd8ae3f7129"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Logging/LogHandler.swift",
+        "blob": "8f3194f59ae3d99dd792ef5d55f2d912c857905a",
+        "bytes": 12241,
+        "sha256": "3eb1270014878b8eabdb96bf86fd9605c7de6fb305429c9e961f0e22c07d8a6b"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Logging/Logging.swift",
+        "blob": "cada2417a08afd906999a915f41abf5ad1470d73",
+        "bytes": 74718,
+        "sha256": "2ad566c74df35e8fc2487ac708533459e5c0e4d7f3d5c70441bbcef1fb880c05"
+      },
+      {
+        "side": "before",
+        "path": "Sources/Logging/MetadataProvider.swift",
+        "blob": "0c52e880a586ea3b459094dee2ac8a694fb5eccf",
+        "bytes": 3965,
+        "sha256": "64d4a88f1240200307af53424ffe301cc3684ad55c4763f2a08a56b3f62ee72f"
+      },
+      {
+        "side": "after",
+        "path": ".github/workflows/main.yml",
+        "blob": "79d6c5b5c0d4eac5b008a8031ca4db8d9b05a3ff",
+        "bytes": 2847,
+        "sha256": "3a666f5098b08bc1aa85091a6de8b06d7800fc9172ed3656f567d24c78ed5bf8"
+      },
+      {
+        "side": "after",
+        "path": ".github/workflows/pull_request.yml",
+        "blob": "2da775826f89f0d17dd9f1f23e7ffb5c90b71c48",
+        "bytes": 3049,
+        "sha256": "7ade54d535b8e0779f08e23d3c4b92cf08a0201af52dc5842485a454ff6bab05"
+      },
+      {
+        "side": "after",
+        "path": "Package.swift",
+        "blob": "93ee785a8404bbd9d909d889114bc0db5ea402e1",
+        "bytes": 2071,
+        "sha256": "10583336a233f01611891dcd2fa24776b385fbc119fe71509e6b3d3e16f47dff"
+      },
+      {
+        "side": "after",
+        "path": "Sources/InMemoryLogging/InMemoryLogHandler.swift",
+        "blob": "c320042caeb9eae49bb54b3cc7ad74242f64f30d",
+        "bytes": 3929,
+        "sha256": "01eb77102f5ce0c32c155a8d55f7ad1a053c5024c7fec6782e0224910959bc5b"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Logging/Locks.swift",
+        "blob": "1cc81fe0688254f2c1b9f5bb5fe1452259c91cf5",
+        "bytes": 9874,
+        "sha256": "ae0f3c37dfe116a16143ffb22441fb6768017f2f8d74d01551d1ebd8ae3f7129"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Logging/LogHandler.swift",
+        "blob": "8f3194f59ae3d99dd792ef5d55f2d912c857905a",
+        "bytes": 12241,
+        "sha256": "3eb1270014878b8eabdb96bf86fd9605c7de6fb305429c9e961f0e22c07d8a6b"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Logging/Logging.swift",
+        "blob": "cada2417a08afd906999a915f41abf5ad1470d73",
+        "bytes": 74718,
+        "sha256": "2ad566c74df35e8fc2487ac708533459e5c0e4d7f3d5c70441bbcef1fb880c05"
+      },
+      {
+        "side": "after",
+        "path": "Sources/Logging/MetadataProvider.swift",
+        "blob": "0c52e880a586ea3b459094dee2ac8a694fb5eccf",
+        "bytes": 3965,
+        "sha256": "64d4a88f1240200307af53424ffe301cc3684ad55c4763f2a08a56b3f62ee72f"
+      },
+      {
+        "side": "after",
+        "path": "Tests/InMemoryLoggingTests/InMemoryLogHandlerTests.swift",
+        "blob": "57d8fde900a76fcb56b9c6e5850cf8d949df4e8b",
+        "bytes": 3469,
+        "sha256": "0a9218cc5f2f97bb50cf3a6f517191ceffd2d612715099fd9cd652336cfdda80"
+      }
+    ]
+  },
+  {
+    "id": "alamofire-4051",
+    "repository": "Alamofire/Alamofire",
+    "base": "5c393d870fda646c519a10f9792c68e10490a4da",
+    "head": "9490009365c90746782b6b7d1770c5c8637057a8",
+    "scope": "all changed files plus Swift files under Source/; not whole repository",
+    "contextPrefix": "Source/",
+    "files": [
+      {
+        "side": "before",
+        "path": "Alamofire.xcodeproj/project.pbxproj",
+        "blob": "1774cabaa63a1231c82aefd8b80200888936e299",
+        "bytes": 220445,
+        "sha256": "29259f2f43e097edc4e6e14879638d07b588afc977670136904b318aa01ecbcc"
+      },
+      {
+        "side": "before",
+        "path": "Source/Alamofire.swift",
+        "blob": "7a8aecc3365048a3af04edd7bb22890292831869",
+        "bytes": 1742,
+        "sha256": "594a3bf4c0fa1854476d3f2d42cc47235c86092d31de8482b8b84a46e57e113e"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/AFError.swift",
+        "blob": "22b365e0bc9f1021d773952d061111ea24869a5a",
+        "bytes": 37364,
+        "sha256": "f26ea9f286ffc1f2baac5dc03ee2604114b82e4fcd400d13fdcab85424dbc492"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/DataRequest.swift",
+        "blob": "d40213cb35082c6189587fc7381a423e01da453a",
+        "bytes": 24227,
+        "sha256": "ea660773313d97ecee7b4033ef60006a63f35384b19e89f46322a51667795eb5"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/DataStreamRequest.swift",
+        "blob": "04dd3ad2ea1c69247e2876a561d7ac708704f309",
+        "bytes": 26683,
+        "sha256": "73149dcf10a852bd96f1f4306f2c43d420ca40323df3b52f8b3dcc36d58497a8"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/DownloadRequest.swift",
+        "blob": "29a3cd46fc91ae24da8753d07e3d4e1989aa009d",
+        "bytes": 33449,
+        "sha256": "e3c05feb3dcc2a0971352a8b0c4063623ba6207bbee137aae56c007748da4e47"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/HTTPHeaders.swift",
+        "blob": "5a983377739a78afcf155881e9d3b64f08c92eb7",
+        "bytes": 16427,
+        "sha256": "b8b91e43dbaf19c3521ce6e45c59d2d60a1e6787963b3c196d98d3ac75125790"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/HTTPMethod.swift",
+        "blob": "ed51b689e77046fbb80381188c3a50a7ad83914c",
+        "bytes": 2439,
+        "sha256": "38a11f5cc3ef4beafe86a18debe0b9b3588ff054a3cd3681bd6371dfe5e6f64f"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/Notifications.swift",
+        "blob": "6fa9dac34699d082eced24f5a2e14b5efa3acc99",
+        "bytes": 6070,
+        "sha256": "b234c9b6317cb932be32ed0578ebd4e3bd2a3ffab7f575a4346bb727c4baaf3b"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/ParameterEncoder.swift",
+        "blob": "3a991f42f6226b2697715eea3131443f641d0f40",
+        "bytes": 9840,
+        "sha256": "6a83c7181869450a55f35858482c2e60f757fbb723230af9c708dbdfd29e5cb0"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/ParameterEncoding.swift",
+        "blob": "d3341b0571bc0df3d74f124db3ad56ca73a0728e",
+        "bytes": 14557,
+        "sha256": "4396d285918e7cb40d9b5246048c68ef9bdbb75ab966545b28e050b3296b91bc"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/Protected.swift",
+        "blob": "d67a6b85e53111ae637e39cf9265590bdc7d6574",
+        "bytes": 4979,
+        "sha256": "36f0d9e5103df9b54e78c10c8251fce2cf0b42d4fea8e19a0b8926bb05cca441"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/Request.swift",
+        "blob": "b09e2b83f68ad58068cda015a5909ade68603bec",
+        "bytes": 54092,
+        "sha256": "e1ae0964b20a01cf0df7a75eb6ac5215deb1de62080f785ad757b3fd6ec9e1f2"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/RequestTaskMap.swift",
+        "blob": "9da925a221a425b3979833fec75451d6687b7ef3",
+        "bytes": 6481,
+        "sha256": "a58acda32a59b4af6b7144057deae140b458b606e55277a45a8c171e0cc08c5f"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/Response.swift",
+        "blob": "57486f6deebe8355aea73035b5c1b1d915e60db5",
+        "bytes": 21344,
+        "sha256": "4bbfe4de873797a42261cb2bc6cbe9c9c91e7ae1240c82657e80c2c2f60a9f96"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/Session.swift",
+        "blob": "0a1519ef4a1b628e83e9b65537ba3bd85e695d7b",
+        "bytes": 85330,
+        "sha256": "eafca0eeff86ef48545af83ed3a60eddb4dabafb370c1f3a032c16dc3b0b6f54"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/SessionDelegate.swift",
+        "blob": "8393c58f72e44d53ec2d821912618180538ca0b5",
+        "bytes": 18166,
+        "sha256": "9e200f39ca0a69f72ad97c8451e1a99c76662f35e19ec3250a5b7f702cf77942"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/URLConvertible+URLRequestConvertible.swift",
+        "blob": "de62531d126bb383e273bdc245fd9ce963e87204",
+        "bytes": 3873,
+        "sha256": "cd2c9a4e7f4113fa8ed45306bc137b4cd681ed6175ddeeee4fc783f788770bbf"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/UploadRequest.swift",
+        "blob": "83949921dbcbbcb00eab4c84b10c2ebd990f8f9f",
+        "bytes": 7645,
+        "sha256": "6fa04657bfa548923f651e741d04168202021eb7e53282d354fb5507ce433e5d"
+      },
+      {
+        "side": "before",
+        "path": "Source/Core/WebSocketRequest.swift",
+        "blob": "49400d9c0f1ce202e710541f3ae0282f94ac4356",
+        "bytes": 21294,
+        "sha256": "c63f437c798a1d95925b5383529d21efad7df9f7de7def512bb40a59c6767146"
+      },
+      {
+        "side": "before",
+        "path": "Source/Extensions/DispatchQueue+Alamofire.swift",
+        "blob": "132ca9386f2f1f354e07bac3df0c49de3951714c",
+        "bytes": 1625,
+        "sha256": "ceb29b532cca64792304f8d98831fcc8eeb26250b97609c8cc99a820b305a6a9"
+      },
+      {
+        "side": "before",
+        "path": "Source/Extensions/OperationQueue+Alamofire.swift",
+        "blob": "b06a0ccc38d4f0ef27c94b39636e1ff5ff648475",
+        "bytes": 2479,
+        "sha256": "c66856160c5f5bcd1b0021908e33a8ffe29c4887008a314654e0351d5d684049"
+      },
+      {
+        "side": "before",
+        "path": "Source/Extensions/Result+Alamofire.swift",
+        "blob": "4444db49dca270240ce2824ad038f4132451523c",
+        "bytes": 4629,
+        "sha256": "959cd3e0fd62f7959911daf412bf6dc51eb6a5ab1291e0a2ee54211aae8bcd65"
+      },
+      {
+        "side": "before",
+        "path": "Source/Extensions/StringEncoding+Alamofire.swift",
+        "blob": "8fa613336e24184376095bc711ea33688a0fde5e",
+        "bytes": 2146,
+        "sha256": "b6d048e3b624120f3d06798202ec54f87497fb53542bfa9b931e16ee9d01131d"
+      },
+      {
+        "side": "before",
+        "path": "Source/Extensions/URLRequest+Alamofire.swift",
+        "blob": "ab72fb537b8af2f4254e4ad31ec40e9d765cb278",
+        "bytes": 1658,
+        "sha256": "c377b13d71f1c4adcf80a45ca333ad89bb52718ce2b0eb320e89eddb52a3f74e"
+      },
+      {
+        "side": "before",
+        "path": "Source/Extensions/URLSessionConfiguration+Alamofire.swift",
+        "blob": "292a8fe7d591d74175806c94737456022bb68a0b",
+        "bytes": 2089,
+        "sha256": "56e509e3dbe0fd0ce09761d9ae72a71b5a5333ef0f36c6f49bec82442c1c8990"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/AlamofireExtended.swift",
+        "blob": "280c6de99680d09b0d6f6e8c97692eea2d794223",
+        "bytes": 2374,
+        "sha256": "8c94279642a63fa1754c767c97b14cff1bedd324116ef694bd78cbc45fea67cd"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/AuthenticationInterceptor.swift",
+        "blob": "fac3642d29fe49fb56b00feb142b4e9da3ca9819",
+        "bytes": 23229,
+        "sha256": "ceda62b025e5be1f2b6af5865180eec246692010c3d6f88fb14d21ee6202b647"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/CachedResponseHandler.swift",
+        "blob": "c31f4b427234f7e1664325a4a499622ccf980472",
+        "bytes": 4901,
+        "sha256": "51feff46b7e641d19f79a0cf08ffabe7fb33067eb29e0058c2d90618e00ff1aa"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/Combine.swift",
+        "blob": "5f4c69f061cef88b1dce435ff318d1d1ea0180fc",
+        "bytes": 37070,
+        "sha256": "4287fefd7d77ed32a5926a7a4a2991d2ca7f12c10e4f7ea6653e1c3409d95101"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/Concurrency.swift",
+        "blob": "172feb35d39e8b01dcd681cf402496d984a2068e",
+        "bytes": 49272,
+        "sha256": "fc0a17e04825269371b6bc977b3eb2bc769458b78e54024ca8d05fe0c9d94723"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/EventMonitor.swift",
+        "blob": "7cd4f42bc4d3c36475d359e996d95a887a6b5e04",
+        "bytes": 46281,
+        "sha256": "add148a7f5b593eaf66f9bebd522d7194cfb325ab077e4f9c1d81c6a5dfd6ddd"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/MultipartFormData.swift",
+        "blob": "146ba6eb62823465d3fa870624b7a2f668c99aab",
+        "bytes": 23588,
+        "sha256": "d067fc5b30793a14dd12fd5f4fe24863232cf853057e6a886b60bd1a0439cf19"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/MultipartUpload.swift",
+        "blob": "b92c6e29289701a17ce40074a3d7264502febfa6",
+        "bytes": 3847,
+        "sha256": "0b6afb8c44b6d4c1b87f74ca0975844b678c0d5a3ddc91e51b2832d59119f6f4"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/NetworkReachabilityManager.swift",
+        "blob": "2ecdd52f99a1cdeb06bea9161e1ef8a0d4b4826c",
+        "bytes": 11983,
+        "sha256": "27e6f59ae806a0099be41f350e2e8e27ec9ad6e0ce62d0edeaacfb41256eab6a"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/OfflineRetrier.swift",
+        "blob": "40c1161b5c019fd0c6ce1cb5c384804cb7a98518",
+        "bytes": 13628,
+        "sha256": "07e270c630483e69aefadad1ba75408629645d163d4c233925ca5d82ec4676bd"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/RedirectHandler.swift",
+        "blob": "c63219daf4a4abf6742af6c30e34afa70f26898f",
+        "bytes": 4976,
+        "sha256": "f8000097346df25c6b70856ad2b55a7c846f2cd829e9a3e9dd56161b4e20de8a"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/RequestCompression.swift",
+        "blob": "86335dedde70c8ccb7a8c579813234c9ec0014ab",
+        "bytes": 6843,
+        "sha256": "26f1ef49a55f75d86e7468fac637a9c7ee07e938402089e26d61e84d9afb227f"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/RequestInterceptor.swift",
+        "blob": "6c438c500cf17e7af70e3656f732c677ef1137b5",
+        "bytes": 15849,
+        "sha256": "17f9d89ecd87ad38ce007bed91ac314ec809d0bd1578311cac2193a8ce6a61d9"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/ResponseSerialization.swift",
+        "blob": "214df684ce425a67707239031ae187a361f7466c",
+        "bytes": 26716,
+        "sha256": "b4cb60a5089f4701eb17d943eeadff202a8949cda3d12bc1b9355a9d583f0e00"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/RetryPolicy.swift",
+        "blob": "8d0fc3d04bffc09baf865f1b13ebb53d1e8bafaf",
+        "bytes": 24755,
+        "sha256": "678ef88a605212aaaf0e125c586073158246a7a11a7a1b6d2a406fae47c16938"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/ServerTrustEvaluation.swift",
+        "blob": "e290c36798e4ddf744f14933d6546e47c5fcd1a1",
+        "bytes": 37177,
+        "sha256": "3d3cfde78876f84c2ac530b02ae2d6e4becdf63871600a5ad28e0f9af40dda98"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/URLEncodedFormEncoder.swift",
+        "blob": "2276dcbad40c6ee93c0b9f1618219548a26b5a16",
+        "bytes": 48061,
+        "sha256": "0f3f91e4cdb9f5ddf9308151f9267c713a8abfbe28c9e2bcae6bfc8bef3c7ccd"
+      },
+      {
+        "side": "before",
+        "path": "Source/Features/Validation.swift",
+        "blob": "5a6d545ac644492ace3e2b2782a72bb942f05c39",
+        "bytes": 12821,
+        "sha256": "42d8d8fb1b845408f4013e6851283f92ce0e349afb78d03c22bdd680dbf4d696"
+      },
+      {
+        "side": "before",
+        "path": "Source/PrivacyInfo.xcprivacy",
+        "blob": "488cbb115c7b8b5a19af592affad275d207efa29",
+        "bytes": 600,
+        "sha256": "08d90e6946dbfea0d0b5b17fb659d77eed23e443b745d8e7b5b9fa378cb74477"
+      },
+      {
+        "side": "after",
+        "path": "Alamofire.xcodeproj/project.pbxproj",
+        "blob": "cc1aed3c9fa56bc4e6613059af6e45814d9890c7",
+        "bytes": 222891,
+        "sha256": "42ff42e13d532220374bfac85d7a7ce5e7720d93e534bc0d1325659c41b6aa01"
+      },
+      {
+        "side": "after",
+        "path": "Source/Alamofire.swift",
+        "blob": "7a8aecc3365048a3af04edd7bb22890292831869",
+        "bytes": 1742,
+        "sha256": "594a3bf4c0fa1854476d3f2d42cc47235c86092d31de8482b8b84a46e57e113e"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/AFError.swift",
+        "blob": "22b365e0bc9f1021d773952d061111ea24869a5a",
+        "bytes": 37364,
+        "sha256": "f26ea9f286ffc1f2baac5dc03ee2604114b82e4fcd400d13fdcab85424dbc492"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/DataRequest.swift",
+        "blob": "82bb7f867a8e521e2060b0d89deafcee206f0f48",
+        "bytes": 24173,
+        "sha256": "0bb2d5d77528969c5f87697ec640fac1fc3b95ab5c51cda6c3a6eb700580701c"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/DataStreamRequest.swift",
+        "blob": "04dd3ad2ea1c69247e2876a561d7ac708704f309",
+        "bytes": 26683,
+        "sha256": "73149dcf10a852bd96f1f4306f2c43d420ca40323df3b52f8b3dcc36d58497a8"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/DownloadRequest.swift",
+        "blob": "5e384367e9b08f5d8a9d9c0b6e85e3609dce4e88",
+        "bytes": 33395,
+        "sha256": "5f204cf95972b92253792e4751e90895f55ca017e9a39f638e9f1e083f38b015"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/HTTPHeaders.swift",
+        "blob": "5a983377739a78afcf155881e9d3b64f08c92eb7",
+        "bytes": 16427,
+        "sha256": "b8b91e43dbaf19c3521ce6e45c59d2d60a1e6787963b3c196d98d3ac75125790"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/HTTPMethod.swift",
+        "blob": "ed51b689e77046fbb80381188c3a50a7ad83914c",
+        "bytes": 2439,
+        "sha256": "38a11f5cc3ef4beafe86a18debe0b9b3588ff054a3cd3681bd6371dfe5e6f64f"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/Instant.swift",
+        "blob": "4d96c8dd3b2aa1003d88ee137298dbdfbf00a510",
+        "bytes": 2133,
+        "sha256": "b67630ff1a247b8419df16104910950543a4fadb6570f74441c66d7cbc86dc6e"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/Notifications.swift",
+        "blob": "6fa9dac34699d082eced24f5a2e14b5efa3acc99",
+        "bytes": 6070,
+        "sha256": "b234c9b6317cb932be32ed0578ebd4e3bd2a3ffab7f575a4346bb727c4baaf3b"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/ParameterEncoder.swift",
+        "blob": "3a991f42f6226b2697715eea3131443f641d0f40",
+        "bytes": 9840,
+        "sha256": "6a83c7181869450a55f35858482c2e60f757fbb723230af9c708dbdfd29e5cb0"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/ParameterEncoding.swift",
+        "blob": "d3341b0571bc0df3d74f124db3ad56ca73a0728e",
+        "bytes": 14557,
+        "sha256": "4396d285918e7cb40d9b5246048c68ef9bdbb75ab966545b28e050b3296b91bc"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/Protected.swift",
+        "blob": "d67a6b85e53111ae637e39cf9265590bdc7d6574",
+        "bytes": 4979,
+        "sha256": "36f0d9e5103df9b54e78c10c8251fce2cf0b42d4fea8e19a0b8926bb05cca441"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/Request.swift",
+        "blob": "b09e2b83f68ad58068cda015a5909ade68603bec",
+        "bytes": 54092,
+        "sha256": "e1ae0964b20a01cf0df7a75eb6ac5215deb1de62080f785ad757b3fd6ec9e1f2"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/RequestTaskMap.swift",
+        "blob": "9da925a221a425b3979833fec75451d6687b7ef3",
+        "bytes": 6481,
+        "sha256": "a58acda32a59b4af6b7144057deae140b458b606e55277a45a8c171e0cc08c5f"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/Response.swift",
+        "blob": "57486f6deebe8355aea73035b5c1b1d915e60db5",
+        "bytes": 21344,
+        "sha256": "4bbfe4de873797a42261cb2bc6cbe9c9c91e7ae1240c82657e80c2c2f60a9f96"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/Session.swift",
+        "blob": "0a1519ef4a1b628e83e9b65537ba3bd85e695d7b",
+        "bytes": 85330,
+        "sha256": "eafca0eeff86ef48545af83ed3a60eddb4dabafb370c1f3a032c16dc3b0b6f54"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/SessionDelegate.swift",
+        "blob": "8393c58f72e44d53ec2d821912618180538ca0b5",
+        "bytes": 18166,
+        "sha256": "9e200f39ca0a69f72ad97c8451e1a99c76662f35e19ec3250a5b7f702cf77942"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/URLConvertible+URLRequestConvertible.swift",
+        "blob": "de62531d126bb383e273bdc245fd9ce963e87204",
+        "bytes": 3873,
+        "sha256": "cd2c9a4e7f4113fa8ed45306bc137b4cd681ed6175ddeeee4fc783f788770bbf"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/UploadRequest.swift",
+        "blob": "83949921dbcbbcb00eab4c84b10c2ebd990f8f9f",
+        "bytes": 7645,
+        "sha256": "6fa04657bfa548923f651e741d04168202021eb7e53282d354fb5507ce433e5d"
+      },
+      {
+        "side": "after",
+        "path": "Source/Core/WebSocketRequest.swift",
+        "blob": "49400d9c0f1ce202e710541f3ae0282f94ac4356",
+        "bytes": 21294,
+        "sha256": "c63f437c798a1d95925b5383529d21efad7df9f7de7def512bb40a59c6767146"
+      },
+      {
+        "side": "after",
+        "path": "Source/Extensions/DispatchQueue+Alamofire.swift",
+        "blob": "132ca9386f2f1f354e07bac3df0c49de3951714c",
+        "bytes": 1625,
+        "sha256": "ceb29b532cca64792304f8d98831fcc8eeb26250b97609c8cc99a820b305a6a9"
+      },
+      {
+        "side": "after",
+        "path": "Source/Extensions/OperationQueue+Alamofire.swift",
+        "blob": "b06a0ccc38d4f0ef27c94b39636e1ff5ff648475",
+        "bytes": 2479,
+        "sha256": "c66856160c5f5bcd1b0021908e33a8ffe29c4887008a314654e0351d5d684049"
+      },
+      {
+        "side": "after",
+        "path": "Source/Extensions/Result+Alamofire.swift",
+        "blob": "4444db49dca270240ce2824ad038f4132451523c",
+        "bytes": 4629,
+        "sha256": "959cd3e0fd62f7959911daf412bf6dc51eb6a5ab1291e0a2ee54211aae8bcd65"
+      },
+      {
+        "side": "after",
+        "path": "Source/Extensions/StringEncoding+Alamofire.swift",
+        "blob": "8fa613336e24184376095bc711ea33688a0fde5e",
+        "bytes": 2146,
+        "sha256": "b6d048e3b624120f3d06798202ec54f87497fb53542bfa9b931e16ee9d01131d"
+      },
+      {
+        "side": "after",
+        "path": "Source/Extensions/URLRequest+Alamofire.swift",
+        "blob": "ab72fb537b8af2f4254e4ad31ec40e9d765cb278",
+        "bytes": 1658,
+        "sha256": "c377b13d71f1c4adcf80a45ca333ad89bb52718ce2b0eb320e89eddb52a3f74e"
+      },
+      {
+        "side": "after",
+        "path": "Source/Extensions/URLSessionConfiguration+Alamofire.swift",
+        "blob": "292a8fe7d591d74175806c94737456022bb68a0b",
+        "bytes": 2089,
+        "sha256": "56e509e3dbe0fd0ce09761d9ae72a71b5a5333ef0f36c6f49bec82442c1c8990"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/AlamofireExtended.swift",
+        "blob": "280c6de99680d09b0d6f6e8c97692eea2d794223",
+        "bytes": 2374,
+        "sha256": "8c94279642a63fa1754c767c97b14cff1bedd324116ef694bd78cbc45fea67cd"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/AuthenticationInterceptor.swift",
+        "blob": "d07966899e316c160bbb10ccefdf058b21f5cdbe",
+        "bytes": 23187,
+        "sha256": "e80f85aa13b18fc9976946d4637fb2c53c9cf6e88feeba52a09cd38f56d62786"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/CachedResponseHandler.swift",
+        "blob": "c31f4b427234f7e1664325a4a499622ccf980472",
+        "bytes": 4901,
+        "sha256": "51feff46b7e641d19f79a0cf08ffabe7fb33067eb29e0058c2d90618e00ff1aa"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/Combine.swift",
+        "blob": "5f4c69f061cef88b1dce435ff318d1d1ea0180fc",
+        "bytes": 37070,
+        "sha256": "4287fefd7d77ed32a5926a7a4a2991d2ca7f12c10e4f7ea6653e1c3409d95101"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/Concurrency.swift",
+        "blob": "172feb35d39e8b01dcd681cf402496d984a2068e",
+        "bytes": 49272,
+        "sha256": "fc0a17e04825269371b6bc977b3eb2bc769458b78e54024ca8d05fe0c9d94723"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/EventMonitor.swift",
+        "blob": "7cd4f42bc4d3c36475d359e996d95a887a6b5e04",
+        "bytes": 46281,
+        "sha256": "add148a7f5b593eaf66f9bebd522d7194cfb325ab077e4f9c1d81c6a5dfd6ddd"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/MultipartFormData.swift",
+        "blob": "146ba6eb62823465d3fa870624b7a2f668c99aab",
+        "bytes": 23588,
+        "sha256": "d067fc5b30793a14dd12fd5f4fe24863232cf853057e6a886b60bd1a0439cf19"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/MultipartUpload.swift",
+        "blob": "b92c6e29289701a17ce40074a3d7264502febfa6",
+        "bytes": 3847,
+        "sha256": "0b6afb8c44b6d4c1b87f74ca0975844b678c0d5a3ddc91e51b2832d59119f6f4"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/NetworkReachabilityManager.swift",
+        "blob": "2ecdd52f99a1cdeb06bea9161e1ef8a0d4b4826c",
+        "bytes": 11983,
+        "sha256": "27e6f59ae806a0099be41f350e2e8e27ec9ad6e0ce62d0edeaacfb41256eab6a"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/OfflineRetrier.swift",
+        "blob": "40c1161b5c019fd0c6ce1cb5c384804cb7a98518",
+        "bytes": 13628,
+        "sha256": "07e270c630483e69aefadad1ba75408629645d163d4c233925ca5d82ec4676bd"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/RedirectHandler.swift",
+        "blob": "c63219daf4a4abf6742af6c30e34afa70f26898f",
+        "bytes": 4976,
+        "sha256": "f8000097346df25c6b70856ad2b55a7c846f2cd829e9a3e9dd56161b4e20de8a"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/RequestCompression.swift",
+        "blob": "86335dedde70c8ccb7a8c579813234c9ec0014ab",
+        "bytes": 6843,
+        "sha256": "26f1ef49a55f75d86e7468fac637a9c7ee07e938402089e26d61e84d9afb227f"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/RequestInterceptor.swift",
+        "blob": "6c438c500cf17e7af70e3656f732c677ef1137b5",
+        "bytes": 15849,
+        "sha256": "17f9d89ecd87ad38ce007bed91ac314ec809d0bd1578311cac2193a8ce6a61d9"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/ResponseSerialization.swift",
+        "blob": "214df684ce425a67707239031ae187a361f7466c",
+        "bytes": 26716,
+        "sha256": "b4cb60a5089f4701eb17d943eeadff202a8949cda3d12bc1b9355a9d583f0e00"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/RetryPolicy.swift",
+        "blob": "8d0fc3d04bffc09baf865f1b13ebb53d1e8bafaf",
+        "bytes": 24755,
+        "sha256": "678ef88a605212aaaf0e125c586073158246a7a11a7a1b6d2a406fae47c16938"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/ServerTrustEvaluation.swift",
+        "blob": "e290c36798e4ddf744f14933d6546e47c5fcd1a1",
+        "bytes": 37177,
+        "sha256": "3d3cfde78876f84c2ac530b02ae2d6e4becdf63871600a5ad28e0f9af40dda98"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/URLEncodedFormEncoder.swift",
+        "blob": "2276dcbad40c6ee93c0b9f1618219548a26b5a16",
+        "bytes": 48061,
+        "sha256": "0f3f91e4cdb9f5ddf9308151f9267c713a8abfbe28c9e2bcae6bfc8bef3c7ccd"
+      },
+      {
+        "side": "after",
+        "path": "Source/Features/Validation.swift",
+        "blob": "5a6d545ac644492ace3e2b2782a72bb942f05c39",
+        "bytes": 12821,
+        "sha256": "42d8d8fb1b845408f4013e6851283f92ce0e349afb78d03c22bdd680dbf4d696"
+      },
+      {
+        "side": "after",
+        "path": "Source/PrivacyInfo.xcprivacy",
+        "blob": "e08a130bce319577ff33577af8aa04e4ff1b87c2",
+        "bytes": 373,
+        "sha256": "521eb6ef8430773e5c010e1838fe9dd8fa5d62b7b76d1cea8d7d8daadcb144e2"
+      },
+      {
+        "side": "after",
+        "path": "Tests/InstantTests.swift",
+        "blob": "17c07ec208626e7b2092926328d4fadf9e36ec98",
+        "bytes": 2152,
+        "sha256": "72d5284dcd1bc88caee6b3cda2b25717f43c6635af72d9f6293b2d418ca8d755"
+      }
+    ]
+  }
+]
