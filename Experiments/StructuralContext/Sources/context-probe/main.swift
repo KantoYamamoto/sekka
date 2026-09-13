@@ -45,7 +45,7 @@ do {
   guard arguments.count == 2 else {
     throw NSError(domain: "Usage: context-probe BEFORE_DIR AFTER_DIR [--text]", code: 2)
   }
-  let report = try DeclarationContext.compare(
+  let report = try ReferenceDelta.compare(
     before: sources(at: arguments[0]), after: sources(at: arguments[1]))
   let encoder = JSONEncoder()
   encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
