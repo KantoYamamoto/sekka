@@ -21,3 +21,11 @@ SourceSiteとContextErrorは既存参照差から共通モデルへ移動。既�
 索引用17テストと既存18テストが成功。明示型/位置、同名型/overload、alias/extension/継承、parameter/local/type shadow、closure/条件付き、optional/inferred/generic/protocol、static/computed/属性、同一ファイル/位置移動、property型/let-var変更、global/local除外、重複property/caller、入力順/構文失敗/重複pathを確認した。記録はGit管理外の`.build/milestones/index-tests-final.log`。
 
 この段階で未知のOSSに対する有用性や実callee解決を証明したとはしない。次の#74で構文上の関連候補、前後経路と未変更本文、集約/表示を実装する。独立レビュー・自己利用・最終Actionsの結果はIssue/PRに紐付けて記録する。
+
+## 独立レビューと自己利用
+
+独立レビューでmacroが宣言/局所bindingを増やすscopeの一意性を修正し、再確認で属性付き局所宣言の残りも修正した。最終の重点再確認で追加の必須修正なし。生記録は`.build/milestones/index-review.md`。
+
+本番Sekkaで`4cc794f15369484c0b02f2d0c767ec99301b1e19`→`b19ba9d0138cd322fb6066d9e232904fba84a54e`を比較。9path/4Swift/13観測/35本体未比較。共通モデルの移動と索引の追加は案内され、トップレベルテストは通常diffで確認した。catch/default引数は実装者の再読、macroの一意性は独立コードレビュー由来でありSekkaの発見とはしない。
+
+新旧の本番バイナリは同一、full JSONも一致。既存ReferenceDeltaの17本体はtoken-identical。結果は`.build/self-review/source-inventory-reviewed`。後続の文書だけの記録では再実行しない。次の#74では属性やmacroによるscope全体の拒否も出力の不明範囲に残し、対象外が多すぎる場合はM1の終了時に方式を見直す。
