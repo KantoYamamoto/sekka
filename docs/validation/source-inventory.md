@@ -12,8 +12,10 @@
 
 SourceSiteとContextErrorは既存参照差から共通モデルへ移動。既存CLIの挙動はこのPRで変更せず、#74で索引を使った検索へ置換し旧方式を撤去する。三つ目の常設CLIや新しい依存ライブラリは追加しない。
 
+実装者の再読で、暗黙のcatch error bindingと、既定引数を省略できる別overloadの取り逃しを補正した。catch内のerrorはlocal名へ加え、同名memberに既定/可変長引数がある場合はselectorが一見一致しても未対応理由を返す。構文上の候補を安易に一意としないための保守的な境界。
+
 ## 検証
 
-索引用12テストと既存18テストが成功。明示型/位置、同名型/overload、alias/extension/継承、parameter/local/type shadow、closure/条件付き、optional/inferred/generic/protocol、static/computed/属性、同一ファイル/位置移動、property型/let-var変更、global/local除外、重複property/caller、入力順/構文失敗/重複pathを確認した。記録はGit管理外の`.build/milestones/index-tests.log`。
+索引用14テストと既存18テストが成功。明示型/位置、同名型/overload、alias/extension/継承、parameter/local/type shadow、closure/条件付き、optional/inferred/generic/protocol、static/computed/属性、同一ファイル/位置移動、property型/let-var変更、global/local除外、重複property/caller、入力順/構文失敗/重複pathを確認した。記録はGit管理外の`.build/milestones/index-tests-followup.log`。
 
 この段階で未知のOSSに対する有用性や実callee解決を証明したとはしない。次の#74で構文上の関連候補、前後経路と未変更本文、集約/表示を実装する。独立レビュー・自己利用・最終Actionsの結果はIssue/PRに紐付けて記録する。

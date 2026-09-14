@@ -114,3 +114,17 @@ private func lookup(_ value: SourceInventory, receiver: String = "logger", expli
   #expect(throws: ContextError.self) { try SourceInventory(files: [("bad.swift", "struct {")]) }
   #expect(throws: InventoryError.self) { try SourceInventory(files: [("same.swift", logger), ("same.swift", caller)]) }
 }
+
+@Test func implicitCatchErrorShadowsProperty() throws {
+  let source = "struct Screen { let error: Logger; func run(_ event: String) { do { try work() } catch { error.record(event) } } }"
+  let value = try inventory(source)
+  #expect(try lookup(value, receiver: "error").reason == "receiver-shadowed")
+  #expect(try lookup(value, receiver: "error", explicitSelf: true).evidence != nil)
+}
+
+@Test func omittedDefaultArgumentDoesNotHideCompetingOverload() throws {
+  let target = "struct Logger { func record(_ value: String) {}; func record(_ value: Int, debug: Bool = false) {} }"
+  #expect(try lookup(inventory(caller, target: target)).reason == "member-call-shape-unsupported")
+  let variadic = "struct Logger { func record(_ values: String...) {} }"
+  #expect(try lookup(inventory(caller, target: variadic)).reason == "member-call-shape-unsupported")
+}

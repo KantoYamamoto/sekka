@@ -45,7 +45,12 @@ public struct SourceInventory: Sendable {
     let target = targets[0]
     guard target.unsupported.isEmpty else { return .unknown("target-type-unsupported") }
     guard !extensionNames.contains(typeName) else { return .unknown("target-has-extension") }
-    let candidates = functions.filter { $0.ownerID == target.id && $0.selector == selector }
+    let basename = selector.split(separator: "(").first.map(String.init) ?? selector
+    let sameName = functions.filter { $0.ownerID == target.id && $0.selector.split(separator: "(").first.map(String.init) == basename }
+    guard !sameName.contains(where: { $0.unsupported.contains("flexible-parameters") }) else {
+      return .unknown("member-call-shape-unsupported")
+    }
+    let candidates = sameName.filter { $0.selector == selector }
     guard candidates.count == 1 else { return .unknown("member-not-unique") }
     let function = candidates[0]
     guard function.unsupported.isEmpty, function.bodyTokens != nil else { return .unknown("member-scope-unsupported") }
@@ -117,6 +122,10 @@ private final class LocalNames: SyntaxVisitor {
   }
   override func visit(_ node: FunctionDeclSyntax) -> SyntaxVisitorContinueKind {
     names.append(node.name.text); return .skipChildren
+  }
+  override func visit(_ node: CatchClauseSyntax) -> SyntaxVisitorContinueKind {
+    if node.catchItems.isEmpty { names.append("error") }
+    return .visitChildren
   }
   override func visit(_ node: ClosureExprSyntax) -> SyntaxVisitorContinueKind { closure = true; return .skipChildren }
   override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind { names.append(node.name.text); return .skipChildren }
@@ -200,6 +209,9 @@ private final class InventoryReader: SyntaxVisitor {
     if node.genericParameterClause != nil { reasons.append("generic-function") }
     if !node.attributes.isEmpty { reasons.append("attributed-function") }
     if locals.closure { reasons.append("closure-scope") }
+    if node.signature.parameterClause.parameters.contains(where: { $0.defaultValue != nil || $0.ellipsis != nil }) {
+      reasons.append("flexible-parameters")
+    }
     functions.append(InventoryFunction(id: owner.id + ":" + signature, ownerID: owner.id, selector: selector,
       site: site(node, name: owner.site.declaration + "." + selector, signature: signature),
       declarationTokens: inventoryTokens(node), bodyTokens: node.body.map(inventoryTokens),
