@@ -66,11 +66,11 @@ private func lookup(_ value: SourceInventory, receiver: String = "logger", expli
 }
 
 @Test func staticComputedAndAttributedDeclarationsStayUnknown() throws {
-  for field in ["static let logger: Logger", "var logger: Logger { Logger() }", "@Injected var logger: Logger"] {
+  for field in ["static let logger: Logger", "var logger: Logger { Logger() }"] {
     #expect(try lookup(inventory(caller.replacingOccurrences(of: "let logger: Logger", with: field))).reason == "property-type-unsupported")
   }
   #expect(try lookup(inventory(caller, target: "struct Logger { static func record(_ x: String) {} }")).reason == "member-scope-unsupported")
-  #expect(try lookup(inventory(caller, target: "@Other struct Logger { func record(_ x: String) {} }")).reason == "target-type-unsupported")
+  #expect(try lookup(inventory(caller, target: "@Other struct Logger { func record(_ x: String) {} }")).reason == "unexpanded-global-declarations")
 }
 
 @Test func sameFileAndLineMovementKeepBodiesButUpdatePositions() throws {
@@ -127,4 +127,33 @@ private func lookup(_ value: SourceInventory, receiver: String = "logger", expli
   #expect(try lookup(inventory(caller, target: target)).reason == "member-call-shape-unsupported")
   let variadic = "struct Logger { func record(_ values: String...) {} }"
   #expect(try lookup(inventory(caller, target: variadic)).reason == "member-call-shape-unsupported")
+}
+
+@Test func unexpandedMacrosAndPeerAttributesInvalidateUniqueness() throws {
+  let member = try inventory(caller, target: "struct Logger { #makeRecordOverloads; func record(_ x: String) {} }")
+  #expect(try lookup(member).reason == "unexpanded-target-members")
+  let local = try inventory(caller.replacingOccurrences(of: "logger.record(event)", with: "#makeLocalLogger; logger.record(event)"))
+  #expect(try lookup(local).reason == "caller-scope-unsupported")
+  let peer = try inventory(caller, target: "struct Logger { @AddRecordOverload func other() {}; func record(_ x: String) {} }")
+  #expect(try lookup(peer).reason == "unexpanded-target-members")
+  let global = try inventory(caller, target: logger + "\n#makeTypes")
+  #expect(try lookup(global).reason == "unexpanded-global-declarations")
+  let property = try inventory(caller.replacingOccurrences(of: "let logger: Logger", with: "@Injected var logger: Logger"))
+  #expect(try lookup(property).reason == "unexpanded-owner-members")
+}
+
+@Test func stableTypeIDDoesNotHideHeaderChange() throws {
+  let a = try inventory(caller)
+  let b = try inventory(caller, target: logger.replacingOccurrences(of: "struct Logger", with: "class Logger"))
+  let ae = try #require(try lookup(a).evidence), be = try #require(try lookup(b).evidence)
+  #expect(ae.targetType.id == be.targetType.id)
+  #expect(ae.targetType.headerTokens != be.targetType.headerTokens)
+  #expect(ae.target.bodyTokens == be.target.bodyTokens)
+}
+
+@Test func localAttributedDeclarationsInvalidateCallerScope() throws {
+  for declaration in ["@MakeLogger func helper() {}", "@MakeLogger struct Helper {}", "@MakeLogger var helper: Int", "@MakeLogger typealias Helper = Int"] {
+    let value = try inventory(caller.replacingOccurrences(of: "logger.record(event)", with: declaration + "; logger.record(event)"))
+    #expect(try lookup(value).reason == "caller-scope-unsupported")
+  }
 }

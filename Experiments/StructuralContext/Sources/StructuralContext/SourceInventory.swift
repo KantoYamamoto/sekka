@@ -8,11 +8,14 @@ public struct SourceInventory: Sendable {
   public let properties: [InventoryProperty]
   public let extensionNames: [String]
   public let aliasNames: [String]
+  public let uncertainOwnerIDs: [String]
+  public let hasUnexpandedGlobalDeclarations: Bool
 
   public init(files: [(String, String)]) throws {
     guard Set(files.map(\.0)).count == files.count else { throw InventoryError.duplicatePath }
     var types: [InventoryType] = [], functions: [InventoryFunction] = [], properties: [InventoryProperty] = []
-    var extensions: [String] = [], aliases: [String] = []
+    var extensions: [String] = [], aliases: [String] = [], uncertain: [String] = []
+    var unknownGlobal = false
     for (file, source) in files.sorted(by: { $0.0 < $1.0 }) {
       let tree = Array(source.utf8).withUnsafeBufferPointer { Parser.parse(source: $0, swiftVersion: .v6) }
       guard !tree.hasError else { throw ContextError.malformed(file) }
@@ -20,15 +23,19 @@ public struct SourceInventory: Sendable {
       reader.walk(tree)
       types += reader.types; functions += reader.functions; properties += reader.properties
       extensions += reader.extensions; aliases += reader.aliases
+      uncertain += reader.uncertainOwners; unknownGlobal = unknownGlobal || reader.unknownGlobal
     }
     self.types = types; self.functions = functions; self.properties = properties
     extensionNames = Array(Set(extensions)).sorted(); aliasNames = Array(Set(aliases)).sorted()
+    uncertainOwnerIDs = Array(Set(uncertain)).sorted(); hasUnexpandedGlobalDeclarations = unknownGlobal
   }
 
   public func memberCandidate(callerID: String, receiver: String, selector: String, explicitSelf: Bool = false) -> MemberLookup {
+    guard !hasUnexpandedGlobalDeclarations else { return .unknown("unexpanded-global-declarations") }
     let callers = functions.filter { $0.id == callerID }
     guard callers.count == 1 else { return .unknown("caller-not-unique") }
     let caller = callers[0]
+    guard !uncertainOwnerIDs.contains(caller.ownerID) else { return .unknown("unexpanded-owner-members") }
     guard caller.unsupported.isEmpty else { return .unknown("caller-scope-unsupported") }
     let owners = types.filter { $0.id == caller.ownerID }
     guard owners.count == 1, owners[0].unsupported.isEmpty else { return .unknown("owner-scope-unsupported") }
@@ -43,6 +50,7 @@ public struct SourceInventory: Sendable {
     let targets = types.filter { $0.name == typeName }
     guard targets.count == 1 else { return .unknown("target-type-not-unique") }
     let target = targets[0]
+    guard !uncertainOwnerIDs.contains(target.id) else { return .unknown("unexpanded-target-members") }
     guard target.unsupported.isEmpty else { return .unknown("target-type-unsupported") }
     guard !extensionNames.contains(typeName) else { return .unknown("target-has-extension") }
     let basename = selector.split(separator: "(").first.map(String.init) ?? selector
@@ -64,6 +72,7 @@ public enum InventoryError: Error { case duplicatePath }
 public struct InventoryType: Codable, Sendable {
   public let id: String
   public let name: String
+  public let headerTokens: String
   public let site: SourceSite
   public let unsupported: [String]
 }
@@ -116,23 +125,29 @@ private func inventorySignature(_ node: FunctionDeclSyntax) -> String {
 private final class LocalNames: SyntaxVisitor {
   var names: [String] = []
   var closure = false
+  var macro = false
   init() { super.init(viewMode: .sourceAccurate) }
+  override func visit(_ node: MacroExpansionExprSyntax) -> SyntaxVisitorContinueKind { macro = true; return .skipChildren }
+  override func visit(_ node: MacroExpansionDeclSyntax) -> SyntaxVisitorContinueKind { macro = true; return .skipChildren }
+  override func visit(_ node: VariableDeclSyntax) -> SyntaxVisitorContinueKind {
+    if !node.attributes.isEmpty { macro = true }; return .visitChildren
+  }
   override func visit(_ node: IdentifierPatternSyntax) -> SyntaxVisitorContinueKind {
     names.append(node.identifier.text); return .visitChildren
   }
   override func visit(_ node: FunctionDeclSyntax) -> SyntaxVisitorContinueKind {
-    names.append(node.name.text); return .skipChildren
+    if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren
   }
   override func visit(_ node: CatchClauseSyntax) -> SyntaxVisitorContinueKind {
     if node.catchItems.isEmpty { names.append("error") }
     return .visitChildren
   }
   override func visit(_ node: ClosureExprSyntax) -> SyntaxVisitorContinueKind { closure = true; return .skipChildren }
-  override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind { names.append(node.name.text); return .skipChildren }
-  override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind { names.append(node.name.text); return .skipChildren }
-  override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind { names.append(node.name.text); return .skipChildren }
-  override func visit(_ node: ActorDeclSyntax) -> SyntaxVisitorContinueKind { names.append(node.name.text); return .skipChildren }
-  override func visit(_ node: TypeAliasDeclSyntax) -> SyntaxVisitorContinueKind { names.append(node.name.text); return .skipChildren }
+  override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
+  override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
+  override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
+  override func visit(_ node: ActorDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
+  override func visit(_ node: TypeAliasDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
 
 }
 
@@ -145,6 +160,8 @@ private final class InventoryReader: SyntaxVisitor {
   var properties: [InventoryProperty] = []
   var extensions: [String] = []
   var aliases: [String] = []
+  var uncertainOwners: [String] = []
+  var unknownGlobal = false
   init(file: String, tree: SourceFileSyntax) {
     self.file = file; converter = SourceLocationConverter(fileName: file, tree: tree)
     super.init(viewMode: .sourceAccurate)
@@ -164,8 +181,10 @@ private final class InventoryReader: SyntaxVisitor {
   func readType(_ syntax: some SyntaxProtocol, name: String, block: MemberBlockSyntax, unsupported: [String]) {
     let display = (owners.map { $0.site.declaration }.suffix(1) + [name]).joined(separator: ".")
     let attributed = syntax.asProtocol(DeclGroupSyntax.self).map { !$0.attributes.isEmpty } ?? false
+    if attributed { markUnknownMembers() }
     let reasons = unsupported + (attributed ? ["attributed-type"] : []) + (owners.isEmpty ? [] : ["nested-type"]) + (conditional(syntax) ? ["conditional"] : [])
-    let type = InventoryType(id: file + ":" + display, name: name, site: site(syntax, name: display), unsupported: reasons)
+    let header = syntax.tokens(viewMode: .sourceAccurate).prefix { $0.positionAfterSkippingLeadingTrivia < block.leftBrace.positionAfterSkippingLeadingTrivia }.map(\.text).joined(separator: " ")
+    let type = InventoryType(id: file + ":" + display, name: name, headerTokens: header, site: site(syntax, name: display), unsupported: reasons)
     types.append(type); owners.append(type)
     walk(block)
     owners.removeLast()
@@ -198,9 +217,11 @@ private final class InventoryReader: SyntaxVisitor {
     return .skipChildren
   }
   override func visit(_ node: TypeAliasDeclSyntax) -> SyntaxVisitorContinueKind {
+    if !node.attributes.isEmpty { markUnknownMembers() }
     aliases.append(node.name.text); return .skipChildren
   }
   override func visit(_ node: FunctionDeclSyntax) -> SyntaxVisitorContinueKind {
+    if !node.attributes.isEmpty { markUnknownMembers() }
     guard let owner = owners.last else { return .skipChildren }
     let signature = inventorySignature(node), selector = inventorySelector(node)
     let locals = LocalNames(); if let body = node.body { locals.walk(body) }
@@ -209,6 +230,7 @@ private final class InventoryReader: SyntaxVisitor {
     if node.genericParameterClause != nil { reasons.append("generic-function") }
     if !node.attributes.isEmpty { reasons.append("attributed-function") }
     if locals.closure { reasons.append("closure-scope") }
+    if locals.macro { reasons.append("unexpanded-local-macro") }
     if node.signature.parameterClause.parameters.contains(where: { $0.defaultValue != nil || $0.ellipsis != nil }) {
       reasons.append("flexible-parameters")
     }
@@ -219,10 +241,20 @@ private final class InventoryReader: SyntaxVisitor {
       localNames: Array(Set(locals.names)).sorted(), unsupported: reasons))
     return .skipChildren
   }
-  override func visit(_ node: InitializerDeclSyntax) -> SyntaxVisitorContinueKind { .skipChildren }
+  func markUnknownMembers() {
+    if let owner = owners.last { uncertainOwners.append(owner.id) } else { unknownGlobal = true }
+  }
+  override func visit(_ node: MacroExpansionDeclSyntax) -> SyntaxVisitorContinueKind { markUnknownMembers(); return .skipChildren }
+  override func visit(_ node: MacroExpansionExprSyntax) -> SyntaxVisitorContinueKind { markUnknownMembers(); return .skipChildren }
+  override func visit(_ node: InitializerDeclSyntax) -> SyntaxVisitorContinueKind {
+    if !node.attributes.isEmpty { markUnknownMembers() }; return .skipChildren
+  }
   override func visit(_ node: DeinitializerDeclSyntax) -> SyntaxVisitorContinueKind { .skipChildren }
-  override func visit(_ node: SubscriptDeclSyntax) -> SyntaxVisitorContinueKind { .skipChildren }
+  override func visit(_ node: SubscriptDeclSyntax) -> SyntaxVisitorContinueKind {
+    if !node.attributes.isEmpty { markUnknownMembers() }; return .skipChildren
+  }
   override func visit(_ node: VariableDeclSyntax) -> SyntaxVisitorContinueKind {
+    if !node.attributes.isEmpty { markUnknownMembers() }
     guard let owner = owners.last else { return .skipChildren }
     for binding in node.bindings {
       guard let name = binding.pattern.as(IdentifierPatternSyntax.self)?.identifier.text else { continue }
