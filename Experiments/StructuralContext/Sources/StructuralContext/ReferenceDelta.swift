@@ -2,14 +2,6 @@ import Foundation
 import SwiftParser
 import SwiftSyntax
 
-public struct SourceSite: Codable, Equatable, Sendable {
-  public let file: String
-  public let line: Int
-  public let endLine: Int
-  public let declaration: String
-  public let signature: String?
-}
-
 public struct ReferenceCount: Codable, Sendable {
   public let spelling: String
   public let beforeCount: Int
@@ -51,8 +43,6 @@ public struct ContextReport: Codable, Sendable {
   public let unpairedAfter: Int
   public let ambiguousKeys: Int
 }
-
-public enum ContextError: Error { case malformed(String) }
 
 public enum ReferenceDelta {
   public static func compare(before: [(String, String)], after: [(String, String)]) throws -> ContextReport {
