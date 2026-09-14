@@ -1,81 +1,48 @@
-# Sekka: 現在位置と次の作業
+# Sekka: 現在位置と作業順
 
-更新日: 2026-09-14。現在の計画の正本。変更理由は[0021](docs/decisions/0021-whole-project.md)・[0023](docs/decisions/0023-review-entry.md)、以前の計画と完了履歴は[見直し前のROADMAP](https://github.com/KantoYamamoto/sekka/blob/fca2987/ROADMAP.md)で追えます。
+更新日: 2026-09-14。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
 
-## 目的と現在位置
+## ゴールと現在位置
 
-**Swiftの変更を、既存の構造へどう組み込むかを考える入口を作る。** 短い出力や速いdiff移動は、そのための手段です。開発側も、局所の変更とプロジェクト全体の目的・優先順位の両方を見直します。
+**通常diffを補い、変更を既存構造へどう組み込むか考えるための未変更実装を、関連根拠付きで示す。** 構文上の候補と不明を区別し、設計の良否・実calleeを推測で確定しない。Swift 6以降、CLI/Actions、LLMなしの決定論性を維持する。
 
-構文差分・型別要約・引数差分・本体比較状態・diffへの案内・自身のCI/PRコメントは実装済みです。初期値変更の盲点修正も[PR #27](https://github.com/KantoYamamoto/sekka/pull/27)で完了しました。一方、既存の役割分担を見直す助けになるか、通常diffのみよりレビューの手間や見落としが減るかは未確立です。
+現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。#70で差分外補足の方針を固定し、**M1の最初のPR単位 #73を実装中**。現行参照残存試作は#74で置換する。既存7対照は既知の材料で、新しい有用性の証拠にはしない。人間の判断待ちはない。
 
-**現在は「diffを補う差分外の関連実装」へ方針を統合し、[#69](https://github.com/KantoYamamoto/sekka/issues/69)で根拠付き検索を進める。** [判断0038](docs/decisions/0038-outside-diff-context.md)・[最小検証契約](docs/validation/outside-diff-plan.md)。#66/PR #68は18テスト・修正レビュー・自己利用・最終CI/10成果物確認とmergeを完了したが、単独の未見評価は保留して#69へ統合する。本番には未採用。人間の判断待ちはない。
+## Issueの階層と判断の節目
 
-反復と継承形の試作は本番へ進めず、常設実装を置換した。成功条件[0031](docs/decisions/0031-structural-success.md)とLLM不要の決定論性を維持し、次の検索と評価は[0038](docs/decisions/0038-outside-diff-context.md)で選び直した。対象OSSは読み取り専用。
+以下のM1〜M3は2026-09-14以降の計画。過去の出力整理に使った同名の段階とは別。
 
-目指す成功は、局所修正としては成立する追加について、変更と既存構造の関係を根拠に、配置を見直す案まで検討できること。妥当な分離・自然な拡張を根拠なく問題扱いしない。#52では送信の組合せを呼び出し側へ広げる案と窓口の内部に留める案など[7例](Fixtures/structural-reconsideration/cases.json)を比較した。
-
-全変更一覧・Git実行境界・確認先統合・初期値の移動・compact NOTE整理は実装済み。しかし[API比較 #8](docs/validation/v03-01-results.md)と[削除比較 #50](docs/validation/v03-02-results.md)は主に索引の評価だった。本来の目的の有効/無効はまだ判定できない。既存機能は補助として保持し、配布拡大・Mermaid・観測項目の追加を作業目標にしない。
-
-## マイルストーンと判断の節目
-
-| 段階 | 完了条件 | 現在の状態 |
+| マイルストーン | 終了条件 | 結果による次の判断 |
 | --- | --- | --- |
-| M0・M1: 観測と読みやすさの土台 | 構文事実・限界・重複整理・diff到達が再現可能 | 完了。[M1検証](docs/validation/m1-output.md) |
-| R1: 目的と現状をつなぎ直す | 文書・計画を統合し、元の問いと観測・不足文脈を対応付ける | 完了。#28の再構成と[#29の6ケース検証](docs/validation/structural-questions.md) |
-| R2: 小さな改善か見送りを選ぶ | 現状出力・再編集・追加観測を比較し、対照例込みで一つ選ぶ | #31で既存情報を再編集。材料と増える負担を検証 |
-| R3: 比較範囲と確認先を統合する | 対象外を隠さず、未比較箇所へ重複せず到達できる | 機能・固定入力検証は完了（#34/#35/#36/#38）。未比較詳細の重さは#50で残存確認 |
-| M2: 構造を見直す気づきを検証する | 既存構造との関係と再検討する配置を根拠付きで挙げ、対照を誤誘導しない。実PRで普通のdiffとの差を記録 | #62で旧方式を見送り、#63で接点の材料を確認。新方式も#10で固有の利益未確認。#66の限定試作後、#69で差分外の必要な実装へ届くことを検証。#8/#50の索引比較とは区別 |
-| M3: 外部導入を整える | 有益だった用途を別環境でも再現できる | M2と用途判断の後。public/MIT・自身のCI完了とは別 |
+| [M1 #69](https://github.com/KantoYamamoto/sekka/issues/69) 最小の根拠付き案内 | 位置・型注釈・候補・本文未変更と、不明/省略を再現できる。独立レビュー・自己利用・Actionsまで検証 | 事実性が成立すれば評価器を固定してM2。狭すぎる/誤誘導なら範囲または方式を変更 |
+| [M2 #71](https://github.com/KantoYamamoto/sekka/issues/71) 未見の実変更で比較 | 必要な差分外の確認先、案内の寄与と無関係な候補、配置の問いと反対理由を記録 | 継続・用途限定・再設計・保留を#12で選ぶ。利益が弱ければM3へ進めない |
+| [M3 #72](https://github.com/KantoYamamoto/sekka/issues/72) 有効な用途を統合 | 本番CLI/JSON/text/Actionsの入力・範囲・利用方法を整え、実出力を確認 | M2が支持した用途だけ統合。必要なら配布を再評価 |
 
-## 次の1PR・1検証
+## 直近だけをPR単位に分解する
 
-| 作業 | 完了条件 | 現在 |
+| 順序 | Issue | 完了条件 / 状態 |
 | --- | --- | --- |
-| [#69](https://github.com/KantoYamamoto/sekka/issues/69) 材料と範囲を固定 | 既存対照の関連先・誤誘導・対象外を実装前に記録 | 契約を文書化。既存#52の手作業カード評価は繰り返さない |
-| #69 根拠付きの未変更実装検索 | 明示型付きreceiverから候補を辿り、未変更本文と位置を示す。曖昧さ・重複・scopeを検証し独立レビュー/自己利用/Actions | 次の実装PR。新規機能としては未実装 |
-| #69 別OSSの独立比較 | 必要な差分外コードへ届いた根拠と不要な案内、配置の問いと反対理由を照合 | 実装固定後。既知例を未見の成功に使わない |
+| 1 | [#73 構文索引](https://github.com/KantoYamamoto/sekka/issues/73) | 明示型付きreceiverから関数候補を位置付きで返すlibrary API。曖昧scopeの理由、前後比較用の表記を保持。実装中 |
+| 2 | [#74 検索と表示](https://github.com/KantoYamamoto/sekka/issues/74) | 追加から未変更候補へ辿る検索・JSON/text・CLI置換・既知対照・M1判断。#73の結果確認後に着手 |
 
-AGENTS整理は[#59/PR #60](https://github.com/KantoYamamoto/sekka/pull/60)で完了。直前の方式/材料の履歴は下の根拠を参照する。
-## 既存タスクの位置付け
+M2/M3は開始時にPR単位へ分解する。#73が終わっても問題が残るなら#74へ機械的に積まず、親の範囲と完了条件を更新する。PR1でlibraryを作り、PR2で現行CLIの実験方式を置換する間だけ、両方の実装が共存する。
 
-| 作業 | 成果物・完了条件 | 状態・再開条件 |
-| --- | --- | --- |
-| [#28](https://github.com/KantoYamamoto/sekka/issues/28) 文書と開発方針の統合 | README/仕様/開発手順/ROADMAPの役割が明確。旧説明・重複・Issueの順序を整理 | 完了・[PR #30](https://github.com/KantoYamamoto/sekka/pull/30) |
-| [#29](https://github.com/KantoYamamoto/sekka/issues/29) 元の問いとの接続を検証 | 3場面と妥当な対照例を固定し、問い→観測→不足文脈を記録。次の一手か見送りを選ぶ | 完了・[記録](docs/validation/structural-questions.md)。独立比較ではない |
-| [#31](https://github.com/KantoYamamoto/sekka/issues/31) 既存表記を添える | Loggerの手掛かりと無関係なIntのノイズ、表示上限・JSON整合を確認 | 完了・PR #33の最終CIと実コメント確認済み |
-| [#34](https://github.com/KantoYamamoto/sekka/issues/34) 全変更一覧 | CLI/JSON/PRで非Swift・除外・解析済みの対象範囲が一致 | 完了・PR #43/#44の最終CI・実コメント確認。[検証記録](docs/validation/comparison-inventory.md) |
-| [#41](https://github.com/KantoYamamoto/sekka/issues/41) 同名宣言の対応 | extension先頭追加を既存メンバーの置換と誤表示しない | 完了。[PR #42](https://github.com/KantoYamamoto/sekka/pull/42)の最終CI・実コメントを確認 |
-| [#45](https://github.com/KantoYamamoto/sekka/issues/45) Gitの実行境界 | 対象repoのfilter/fsmonitorを実行せず一覧を取得する | 完了・[PR #46](https://github.com/KantoYamamoto/sekka/pull/46)。独立実装レビュー・最終CI・実コメント確認 |
-| [#35](https://github.com/KantoYamamoto/sekka/issues/35) 確認先を統合 | 本体のみ・比較相手なしへの入口と詳細が重複しない | 完了・PR #47/#48の最終CI・実投稿・展開表示を確認。[記録](docs/validation/integrated-review-index.md) |
-| [#36](https://github.com/KantoYamamoto/sekka/issues/36) 初期値の案内 | フォールバック再現と前後式/hunk表示の比較 | 完了・PR #48の最終CIと実コメント確認。[記録](docs/validation/declaration-navigation.md) |
-| [#38](https://github.com/KantoYamamoto/sekka/issues/38) 再掲ノイズ | 既存型表記とcompact JSONのnoticeを、省略・任意表示含めて比較 | 完了・PR #49の最終CI・実コメント確認。既存型表記は暫定維持。[判断0029](docs/decisions/0029-compact-notice-scope.md) |
-| [#50](https://github.com/KantoYamamoto/sekka/issues/50) 削除の独立A/B比較 | 先読みcheckpointと通常diffの照合で固有の助け・負担を比較 | 完了。[結果](docs/validation/v03-02-results.md)。固有の利益未確認、速度判定不能 |
-| [#39](https://github.com/KantoYamamoto/sekka/issues/39) 試用配布 | 1環境で初回導入時間・実行互換性・成果物由来を検証 | #52と未読実変更で目的への利益を確認してから再開可否を選ぶ。Homebrewや広範なM3導入は含めない |
-| [#8](https://github.com/KantoYamamoto/sekka/issues/8) API・モデル比較 | 役割/APIの拡大について理由付き確認先を選べるか | 初回完了・[結果と制約](docs/validation/v03-01-results.md)。M2全体は未完了 |
-| [#9](https://github.com/KantoYamamoto/sekka/issues/9) SwiftUI比較 | 状態・表示の配置を考える入口になるか | #52の関係の材料を踏まえて課題を再定義し、未読入力を固定する |
-| [#10](https://github.com/KantoYamamoto/sekka/issues/10) 追加削除・分割比較 | 新しい窓口や分割と既存の配置を照らせるか | 削除1例は#50で実施済み。追加2例は独立比較を完了。主要根拠は通常読解由来。#66の試作後、#69へ統合 |
-| [#11](https://github.com/KantoYamamoto/sekka/issues/11) 小さい変更の比較 | 読む負担が利益を上回らないか | #52の関係の材料を踏まえて課題を再定義し、未読入力を固定する。小変更を無理に重要視しない |
-| [#12](https://github.com/KantoYamamoto/sekka/issues/12) 投資判断 | 継続・用途限定・方向修正と次の一手を根拠付きで記録 | 成功条件の選択は0031で完了。#62/#10で各方式の本番採用を見送り、#69の差分外検索へ。最終的な有用性・投資判断は未完了 |
-| [#18](https://github.com/KantoYamamoto/sekka/issues/18) トップレベルの個別案内 | 現行の具体的な不足として保持 | 保留。#29または実比較で目的への寄与が確認されたら検討 |
+## 既存の保留課題
+
+| Issue | 現在の扱い |
+| --- | --- |
+| [#9 SwiftUI](https://github.com/KantoYamamoto/sekka/issues/9) / [#11 小変更](https://github.com/KantoYamamoto/sekka/issues/11) | M2の用途候補。M1の結果を見て再定義し、自動着手しない |
+| [#18 トップレベル案内](https://github.com/KantoYamamoto/sekka/issues/18) | 既知の不足。必要な差分外案内との関係が示されたとき再開 |
+| [#39 試用配布](https://github.com/KantoYamamoto/sekka/issues/39) | M3で必要性を再評価。Homebrew/全PR常設を既定目標にしない |
 
 ## 完了済みの根拠
 
-- [#66の参照差](docs/validation/reference-delta.md)：PR #68のCI/実成果物確認とmerge済み。単独未見評価は未完了のまま保留し、次の方針へ統合。
+構造差分、全変更一覧、未比較箇所、diff移動、自己利用CI/PRコメントは実装済み。過去の詳細な計画とPR一覧は[方針統合時のROADMAP](https://github.com/KantoYamamoto/sekka/blob/4cc794f/ROADMAP.md)に残す。
 
-- [#63の接点検索](docs/validation/change-context-experiment.md)：27テスト・修正レビュー・自己利用、PR #65のCI/成果物確認とmergeまで完了。
-- [#10の未見追加2例](docs/validation/retrieval-holdout.md)：比較導線は一部有用、中心的な根拠はソース由来。本番採用は見送り。
+- [#52 材料評価](docs/validation/structural-reconsideration-results.md)、[#54 反復抽出](docs/validation/call-sequence-experiment.md)：手作業材料と機械化の狭さを確認。独立した実用性の証明ではない。
+- [#56 公開OSS](docs/validation/oss-structural-context.md)、[#57 継承配置](docs/validation/class-context-experiment.md)、[#62 未見比較](docs/validation/context-holdout.md)：継承方式は別2変更で0候補、本番採用見送り。
+- [#63 call接点](docs/validation/change-context-experiment.md)、[#10 未見比較](docs/validation/retrieval-holdout.md)：一部の比較導線は有用。中心的な根拠は普通のソースから得た。
+- [#66 参照差](docs/validation/reference-delta.md)：PR #68の実装/CI完了。単独未見評価は保留して閉じ、方針を#69へ統合。
+- [#70 検証契約](docs/validation/outside-diff-plan.md)：既存7例の現行出力は全て0候補。関連先への経路、無関係call/型変更、案内の寄与を独立レビューして次の条件を固定。
 
-- [#52の材料評価](docs/validation/structural-reconsideration-results.md)・[#54の反復抽出](docs/validation/call-sequence-experiment.md)：問いに必要な材料と検出の狭さを確認。反復試作は撤去。
-- [#56の公開OSS照合](docs/validation/oss-structural-context.md)・[#57の前後配置](docs/validation/class-context-experiment.md)：既存の親/兄弟との関係と妥当な分離を確認。PR #61のCI/実投稿まで完了。
-- [#62の別2変更の独立比較](docs/validation/context-holdout.md)：旧class抽出は両方0件。問いはソースからのみ得て、本番採用を見送り。PR #64のCI/実投稿まで完了。
-
-- [Git読み取り改善](docs/validation/git-batch.md)：同じ出力で実行時間を削減。
-- [自己利用CI](docs/validation/pr-actions.md)・[PRコメント](docs/validation/pr-comments.md)：投稿・更新・罫線・diffリンクを確認。
-- [予備試行](docs/validation/review-pilots.md)・[15境界ケースと実変更](docs/validation/coverage-boundaries.md)：観測と不足を確認。独立比較には数えない。
-- [初期化式](docs/validation/property-initializers.md)：49 Swiftテスト、27 CLI/Gitチェック、15probe。通常diffと自己利用も実施。
-
-## 作業を選び直す基準
-
-利用場面と助けたい検討、既存機能へ組み込む方法、読む負担・誤誘導、後回しにする仕事を明示します。新しい要求は既存計画と統合し、不要なIssueは理由付きで閉じます。保留は未達のまま保持し、検証結果が不利でも有効な結果として扱います。
-
-自己レビューは実装者による検査です。独立比較には未読の入力と比較条件が必要で、同じPRの再読を速度改善の証拠にはしません。検証手順は[protocol](docs/validation/protocol.md)、日々の進め方は[development](docs/development.md)を参照してください。
+実装検証と有用性を分け、同じ結論への到達でも案内の寄与は別に評価する。作業手順は[development](docs/development.md)、比較条件は[protocol](docs/validation/protocol.md)。

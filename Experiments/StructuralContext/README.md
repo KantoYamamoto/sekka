@@ -25,6 +25,10 @@ Swift 6以降とSwiftSyntax 603.0.1が必要。`context-probe BEFORE AFTER`はJS
 
 `contexts`が参照表記ごとの減少/残存、`unpairedBefore/After`が対応外の宣言数、`ambiguousKeys`が重複するキーの数。未解決範囲は`limitations`。単なる件数減少から「削除された正確な文」を割り当てず、宣言内の前後位置を示す。可視性・責務・PR要件や、異なるSDK間の役割の一致は推論しない。
 
+## 次の検索に使う索引
+
+#73の`SourceInventory`は明示型付きpropertyから関数候補を位置付きで辿るlibrary API。現在のCLIは引き続き参照差方式で、#74で置換する。APIは候補経路と不明理由を返すだけで、calleeや追加との関連性を確定しない。[範囲と検証](../../docs/validation/source-inventory.md)。
+
 ## 入力の境界
 
 入力配下のドット名は除外する。入力ルート/祖先の名前やFinder非表示属性は除外条件にしない。ルート自身/配下のsymlink、読取り失敗・構文エラーは終了2で部分出力せず停止。祖先symlinkは正規化して許容する。本番のGit入力/ignoreとは別の実験用ディレクトリ入力。
