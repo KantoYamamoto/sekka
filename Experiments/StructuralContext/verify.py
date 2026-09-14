@@ -29,25 +29,26 @@ with tempfile.TemporaryDirectory(prefix='sekka-context-') as directory:
     root = Path(directory) / '.parent'
     before, after = root / 'before', root / '.after'
     before.mkdir(parents=True); after.mkdir()
-    existing = 'struct Menu { func open() { Service(); Welcome() } }'
+    existing = 'struct Menu { func open() { clock.now }; func ping() { clock.now } }'
     for side in [before, after]:
         (side / 'Old.swift').write_text(existing)
         (side / '.ignored').mkdir()
         (side / '.ignored' / 'broken.swift').write_text('struct {')
         if hasattr(os, 'chflags') and hasattr(stat, 'UF_HIDDEN'):
             os.chflags(side / 'Old.swift', stat.UF_HIDDEN)
-    (after / 'New.swift').write_text('struct Sheet { var body: View { Welcome(); Service() } }')
+    (after / 'Old.swift').write_text(existing.replace('func open() { clock.now }', 'func open() { Instant() }'))
     report = run(before, after)
-    assert report['beforeFileCount'] == 1 and report['afterFileCount'] == 2
+    assert report['beforeFileCount'] == 1 and report['afterFileCount'] == 1
     context = report['contexts'][0]
     assert len(report['contexts']) == 1
-    assert context['after']['file'] == 'New.swift'
-    assert context['sharedCalls'][0]['before']['site']['declaration'] == 'Menu.open()'
+    assert context['spelling'] == 'clock.now'
+    assert context['reductions'][0]['before']['count'] == 1
+    assert context['retained'][0]['after']['declaration']['declaration'] == 'Menu.ping()'
     results.append({'case': 'unchanged-context-hidden-metadata', 'report': report})
     assert run(after, after)['contexts'] == []
     text = subprocess.check_output([binary, str(before), str(after), '--text']).decode()
-    assert '┌ after New.swift:1' in text and 'before Old.swift:1' in text
-    assert '呼び出し先は未解決' in text
+    assert '┌ clock.now' in text and 'before Old.swift:1' in text
+    assert '参照先は未解決' in text
     text_samples = ['Case: unchanged-context-hidden-metadata\n' + text]
     (after / 'Broken.swift').write_text('struct {')
     failed = subprocess.run([binary, str(before), str(after)], capture_output=True)
@@ -62,36 +63,30 @@ with tempfile.TemporaryDirectory(prefix='sekka-context-') as directory:
     assert failed.returncode == 2 and failed.stdout == b''
 
 if args.oss_input:
-    manifest = json.loads(Path(__file__).with_name('holdout-inputs.json').read_text())
+    manifest = json.loads(Path(__file__).with_name('retrieval-inputs.json').read_text())
     for case in manifest:
         root = args.oss_input / case['id']
         for side in ['before', 'after']:
             entries = [f for f in case['files'] if f['side'] == side]
-            assert sorted(str(p.relative_to(root / side)) for p in (root / side).rglob('*.swift')) == sorted(f['path'] for f in entries)
+            assert sorted(str(p.relative_to(root / side)) for p in (root / side).rglob('*') if p.is_file()) == sorted(f['path'] for f in entries)
             for entry in entries:
                 assert hashlib.sha256((root / side / entry['path']).read_bytes()).hexdigest() == entry['sha256']
         report = run(root / 'before', root / 'after')
         for side in ['before', 'after']:
-            assert report[side + 'FileCount'] == sum(f['side'] == side for f in case['files'])
-        if case['id'] == 'wordpress-ios-25624':
-            context = next(c for c in report['contexts'] if c['after']['declaration'] == 'StockPhotosPickerSheet.body')
-            assert context['after']['line'] == 9
-            neighbor = context['sharedCalls'][0]
-            assert neighbor['before']['site']['line'] == 19
-            assert neighbor['after'][0]['site']['line'] == 19
-            assert neighbor['after'][0]['spellings'] == neighbor['before']['spellings']
-            assert neighbor['before']['spellings'] == ['DefaultStockPhotosService(api:)', 'StockPhotosDataSource(service:)', 'StockPhotosWelcomeView()']
+            assert report[side + 'FileCount'] == sum(f['side'] == side and f['path'].endswith('.swift') for f in case['files'])
+        if case['id'] == 'alamofire-4051':
+            assert len(report['contexts']) == 1
+            context = report['contexts'][0]
+            assert context['spelling'] == 'ProcessInfo.processInfo.systemUptime'
+            assert sum(c['before']['count'] for c in context['reductions']) == 6
+            assert sum(c['after']['count'] for c in context['reductions']) == 0
+            assert len(context['retained']) == 1
+            retained = context['retained'][0]
+            assert retained['bodyChanged'] is False
+            assert retained['after']['declaration']['file'] == 'Source/Core/WebSocketRequest.swift'
+            assert [s['line'] for s in retained['after']['sites']] == [286, 296]
         else:
-            context = next(c for c in report['contexts'] if c['after']['declaration'] == 'AsyncPipelineTask.decode(_:decoder:_:)')
-            group = next(g for g in report['selectorGroups'] if g['selector'] == context['sameSelector'])
-            assert context['before'][0]['line'] == 44 and context['after']['line'] == 44
-            assert [c['site']['line'] for c in group['before']] == [57, 36]
-            assert [c['site']['line'] for c in group['after']] == [57, 36]
-            assert len(group['declarationCandidates']) == 1
-            helper = next(c for c in report['contexts'] if c['after']['declaration'] == 'makeImageResponse(_:context:)')
-            assert len(helper['sharedCalls'][0]['before']['spellings']) == 2
-            assert helper['sharedCalls'][0]['after'][0]['spellings'] == []
-        # Calls can have unresolved receivers even when one declared selector matches.
+            assert report['contexts'] == []  # No reduction anchor; not a design verdict.
         results.append({'case': case['id'], 'report': report})
         if args.text_output:
             text_samples.append('Case: ' + case['id'] + '\n' + subprocess.check_output([binary, str(root / 'before'), str(root / 'after'), '--text']).decode())

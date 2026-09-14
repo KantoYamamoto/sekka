@@ -1,5 +1,7 @@
 # 変更宣言から既存実装の接点を検索する実験
 
+この記録はPR #65のcall接点方式。現在の実験は参照差方式へ置換した。再現には`c0eb0b3f783262d0c43c1f189c338174725d584b`を取り出す（[手順](../../Experiments/StructuralContext/README.md#以前の方式の再現)）。
+
 2026-09-13、[#63](https://github.com/KantoYamamoto/sekka/issues/63)、[判断0036](../decisions/0036-change-context-retrieval.md)。本番未採用。#62で継承中心の抽出が届かなかった2入力を、以後は既知材料として使う。
 
 ## 方式の置換
