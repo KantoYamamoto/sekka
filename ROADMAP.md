@@ -1,12 +1,12 @@
 # Sekka: 現在位置と作業順
 
-更新日: 2026-09-22。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
+更新日: 2026-09-23。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
 
 ## ゴールと現在位置
 
 **通常diffを補い、変更を既存構造へどう組み込むか考えるための未変更実装を、関連根拠付きで示す。** 構文上の候補と不明を区別し、設計の良否・実calleeを推測で確定しない。Swift 6以降、CLI/Actions、LLMなしの決定論性を維持する。
 
-現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**M1の索引#73は[PR #75](https://github.com/KantoYamamoto/sekka/pull/75)で完了。#74では検索・CLIを置換し、既存7例のうち4例で未変更Loggerへの期待経路を再現した。独立レビュー・自己利用・Actionsを進めている。** 既読OSS2件は0候補で、実用範囲の狭さが主要な懸念。[結果](docs/validation/unchanged-context.md)。既知対照の成功を新しい有用性の証拠にはしない。人間の判断待ちはない。
+現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**M1 #69はPR #76で完了。M2 #77では固定4実PRを調べ、2解析失敗、1確認不要、1範囲内の必要箇所に未到達だった。** [結果](docs/validation/unchanged-context-reach.md)をPRで最終確認し、次は[#78](https://github.com/KantoYamamoto/sekka/issues/78)で変更された明示型から既存宣言への入口を試す。現在の隣接call方式のまま本番へ統合しない。[判断0040](docs/decisions/0040-reach-before-integration.md)。人間の判断待ちはない。
 
 ## Issueの階層と判断の節目
 
@@ -20,12 +20,14 @@
 
 ## 直近だけをPR単位に分解する
 
+M1の#73（構文索引/PR #75）と#74（検索と表示/PR #76）は完了。M2は現在の1単位だけを具体化する。
+
 | 順序 | Issue | 完了条件 / 状態 |
 | --- | --- | --- |
-| 1 | [#73 構文索引](https://github.com/KantoYamamoto/sekka/issues/73) | 明示型付きreceiverから関数候補を位置付きで返すlibrary API。曖昧scopeの理由、前後比較用の表記を保持。PR #75で完了（最終CI/10成果物/実コメント確認済み） |
-| 2 | [#74 検索と表示](https://github.com/KantoYamamoto/sekka/issues/74) | 追加から未変更候補へ辿る検索・JSON/text・CLI置換・既知対照・M1判断。実装と既知対照を確認、レビュー/CI中 |
+| 1 | [#77 実PRへの到達範囲](https://github.com/KantoYamamoto/sekka/issues/77) | 固定4件・機械出力前の独立通常レビュー・入力照合・実行・結果の独立点検を完了。PR/Actionsの最終確認 |
+| 2 | [#78 入口の見直し](https://github.com/KantoYamamoto/sekka/issues/78) | 変更明示型→未変更の型宣言候補という契約と最小検索。候補の存在と意味解決の不明を分け、既知GRDBを到達回帰として検証 |
 
-M2/M3は開始時にPR単位へ分解する。M2は先に実変更への到達範囲を確認し、ほぼ対象外なら検索方式へ戻す。結果の出る入力だけを選んでレビューしない。旧方式は固定commitへ保存し、現行CLIへの継ぎ足しで維持しない。
+必要な確認先へ届いた例はA/B比較を始める根拠とし、有用性の合格とはしない。範囲内の必要箇所へ届かなければ検索方式へ戻す。確認先を特定できない例だけなら今回の標本では判断保留。出力に合う入力への差し替え、同じ入力の未見扱いはしない。M2の続きとM3は結果が出てから分解する。
 
 ## 既存の保留課題
 

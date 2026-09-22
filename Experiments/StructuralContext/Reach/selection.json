@@ -1,0 +1,234 @@
+{
+  "rule": "Issue77 created-desc at most40, merged<=2026-09-21, first2 production Swift per repository",
+  "audit": [
+    {
+      "repository": "apple/swift-collections",
+      "number": 728,
+      "createdAt": "2026-09-21T20:05:05Z",
+      "mergedAt": "2026-09-21T20:35:20Z",
+      "productionSwift": [
+        "Sources/ContainersPreview/Conformances/UniqueDeque+Container.swift",
+        "Sources/ContainersPreview/Conformances/UniqueSet+Container.swift",
+        "Sources/ContainersPreview/Extensions/RigidSet+Extras.swift",
+        "Sources/ContainersPreview/Protocols/Container/DynamicContainer.swift",
+        "Sources/ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+        "Sources/ContainersPreview/Protocols/Container/RangeReplaceableContainer.swift",
+        "Sources/ContainersPreview/Protocols/Drain/Drain+Map.swift",
+        "Sources/ContainersPreview/Protocols/Drain/Drain.swift",
+        "Sources/ContainersPreview/Protocols/Iterable/BorrowingIteratorProtocol+Map.swift",
+        "Sources/ContainersPreview/Protocols/Producer/Producer+Filter.swift",
+        "Sources/ContainersPreview/Protocols/Producer/Producer+Map.swift",
+        "Sources/ContainersPreview/Protocols/Producer/Producer+Reduce.swift",
+        "Sources/ContainersPreview/Protocols/Producer/Producer+Unfold.swift",
+        "Sources/ContainersPreview/Protocols/Producer/Producer.swift"
+      ],
+      "selected": true
+    },
+    {
+      "repository": "apple/swift-collections",
+      "number": 727,
+      "createdAt": "2026-09-21T17:44:16Z",
+      "mergedAt": "2026-09-21T18:01:38Z",
+      "productionSwift": [
+        "Sources/BasicContainers/RigidSet/RigidSet+Index.swift",
+        "Sources/ContainersPreview/Protocols/Container/Container.swift",
+        "Sources/ContainersPreview/Protocols/Container/DrainableContainer.swift",
+        "Sources/ContainersPreview/Protocols/Container/PermutableContainer+MoveSubrange.swift",
+        "Sources/ContainersPreview/Protocols/Container/PermutableContainer+Reverse.swift",
+        "Sources/ContainersPreview/Protocols/Container/RandomAccessContainer.swift",
+        "Sources/ContainersPreview/Protocols/Container/RangeReplaceableContainer.swift"
+      ],
+      "selected": true
+    },
+    {
+      "repository": "groue/GRDB.swift",
+      "number": 1876,
+      "createdAt": "2026-08-08T03:07:39Z",
+      "mergedAt": "2026-08-08T08:56:31Z",
+      "productionSwift": [
+        "GRDB/Core/DatabaseBackupProgress.swift"
+      ],
+      "selected": true
+    },
+    {
+      "repository": "groue/GRDB.swift",
+      "number": 1869,
+      "createdAt": "2026-06-17T17:52:33Z",
+      "mergedAt": "2026-06-18T06:19:58Z",
+      "productionSwift": [
+        "GRDB/Migration/DatabaseMigrator.swift"
+      ],
+      "selected": true
+    }
+  ],
+  "cases": [
+    {
+      "id": "swift-collections-728",
+      "repository": "apple/swift-collections",
+      "prefix": "Sources/",
+      "number": 728,
+      "url": "https://github.com/apple/swift-collections/pull/728",
+      "title": "`Producer.generate(into:)`: Switch to saturating semantics",
+      "apiBase": "c38a7173fc51aa99dc084e32e09d3e212f7a2759",
+      "before": "c38a7173fc51aa99dc084e32e09d3e212f7a2759",
+      "after": "5d0faff6c79092531c5bf37144ba94fef19a60fc",
+      "changedFiles": [
+        {
+          "filename": "Documentation/Container-design.md",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Conformances/UniqueDeque+Container.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Conformances/UniqueSet+Container.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Extensions/RigidSet+Extras.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Container/DynamicContainer.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Container/RangeReplaceableContainer.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Drain/Drain+Map.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Drain/Drain.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Iterable/BorrowingIteratorProtocol+Map.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Producer/Producer+Filter.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Producer/Producer+Map.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Producer/Producer+Reduce.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Producer/Producer+Unfold.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Producer/Producer.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Tests/BasicContainersTests/RigidSetTests.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Tests/ContainersTests/MutableContainer_Update_Tests.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Tests/_CollectionsTestSupport/MinimalTypes/CustomCountedProducer.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Tests/_CollectionsTestSupport/MinimalTypes/CustomProducer.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Tests/_CollectionsTestSupport/MinimalTypes/PureProducer.swift",
+          "status": "modified"
+        }
+      ]
+    },
+    {
+      "id": "swift-collections-727",
+      "repository": "apple/swift-collections",
+      "prefix": "Sources/",
+      "number": 727,
+      "url": "https://github.com/apple/swift-collections/pull/727",
+      "title": "Container: Reinstate requirement for Comparable indices",
+      "apiBase": "f5db7175b348c095f25b2fd67ce354653351433c",
+      "before": "d392f0cbff52f0ae40d91021c36d2f59d2689e32",
+      "after": "b2424210b459b9a72674e581dee653237a08d5e1",
+      "changedFiles": [
+        {
+          "filename": "Sources/BasicContainers/RigidSet/RigidSet+Index.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Container/Container.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Container/DrainableContainer.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Container/PermutableContainer+MoveSubrange.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Container/PermutableContainer+Reverse.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Container/RandomAccessContainer.swift",
+          "status": "modified"
+        },
+        {
+          "filename": "Sources/ContainersPreview/Protocols/Container/RangeReplaceableContainer.swift",
+          "status": "modified"
+        }
+      ]
+    },
+    {
+      "id": "grdb-swift-1876",
+      "repository": "groue/GRDB.swift",
+      "prefix": "GRDB/",
+      "number": 1876,
+      "url": "https://github.com/groue/GRDB.swift/pull/1876",
+      "title": "Fix doubled word in doc comment",
+      "apiBase": "b83108d10f42680d78f23fe4d4d80fc88dab3212",
+      "before": "b83108d10f42680d78f23fe4d4d80fc88dab3212",
+      "after": "0a9a55d15f45499866c8c80136003b4b49c6676c",
+      "changedFiles": [
+        {
+          "filename": "GRDB/Core/DatabaseBackupProgress.swift",
+          "status": "modified"
+        }
+      ]
+    },
+    {
+      "id": "grdb-swift-1869",
+      "repository": "groue/GRDB.swift",
+      "prefix": "GRDB/",
+      "number": 1869,
+      "url": "https://github.com/groue/GRDB.swift/pull/1869",
+      "title": "Make migration registration an O(1) operation in DEBUG builds",
+      "apiBase": "fe3b957e5f67012e0009c13b7947e357dc037a49",
+      "before": "9ed8c8457e00ff9c7aedb3bf213f20a2cfdf509e",
+      "after": "f1d321139f29aa424d40e8701cb78665aaf03e7e",
+      "changedFiles": [
+        {
+          "filename": "GRDB/Migration/DatabaseMigrator.swift",
+          "status": "modified"
+        }
+      ]
+    }
+  ]
+}

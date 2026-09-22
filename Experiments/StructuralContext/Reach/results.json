@@ -1,0 +1,74 @@
+{
+  "binarySHA256": "c1ed75d7616785eb331190900239a9ff22c31e465741124b5a9213ef3a94f30a",
+  "meaning": "Fixed production source scope only. Facts and navigation candidates, not design verdict or review benefit.",
+  "results": [
+    {
+      "case": "swift-collections-728",
+      "returnCode": 2,
+      "sourcePrefix": "Sources/",
+      "error": "malformed(\"BasicContainers/RigidArray/RigidArray+ContainerOperations.swift\")\n"
+    },
+    {
+      "case": "swift-collections-727",
+      "returnCode": 2,
+      "sourcePrefix": "Sources/",
+      "error": "malformed(\"BasicContainers/RigidArray/RigidArray+ContainerOperations.swift\")\n"
+    },
+    {
+      "case": "grdb-swift-1876",
+      "returnCode": 0,
+      "sourcePrefix": "GRDB/",
+      "report": {
+        "afterFileCount": 167,
+        "beforeFileCount": 167,
+        "changedFunctions": 0,
+        "contexts": [],
+        "limitations": [
+          "Written type and selector candidates, not resolved callees, dependencies or shared responsibility. Adjacency and identical argument spelling do not prove related behavior or equal values.",
+          "Only direct call statements in uniquely paired indexed member functions are searched. A newOrChangedCall has no token-identical statement in the old body; it can be an edit to an existing call, not necessarily an insertion. Added/removed/renamed or ambiguous functions, nested control blocks, try/await wrappers and complex argument expressions are not covered.",
+          "Receiver annotation, owner/type headers and target declaration must match across snapshots. Same ID alone is not unchanged evidence. Supported lookup scopes and explicit rejection reasons come from SourceInventory.",
+          "Unchanged declaration does not mean absent from diff context lines. File equality is explicit; hunk visibility is not evaluated. No design verdict or automatic integration advice.",
+          "At most 8 targets and 8 entries per target; omissions are counted. Skips count rejected new/changed statements or changed functions without eligible new/changed direct calls, not unique files or review coverage. Zero results is not approval."
+        ],
+        "omittedTargets": 0,
+        "scope": "experiment: unchanged declared member candidates reached from adjacent direct calls sharing identifier arguments",
+        "skipped": [],
+        "unpairedAfter": 10,
+        "unpairedBefore": 10
+      }
+    },
+    {
+      "case": "grdb-swift-1869",
+      "returnCode": 0,
+      "sourcePrefix": "GRDB/",
+      "report": {
+        "afterFileCount": 167,
+        "beforeFileCount": 167,
+        "changedFunctions": 10,
+        "contexts": [],
+        "limitations": [
+          "Written type and selector candidates, not resolved callees, dependencies or shared responsibility. Adjacency and identical argument spelling do not prove related behavior or equal values.",
+          "Only direct call statements in uniquely paired indexed member functions are searched. A newOrChangedCall has no token-identical statement in the old body; it can be an edit to an existing call, not necessarily an insertion. Added/removed/renamed or ambiguous functions, nested control blocks, try/await wrappers and complex argument expressions are not covered.",
+          "Receiver annotation, owner/type headers and target declaration must match across snapshots. Same ID alone is not unchanged evidence. Supported lookup scopes and explicit rejection reasons come from SourceInventory.",
+          "Unchanged declaration does not mean absent from diff context lines. File equality is explicit; hunk visibility is not evaluated. No design verdict or automatic integration advice.",
+          "At most 8 targets and 8 entries per target; omissions are counted. Skips count rejected new/changed statements or changed functions without eligible new/changed direct calls, not unique files or review coverage. Zero results is not approval."
+        ],
+        "omittedTargets": 0,
+        "scope": "experiment: unchanged declared member candidates reached from adjacent direct calls sharing identifier arguments",
+        "skipped": [
+          {
+            "count": 2,
+            "reason": "no-new-or-changed-direct-call"
+          },
+          {
+            "count": 8,
+            "reason": "unsupported-caller-scope"
+          }
+        ],
+        "unpairedAfter": 10,
+        "unpairedBefore": 10
+      }
+    }
+  ],
+  "implementation": "b23a44e707ca4baf76bb9198b3fb81e165780e33"
+}
