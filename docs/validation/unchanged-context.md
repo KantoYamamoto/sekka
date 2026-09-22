@@ -33,6 +33,12 @@
 
 ## 再現と残る検証
 
-実行方法は[実験README](../../Experiments/StructuralContext/README.md)。ローカル生出力はGit管理外の`.build/unchanged-context/checks.json` / `checks.text`。独立コードレビューでは、既存callの引数変更も「追加call」と表示する点を指摘された。JSONを`newOrChangedCall`、textを「旧版に同じ文なし」へ統合して回帰テストを追加した。位置・候補の対応に追加の必須修正はなかった。自己利用、PRの最終Actions/実コメントは確認後にここへ記録する。
+実行方法は[実験README](../../Experiments/StructuralContext/README.md)。ローカル生出力はGit管理外の`.build/unchanged-context/checks.json` / `checks.text`。独立コードレビューでは、既存callの引数変更も「追加call」と表示する点を指摘された。JSONを`newOrChangedCall`、textを「旧版に同じ文なし」へ統合して回帰テストを追加した。位置・候補の対応に追加の必須修正はなかった。PRの最終Actions/実コメントは確認後にIssueへ記録する。
 
 M1の次の判断は、最低限の事実性が成立した評価器を固定し、M2で事前選定した実変更への到達範囲から確認すること。候補がほぼ出ない場合にA/Bレビューの形式だけを繰り返さず、対象外理由を見て検索範囲/方式へ戻す。候補が出た場合も、必要な未変更箇所への案内と配置を再検討する問いへの寄与を別に評価する。
+
+## 自己利用
+
+base `18cfa414eab30582e083688d0d4b9e986507770e` → 実装 `b23a44e707ca4baf76bb9198b3fb81e165780e33`。本番Sekkaは14変更path/7 Swift/23観測/19本体未比較を表示し、試作の削除・追加とAPI変更の入口になった。CLI接続や新規テストはfile diffでの確認が必要だった。新旧の本番評価器は未変更で、SHA-256 `e43a9ae5edfbeb5cd0958bb29546958e44b027e7654be7fab9747c119ab535d4`、完全JSONも一致した。
+
+新試作自身にも両版の`Sources`と`Experiments/StructuralContext/Sources`の19 Swiftファイルを渡した。0候補、対応内変更1関数はscope対象外、対応外はbefore 15 / after 2関数。独立レビューの表記問題を発見する助けにはならなかった。今回の自己利用は構造の入口と限界の確認であり、新検索の有用性の証拠にはしない。生出力は`.build/self-review/unchanged-context`と`.build/unchanged-context/self.*`へ保存。
