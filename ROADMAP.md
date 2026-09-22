@@ -1,12 +1,12 @@
 # Sekka: 現在位置と作業順
 
-更新日: 2026-09-14。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
+更新日: 2026-09-22。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
 
 ## ゴールと現在位置
 
 **通常diffを補い、変更を既存構造へどう組み込むか考えるための未変更実装を、関連根拠付きで示す。** 構文上の候補と不明を区別し、設計の良否・実calleeを推測で確定しない。Swift 6以降、CLI/Actions、LLMなしの決定論性を維持する。
 
-現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。#70で差分外補足の方針を固定し、**M1の最初のPR単位 #73は35テスト・独立修正レビュー・自己利用を完了し、[PR #75](https://github.com/KantoYamamoto/sekka/pull/75)の最終CI/成果物を確認中**。現行参照残存試作は#74で置換する。既存7対照は既知の材料で、新しい有用性の証拠にはしない。人間の判断待ちはない。
+現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**M1の索引#73は[PR #75](https://github.com/KantoYamamoto/sekka/pull/75)で完了。#74では検索・CLIを置換し、既存7例のうち4例で未変更Loggerへの期待経路を再現した。独立レビュー・自己利用・Actionsを進めている。** 既読OSS2件は0候補で、実用範囲の狭さが主要な懸念。[結果](docs/validation/unchanged-context.md)。既知対照の成功を新しい有用性の証拠にはしない。人間の判断待ちはない。
 
 ## Issueの階層と判断の節目
 
@@ -22,10 +22,10 @@
 
 | 順序 | Issue | 完了条件 / 状態 |
 | --- | --- | --- |
-| 1 | [#73 構文索引](https://github.com/KantoYamamoto/sekka/issues/73) | 明示型付きreceiverから関数候補を位置付きで返すlibrary API。曖昧scopeの理由、前後比較用の表記を保持。PR #75で最終確認中 |
-| 2 | [#74 検索と表示](https://github.com/KantoYamamoto/sekka/issues/74) | 追加から未変更候補へ辿る検索・JSON/text・CLI置換・既知対照・M1判断。#73の結果確認後に着手 |
+| 1 | [#73 構文索引](https://github.com/KantoYamamoto/sekka/issues/73) | 明示型付きreceiverから関数候補を位置付きで返すlibrary API。曖昧scopeの理由、前後比較用の表記を保持。PR #75で完了（最終CI/10成果物/実コメント確認済み） |
+| 2 | [#74 検索と表示](https://github.com/KantoYamamoto/sekka/issues/74) | 追加から未変更候補へ辿る検索・JSON/text・CLI置換・既知対照・M1判断。実装と既知対照を確認、レビュー/CI中 |
 
-M2/M3は開始時にPR単位へ分解する。#73が終わっても問題が残るなら#74へ機械的に積まず、親の範囲と完了条件を更新する。PR1でlibraryを作り、PR2で現行CLIの実験方式を置換する間だけ、両方の実装が共存する。
+M2/M3は開始時にPR単位へ分解する。M2は先に実変更への到達範囲を確認し、ほぼ対象外なら検索方式へ戻す。結果の出る入力だけを選んでレビューしない。旧方式は固定commitへ保存し、現行CLIへの継ぎ足しで維持しない。
 
 ## 既存の保留課題
 

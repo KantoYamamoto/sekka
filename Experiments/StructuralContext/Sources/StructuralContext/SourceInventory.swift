@@ -83,9 +83,21 @@ public struct InventoryFunction: Codable, Sendable {
   public let site: SourceSite
   public let declarationTokens: String
   public let bodyTokens: String?
+  public let statements: [InventoryStatement]
   public let parameterNames: [String]
   public let localNames: [String]
   public let unsupported: [String]
+}
+public struct InventoryStatement: Codable, Sendable {
+  public let tokens: String
+  public let call: InventoryCall?
+}
+public struct InventoryCall: Codable, Sendable {
+  public let site: SourceSite
+  public let selector: String
+  public let receiver: String?
+  public let explicitSelf: Bool
+  public let identifierArguments: [String]
 }
 public struct InventoryProperty: Codable, Sendable {
   public let ownerID: String
@@ -220,6 +232,32 @@ private final class InventoryReader: SyntaxVisitor {
     if !node.attributes.isEmpty { markUnknownMembers() }
     aliases.append(node.name.text); return .skipChildren
   }
+  func directCall(_ item: CodeBlockItemSyntax, display: String) -> InventoryCall? {
+    guard let call = item.item.as(FunctionCallExprSyntax.self), call.trailingClosure == nil,
+      call.additionalTrailingClosures.isEmpty else { return nil }
+    var receiver: String?, explicitSelf = false
+    let name: String
+    if let member = call.calledExpression.as(MemberAccessExprSyntax.self) {
+      guard member.declName.argumentNames == nil else { return nil }
+      name = member.declName.baseName.text
+      if let base = member.base?.as(DeclReferenceExprSyntax.self), base.argumentNames == nil {
+        receiver = base.baseName.text
+      } else if let base = member.base?.as(MemberAccessExprSyntax.self),
+        base.base?.as(DeclReferenceExprSyntax.self)?.baseName.text == "self", base.declName.argumentNames == nil {
+        receiver = base.declName.baseName.text; explicitSelf = true
+      } else { return nil }
+    } else if let reference = call.calledExpression.as(DeclReferenceExprSyntax.self), reference.argumentNames == nil {
+      name = reference.baseName.text
+    } else { return nil }
+    let identifiers = call.arguments.compactMap { argument -> String? in
+      guard let ref = argument.expression.as(DeclReferenceExprSyntax.self), ref.argumentNames == nil,
+        !["self", "super", "nil", "true", "false"].contains(ref.baseName.text) else { return nil }
+      return ref.baseName.text
+    }
+    return InventoryCall(site: site(call, name: display),
+      selector: name + "(" + call.arguments.map { ($0.label?.text ?? "_") + ":" }.joined() + ")",
+      receiver: receiver, explicitSelf: explicitSelf, identifierArguments: Array(Set(identifiers)).sorted())
+  }
   override func visit(_ node: FunctionDeclSyntax) -> SyntaxVisitorContinueKind {
     if !node.attributes.isEmpty { markUnknownMembers() }
     guard let owner = owners.last else { return .skipChildren }
@@ -237,6 +275,9 @@ private final class InventoryReader: SyntaxVisitor {
     functions.append(InventoryFunction(id: owner.id + ":" + signature, ownerID: owner.id, selector: selector,
       site: site(node, name: owner.site.declaration + "." + selector, signature: signature),
       declarationTokens: inventoryTokens(node), bodyTokens: node.body.map(inventoryTokens),
+      statements: node.body?.statements.map { statement in
+        InventoryStatement(tokens: inventoryTokens(statement.item), call: directCall(statement, display: owner.site.declaration + "." + selector))
+      } ?? [],
       parameterNames: node.signature.parameterClause.parameters.map { ($0.secondName ?? $0.firstName).text },
       localNames: Array(Set(locals.names)).sorted(), unsupported: reasons))
     return .skipChildren
