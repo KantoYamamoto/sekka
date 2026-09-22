@@ -33,7 +33,7 @@
 
 ## 再現と残る検証
 
-実行方法は[実験README](../../Experiments/StructuralContext/README.md)。ローカル生出力はGit管理外の`.build/unchanged-context/checks.json` / `checks.text`。独立コードレビューでは、既存callの引数変更も「追加call」と表示する点を指摘された。JSONを`newOrChangedCall`、textを「旧版に同じ文なし」へ統合して回帰テストを追加した。位置・候補の対応に追加の必須修正はなかった。PRの最終Actions/実コメントは確認後にIssueへ記録する。
+実行方法は[実験README](../../Experiments/StructuralContext/README.md)。ローカル生出力はGit管理外の`.build/unchanged-context/checks.json` / `checks.text`。独立コードレビューでは、既存callの引数変更も「追加call」と表示する点を指摘された。JSONを`newOrChangedCall`、textを「旧版に同じ文なし」へ統合して回帰テストを追加した。位置・候補の対応に追加の必須修正はなかった。[PR #76](https://github.com/KantoYamamoto/sekka/pull/76)は最終head `d048bd65c1cf26251f050a89f1f2b90ec97fc075` の[Actions](https://github.com/KantoYamamoto/sekka/actions/runs/35743959825)が成功。10成果物のhead、8CLI対照（境界1+既知7）の表示、[実コメント](https://github.com/KantoYamamoto/sekka/pull/76#issuecomment-5778831425)とsummaryの一致を確認しマージした。M1の事実性を完了とし、M2 #77へ進む。
 
 M1の次の判断は、最低限の事実性が成立した評価器を固定し、M2で事前選定した実変更への到達範囲から確認すること。候補がほぼ出ない場合にA/Bレビューの形式だけを繰り返さず、対象外理由を見て検索範囲/方式へ戻す。候補が出た場合も、必要な未変更箇所への案内と配置を再検討する問いへの寄与を別に評価する。
 
