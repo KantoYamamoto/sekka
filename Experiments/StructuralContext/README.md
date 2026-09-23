@@ -11,24 +11,35 @@ python3 Experiments/StructuralContext/verify.py --binary .build/structural-conte
 
 Swift 6以降とSwiftSyntax 603.0.1が必要。`BEFORE`/`AFTER`は比較するSwiftソースを含むディレクトリ。末尾の`--text`を省くとJSON。`verify.py`は既存7対照と入力の境界を検証する。**合成例の成功は実PRで役立つことの証明ではない。**
 
-## 何を案内するか
+## 未変更宣言と根拠経路
 
-例えば、以前から`logger.record(event)`を呼んでいた関数に、直後の`analytics.record(event)`が加わったとする。`logger: Logger`という明示型、入力内の`Logger.record(_:)`候補、その宣言が前後で未変更という経路を位置付きで示す。3関数から同じ候補へ届けば、候補1件に3つの入口をまとめる。
+出力の単位は未変更の宣言候補。同じ宣言へ複数の場所から届けば1件にまとめ、型宣言とそのmember関数は別の宣言として扱う。次の二種類の根拠を同じ一覧へ統合する。
 
-出力は「この既存実装も確認できる」という材料。Loggerという名前から役割を推論せず、実際の呼び出し先や同じ責務、統合すべきという結論を確定しない。既存実装を読んで配置を再検討する価値は、別途評価する。
+| 根拠 | 観測できること | 確定しないこと |
+| --- | --- | --- |
+| propertyの型注釈 | 新しく現れた表記の末尾名と、同名nominal/typealias宣言の位置。例えば`[Migration]`→`OrderedDictionary<String, Migration>`から既存OrderedDictionaryへ進む | 実型、module/owner、alias展開先、依存の追加、同じ責務 |
+| 既存callとの接点 | 旧版にも一度現れる直前のmember call、共通する識別子引数、receiverの明示型から関数候補への旧新経路 | call挿入か既存callの編集か、実callee、同じ値・挙動、統合必要性 |
 
-- 対象は一意に対応したmember関数の本体直下。旧版に同じトークン列の文がなく、直前に前後それぞれ1回だけ現れるmember callがあり、単純な識別子引数の表記を共有する場合に検索する。既存callの引数変更もこの条件を満たし得るため、挿入とは断定しない。隣接や同じ引数表記は関連性・同じ値の証明ではない。
-- `SourceInventory`でreceiver propertyの明示型から名前/引数ラベルが一致する関数候補へ辿る。caller/targetの型ヘッダー、property、候補宣言の前後一致を確認する。行が移動しても新旧位置を保持する。
-- 新規/削除/改名/曖昧な関数、nested block、try/await、複雑な引数式は初回範囲外。型推論、overload解決、extension、継承/protocol、macro展開は行わない。属性も未展開の宣言を作り得るものとして保守的に扱うため、通常の属性が検索を止める場合がある。[索引の詳細](../../docs/validation/source-inventory.md)。
-- 未変更の関数から呼び出し元へ逆に辿る検索や、未変更の場所にも同じ組合せがあるかの検索は行わない。差分の意味・保存失敗・数式の正しさも扱わない。
+**候補があるのは、その宣言を読む入口があるというだけ。配置を見直す必要があるか、通常検索より助かるかは別に評価する。** 名前から役割を推論しない。
 
-## JSONとtext
+型注釈では`Box<A>`→`Box<B>`のBを入口にし、既存のBoxを新規名として再掲しない。optional/array/tuple/generic引数内の名前も読む。`Left.Item`→`Right.Item`は表記変更として扱い、照合に使う末尾Itemと完全な表記を保持する。同名のLeft.Itemも候補になり得るが、Rightへの解決とは呼ばない。既知のgeneric/associated type parameterとSelfは除外し、`_`等の不明表記を一致なしと区別する。
 
-`contexts`は未変更の関数候補ごとに、前後位置、`fileUnchanged`、変更からの`entries`を持つ。各entryにcaller、既存call、新規または変更call（`newOrChangedCall`）、receiverの型注釈の位置、型と共有引数の表記を持つ。textは同じ候補を罫線でまとめる。最大8候補・各8入口で、省略数は両形式で共有する。
+型/alias宣言はfile・字句owner・名前・種別が一意に対応し、宣言全体のトークンが同じものを候補にする。同名別宣言は別候補で、変更済みの一方を除いても他方を消さない。条件分岐等で前後対応が曖昧なら未変更と断定しない。属性・準拠・generic・extensionの存在自体を、書かれた宣言を消す理由にしない。
 
-`changedFunctions`は索引で一意に対応した変更関数数。`unpairedBefore/After`は対応外の索引内関数数。`skipped`は候補文を退けた理由、または対象callを持たない変更関数の理由の件数であり、ファイル数・解析網羅率ではない。そもそも索引にないトップレベル関数/init等もある。0件を設計の妥当性と解釈しない。
+call経路はmember関数本体の直下、単純な識別子引数、同じowner内の明示型propertyに限定する。nested block、try/await、closureや曖昧なscopeは対象外。旧版に同じ文がないcallを検索し、callの挿入とは断定しない。[索引の経緯](../../docs/validation/source-inventory.md)。
 
-宣言のトークン未変更とファイル全体の未変更は区別する。hunkを比較していないので、その宣言がdiffのcontext行にも出ていないとは主張しない。JSONの`limitations`に検索契約を残す。
+## JSON/textの範囲と不明
+
+`contexts`の各候補に前後位置、`kind`、`fileUnchanged`、根拠の`entries`を持つ。根拠は`existingCall.evidence`または`changedType.evidence`。textでも候補1件の罫線の下へ根拠を並べる。最大8候補・各8入口で、省略数を共有する。
+
+型経路は旧新property/型表記、新しく現れた名前の位置、末尾名が一致する宣言数を持つ。同じpropertyの同じqualified名は最初の位置を使う。`beforeStatus: no-indexed-counterpart`は旧版索引に対応がない状態であり、旧宣言の不存在や新規propertyの証明ではない。
+
+- `changedFunctions`と`unpairedBefore/After`は索引内の関数数。`changedTypeAnnotations`は索引内の型注釈差の件数で、新しい実型や依存の数ではない。
+- `skipped`はcall検索・型注釈の対応・宣言検索の各試行を退けた理由の件数。名前一致なし、旧宣言未確認、変更済み、対応不明、型表記不明を区別する。ファイル数や網羅率として足し合わせない。型注釈の組が未変更の曖昧propertyは毎回再掲しない。
+- nominal/typealias宣言やpropertyのうち、extension内・local function内・トップレベルproperty等は索引にない。継承された型bindingやその他のshadowing、生成された宣言、activeな条件は解決しない。全リポジトリの型解決ではない。
+- 未変更なのは候補宣言のトークン。extension、alias展開、macro、有効な条件を含む型全体の不変ではない。ファイル全体の一致は別に示し、hunkを見ずに「diffにも出ない」と断言しない。
+
+構文エラーは部分的な成功結果にせず停止する。正常0候補も設計の妥当性を示さない。検索の契約はJSONの`limitations`にも残す。
 
 ## 入力と再現の境界
 
@@ -48,7 +59,7 @@ python3 Experiments/StructuralContext/verify.py --binary .build/structural-conte
 
 ## 以前の方式
 
-実験CLIを置換し、旧方式は固定commitに残す。class配置は`f76bfd32911fa8606f1c06d85a414a0aee8d1b7e`、call接点は`c0eb0b3f783262d0c43c1f189c338174725d584b`、参照減少/残存は`2f089f37de5d925e514df74a5317fb5d4cad1d91`。下記のREFを置き換えて別ディレクトリへ取り出す。
+実験CLIを置換し、旧方式は固定commitに残す。class配置は`f76bfd32911fa8606f1c06d85a414a0aee8d1b7e`、call接点は`c0eb0b3f783262d0c43c1f189c338174725d584b`、参照減少/残存は`2f089f37de5d925e514df74a5317fb5d4cad1d91`、隣接callだけの案内は`b23a44e707ca4baf76bb9198b3fb81e165780e33`。下記のREFを置き換えて別ディレクトリへ取り出す。
 
 ```sh
 set -e
@@ -59,4 +70,4 @@ swift test --package-path .build/archived-context/Experiments/StructuralContext 
 python3 .build/archived-context/Experiments/StructuralContext/verify.py --binary .build/archived-context/build/debug/context-probe --output .build/archived-context/result.json
 ```
 
-以前の結果は[class配置](../../docs/validation/class-context-experiment.md)・[call接点](../../docs/validation/change-context-experiment.md)・[参照差](../../docs/validation/reference-delta.md)。現在の結果は[未変更候補への検索](../../docs/validation/unchanged-context.md)。
+以前の結果は[class配置](../../docs/validation/class-context-experiment.md)・[call接点](../../docs/validation/change-context-experiment.md)・[参照差](../../docs/validation/reference-delta.md)。隣接call方式の結果は[未変更候補への検索](../../docs/validation/unchanged-context.md)と[固定実PR](../../docs/validation/unchanged-context-reach.md)。現在の型注釈を含む結果は[宣言候補への案内](../../docs/validation/typed-declaration-context.md)。

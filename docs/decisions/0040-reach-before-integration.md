@@ -22,3 +22,11 @@
 次の#78の1PRで旧新の型表記位置・名前が一致する未変更宣言・同名やalias等の不明を出力契約にし、既存実験の検索単位を見直す。単独の別CLIや完全call graphを増やさない。既知GRDB入力は回帰確認として扱い、次の実装に合わせて未見成功へ数え直さない。
 
 入力parserの非対応は別課題として保持し、黙ってファイルを除外して正常結果にしない。解析結果の位置と根拠が成立してから、必要な確認先選択と配置の問いへの寄与を改めて評価する。今はM3へ進む根拠がない。[検証結果](../validation/unchanged-context-reach.md)。
+
+## #78の具体化
+
+同じpropertyの型注釈で新しく現れたqualified表記を検索する。Box<A>→Box<B>ならB、Left.Item→Right.ItemならRight.Item（照合名はItem）。generic引数/optional/tuple等の内部も読み、既知のgeneric/associated parameterとSelfは名前一致検索へ流さない。placeholderや未対応表記は一致なしと区別する。
+
+出力は未変更宣言ごとの一覧を維持し、根拠をcall経路または型注釈経路の列挙型にする。欄やCLIを増やす代わりに、同じ宣言への複数根拠をまとめる。候補はfile/字句owner/名前/種別の一意な前後対応とトークン一致を持つ。nominalとmemberは別宣言。同名別宣言を一緒にしない。
+
+独立レビューで、associatedtypeのT/Self.Tを同名nominalへ案内する誤り、placeholder分類、索引外の旧propertyを「宣言なし」と呼ぶ誤りを修正した。型経路は解決を保証しないが、書かれているbindingや取得範囲に反する断言もしない。beforeStatusは索引内の対応有無を示す。結果は[型注釈経路の検証](../validation/typed-declaration-context.md)。

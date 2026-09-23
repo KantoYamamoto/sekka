@@ -37,4 +37,4 @@ Swift Collectionsの両例は、最初の`BasicContainers/RigidArray/RigidArray+
 
 次は、意味解決を確定できないことと、ソースに存在する宣言候補を提示できないことを分けて考える。例えば変更された明示型から既存の型宣言へ辿る経路は、隣接callを必要条件にする理由がない。ただしこのGRDB例に合わせた次の実装は既知例の回帰確認であり、新しい有用性の証拠にはしない。入力を解析できない問題は検索結果と独立して扱い、失敗ファイルを黙って除外しない。
 
-計画段階の独立レビューで、確認先の事前保存、0件の分類、A/Bへの条件、標本不足の扱いを修正済み。結果の独立点検では、選定・checkpoint・3,008入力のハッシュと0件/失敗の分類が整合していた。再構築した評価器と保存評価器を同一扱いしないよう指摘され、再現手順へcompiler versionとバイナリSHAの記録を追加した。PR/Actionsはこの単位の最後に記録する。
+計画段階の独立レビューで、確認先の事前保存、0件の分類、A/Bへの条件、標本不足の扱いを修正済み。結果の独立点検では、選定・checkpoint・3,008入力のハッシュと0件/失敗の分類が整合していた。再構築した評価器と保存評価器を同一扱いしないよう指摘され、再現手順へcompiler versionとバイナリSHAの記録を追加した。[PR #79](https://github.com/KantoYamamoto/sekka/pull/79)はhead `1586e745838727faba21daf522a4cf87049311b2`の[Actions](https://github.com/KantoYamamoto/sekka/actions/runs/35798734975)が成功。10成果物のheadと[実コメント](https://github.com/KantoYamamoto/sekka/pull/79#issuecomment-5786389723)を確認してmergeした。次の#78は別の既知回帰として記録する。

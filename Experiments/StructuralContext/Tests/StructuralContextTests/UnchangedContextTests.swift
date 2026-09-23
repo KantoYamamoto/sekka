@@ -16,9 +16,9 @@ private func compare(_ before: String, _ after: String, targetBefore: String = t
   let context = try #require(report.contexts.first)
   #expect(context.after.declaration == "Logger.record(_:)")
   #expect(context.fileUnchanged)
-  #expect(context.entries.first?.writtenType == "Logger")
-  #expect(context.entries.first?.sharedArgumentSpellings == ["event"])
-  #expect(context.entries.first?.afterReceiver.file == "Screen.swift")
+  #expect(context.entries.first?.call?.writtenType == "Logger")
+  #expect(context.entries.first?.call?.sharedArgumentSpellings == ["event"])
+  #expect(context.entries.first?.call?.afterReceiver.file == "Screen.swift")
   #expect(report.skipped.isEmpty)
 }
 
@@ -28,7 +28,7 @@ private func compare(_ before: String, _ after: String, targetBefore: String = t
   let report = try compare(before, after)
   #expect(report.contexts.count == 1)
   #expect(report.contexts.first?.entries.count == 3)
-  #expect(report.text().components(separatedBy: "┌ 未変更の関数候補").count == 2)
+  #expect(report.text().components(separatedBy: "┌ 未変更の宣言候補").count == 2)
 }
 
 @Test func receiverTypeAndTypeHeaderChangeDoNotReuseOldPath() throws {
@@ -97,10 +97,11 @@ private func compare(_ before: String, _ after: String, targetBefore: String = t
 
 @Test func existingCallerAndPropertyMustNotBeNew() throws {
   let report = try compare("", screen(extra: "analytics.track(event)"))
-  #expect(report.contexts.isEmpty)
+  #expect(!report.contexts.contains { $0.kind == "function" })
+  #expect(report.contexts.first?.kind == "struct")
   #expect(report.unpairedAfter == 1)
   let before = screen().replacingOccurrences(of: "let logger: Logger;", with: "")
-  #expect(try compare(before, screen(extra: "analytics.track(event)")).contexts.isEmpty)
+  #expect(try !compare(before, screen(extra: "analytics.track(event)")).contexts.contains { $0.kind == "function" })
 }
 
 @Test func entryCapsAndInputOrderAreExplicitAndStable() throws {
@@ -125,7 +126,7 @@ private func compare(_ before: String, _ after: String, targetBefore: String = t
   let after = screen(extra: "analytics.track(event, mode: new)")
   let report = try compare(before, after)
   #expect(report.contexts.count == 1)
-  #expect(report.contexts.first?.entries.first?.newOrChangedCall.line == 2)
+  #expect(report.contexts.first?.entries.first?.call?.newOrChangedCall.line == 2)
   #expect(report.text().contains("旧版に同じ文なし"))
   #expect(!report.text().contains("追加call"))
   let data = try JSONEncoder().encode(report)

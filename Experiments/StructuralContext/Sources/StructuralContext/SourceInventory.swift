@@ -8,6 +8,10 @@ public struct SourceInventory: Sendable {
   public let properties: [InventoryProperty]
   public let extensionNames: [String]
   public let aliasNames: [String]
+  public let aliasDeclarations: [InventoryDeclaration]
+  public var declarations: [InventoryDeclaration] {
+    types.map { InventoryDeclaration(id: $0.id, name: $0.name, kind: $0.kind, site: $0.site, declarationTokens: $0.declarationTokens) } + aliasDeclarations
+  }
   public let uncertainOwnerIDs: [String]
   public let hasUnexpandedGlobalDeclarations: Bool
 
@@ -15,6 +19,7 @@ public struct SourceInventory: Sendable {
     guard Set(files.map(\.0)).count == files.count else { throw InventoryError.duplicatePath }
     var types: [InventoryType] = [], functions: [InventoryFunction] = [], properties: [InventoryProperty] = []
     var extensions: [String] = [], aliases: [String] = [], uncertain: [String] = []
+    var aliasDeclarations: [InventoryDeclaration] = []
     var unknownGlobal = false
     for (file, source) in files.sorted(by: { $0.0 < $1.0 }) {
       let tree = Array(source.utf8).withUnsafeBufferPointer { Parser.parse(source: $0, swiftVersion: .v6) }
@@ -23,9 +28,11 @@ public struct SourceInventory: Sendable {
       reader.walk(tree)
       types += reader.types; functions += reader.functions; properties += reader.properties
       extensions += reader.extensions; aliases += reader.aliases
+      aliasDeclarations += reader.aliasDeclarations
       uncertain += reader.uncertainOwners; unknownGlobal = unknownGlobal || reader.unknownGlobal
     }
     self.types = types; self.functions = functions; self.properties = properties
+    self.aliasDeclarations = aliasDeclarations
     extensionNames = Array(Set(extensions)).sorted(); aliasNames = Array(Set(aliases)).sorted()
     uncertainOwnerIDs = Array(Set(uncertain)).sorted(); hasUnexpandedGlobalDeclarations = unknownGlobal
   }
@@ -73,6 +80,9 @@ public struct InventoryType: Codable, Sendable {
   public let id: String
   public let name: String
   public let headerTokens: String
+  public let declarationTokens: String
+  public let kind: String
+  public let boundTypeNames: [String]
   public let site: SourceSite
   public let unsupported: [String]
 }
@@ -99,11 +109,25 @@ public struct InventoryCall: Codable, Sendable {
   public let explicitSelf: Bool
   public let identifierArguments: [String]
 }
+public struct InventoryDeclaration: Codable, Sendable {
+  public let id: String
+  public let name: String
+  public let kind: String
+  public let site: SourceSite
+  public let declarationTokens: String
+}
+public struct InventoryTypeName: Codable, Sendable {
+  public let name: String
+  public let written: String
+  public let site: SourceSite
+}
 public struct InventoryProperty: Codable, Sendable {
   public let ownerID: String
   public let name: String
   public let simpleType: String?
   public let typeSpelling: String?
+  public let typeNames: [InventoryTypeName]
+  public let typeNameUnknowns: [String]
   public let declarationTokens: String
   public let site: SourceSite
   public let typeSite: SourceSite?
@@ -172,6 +196,7 @@ private final class InventoryReader: SyntaxVisitor {
   var properties: [InventoryProperty] = []
   var extensions: [String] = []
   var aliases: [String] = []
+  var aliasDeclarations: [InventoryDeclaration] = []
   var uncertainOwners: [String] = []
   var unknownGlobal = false
   init(file: String, tree: SourceFileSyntax) {
@@ -196,7 +221,16 @@ private final class InventoryReader: SyntaxVisitor {
     if attributed { markUnknownMembers() }
     let reasons = unsupported + (attributed ? ["attributed-type"] : []) + (owners.isEmpty ? [] : ["nested-type"]) + (conditional(syntax) ? ["conditional"] : [])
     let header = syntax.tokens(viewMode: .sourceAccurate).prefix { $0.positionAfterSkippingLeadingTrivia < block.leftBrace.positionAfterSkippingLeadingTrivia }.map(\.text).joined(separator: " ")
-    let type = InventoryType(id: file + ":" + display, name: name, headerTokens: header, site: site(syntax, name: display), unsupported: reasons)
+    let kind = syntax.is(StructDeclSyntax.self) ? "struct" : syntax.is(ClassDeclSyntax.self) ? "class" : syntax.is(ActorDeclSyntax.self) ? "actor" : syntax.is(EnumDeclSyntax.self) ? "enum" : "protocol"
+    var parameters = syntax.asProtocol(WithGenericParametersSyntax.self)?.genericParameterClause?.parameters.map { $0.name.text } ?? []
+    if let proto = syntax.as(ProtocolDeclSyntax.self) {
+      parameters += proto.primaryAssociatedTypeClause?.primaryAssociatedTypes.map { $0.name.text } ?? []
+      let associated = AssociatedNames(); associated.walk(block); parameters += associated.names
+    }
+    let type = InventoryType(id: file + ":" + display, name: name, headerTokens: header,
+      declarationTokens: inventoryTokens(syntax), kind: kind,
+      boundTypeNames: ["Self"] + (owners.last?.boundTypeNames ?? []) + parameters,
+      site: site(syntax, name: display), unsupported: reasons)
     types.append(type); owners.append(type)
     walk(block)
     owners.removeLast()
@@ -230,7 +264,11 @@ private final class InventoryReader: SyntaxVisitor {
   }
   override func visit(_ node: TypeAliasDeclSyntax) -> SyntaxVisitorContinueKind {
     if !node.attributes.isEmpty { markUnknownMembers() }
-    aliases.append(node.name.text); return .skipChildren
+    aliases.append(node.name.text)
+    let display = ((owners.last.map { [$0.site.declaration] } ?? []) + [node.name.text]).joined(separator: ".")
+    aliasDeclarations.append(InventoryDeclaration(id: file + ":" + display, name: node.name.text,
+      kind: "typealias", site: site(node, name: display), declarationTokens: inventoryTokens(node)))
+    return .skipChildren
   }
   func directCall(_ item: CodeBlockItemSyntax, display: String) -> InventoryCall? {
     guard let call = item.item.as(FunctionCallExprSyntax.self), call.trailingClosure == nil,
@@ -306,11 +344,54 @@ private final class InventoryReader: SyntaxVisitor {
       if !node.attributes.isEmpty { reasons.append("attributed-property") }
       if binding.accessorBlock != nil { reasons.append("computed-or-observed-property") }
       let display = owner.site.declaration + "." + name
+      let names = TypeNames { self.site($0, name: display) }
+      if let type { names.walk(type) }
       properties.append(InventoryProperty(ownerID: owner.id, name: name,
         simpleType: simple?.genericArgumentClause == nil ? simple?.name.text : nil,
-        typeSpelling: type.map(inventoryTokens), declarationTokens: inventoryTokens(node.attributes) + "|" + inventoryTokens(node.modifiers) + "|" + node.bindingSpecifier.text + "|" + inventoryTokens(binding),
+        typeSpelling: type.map(inventoryTokens), typeNames: names.names, typeNameUnknowns: Array(Set(names.unknowns)).sorted(), declarationTokens: inventoryTokens(node.attributes) + "|" + inventoryTokens(node.modifiers) + "|" + node.bindingSpecifier.text + "|" + inventoryTokens(binding),
         site: site(binding, name: display), typeSite: type.map { site($0, name: display) }, unsupported: reasons))
     }
     return .skipChildren
   }
+}
+
+/// Record written nominal names, including generic arguments; do not resolve them.
+private final class TypeNames: SyntaxVisitor {
+  let site: (TokenSyntax) -> SourceSite
+  var names: [InventoryTypeName] = []
+  var unknowns: [String] = []
+  init(site: @escaping (TokenSyntax) -> SourceSite) { self.site = site; super.init(viewMode: .sourceAccurate) }
+  func components(_ type: TypeSyntax) -> [String]? {
+    if let name = type.as(IdentifierTypeSyntax.self) { return [name.name.text] }
+    if let member = type.as(MemberTypeSyntax.self), let base = components(member.baseType) { return base + [member.name.text] }
+    return nil
+  }
+  func isQualifier(_ node: some SyntaxProtocol) -> Bool {
+    node.parent?.as(MemberTypeSyntax.self)?.baseType.id == node.id
+  }
+  override func visit(_ node: IdentifierTypeSyntax) -> SyntaxVisitorContinueKind {
+    if node.name.text == "_" { unknowns.append("placeholder-type"); return .visitChildren }
+    if !isQualifier(node) { names.append(InventoryTypeName(name: node.name.text, written: node.name.text, site: site(node.name))) }
+    return .visitChildren
+  }
+  override func visit(_ node: MemberTypeSyntax) -> SyntaxVisitorContinueKind {
+    if !isQualifier(node) {
+      if let parts = components(TypeSyntax(node)), !parts.contains("_") {
+        names.append(InventoryTypeName(name: node.name.text, written: parts.joined(separator: "."), site: site(node.name)))
+      } else { unknowns.append("unsupported-qualified-type") }
+    }
+    return .visitChildren
+  }
+}
+
+private final class AssociatedNames: SyntaxVisitor {
+  var names: [String] = []
+  init() { super.init(viewMode: .sourceAccurate) }
+  override func visit(_ node: AssociatedTypeDeclSyntax) -> SyntaxVisitorContinueKind { names.append(node.name.text); return .skipChildren }
+  override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind { .skipChildren }
+  override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind { .skipChildren }
+  override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind { .skipChildren }
+  override func visit(_ node: ActorDeclSyntax) -> SyntaxVisitorContinueKind { .skipChildren }
+  override func visit(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind { .skipChildren }
+  override func visit(_ node: FunctionDeclSyntax) -> SyntaxVisitorContinueKind { .skipChildren }
 }
