@@ -43,12 +43,12 @@ with tempfile.TemporaryDirectory(prefix='sekka-context-') as directory:
     assert len(report['contexts']) == 1
     assert context['after']['declaration'] == 'Logger.record(_:)'
     assert context['fileUnchanged'] is False
-    assert context['entries'][0]['writtenType'] == 'Logger'
-    assert context['entries'][0]['sharedArgumentSpellings'] == ['event']
+    assert context['entries'][0]['existingCall']['evidence']['writtenType'] == 'Logger'
+    assert context['entries'][0]['existingCall']['evidence']['sharedArgumentSpellings'] == ['event']
     results.append({'case': 'unchanged-context-hidden-metadata', 'report': report})
     assert run(after, after)['contexts'] == []
     text = subprocess.check_output([binary, str(before), str(after), '--text']).decode()
-    assert '┌ 未変更の関数候補: Old.swift:1' in text and 'before Old.swift:1' in text
+    assert '┌ 未変更の宣言候補 [function]: Old.swift:1' in text and 'before Old.swift:1' in text
     assert '呼び出し先は未解決' in text
     text_samples = ['Case: unchanged-context-hidden-metadata\n' + text]
     (after / 'Broken.swift').write_text('struct {')
@@ -62,6 +62,25 @@ with tempfile.TemporaryDirectory(prefix='sekka-context-') as directory:
     link = root / 'linked'; link.symlink_to(after, target_is_directory=True)
     failed = subprocess.run([binary, str(before), str(link)], capture_output=True)
     assert failed.returncode == 2 and failed.stdout == b''
+
+# A type-annotation entry shares the same declaration list and text renderer.
+with tempfile.TemporaryDirectory(prefix='sekka-type-context-') as directory:
+    root = Path(directory)
+    for side, annotation in [('before', 'Int'), ('after', 'Buffer<Int>')]:
+        folder = root / side
+        folder.mkdir()
+        (folder / 'Buffer.swift').write_text('struct Buffer<Element>: Sendable {}\n')
+        (folder / 'Store.swift').write_text('struct Store { var value: ' + annotation + ' }\n')
+    report = run(root / 'before', root / 'after')
+    target = report['contexts'][0]
+    assert len(report['contexts']) == 1 and target['kind'] == 'struct'
+    assert target['after']['file'] == 'Buffer.swift' and target['fileUnchanged']
+    entry = target['entries'][0]['changedType']['evidence']
+    assert entry['reference']['written'] == 'Buffer' and entry['matchingDeclarations'] == 1
+    text = subprocess.check_output([binary, str(root / 'before'), str(root / 'after'), '--text']).decode()
+    assert '型注釈の入口' in text and '照合した末尾名: Buffer' in text
+    results.append({'case': 'type-annotation-context', 'report': report})
+    text_samples.append('Case: type-annotation-context\n' + text)
 
 # Already-known fact controls; these do not measure review benefit.
 fixture_path = Path(__file__).resolve().parents[2] / 'Fixtures/structural-reconsideration/cases.json'
@@ -81,20 +100,26 @@ for case in json.loads(fixture_path.read_text()):
         report = run(root / 'before', root / 'after')
         fixture_reports[case['name']] = report
         expected = expected_entries[case['name']]
-        assert len(report['contexts']) == (1 if expected else 0), case['name']
+        assert len(report['contexts']) == (2 if case['name'] == 'dispatch-growth' else 1 if expected else 0), case['name']
         if expected:
-            target = report['contexts'][0]
+            target = next(t for t in report['contexts'] if t['kind'] == 'function')
             assert target['after']['file'] == 'Logger.swift'
             assert target['after']['line'] == 2
             assert target['after']['declaration'] == 'Logger.record(_:)'
             assert target['fileUnchanged'] is True
             assert len(target['entries']) == expected
-            for entry in target['entries']:
+            for path in target['entries']:
+                entry = path['existingCall']['evidence']
                 assert entry['beforeExistingCall']['line'] == 4
                 assert entry['afterExistingCall']['line'] == 5
                 assert entry['newOrChangedCall']['line'] == 6
                 assert entry['beforeReceiver']['line'] == entry['afterReceiver']['line'] == 2
                 assert entry['sharedArgumentSpellings'] == ['event']
+        if case['name'] == 'dispatch-growth':
+            typed = next(t for t in report['contexts'] if t['kind'] == 'struct')
+            assert typed['after']['file'] == 'Analytics.swift' and typed['fileUnchanged']
+            assert len(typed['entries']) == 2
+            assert all(e['changedType']['evidence']['reference']['written'] == 'Analytics' for e in typed['entries'])
         results.append({'case': case['name'], 'report': report})
         text_samples.append('Case: ' + case['name'] + '\n' + subprocess.check_output(
             [binary, str(root / 'before'), str(root / 'after'), '--text']).decode())
