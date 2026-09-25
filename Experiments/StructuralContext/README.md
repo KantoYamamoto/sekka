@@ -9,7 +9,7 @@ python3 Experiments/StructuralContext/verify.py --binary .build/structural-conte
 .build/structural-context/debug/context-probe BEFORE AFTER --text
 ```
 
-Swift 6以降とSwiftSyntax 603.0.1が必要。`BEFORE`/`AFTER`は比較するSwiftソースを含むディレクトリ。末尾の`--text`を省くとJSON。`verify.py`は既存7対照と入力の境界を検証する。**合成例の成功は実PRで役立つことの証明ではない。**
+Swift 6以降とSwiftSyntax 604.0.0が必要。`BEFORE`/`AFTER`は比較するSwiftソースを含むディレクトリ。末尾の`--text`を省くとJSON。`verify.py`は既存7対照・型注釈・条件付きborrow/mutate・入力境界の計10例を検証する。**合成例の成功は実PRで役立つことの証明ではない。**
 
 ## 未変更宣言と根拠経路
 

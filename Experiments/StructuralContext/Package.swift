@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
   name: "StructuralContext",
   platforms: [.macOS(.v13)],
-  dependencies: [.package(url: "https://github.com/swiftlang/swift-syntax.git", exact: "603.0.1")],
+  dependencies: [.package(url: "https://github.com/swiftlang/swift-syntax.git", exact: "604.0.0")],
   targets: [
     .target(name: "StructuralContext", dependencies: [
       .product(name: "SwiftSyntax", package: "swift-syntax"),
