@@ -36,7 +36,7 @@ GRDBのpathは`GRDB/`からの相対位置。以前必要だった実行側の�
 
 開発環境はSwift 6.4、parser依存はSwiftSyntax 603.0.1のまま。Documents配下の生成test bundleでFinder metadataによる署名失敗が起きたため、`/tmp`の新規scratch pathで検証し46テストが通った。ソースを署名回避用に変更していない。#77のSwift 6.3.3製固定評価器は別に保存し、結果を上書きしない。
 
-通常diffを読み、共通の宣言一覧へ経路を統合していること、曖昧な名前を意味解決として扱わない境界を確認した。最終Actions/実成果物はPRで確認する。次は解析非対応を独立して扱い、候補へ到達できる条件で確認先選択や配置の問いへの寄与を評価する。既知GRDBでの到達だけでM3へ進めない。
+通常diffを読み、共通の宣言一覧へ経路を統合していること、曖昧な名前を意味解決として扱わない境界を確認した。PR #80で完了。head `0e8d35d`の[Actions 35869011655](https://github.com/KantoYamamoto/sekka/actions/runs/35869011655)成功、10成果物のhead照合と[実コメント](https://github.com/KantoYamamoto/sekka/pull/80#issuecomment-5796023344)のsummary一致を確認してmergeした。次は解析非対応を独立して扱い、候補へ到達できる条件で確認先選択や配置の問いへの寄与を評価する。既知GRDBでの到達だけでM3へ進めない。
 
 ## 自己利用
 

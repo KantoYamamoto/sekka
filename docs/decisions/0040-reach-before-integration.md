@@ -30,3 +30,7 @@
 出力は未変更宣言ごとの一覧を維持し、根拠をcall経路または型注釈経路の列挙型にする。欄やCLIを増やす代わりに、同じ宣言への複数根拠をまとめる。候補はfile/字句owner/名前/種別の一意な前後対応とトークン一致を持つ。nominalとmemberは別宣言。同名別宣言を一緒にしない。
 
 独立レビューで、associatedtypeのT/Self.Tを同名nominalへ案内する誤り、placeholder分類、索引外の旧propertyを「宣言なし」と呼ぶ誤りを修正した。型経路は解決を保証しないが、書かれているbindingや取得範囲に反する断言もしない。beforeStatusは索引内の対応有無を示す。結果は[型注釈経路の検証](../validation/typed-declaration-context.md)。
+
+## #81のparser更新
+
+固定入力の非対応を改善できる公式parserがある場合は、入力を削る前に実験packageだけで検証する。604.0.0でborrow/mutateを含むCollections2件を読めたが候補は0だった。本番への統合や検索範囲の拡大と同時に行わず、解析と検索の結果を分ける。[結果](../validation/parser604-reach.md)。次は現在の索引に入らないextensionや契約変更を含め、必要な関係を表現する入口自体を見直す。

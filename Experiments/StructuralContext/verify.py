@@ -63,6 +63,39 @@ with tempfile.TemporaryDirectory(prefix='sekka-context-') as directory:
     failed = subprocess.run([binary, str(before), str(link)], capture_output=True)
     assert failed.returncode == 2 and failed.stdout == b''
 
+# Parse both conditional accessor spellings; do not compile the target or select a branch.
+with tempfile.TemporaryDirectory(prefix='sekka-accessors-') as directory:
+    root = Path(directory)
+    source = """struct Buffer {
+  var value: Int
+  subscript(i: Int) -> Int {
+#if compiler(>=6.4)
+    borrow { value }
+    mutate { &value }
+#else
+    get { value }
+    set { value = newValue }
+#endif
+  }
+}
+"""
+    for side, annotation in [('before', 'Int'), ('after', 'Buffer')]:
+        folder = root / side
+        folder.mkdir()
+        (folder / 'Buffer.swift').write_text(source)
+        (folder / 'Store.swift').write_text('struct Store { var value: ' + annotation + ' }\n')
+    report = run(root / 'before', root / 'after')
+    assert len(report['contexts']) == 1
+    target = report['contexts'][0]
+    assert target['after']['file'] == 'Buffer.swift' and target['after']['line'] == 1
+    assert target['after']['endLine'] == 12 and target['fileUnchanged']
+    results.append({'case': 'conditional-borrow-mutate-accessors', 'report': report})
+    text_samples.append('Case: conditional-borrow-mutate-accessors\n' + subprocess.check_output(
+        [binary, str(root / 'before'), str(root / 'after'), '--text']).decode())
+    (root / 'after' / 'Broken.swift').write_text('struct {')
+    failed = subprocess.run([binary, str(root / 'before'), str(root / 'after')], capture_output=True)
+    assert failed.returncode == 2 and failed.stdout == b''
+
 # A type-annotation entry shares the same declaration list and text renderer.
 with tempfile.TemporaryDirectory(prefix='sekka-type-context-') as directory:
     root = Path(directory)
