@@ -9,6 +9,11 @@ public struct SourceInventory: Sendable {
   public let extensionNames: [String]
   public let aliasNames: [String]
   public let aliasDeclarations: [InventoryDeclaration]
+  public let scopes: [InventoryScope]
+  private let ambiguousScopeKeys: Set<String>
+  public func hasUniqueScope(_ function: InventoryFunction) -> Bool {
+    function.correspondenceScopes.allSatisfy { !ambiguousScopeKeys.contains($0) }
+  }
   public var declarations: [InventoryDeclaration] {
     types.map { InventoryDeclaration(id: $0.id, name: $0.name, kind: $0.kind, site: $0.site, declarationTokens: $0.declarationTokens) } + aliasDeclarations
   }
@@ -20,18 +25,22 @@ public struct SourceInventory: Sendable {
     var types: [InventoryType] = [], functions: [InventoryFunction] = [], properties: [InventoryProperty] = []
     var extensions: [String] = [], aliases: [String] = [], uncertain: [String] = []
     var aliasDeclarations: [InventoryDeclaration] = []
+    var scopes: [InventoryScope] = [], scopeKeys: [String] = []
     var unknownGlobal = false
     for (file, source) in files.sorted(by: { $0.0 < $1.0 }) {
       let tree = Array(source.utf8).withUnsafeBufferPointer { Parser.parse(source: $0, swiftVersion: .v6) }
       guard !tree.hasError else { throw ContextError.malformed(file) }
       let reader = InventoryReader(file: file, tree: tree)
       reader.walk(tree)
+      scopes += reader.scopes; scopeKeys += reader.scopeKeys
       types += reader.types; functions += reader.functions; properties += reader.properties
       extensions += reader.extensions; aliases += reader.aliases
       aliasDeclarations += reader.aliasDeclarations
       uncertain += reader.uncertainOwners; unknownGlobal = unknownGlobal || reader.unknownGlobal
     }
     self.types = types; self.functions = functions; self.properties = properties
+    self.scopes = scopes
+    ambiguousScopeKeys = Set(Dictionary(grouping: scopeKeys, by: { $0 }).filter { $0.value.count > 1 }.keys)
     self.aliasDeclarations = aliasDeclarations
     extensionNames = Array(Set(extensions)).sorted(); aliasNames = Array(Set(aliases)).sorted()
     uncertainOwnerIDs = Array(Set(uncertain)).sorted(); hasUnexpandedGlobalDeclarations = unknownGlobal
@@ -90,6 +99,10 @@ public struct InventoryFunction: Codable, Sendable {
   public let id: String
   public let ownerID: String
   public let selector: String
+  public let scopeKind: String
+  public let correspondenceID: String
+  public let correspondenceScopes: [String]
+  public let conditionalPath: [[String]]
   public let site: SourceSite
   public let declarationTokens: String
   public let bodyTokens: String?
@@ -191,6 +204,11 @@ private final class InventoryReader: SyntaxVisitor {
   let file: String
   let converter: SourceLocationConverter
   var owners: [InventoryType] = []
+  var frames: [InventoryScope] = []
+  var scopes: [InventoryScope] = []
+  var scopeKeys: [String] = []
+  var branchKeys: [SyntaxIdentifier: String] = [:]
+  var extensionDepth = 0
   var types: [InventoryType] = []
   var functions: [InventoryFunction] = []
   var properties: [InventoryProperty] = []
@@ -202,7 +220,41 @@ private final class InventoryReader: SyntaxVisitor {
   init(file: String, tree: SourceFileSyntax) {
     self.file = file; converter = SourceLocationConverter(fileName: file, tree: tree)
     super.init(viewMode: .sourceAccurate)
+    let scope = InventoryScope(id: inventoryKey([file, "file"]), kind: "file", writtenOwner: file,
+      headerTokens: "", site: site(tree, name: file))
+    frames = [scope]; scopes = [scope]; scopeKeys = [scope.id]
   }
+  func clauses(_ syntax: some SyntaxProtocol) -> [IfConfigClauseSyntax] {
+    var result: [IfConfigClauseSyntax] = [], parent = syntax.parent
+    while let node = parent {
+      if let clause = node.as(IfConfigClauseSyntax.self) { result.append(clause) }
+      parent = node.parent
+    }
+    return result.reversed()
+  }
+  func conditionPrefix(_ clause: IfConfigClauseSyntax) -> [String] {
+    guard let list = clause.parent?.as(IfConfigClauseListSyntax.self) else { return [] }
+    var result: [String] = []
+    for item in list {
+      result.append(inventoryKey([item.poundKeyword.text, item.condition.map(inventoryTokens) ?? ""]))
+      if item.id == clause.id { break }
+    }
+    return result
+  }
+  func guards(_ syntax: some SyntaxProtocol) -> [[String]] { clauses(syntax).map(conditionPrefix) }
+  func guardKeys(_ syntax: some SyntaxProtocol) -> [String] { clauses(syntax).compactMap { branchKeys[$0.id] } }
+  override func visit(_ node: IfConfigDeclSyntax) -> SyntaxVisitorContinueKind {
+    let outer = guards(node).map(inventoryKey)
+    for clause in node.clauses {
+      let key = inventoryKey([frames.last!.id, "branch"] + outer + [inventoryKey(conditionPrefix(clause))])
+      branchKeys[clause.id] = key; scopeKeys.append(key)
+    }
+    return .visitChildren
+  }
+  // Executable local scopes are not declaration containers for this inventory.
+  override func visit(_ node: CodeBlockSyntax) -> SyntaxVisitorContinueKind { .skipChildren }
+  override func visit(_ node: SwitchExprSyntax) -> SyntaxVisitorContinueKind { .skipChildren }
+  override func visit(_ node: ClosureExprSyntax) -> SyntaxVisitorContinueKind { .skipChildren }
   func site(_ syntax: some SyntaxProtocol, name: String, signature: String? = nil) -> SourceSite {
     SourceSite(file: file, line: converter.location(for: syntax.positionAfterSkippingLeadingTrivia).line,
       endLine: converter.location(for: syntax.endPositionBeforeTrailingTrivia).line, declaration: name, signature: signature)
@@ -216,7 +268,7 @@ private final class InventoryReader: SyntaxVisitor {
     return false
   }
   func readType(_ syntax: some SyntaxProtocol, name: String, block: MemberBlockSyntax, unsupported: [String]) {
-    let display = (owners.map { $0.site.declaration }.suffix(1) + [name]).joined(separator: ".")
+    let display = frames.last!.kind == "file" ? name : frames.last!.writtenOwner + "." + name
     let attributed = syntax.asProtocol(DeclGroupSyntax.self).map { !$0.attributes.isEmpty } ?? false
     if attributed { markUnknownMembers() }
     let reasons = unsupported + (attributed ? ["attributed-type"] : []) + (owners.isEmpty ? [] : ["nested-type"]) + (conditional(syntax) ? ["conditional"] : [])
@@ -227,13 +279,17 @@ private final class InventoryReader: SyntaxVisitor {
       parameters += proto.primaryAssociatedTypeClause?.primaryAssociatedTypes.map { $0.name.text } ?? []
       let associated = AssociatedNames(); associated.walk(block); parameters += associated.names
     }
-    let type = InventoryType(id: file + ":" + display, name: name, headerTokens: header,
+    let typeID = extensionDepth == 0 ? file + ":" + display : inventoryKey([frames.last!.id, "nominal", name])
+    let type = InventoryType(id: typeID, name: name, headerTokens: header,
       declarationTokens: inventoryTokens(syntax), kind: kind,
       boundTypeNames: ["Self"] + (owners.last?.boundTypeNames ?? []) + parameters,
       site: site(syntax, name: display), unsupported: reasons)
-    types.append(type); owners.append(type)
+    let scope = InventoryScope(id: inventoryKey([typeID] + guards(syntax).map(inventoryKey)), kind: "nominal",
+      writtenOwner: display, headerTokens: header, site: type.site)
+    if extensionDepth == 0 { types.append(type) }
+    owners.append(type); frames.append(scope); scopes.append(scope); scopeKeys.append(scope.id)
     walk(block)
-    owners.removeLast()
+    frames.removeLast(); owners.removeLast()
   }
   override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind {
     readType(node, name: node.name.text, block: node.memberBlock,
@@ -260,9 +316,17 @@ private final class InventoryReader: SyntaxVisitor {
     // Use the final written name conservatively even for qualified/generic extensions.
     if let type = node.extendedType.as(IdentifierTypeSyntax.self) { extensions.append(type.name.text) }
     else if let type = node.extendedType.as(MemberTypeSyntax.self) { extensions.append(type.name.text) }
+    let header = node.tokens(viewMode: .sourceAccurate).prefix { $0.positionAfterSkippingLeadingTrivia < node.memberBlock.leftBrace.positionAfterSkippingLeadingTrivia }.map(\.text).joined(separator: " ")
+    let display = "extension " + inventoryTokens(node.extendedType)
+    let scope = InventoryScope(id: inventoryKey([frames.last!.id, "extension", header] + guards(node).map(inventoryKey)),
+      kind: "extension", writtenOwner: display, headerTokens: header, site: site(node, name: display))
+    frames.append(scope); scopes.append(scope); scopeKeys.append(scope.id); extensionDepth += 1
+    walk(node.memberBlock)
+    extensionDepth -= 1; frames.removeLast()
     return .skipChildren
   }
   override func visit(_ node: TypeAliasDeclSyntax) -> SyntaxVisitorContinueKind {
+    guard extensionDepth == 0 else { return .skipChildren }
     if !node.attributes.isEmpty { markUnknownMembers() }
     aliases.append(node.name.text)
     let display = ((owners.last.map { [$0.site.declaration] } ?? []) + [node.name.text]).joined(separator: ".")
@@ -298,10 +362,14 @@ private final class InventoryReader: SyntaxVisitor {
   }
   override func visit(_ node: FunctionDeclSyntax) -> SyntaxVisitorContinueKind {
     if !node.attributes.isEmpty { markUnknownMembers() }
-    guard let owner = owners.last else { return .skipChildren }
+    let scope = frames.last!
+    let ownerID = scope.kind == "nominal" ? owners.last!.id : scope.id
+    let display = scope.kind == "file" ? "" : scope.writtenOwner + "."
     let signature = inventorySignature(node), selector = inventorySelector(node)
     let locals = LocalNames(); if let body = node.body { locals.walk(body) }
     var reasons = conditional(node) ? ["conditional"] : []
+    if scope.kind == "file" { reasons.append("top-level-function") }
+    if extensionDepth > 0 { reasons.append("extension-scope") }
     if node.modifiers.contains(where: { ["static", "class"].contains($0.name.text) }) { reasons.append("static-member") }
     if node.genericParameterClause != nil { reasons.append("generic-function") }
     if !node.attributes.isEmpty { reasons.append("attributed-function") }
@@ -310,17 +378,21 @@ private final class InventoryReader: SyntaxVisitor {
     if node.signature.parameterClause.parameters.contains(where: { $0.defaultValue != nil || $0.ellipsis != nil }) {
       reasons.append("flexible-parameters")
     }
-    functions.append(InventoryFunction(id: owner.id + ":" + signature, ownerID: owner.id, selector: selector,
-      site: site(node, name: owner.site.declaration + "." + selector, signature: signature),
+    let id = ownerID + ":" + signature
+    functions.append(InventoryFunction(id: id, ownerID: ownerID, selector: selector,
+      scopeKind: scope.kind, correspondenceID: inventoryKey([id, scope.id] + guards(node).map(inventoryKey)),
+      correspondenceScopes: frames.map(\.id) + guardKeys(node), conditionalPath: guards(node),
+      site: site(node, name: display + selector, signature: signature),
       declarationTokens: inventoryTokens(node), bodyTokens: node.body.map(inventoryTokens),
       statements: node.body?.statements.map { statement in
-        InventoryStatement(tokens: inventoryTokens(statement.item), call: directCall(statement, display: owner.site.declaration + "." + selector))
+        InventoryStatement(tokens: inventoryTokens(statement.item), call: directCall(statement, display: display + selector))
       } ?? [],
       parameterNames: node.signature.parameterClause.parameters.map { ($0.secondName ?? $0.firstName).text },
       localNames: Array(Set(locals.names)).sorted(), unsupported: reasons))
     return .skipChildren
   }
   func markUnknownMembers() {
+    guard extensionDepth == 0 else { return }
     if let owner = owners.last { uncertainOwners.append(owner.id) } else { unknownGlobal = true }
   }
   override func visit(_ node: MacroExpansionDeclSyntax) -> SyntaxVisitorContinueKind { markUnknownMembers(); return .skipChildren }
@@ -333,6 +405,7 @@ private final class InventoryReader: SyntaxVisitor {
     if !node.attributes.isEmpty { markUnknownMembers() }; return .skipChildren
   }
   override func visit(_ node: VariableDeclSyntax) -> SyntaxVisitorContinueKind {
+    guard extensionDepth == 0 else { return .skipChildren }
     if !node.attributes.isEmpty { markUnknownMembers() }
     guard let owner = owners.last else { return .skipChildren }
     for binding in node.bindings {

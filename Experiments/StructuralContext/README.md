@@ -28,6 +28,14 @@ Swift 6以降とSwiftSyntax 604.0.0が必要。`BEFORE`/`AFTER`は比較するSw
 
 call経路はmember関数本体の直下、単純な識別子引数、同じowner内の明示型propertyに限定する。nested block、try/await、closureや曖昧なscopeは対象外。旧版に同じ文がないcallを検索し、callの挿入とは断定しない。[索引の経緯](../../docs/validation/source-inventory.md)。
 
+## 構文索引と検索の適格性
+
+関数索引にはnominal直下だけでなく、ファイル直下とextension内の関数を保持する。字句scopeにはextensionの表記型・属性・where節、宣言位置、条件分岐の表記経路を記録する。これを解決済みの型やactiveなコンパイル条件とは呼ばない。実行ブロック内のlocal関数・closure/accessor内のlocal関数は対象外。
+
+関数の前後対応はfile・字句scope・signatureと条件経路が一意な場合だけ。同じheaderのextensionが複数ある場合や、同じ親に同じ条件経路のブロックが繰り返される場合は、子の名前だけでblockを対応させない。where/属性/条件経路の変更や移動は対応外になり得る。条件経路は外→内の順と、現在節までの先行条件も保持するので、先行#ifの変更が#elseから消えない。
+
+extension内のnested nominalにも字句祖先を保持するが、今回それらを型注釈検索の候補へ暗黙に追加しない。新しく記録したextension/top-level関数もcall検索では未対応のまま。索引に存在することと、確認先へ案内できることを分ける。[検証](../../docs/validation/lexical-scope-inventory.md)。
+
 ## JSON/textの範囲と不明
 
 `contexts`の各候補に前後位置、`kind`、`fileUnchanged`、根拠の`entries`を持つ。根拠は`existingCall.evidence`または`changedType.evidence`。textでも候補1件の罫線の下へ根拠を並べる。最大8候補・各8入口で、省略数を共有する。
@@ -36,7 +44,7 @@ call経路はmember関数本体の直下、単純な識別子引数、同じowne
 
 - `changedFunctions`と`unpairedBefore/After`は索引内の関数数。`changedTypeAnnotations`は索引内の型注釈差の件数で、新しい実型や依存の数ではない。
 - `skipped`はcall検索・型注釈の対応・宣言検索の各試行を退けた理由の件数。名前一致なし、旧宣言未確認、変更済み、対応不明、型表記不明を区別する。ファイル数や網羅率として足し合わせない。型注釈の組が未変更の曖昧propertyは毎回再掲しない。
-- nominal/typealias宣言やpropertyのうち、extension内・local function内・トップレベルproperty等は索引にない。継承された型bindingやその他のshadowing、生成された宣言、activeな条件は解決しない。全リポジトリの型解決ではない。
+- 型注釈検索用のnominal/typealias宣言やpropertyでは、extension内・local function内・トップレベルproperty等は対象にない。継承された型bindingやその他のshadowing、生成された宣言、activeな条件は解決しない。全リポジトリの型解決ではない。
 - 未変更なのは候補宣言のトークン。extension、alias展開、macro、有効な条件を含む型全体の不変ではない。ファイル全体の一致は別に示し、hunkを見ずに「diffにも出ない」と断言しない。
 
 構文エラーは部分的な成功結果にせず停止する。正常0候補も設計の妥当性を示さない。検索の契約はJSONの`limitations`にも残す。

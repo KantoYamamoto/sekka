@@ -65,7 +65,7 @@ private struct TargetAccumulator {
 public enum UnchangedContext {
   public static func compare(before: [(String, String)], after: [(String, String)]) throws -> ContextReport {
     let old = try SourceInventory(files: before), new = try SourceInventory(files: after)
-    let oldIDs = Dictionary(grouping: old.functions, by: \.id), newIDs = Dictionary(grouping: new.functions, by: \.id)
+    let oldIDs = Dictionary(grouping: old.functions, by: \.correspondenceID), newIDs = Dictionary(grouping: new.functions, by: \.correspondenceID)
     let oldFiles = Dictionary(uniqueKeysWithValues: before), newFiles = Dictionary(uniqueKeysWithValues: after)
     var skips: [String: Int] = [:], changed = 0, unpairedBefore = 0, unpairedAfter = 0
     var targets: [String: TargetAccumulator] = [:]
@@ -76,7 +76,7 @@ public enum UnchangedContext {
     func skip(_ reason: String) { skips[reason, default: 0] += 1 }
     for id in Set(oldIDs.keys).union(newIDs.keys).sorted() {
       let os = oldIDs[id, default: []], ns = newIDs[id, default: []]
-      guard os.count == 1, ns.count == 1 else {
+      guard os.count == 1, ns.count == 1, old.hasUniqueScope(os[0]), new.hasUniqueScope(ns[0]) else {
         unpairedBefore += os.count; unpairedAfter += ns.count; continue
       }
       let previous = os[0], current = ns[0]
@@ -99,8 +99,8 @@ public enum UnchangedContext {
         }
         let shared = Set(call.identifierArguments).intersection(added.identifierArguments).sorted()
         guard !shared.isEmpty else { skip("no-shared-identifier-argument"); continue }
-        let a = old.memberCandidate(callerID: id, receiver: receiver, selector: call.selector, explicitSelf: call.explicitSelf)
-        let b = new.memberCandidate(callerID: id, receiver: receiver, selector: call.selector, explicitSelf: call.explicitSelf)
+        let a = old.memberCandidate(callerID: previous.id, receiver: receiver, selector: call.selector, explicitSelf: call.explicitSelf)
+        let b = new.memberCandidate(callerID: current.id, receiver: receiver, selector: call.selector, explicitSelf: call.explicitSelf)
         guard let ae = a.evidence else { skip("before:" + a.reason); continue }
         guard let be = b.evidence else { skip("after:" + b.reason); continue }
         let ao = old.types.filter { $0.id == previous.ownerID }, bo = new.types.filter { $0.id == current.ownerID }
@@ -177,6 +177,7 @@ public enum UnchangedContext {
     }
     return ContextReport(scope: "experiment: unchanged declaration candidates reached by written annotation names or adjacent direct calls",
       limitations: [
+        "Function inventory retains direct file, nominal and extension declarations, including written conditional paths; executable local functions are excluded. Correspondence requires a unique lexical scope and signature. Repeated extension/branch scopes, changed extension headers/guards and moves can be unpaired. Active conditions and extension owner types are not resolved. Retained extension/top-level functions remain ineligible for the adjacent-call query.",
         "Type entries search new written names in property annotations by terminal name, including generic arguments. Qualified owners/modules and aliases are not resolved. Known lexical generic/associated type parameters and Self references are excluded; placeholder and unsupported qualified types are reported separately. Nominal/alias declarations and properties inside extensions or local functions are not indexed.",
         "Type candidates are paired uniquely by file, lexical owner, name and kind. A missing indexed property counterpart does not prove that no declaration existed outside the indexed scope. Other inherited or shadowing type bindings are not resolved. The candidate declaration tokens are unchanged, not the entire type including extensions, alias expansion, macros or active conditional branches. Each property's repeated qualified name uses its first written position.",
         "Written type and selector candidates, not resolved callees, dependencies or shared responsibility. Adjacency and identical argument spelling do not prove related behavior or equal values.",

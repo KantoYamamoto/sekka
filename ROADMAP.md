@@ -1,12 +1,12 @@
 # Sekka: 現在位置と作業順
 
-更新日: 2026-09-25。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
+更新日: 2026-09-27。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
 
 ## ゴールと現在位置
 
 **通常diffを補い、変更を既存構造へどう組み込むか考えるための未変更実装を、関連根拠付きで示す。** 構文上の候補と不明を区別し、設計の良否・実calleeを推測で確定しない。Swift 6以降、CLI/Actions、LLMなしの決定論性を維持する。
 
-現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#78はPR #80で自己利用・独立レビュー・Actions/実成果物確認まで完了。現在は#81で実験parserを更新し、固定4入力への到達を再確認している。** Collectionsの解析失敗は解消したが候補は0。GRDBの既知1件へは到達する。[結果](docs/validation/parser604-reach.md)。索引外のextension/契約変更をどう入口にするかを次に見直す。本番統合は保留、人間の判断待ちはない。
+現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#81はPR #82で完了し、#83で構文索引と解決判定を分離している。** extension/top-level関数と条件分岐の字句経路を保持する実装・53テスト・独立レビュー修正まで進んだ。固定入力の再実行と自己利用、PR/Actionsで仕上げる。[検証](docs/validation/lexical-scope-inventory.md)。記録した関数数を有用性の成功に数えず、本番統合は保留。人間の判断待ちはない。
 
 ## Issueの階層と判断の節目
 
@@ -26,7 +26,8 @@ M1の#73（構文索引/PR #75）と#74（検索と表示/PR #76）は完了。M
 | --- | --- | --- |
 | 1 | [#77 実PRへの到達範囲](https://github.com/KantoYamamoto/sekka/issues/77) | 固定4件・機械出力前の独立通常レビュー・入力照合・実行・結果の独立点検を完了。PR #79で完了 |
 | 2 | [#78 入口の見直し](https://github.com/KantoYamamoto/sekka/issues/78) | 変更明示型→未変更の型宣言候補という契約と最小検索。候補の存在と意味解決の不明を分け、既知GRDBへ到達。46テスト・独立レビュー・自己利用・Actions/実成果物確認を経てPR #80完了 |
-| 3 | [#81 parser非対応](https://github.com/KantoYamamoto/sekka/issues/81) | 実験依存604.0.0で固定4入力を解析。検索0件を失敗と分離し、独立レビュー/PR互換性確認へ |
+| 3 | [#81 parser非対応](https://github.com/KantoYamamoto/sekka/issues/81) | 実験依存604.0.0で固定4入力を解析。検索0件を失敗と分離し、独立レビュー・Actions/実成果物までPR #82で完了 |
+| 4 | [#83 字句scopeの索引](https://github.com/KantoYamamoto/sekka/issues/83) | extension/top-levelの関数を保持し、前後対応の曖昧さを残す。53テスト・独立レビュー修正済み、実入力/自己利用/PR確認へ |
 
 必要な確認先へ届いた例はA/B比較を始める根拠とし、有用性の合格とはしない。範囲内の必要箇所へ届かなければ検索方式へ戻す。確認先を特定できない例だけなら今回の標本では判断保留。出力に合う入力への差し替え、同じ入力の未見扱いはしない。M2の続きとM3は結果が出てから分解する。
 

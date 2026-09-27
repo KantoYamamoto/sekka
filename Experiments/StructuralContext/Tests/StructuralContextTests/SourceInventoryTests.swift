@@ -95,7 +95,9 @@ private func lookup(_ value: SourceInventory, receiver: String = "logger", expli
 
 @Test func unqualifiedGlobalAndLocalFunctionsAreNotTypeMembers() throws {
   let value = try inventory(caller + "\nfunc unrelated() { func record(_ x: String) {} }")
-  #expect(value.functions.count == 2)
+  #expect(value.functions.count == 3)
+  #expect(value.functions.filter { $0.scopeKind == "nominal" }.count == 2)
+  #expect(value.functions.filter { $0.selector == "record(_:)" }.count == 1)
   #expect(try lookup(value).evidence != nil)
 }
 
