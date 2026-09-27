@@ -25,7 +25,7 @@
 
 解析失敗を取り除いたので、この標本で到達不足を評価できる状態になった。ここから表示改善や新しい危険ルールへ進まず、変更を入口にする索引と未変更の関係を扱う契約を見直す。extension/準拠/既存利用箇所のどこを根拠として示せば通常diffに情報を足せるか、既知の必要確認先に対して先に条件を定める。今回の入力を再び未見の成功に数えない。M3は保留。
 
-ローカル記録: `.build/parser604/test.log`、`checks.json/text`、`reach/results.json`。暫定評価器SHA256 `3bfeaf2b4e494248f47d8edc71c641f6aa3ba8cced784f880449d61df3fe6fb7`、検索ソースはPR #80、依存のみ604.0.0。生ソース・生レビューは公開Gitに含めない。最終PRではCI toolchainでの互換性と成果物も確認する。
+ローカル記録: `.build/parser604/test.log`、`checks.json/text`、`reach/results.json`。暫定評価器SHA256 `3bfeaf2b4e494248f47d8edc71c641f6aa3ba8cced784f880449d61df3fe6fb7`、検索ソースはPR #80、依存のみ604.0.0。生ソース・生レビューは公開Gitに含めない。PR #82で完了。head `dcb3aa2`のActions 36096036277は実ログ上Swift 6.3.2で成功（事前想定6.3.3から訂正）。本番65テスト/39 CLI checks、実験46テスト/10対照を確認。10成果物のheadと[実Botコメント](https://github.com/KantoYamamoto/sekka/pull/82#issuecomment-5826978210)のsummary一致、独立レビュー修正を確認してmergeした。
 
 ## 自己利用と独立点検
 
