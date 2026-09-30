@@ -1,0 +1,456 @@
+{
+  "meaning": "Sanitized written relations only. No source/call tokens. Not actual callee or review/structural verdict.",
+  "binarySHA256": "5376f29bdbfb15a24c150792c43b77da33d53704b65050c0a0adbbd2c2bb7626",
+  "results": [
+    {
+      "case": "swift-collections-725",
+      "returnCode": 0,
+      "sourcePrefix": "Sources/",
+      "beforeFileCount": 575,
+      "afterFileCount": 575,
+      "changedFunctions": 0,
+      "unpairedBefore": 76,
+      "unpairedAfter": 76,
+      "omittedTargets": 0,
+      "contexts": [],
+      "skipped": []
+    },
+    {
+      "case": "swift-collections-724",
+      "returnCode": 0,
+      "sourcePrefix": "Sources/",
+      "beforeFileCount": 579,
+      "afterFileCount": 582,
+      "changedFunctions": 1,
+      "unpairedBefore": 84,
+      "unpairedAfter": 100,
+      "omittedTargets": 0,
+      "contexts": [
+        {
+          "before": {
+            "declaration": "extension MutableContainer.nextMutableSpan(after:limitedBy:)",
+            "endLine": 135,
+            "file": "ContainersPreview/Protocols/Container/MutableContainer.swift",
+            "line": 128,
+            "signature": "nextMutableSpan(after:inout Index,limitedBy:Index)-> MutableSpan < Element >"
+          },
+          "after": {
+            "declaration": "extension MutableContainer.nextMutableSpan(after:limitedBy:)",
+            "endLine": 135,
+            "file": "ContainersPreview/Protocols/Container/MutableContainer.swift",
+            "line": 128,
+            "signature": "nextMutableSpan(after:inout Index,limitedBy:Index)-> MutableSpan < Element >"
+          },
+          "kind": "function",
+          "fileUnchanged": true,
+          "omittedEntries": 0,
+          "entries": [
+            {
+              "route": "memberSpelling",
+              "evidence": {
+                "afterCaller": {
+                  "declaration": "extension MutableContainer.updateSubrange(_:updatingWith:)",
+                  "endLine": 36,
+                  "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                  "line": 25,
+                  "signature": "updateSubrange< E : Error >(_:Range < Index >,updatingWith:( inout MutableSpan < Element > ) throws ( E ) -> Void)throws ( E )"
+                },
+                "callerEvidence": "no-unique-old-indexed-correspondence",
+                "eligibleOccurrences": 1,
+                "matchingIndexedDeclarations": 1,
+                "call": {
+                  "site": {
+                    "declaration": "extension MutableContainer.updateSubrange(_:updatingWith:)",
+                    "endLine": 32,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 32
+                  },
+                  "selector": "nextMutableSpan(after:limitedBy:)"
+                }
+              }
+            },
+            {
+              "route": "memberSpelling",
+              "evidence": {
+                "afterCaller": {
+                  "declaration": "extension MutableContainer.updateSubrange(_:from:)",
+                  "endLine": 168,
+                  "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                  "line": 146,
+                  "signature": "updateSubrange(_:Range < Index >,from:consuming some Drain < Element > & ~ Copyable & ~ Escapable)"
+                },
+                "callerEvidence": "no-unique-old-indexed-correspondence",
+                "eligibleOccurrences": 1,
+                "matchingIndexedDeclarations": 1,
+                "call": {
+                  "site": {
+                    "declaration": "extension MutableContainer.updateSubrange(_:from:)",
+                    "endLine": 153,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 153
+                  },
+                  "selector": "nextMutableSpan(after:limitedBy:)"
+                }
+              }
+            },
+            {
+              "route": "memberSpelling",
+              "evidence": {
+                "afterCaller": {
+                  "declaration": "extension MutableContainer.updateSubrange(_:copying:)",
+                  "endLine": 228,
+                  "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                  "line": 206,
+                  "signature": "updateSubrange(_:Range < Index >,copying:borrowing some Container < Element > & ~ Copyable & ~ Escapable)"
+                },
+                "callerEvidence": "no-unique-old-indexed-correspondence",
+                "eligibleOccurrences": 1,
+                "matchingIndexedDeclarations": 1,
+                "call": {
+                  "site": {
+                    "declaration": "extension MutableContainer.updateSubrange(_:copying:)",
+                    "endLine": 214,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 214
+                  },
+                  "selector": "nextMutableSpan(after:limitedBy:)"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "before": {
+            "declaration": "extension MutableContainer.nextMutableSpan(after:maxCount:)",
+            "endLine": 144,
+            "file": "ContainersPreview/Protocols/Container/MutableContainer.swift",
+            "line": 137,
+            "signature": "nextMutableSpan(after:inout Index,maxCount:Int)-> MutableSpan < Element >"
+          },
+          "after": {
+            "declaration": "extension MutableContainer.nextMutableSpan(after:maxCount:)",
+            "endLine": 144,
+            "file": "ContainersPreview/Protocols/Container/MutableContainer.swift",
+            "line": 137,
+            "signature": "nextMutableSpan(after:inout Index,maxCount:Int)-> MutableSpan < Element >"
+          },
+          "kind": "function",
+          "fileUnchanged": true,
+          "omittedEntries": 0,
+          "entries": [
+            {
+              "route": "memberSpelling",
+              "evidence": {
+                "afterCaller": {
+                  "declaration": "extension MutableContainer.updateElements(after:from:)",
+                  "endLine": 111,
+                  "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                  "line": 92,
+                  "signature": "updateElements< Source : CountedProducer < Element , Never > & ~ Copyable & ~ Escapable >(after:inout Index,from:inout Source)where Source . Element : ~ Copyable"
+                },
+                "callerEvidence": "no-unique-old-indexed-correspondence",
+                "eligibleOccurrences": 1,
+                "matchingIndexedDeclarations": 1,
+                "call": {
+                  "site": {
+                    "declaration": "extension MutableContainer.updateElements(after:from:)",
+                    "endLine": 103,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 103
+                  },
+                  "selector": "nextMutableSpan(after:maxCount:)"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "before": {
+            "declaration": "extension Producer._expectEnd(_:)",
+            "endLine": 341,
+            "file": "ContainersPreview/Protocols/Producer/Producer.swift",
+            "line": 334,
+            "signature": "_expectEnd(_:String)throws ( Failure )"
+          },
+          "after": {
+            "declaration": "extension Producer._expectEnd(_:)",
+            "endLine": 353,
+            "file": "ContainersPreview/Protocols/Producer/Producer.swift",
+            "line": 346,
+            "signature": "_expectEnd(_:String)throws ( Failure )"
+          },
+          "kind": "function",
+          "fileUnchanged": false,
+          "omittedEntries": 0,
+          "entries": [
+            {
+              "route": "memberSpelling",
+              "evidence": {
+                "afterCaller": {
+                  "declaration": "extension MutableContainer.updateSubrange(_:from:)",
+                  "endLine": 168,
+                  "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                  "line": 146,
+                  "signature": "updateSubrange(_:Range < Index >,from:consuming some Drain < Element > & ~ Copyable & ~ Escapable)"
+                },
+                "callerEvidence": "no-unique-old-indexed-correspondence",
+                "eligibleOccurrences": 1,
+                "matchingIndexedDeclarations": 1,
+                "call": {
+                  "site": {
+                    "declaration": "extension MutableContainer.updateSubrange(_:from:)",
+                    "endLine": 167,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 167
+                  },
+                  "selector": "_expectEnd(_:)"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "before": {
+            "declaration": "extension UnsafeMutableBufferPointer._extracting(unchecked:)",
+            "endLine": 49,
+            "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+            "line": 40,
+            "signature": "_extracting(unchecked:Range < Int >)-> Self"
+          },
+          "after": {
+            "declaration": "extension UnsafeMutableBufferPointer._extracting(unchecked:)",
+            "endLine": 49,
+            "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+            "line": 40,
+            "signature": "_extracting(unchecked:Range < Int >)-> Self"
+          },
+          "kind": "function",
+          "fileUnchanged": true,
+          "omittedEntries": 0,
+          "entries": [
+            {
+              "route": "memberSpelling",
+              "evidence": {
+                "afterCaller": {
+                  "declaration": "extension MutableSpan._updateSubrange(_:moving:)",
+                  "endLine": 72,
+                  "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                  "line": 39,
+                  "signature": "_updateSubrange(_:Range < Index >,moving:inout OutputSpan < Element >)"
+                },
+                "callerEvidence": "no-unique-old-indexed-correspondence",
+                "eligibleOccurrences": 1,
+                "matchingIndexedDeclarations": 1,
+                "call": {
+                  "site": {
+                    "declaration": "extension MutableSpan._updateSubrange(_:moving:)",
+                    "endLine": 57,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 56
+                  },
+                  "selector": "_extracting(unchecked:)"
+                }
+              }
+            },
+            {
+              "route": "memberSpelling",
+              "evidence": {
+                "afterCaller": {
+                  "declaration": "extension MutableSpan._updateSubrange(_:copying:)",
+                  "endLine": 129,
+                  "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                  "line": 110,
+                  "signature": "_updateSubrange(_:Range < Index >,copying:borrowing Span < Element >)"
+                },
+                "callerEvidence": "no-unique-old-indexed-correspondence",
+                "eligibleOccurrences": 1,
+                "matchingIndexedDeclarations": 1,
+                "call": {
+                  "site": {
+                    "declaration": "extension MutableSpan._updateSubrange(_:copying:)",
+                    "endLine": 125,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 125
+                  },
+                  "selector": "_extracting(unchecked:)"
+                }
+              }
+            },
+            {
+              "route": "memberSpelling",
+              "evidence": {
+                "afterCaller": {
+                  "declaration": "extension OutputSpan._append(addingCount:initializingWith:)",
+                  "endLine": 169,
+                  "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                  "line": 143,
+                  "signature": "_append< E : Error , R : ~ Copyable >(addingCount:Int,initializingWith:( inout OutputSpan < Element > ) throws ( E ) -> R)throws ( E )-> R"
+                },
+                "callerEvidence": "no-unique-old-indexed-correspondence",
+                "eligibleOccurrences": 1,
+                "matchingIndexedDeclarations": 1,
+                "call": {
+                  "site": {
+                    "declaration": "extension OutputSpan._append(addingCount:initializingWith:)",
+                    "endLine": 161,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 160
+                  },
+                  "selector": "_extracting(unchecked:)"
+                }
+              }
+            },
+            {
+              "route": "memberSpelling",
+              "evidence": {
+                "afterCaller": {
+                  "declaration": "extension MutableSpan._updateSubrange(_:moving:)",
+                  "endLine": 56,
+                  "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                  "line": 22,
+                  "signature": "_updateSubrange(_:Range < Index >,moving:inout InputSpan < Element >)"
+                },
+                "callerEvidence": "no-unique-old-indexed-correspondence",
+                "eligibleOccurrences": 1,
+                "matchingIndexedDeclarations": 1,
+                "call": {
+                  "site": {
+                    "declaration": "extension MutableSpan._updateSubrange(_:moving:)",
+                    "endLine": 41,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 40
+                  },
+                  "selector": "_extracting(unchecked:)"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "skipped": [
+        {
+          "count": 29,
+          "reason": "spelling:multiple-exact-label-declarations"
+        },
+        {
+          "count": 12,
+          "reason": "spelling:no-exact-label-declaration"
+        },
+        {
+          "count": 5,
+          "reason": "spelling:target-correspondence-unknown"
+        },
+        {
+          "count": 1,
+          "reason": "unsupported-caller-scope"
+        }
+      ]
+    },
+    {
+      "case": "grdb-swift-1864",
+      "returnCode": 0,
+      "sourcePrefix": "GRDB/",
+      "beforeFileCount": 167,
+      "afterFileCount": 167,
+      "changedFunctions": 2,
+      "unpairedBefore": 88,
+      "unpairedAfter": 89,
+      "omittedTargets": 0,
+      "contexts": [],
+      "skipped": [
+        {
+          "count": 1,
+          "reason": "no-new-or-changed-direct-call"
+        },
+        {
+          "count": 3,
+          "reason": "spelling:multiple-exact-label-declarations"
+        },
+        {
+          "count": 1,
+          "reason": "spelling:target-correspondence-unknown"
+        },
+        {
+          "count": 1,
+          "reason": "type:no-before-declaration"
+        },
+        {
+          "count": 1,
+          "reason": "type:no-matching-declaration"
+        },
+        {
+          "count": 1,
+          "reason": "unsupported-caller-scope"
+        }
+      ]
+    },
+    {
+      "case": "grdb-swift-1858",
+      "returnCode": 0,
+      "sourcePrefix": "GRDB/",
+      "beforeFileCount": 167,
+      "afterFileCount": 167,
+      "changedFunctions": 3,
+      "unpairedBefore": 88,
+      "unpairedAfter": 91,
+      "omittedTargets": 0,
+      "contexts": [
+        {
+          "before": {
+            "declaration": "DAO.upsertStatement(_:onConflict:updating:doUpdate:updateCondition:returning:)",
+            "endLine": 139,
+            "file": "Record/MutablePersistableRecord+DAO.swift",
+            "line": 42,
+            "signature": "upsertStatement(_:Database,onConflict:[ String ],updating:UpsertUpdateStrategy,doUpdate:( ( _ excluded : TableAlias < Record > ) -> [ ColumnAssignment ] ) ?,updateCondition:( ( _ existing : TableAlias < Record > , _ excluded : TableAlias < Record > ) -> any SQLExpressible ) ?,returning:[ any SQLSelectable ])throws-> Statement"
+          },
+          "after": {
+            "declaration": "DAO.upsertStatement(_:onConflict:updating:doUpdate:updateCondition:returning:)",
+            "endLine": 139,
+            "file": "Record/MutablePersistableRecord+DAO.swift",
+            "line": 42,
+            "signature": "upsertStatement(_:Database,onConflict:[ String ],updating:UpsertUpdateStrategy,doUpdate:( ( _ excluded : TableAlias < Record > ) -> [ ColumnAssignment ] ) ?,updateCondition:( ( _ existing : TableAlias < Record > , _ excluded : TableAlias < Record > ) -> any SQLExpressible ) ?,returning:[ any SQLSelectable ])throws-> Statement"
+          },
+          "kind": "function",
+          "fileUnchanged": true,
+          "omittedEntries": 0,
+          "entries": [
+            {
+              "route": "memberSpelling",
+              "evidence": {
+                "afterCaller": {
+                  "declaration": "extension MutablePersistableRecord.upsertWithoutCallbacks(_:onConflict:updating:doUpdate:)",
+                  "endLine": 522,
+                  "file": "Record/MutablePersistableRecord+Upsert.swift",
+                  "line": 447,
+                  "signature": "upsertWithoutCallbacks(_:Database,onConflict:[ String ],updating:UpsertUpdateStrategy,doUpdate:( ( _ excluded : TableAlias < Self > ) -> [ ColumnAssignment ] ) ?)throws-> InsertionSuccess"
+                },
+                "callerEvidence": "no-unique-old-indexed-correspondence",
+                "eligibleOccurrences": 2,
+                "matchingIndexedDeclarations": 1,
+                "call": {
+                  "site": {
+                    "declaration": "extension MutablePersistableRecord.upsertWithoutCallbacks(_:onConflict:updating:doUpdate:)",
+                    "endLine": 464,
+                    "file": "Record/MutablePersistableRecord+Upsert.swift",
+                    "line": 459
+                  },
+                  "selector": "upsertStatement(_:onConflict:updating:doUpdate:updateCondition:returning:)"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "skipped": [
+        {
+          "count": 4,
+          "reason": "spelling:multiple-exact-label-declarations"
+        },
+        {
+          "count": 3,
+          "reason": "unsupported-caller-scope"
+        }
+      ]
+    }
+  ]
+}

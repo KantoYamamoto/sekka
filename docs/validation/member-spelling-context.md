@@ -43,4 +43,4 @@ GRDB #1869: `registerMigration(_:)`行578の新しい表記から、未変更`Or
 
 自己利用: base `86ca08a`→実装`3236b51`。本番CLIは同一評価器で新旧出力一致。8 Swift変更・16観測・10本体未比較から変更モジュールとテストの通常diffへ進めた。実験にはGitから自分のSourcesと実験Sourcesを20→22ファイル渡し、二回の出力一致を確認。未変更SourceSiteへ型注釈の4入口/1候補、新member表記経路は0件。位置モデルの確認先にはなるが、構造見直しの独自発見とはしない。適格性→集約、一意性の数え方、共通候補/上限への統合は通常diffと独立コードレビューで確認した。
 
-PR/Actionsの最終確認は最終headの実コメント/成果物で記録する。次は評価器を固定し、別の未見入力で独立比較を行う。弱い表記一致が探索に寄与するか、無関係な候補で配置変更へ誘導しないかを評価する。M3は保留、人間の判断待ちはない。
+PR #86はhead `2fa2810`で完了、merge `8f722fc`。[Actions36788343971](https://github.com/KantoYamamoto/sekka/actions/runs/36788343971)成功、10成果物のmanifest.headと[実コメントの照合](https://github.com/KantoYamamoto/sekka/pull/86#issuecomment-5921199976)を確認。コメントの単位、実験textの罫線と解決不明の表示を点検した。次は[#87](https://github.com/KantoYamamoto/sekka/issues/87)で評価器を固定し、別の未読PRで独立比較を行う。弱い表記一致が探索に寄与するか、無関係な候補で配置変更へ誘導しないかを評価する。M3は保留、人間の判断待ちはない。
