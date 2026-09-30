@@ -1,0 +1,74 @@
+{
+  "recordedAt": "2026-09-30T23:02:48.381301+00:00",
+  "stage": "Input and evaluator checkpoint saved before first query; independent review checkpoints follow separately",
+  "issue": 87,
+  "sourceHead": "2fa28101059f017f11467eb97c9be2ffdffa51d4",
+  "mergeCommit": "8f722fcdde3f8dac2abfedf815abfea2a13f6b43",
+  "packageTree": "9d460563708de2650a6c71ead88cf259276cd29f",
+  "lockfileSHA256": "6ae0524d69c3905315d7685e879747a4f1383529877460d2e37f43fdfd6570f6",
+  "binarySHA256": "5376f29bdbfb15a24c150792c43b77da33d53704b65050c0a0adbbd2c2bb7626",
+  "toolchain": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n",
+  "OS": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0\nBuildVersion:\t\t26A428\n",
+  "manifestSHA256": "eaed1d8f67dd70713b895d62d4609e6b8672bafe23249ddb1d851ef21b0b9a60",
+  "runnerSHA256": "21ac96e62cbbbe6fb455e57d0a61d776e8f4954bbacb8587bdd5a1fb8dbaacc8",
+  "diffMethod": "GET compare/{merge-base}...{head}, Accept application/vnd.github.diff; GitHub default context/rename; no local diff transforms",
+  "cases": [
+    {
+      "id": "swift-collections-725",
+      "before": "3ceaf1ac39a624fd805fcb4beef50467176ce18e",
+      "after": "cabf7390ce8a91bf7be6084f259df2e170ad9d0f",
+      "entries": 1158,
+      "materialSHA256": {
+        "ordinary.diff": "ac713a9804be38133a36c2e4b93f04d9869c2299ff03e4eb3d13307c7574ebc2",
+        "pr-context.md": "867102d9cd0e34575a46bfe4732d5db7f331c22c4ef0150cbac65f42858df7c2"
+      },
+      "sourcePrefix": "Sources/"
+    },
+    {
+      "id": "swift-collections-724",
+      "before": "5cebba6f29b7d63ad9c59d5f63a4f94288e43230",
+      "after": "d392f0cbff52f0ae40d91021c36d2f59d2689e32",
+      "entries": 1185,
+      "materialSHA256": {
+        "ordinary.diff": "71e1a73cc04abaf4dfaac5047a6e4a36f768354fddb112c108014d1656642673",
+        "pr-context.md": "58eb7906369210b44ea5d241c5ddc9d878280982d5f8eb3f398bf44b59330bb7"
+      },
+      "sourcePrefix": "Sources/"
+    },
+    {
+      "id": "grdb-swift-1864",
+      "before": "cdc2fb4200a2409f3f1d97322076c831956263a6",
+      "after": "27c7bda0e9c020468616abe5fc5da98900e74404",
+      "entries": 343,
+      "materialSHA256": {
+        "ordinary.diff": "72b3b1ef80700bf3c43c7d6680b5b48a5b477bf56c85ec99dd2655d0b1b5deef",
+        "pr-context.md": "15edefa5f909daff7be5da549ad2bdc85fb25d989d9a061839a8ca2e09211108"
+      },
+      "sourcePrefix": "GRDB/"
+    },
+    {
+      "id": "grdb-swift-1858",
+      "before": "36e30a6f1ef10e4194f6af0cff90888526f0c115",
+      "after": "47cb0b877bf15cf5b6d9a2538348c48faf81c78a",
+      "entries": 340,
+      "materialSHA256": {
+        "ordinary.diff": "6c03652b03e7651aedf433ad44ca0bec692c7780f39a8e16008285956623cad2",
+        "pr-context.md": "1d254f9c4dac153bb8b45703fea24069b928fe4f26390e22560ca3d58990c782"
+      },
+      "sourcePrefix": "GRDB/"
+    }
+  ],
+  "commandTemplate": [
+    "context-probe",
+    "PACKET/CASE/before/PREFIX",
+    "PACKET/CASE/after/PREFIX"
+  ],
+  "reproductionRunnerSHA256": "de143743e996850200fd4b3448a658f054a02e440f2483cfd6a50de0ed2313fe",
+  "reproductionRunnerChecks": [
+    "four JSON/text outputs equal initial frozen query",
+    "corrupted manifest rejected before query and output creation"
+  ],
+  "rawSelectionSHA256": "fc319db65664aaf0f08a0dcb4cab6f89be90438ff7de5bdfa467a52af4042d2a",
+  "publicSelectionSHA256": "3a7a09ea31f10d8d255b0809c848a0646f048a9b8ce6bab3a11d4c4777910f9d",
+  "runnerHashMeaning": "runnerSHA256 is the ignored, initial fixed runner; reproductionRunnerSHA256 is the committed shared runner with explicit --manifest. Four-case outputs match."
+}

@@ -6,7 +6,7 @@
 
 **通常diffを補い、変更を既存構造へどう組み込むか考えるための未変更実装を、関連根拠付きで示す。** 構文上の候補と不明を区別し、設計の良否・実calleeを推測で確定しない。Swift 6以降、CLI/Actions、LLMなしの決定論性を維持する。
 
-現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#83 / PR #84は完了し、#85でmember表記から未変更宣言へ辿る経路を検証している。** 分割extensionのblock対応と宣言の一意性を分け、旧caller/receiverの解決を必要としない弱い関係を既存contextsへ統合。63テスト・11 CLI対照・独立コードレビュー・固定入力照合を完了した。既知Collections #728の必要確認先`_remove`へ届いたが、未見の有用性や配置見直しの証明とはしない。[検証](docs/validation/member-spelling-context.md)。自己利用とPR/Actionsで仕上げ、評価器を固定した独立比較へ進む。本番統合は保留。人間の判断待ちはない。
+現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#87の固定4PRの独立比較を終え、結果点検と記録PRで仕上げる。** 二件で両担当が具体的な反復負担と別配置の比較へ到達。案内併用側の差分外buffer/SQL契約は支持/反対理由に使われたが、中心の負担や先例は通常diff/追加検索から得た。独自発見や効率改善とはしない。[結果](docs/validation/member-relations-holdout.md)。#if false内の表記が初期の実経路解釈を招き得たため、次の1PRは入口の字句条件表示と条件別集約を検討する。本番統合は保留。人間の判断待ちはない。
 
 ## Issueの階層と判断の節目
 
@@ -28,7 +28,8 @@ M1の#73（構文索引/PR #75）と#74（検索と表示/PR #76）は完了。M
 | 2 | [#78 入口の見直し](https://github.com/KantoYamamoto/sekka/issues/78) | 変更明示型→未変更の型宣言候補という契約と最小検索。候補の存在と意味解決の不明を分け、既知GRDBへ到達。46テスト・独立レビュー・自己利用・Actions/実成果物確認を経てPR #80完了 |
 | 3 | [#81 parser非対応](https://github.com/KantoYamamoto/sekka/issues/81) | 実験依存604.0.0で固定4入力を解析。検索0件を失敗と分離し、独立レビュー・Actions/実成果物までPR #82で完了 |
 | 4 | [#83 字句scopeの索引](https://github.com/KantoYamamoto/sekka/issues/83) | extension/top-levelの関数を保持し、前後対応の曖昧さを残す。53テスト・独立レビュー修正・固定入力・自己利用・Actions/実成果物までPR #84で完了 |
-| 5 | [#85 member表記の関係](https://github.com/KantoYamamoto/sekka/issues/85) | 旧caller/receiverの不明と同形宣言を分ける。63テスト・11 CLI対照・独立レビュー・既知回帰済み。自己利用/PR確認へ |
+| 5 | [#85 member表記の関係](https://github.com/KantoYamamoto/sekka/issues/85) | 旧caller/receiverの不明と同形宣言を分ける。63テスト・11 CLI対照・独立レビュー・既知回帰・自己利用・Actions/実成果物までPR #86で完了 |
+| 6 | [#87 固定未読PRの比較](https://github.com/KantoYamamoto/sekka/issues/87) | 別4PR/評価器固定、段階別A/B・根拠照合済み。独立結果点検と記録PR/Actionsへ |
 
 必要な確認先へ届いた例はA/B比較を始める根拠とし、有用性の合格とはしない。範囲内の必要箇所へ届かなければ検索方式へ戻す。確認先を特定できない例だけなら今回の標本では判断保留。出力に合う入力への差し替え、同じ入力の未見扱いはしない。M2の続きとM3は結果が出てから分解する。
 

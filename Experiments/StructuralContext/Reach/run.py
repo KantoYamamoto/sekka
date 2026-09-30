@@ -9,8 +9,9 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--binary', type=Path, required=True)
 parser.add_argument('--input', type=Path, required=True)
 parser.add_argument('--output', type=Path, required=True)
+parser.add_argument('--manifest', type=Path, default=Path(__file__).with_name('inputs.json'))
 args = parser.parse_args()
-manifest = json.loads(Path(__file__).with_name('inputs.json').read_text())
+manifest = json.loads(args.manifest.read_text())
 binary = args.binary.resolve()
 # Validate every selected source before any parsing. Failures are not zero candidates.
 for case in manifest:
@@ -37,7 +38,11 @@ for case in manifest:
     if first.returncode == 0:
         record['report'] = json.loads(first.stdout)
         (args.output / (case['id'] + '.json')).write_bytes(first.stdout)
-        (args.output / (case['id'] + '.text')).write_bytes(subprocess.check_output(command + ['--text']))
+        text_first = subprocess.run(command + ['--text'], capture_output=True)
+        text_second = subprocess.run(command + ['--text'], capture_output=True)
+        if (text_first.returncode, text_first.stdout, text_first.stderr) != (text_second.returncode, text_second.stdout, text_second.stderr) or text_first.returncode != 0:
+            raise ValueError('Unstable or failed text output: ' + case['id'])
+        (args.output / (case['id'] + '.text')).write_bytes(text_first.stdout)
     else:
         record['error'] = first.stderr.decode()
         if first.stdout:

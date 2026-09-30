@@ -1,0 +1,130 @@
+{
+  "rule": "Created-desc then number-desc at most40, merged<=2026-09-21, exclude four #77 cases, first2 production Swift per repository; preregistered before viewing source/output",
+  "audit": [
+    {
+      "repository": "apple/swift-collections",
+      "number": 728,
+      "selected": false,
+      "reason": "Previously reviewed #77 input"
+    },
+    {
+      "repository": "apple/swift-collections",
+      "number": 727,
+      "selected": false,
+      "reason": "Previously reviewed #77 input"
+    },
+    {
+      "repository": "apple/swift-collections",
+      "number": 725,
+      "createdAt": "2026-09-18T12:42:29Z",
+      "mergedAt": "2026-09-21T19:54:16Z",
+      "productionSwift": [
+        "Sources/BasicContainers/HashTable/_HTable+Removal.swift",
+        "Sources/BasicContainers/RigidArray/RigidArray+ContainerOperations.swift",
+        "Sources/BasicContainers/RigidArray/RigidArray.swift",
+        "Sources/BasicContainers/UniqueArray/UniqueArray+ContainerOperations.swift",
+        "Sources/ContainersPreview/Protocols/Drain/Drain.swift",
+        "Sources/ContainersPreview/Protocols/Producer/Producer.swift",
+        "Sources/ContainersPreview/Types/UniqueBox.swift",
+        "Sources/DequeModule/RigidDeque/RigidDeque.swift",
+        "Sources/DequeModule/UniqueDeque/UniqueDeque.swift",
+        "Sources/RopeModule/BigString/Views/BigSubstring.swift",
+        "Sources/SortedCollections/BTree/_Node.UnsafeHandle+Deletion.swift",
+        "Sources/SortedCollections/BTree/_Node.UnsafeHandle.swift"
+      ],
+      "selected": true
+    },
+    {
+      "repository": "apple/swift-collections",
+      "number": 724,
+      "createdAt": "2026-09-17T03:00:32Z",
+      "mergedAt": "2026-09-21T17:10:34Z",
+      "productionSwift": [
+        "Sources/ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+        "Sources/ContainersPreview/Protocols/Producer/Producer.swift",
+        "Sources/DequeModule/RigidDeque/RigidDeque+Consumption.swift",
+        "Sources/DequeModule/UniqueDeque/UniqueDeque+Deprecations.swift",
+        "Sources/InternalCollectionsUtilities/MutableSpan+Extras.swift",
+        "Sources/InternalCollectionsUtilities/OutputSpan+Extras.swift",
+        "Sources/SpanPreview/MutableSpan+InputSpanHelpers.swift",
+        "Sources/SpanPreview/OutputSpan+InputSpanHelpers.swift"
+      ],
+      "selected": true
+    },
+    {
+      "repository": "groue/GRDB.swift",
+      "number": 1876,
+      "selected": false,
+      "reason": "Previously reviewed #77 input"
+    },
+    {
+      "repository": "groue/GRDB.swift",
+      "number": 1869,
+      "selected": false,
+      "reason": "Previously reviewed #77 input"
+    },
+    {
+      "repository": "groue/GRDB.swift",
+      "number": 1864,
+      "createdAt": "2026-05-05T20:32:57Z",
+      "mergedAt": "2026-05-31T12:38:11Z",
+      "productionSwift": [
+        "GRDB/Core/TransactionObserver.swift"
+      ],
+      "selected": true
+    },
+    {
+      "repository": "groue/GRDB.swift",
+      "number": 1858,
+      "createdAt": "2026-03-16T10:44:05Z",
+      "mergedAt": "2026-03-19T07:07:23Z",
+      "productionSwift": [
+        "GRDB/Record/MutablePersistableRecord+Upsert.swift",
+        "GRDB/Record/PersistableRecord+Upsert.swift"
+      ],
+      "selected": true
+    }
+  ],
+  "cases": [
+    {
+      "id": "swift-collections-725",
+      "repository": "apple/swift-collections",
+      "prefix": "Sources/",
+      "number": 725,
+      "url": "https://github.com/apple/swift-collections/pull/725",
+      "apiBase": "3ceaf1ac39a624fd805fcb4beef50467176ce18e",
+      "before": "3ceaf1ac39a624fd805fcb4beef50467176ce18e",
+      "after": "cabf7390ce8a91bf7be6084f259df2e170ad9d0f"
+    },
+    {
+      "id": "swift-collections-724",
+      "repository": "apple/swift-collections",
+      "prefix": "Sources/",
+      "number": 724,
+      "url": "https://github.com/apple/swift-collections/pull/724",
+      "apiBase": "3ceaf1ac39a624fd805fcb4beef50467176ce18e",
+      "before": "5cebba6f29b7d63ad9c59d5f63a4f94288e43230",
+      "after": "d392f0cbff52f0ae40d91021c36d2f59d2689e32"
+    },
+    {
+      "id": "grdb-swift-1864",
+      "repository": "groue/GRDB.swift",
+      "prefix": "GRDB/",
+      "number": 1864,
+      "url": "https://github.com/groue/GRDB.swift/pull/1864",
+      "apiBase": "cdc2fb4200a2409f3f1d97322076c831956263a6",
+      "before": "cdc2fb4200a2409f3f1d97322076c831956263a6",
+      "after": "27c7bda0e9c020468616abe5fc5da98900e74404"
+    },
+    {
+      "id": "grdb-swift-1858",
+      "repository": "groue/GRDB.swift",
+      "prefix": "GRDB/",
+      "number": 1858,
+      "url": "https://github.com/groue/GRDB.swift/pull/1858",
+      "apiBase": "36e30a6f1ef10e4194f6af0cff90888526f0c115",
+      "before": "36e30a6f1ef10e4194f6af0cff90888526f0c115",
+      "after": "47cb0b877bf15cf5b6d9a2538348c48faf81c78a"
+    }
+  ]
+}

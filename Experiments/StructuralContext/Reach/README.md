@@ -22,4 +22,4 @@ python3 Experiments/StructuralContext/Reach/run.py --binary .build/reach-evaluat
 
 入力/出力先は新規ディレクトリを使う。`fetch.py`は固定blobをGETして照合するため、3,008ファイルエントリの取得には時間とAPI要求を使う。初回評価では固定commitのarchiveをGETし、選択ファイルのGit blob IDをGit treeと照合して取得した。元のライセンスは保持し、生ソース・archive・diff・レビューはGitへ入れない。外部OSSへの投稿や変更は行わない。
 
-`run.py`は全入力の一覧/ハッシュを先に照合し、各例を2回実行して結果の安定性を確認する。解析失敗は失敗として保存し、0候補に含めない。`results.json`は解析結果であり、有用性の採点ではない。初回の通常読解は機械出力を見る前に独立担当が行う。繰り返し実行を未見評価とは呼ばない。
+`run.py`は全入力の一覧/ハッシュを先に照合し、各例のJSON/textをそれぞれ2回実行し、終了コード・stdout/stderrの全バイト一致を確認する。`--manifest`を省くと隣接するinputs.jsonを読み、指定すると別の固定manifestを再利用できる。解析失敗は失敗として保存し、0候補に含めない。`results.json`は解析結果であり、有用性の採点ではない。初回の通常読解は機械出力を見る前に独立担当が行う。繰り返し実行を未見評価とは呼ばない。
