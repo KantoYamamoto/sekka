@@ -35,13 +35,14 @@ private func delta(_ before: String, _ after: String) throws -> ContextReport {
   #expect(Set(separate.functions.map(\.correspondenceID)).count == 2)
 }
 
-@Test func duplicateExtensionScopesRemainAmbiguousEvenForDifferentMembers() throws {
+@Test func duplicateBlocksRemainObservedButUniqueDeclarationsCanPair() throws {
   let source = "extension S { func a() {} }\nextension S { func b() {} }"
   let value = try lexical(source)
   #expect(value.functions.count == 2)
   #expect(value.functions.allSatisfy { !value.hasUniqueScope($0) })
+  #expect(value.functions.allSatisfy { value.hasUnambiguousDeclarationContext($0) })
   let report = try delta(source, source)
-  #expect(report.unpairedBefore == 2 && report.unpairedAfter == 2)
+  #expect(report.unpairedBefore == 0 && report.unpairedAfter == 0)
   let overload = try delta("extension S { func run(_ a: Int) {}; func run(_ b: Int) {} }", "extension S { func run(_ a: Int) {}; func run(_ b: Int) {} }")
   #expect(overload.unpairedBefore == 2 && overload.unpairedAfter == 2)
 }
@@ -56,6 +57,7 @@ private func delta(_ before: String, _ after: String) throws -> ContextReport {
   #expect(try delta(before, source).contexts.isEmpty)
   let duplicate = try lexical("extension Outer { struct A { func a() {} } }\nextension Outer { struct B { func b() {} } }")
   #expect(duplicate.functions.allSatisfy { !duplicate.hasUniqueScope($0) })
+  #expect(duplicate.functions.allSatisfy { $0.unsupported.contains("extension-scope") })
 }
 
 @Test func writtenConditionalPathPairsWithoutSelectingActiveBranches() throws {

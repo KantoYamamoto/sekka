@@ -11,8 +11,12 @@ public struct SourceInventory: Sendable {
   public let aliasDeclarations: [InventoryDeclaration]
   public let scopes: [InventoryScope]
   private let ambiguousScopeKeys: Set<String>
+  private let extensionScopeKeys: Set<String>
   public func hasUniqueScope(_ function: InventoryFunction) -> Bool {
     function.correspondenceScopes.allSatisfy { !ambiguousScopeKeys.contains($0) }
+  }
+  public func hasUnambiguousDeclarationContext(_ function: InventoryFunction) -> Bool {
+    function.correspondenceScopes.allSatisfy { !ambiguousScopeKeys.contains($0) || extensionScopeKeys.contains($0) }
   }
   public var declarations: [InventoryDeclaration] {
     types.map { InventoryDeclaration(id: $0.id, name: $0.name, kind: $0.kind, site: $0.site, declarationTokens: $0.declarationTokens) } + aliasDeclarations
@@ -40,6 +44,7 @@ public struct SourceInventory: Sendable {
     }
     self.types = types; self.functions = functions; self.properties = properties
     self.scopes = scopes
+    extensionScopeKeys = Set(scopes.filter { $0.kind == "extension" }.map(\.id))
     ambiguousScopeKeys = Set(Dictionary(grouping: scopeKeys, by: { $0 }).filter { $0.value.count > 1 }.keys)
     self.aliasDeclarations = aliasDeclarations
     extensionNames = Array(Set(extensions)).sorted(); aliasNames = Array(Set(aliases)).sorted()
@@ -103,6 +108,8 @@ public struct InventoryFunction: Codable, Sendable {
   public let correspondenceID: String
   public let correspondenceScopes: [String]
   public let conditionalPath: [[String]]
+  public let lexicalScopeHeaders: [String]
+  public let writtenMemberCalls: [InventoryWrittenMemberCall]
   public let site: SourceSite
   public let declarationTokens: String
   public let bodyTokens: String?
@@ -378,10 +385,13 @@ private final class InventoryReader: SyntaxVisitor {
     if node.signature.parameterClause.parameters.contains(where: { $0.defaultValue != nil || $0.ellipsis != nil }) {
       reasons.append("flexible-parameters")
     }
+    let calls = WrittenMemberCalls { self.site($0, name: display + selector) }
+    if let body = node.body { calls.walk(body) }
     let id = ownerID + ":" + signature
     functions.append(InventoryFunction(id: id, ownerID: ownerID, selector: selector,
       scopeKind: scope.kind, correspondenceID: inventoryKey([id, scope.id] + guards(node).map(inventoryKey)),
       correspondenceScopes: frames.map(\.id) + guardKeys(node), conditionalPath: guards(node),
+      lexicalScopeHeaders: frames.map { inventoryKey([$0.kind, $0.headerTokens]) }, writtenMemberCalls: calls.calls,
       site: site(node, name: display + selector, signature: signature),
       declarationTokens: inventoryTokens(node), bodyTokens: node.body.map(inventoryTokens),
       statements: node.body?.statements.map { statement in

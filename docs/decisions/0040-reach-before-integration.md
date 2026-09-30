@@ -37,4 +37,4 @@
 
 ## #83の索引見直し
 
-解析できた宣言が意味解決の制約によって索引から消える場合は、収集と検索の適格性を分離する。extension/top-level関数を字句scope付きで保持し、既存call検索の拒否条件を外さない。条件経路には先行節と入れ子を含め、同じ表記のblockが重複すれば子孫も対応不明にする。line順で同一性を補う方法は、移動で別宣言を結び付けるため採らない。nested nominalを既存型検索へ暗黙に広げない。結果と対応外の多さは[検証](../validation/lexical-scope-inventory.md)に記録する。
+解析できた宣言が意味解決の制約によって索引から消える場合は、収集と検索の適格性を分離する。extension/top-level関数を字句scope付きで保持し、既存call検索の拒否条件を外さない。条件経路には先行節と入れ子を含め、当時は同じ表記のblockが重複すれば子孫も対応不明にした。extension部分の宣言対応は[0041](0041-written-member-relations.md)で見直し、nominal/条件blockの曖昧性は維持する。line順で同一性を補う方法は、移動で別宣言を結び付けるため採らない。nested nominalを既存型検索へ暗黙に広げない。結果と対応外の多さは[検証](../validation/lexical-scope-inventory.md)に記録する。

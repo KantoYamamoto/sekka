@@ -19,7 +19,7 @@ private func compare(_ before: String, _ after: String, targetBefore: String = t
   #expect(context.entries.first?.call?.writtenType == "Logger")
   #expect(context.entries.first?.call?.sharedArgumentSpellings == ["event"])
   #expect(context.entries.first?.call?.afterReceiver.file == "Screen.swift")
-  #expect(report.skipped.isEmpty)
+  #expect(report.skipped.allSatisfy { $0.reason.hasPrefix("spelling:") })
 }
 
 @Test func multipleEntrypointsShareOneTarget() throws {
@@ -97,8 +97,10 @@ private func compare(_ before: String, _ after: String, targetBefore: String = t
 
 @Test func existingCallerAndPropertyMustNotBeNew() throws {
   let report = try compare("", screen(extra: "analytics.track(event)"))
-  #expect(!report.contexts.contains { $0.kind == "function" })
-  #expect(report.contexts.first?.kind == "struct")
+  let weak = report.contexts.flatMap(\.entries).compactMap { if case let .memberSpelling(evidence) = $0 { return evidence }; return nil }
+  #expect(weak.count == 1 && weak[0].beforeCaller == nil)
+  #expect(report.contexts.flatMap(\.entries).allSatisfy { $0.call == nil })
+  #expect(report.contexts.contains { $0.kind == "struct" })
   #expect(report.unpairedAfter == 1)
   let before = screen().replacingOccurrences(of: "let logger: Logger;", with: "")
   #expect(try !compare(before, screen(extra: "analytics.track(event)")).contexts.contains { $0.kind == "function" })
