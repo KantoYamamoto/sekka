@@ -23,6 +23,7 @@ public struct TypeEntry: Codable, Sendable {
 public enum ContextEvidence: Codable, Sendable {
   case existingCall(evidence: CallEntry)
   case changedType(evidence: TypeEntry)
+  case memberSpelling(evidence: MemberSpellingEntry)
   public var call: CallEntry? {
     if case let .existingCall(evidence) = self { return evidence }; return nil
   }
@@ -76,7 +77,7 @@ public enum UnchangedContext {
     func skip(_ reason: String) { skips[reason, default: 0] += 1 }
     for id in Set(oldIDs.keys).union(newIDs.keys).sorted() {
       let os = oldIDs[id, default: []], ns = newIDs[id, default: []]
-      guard os.count == 1, ns.count == 1, old.hasUniqueScope(os[0]), new.hasUniqueScope(ns[0]) else {
+      guard os.count == 1, ns.count == 1, old.hasUnambiguousDeclarationContext(os[0]), new.hasUnambiguousDeclarationContext(ns[0]) else {
         unpairedBefore += os.count; unpairedAfter += ns.count; continue
       }
       let previous = os[0], current = ns[0]
@@ -114,7 +115,7 @@ public enum UnchangedContext {
           beforeExistingCall: oldCall.site, afterExistingCall: call.site, newOrChangedCall: added.site,
           beforeReceiver: beforeType, afterReceiver: afterType, writtenType: be.property.typeSpelling ?? "",
           sharedArgumentSpellings: shared)
-        add("function:" + be.target.id, before: ae.target.site, after: be.target.site,
+        add("function:" + be.target.correspondenceID, before: ae.target.site, after: be.target.site,
           kind: "function", entry: .existingCall(evidence: entry))
       }
       if candidateCount == 0 { skip("no-new-or-changed-direct-call"); }
@@ -163,6 +164,12 @@ public enum UnchangedContext {
         }
       }
     }
+    let spellings = MemberSpellingContext.find(old: old, new: new, oldFiles: oldFiles, newFiles: newFiles)
+    for (reason, count) in spellings.skipped { skips[reason, default: 0] += count }
+    for match in spellings.matches {
+      let key = "function:" + match.after.correspondenceID
+      add(key, before: match.before.site, after: match.after.site, kind: "function", entry: .memberSpelling(evidence: match.entry))
+    }
     let keys = targets.keys.sorted {
       let a = targets[$0]!, b = targets[$1]!
       if a.after.file != b.after.file { return a.after.file < b.after.file }
@@ -175,9 +182,11 @@ public enum UnchangedContext {
         fileUnchanged: oldFiles[target.before.file] == newFiles[target.after.file], kind: target.kind,
         entries: Array(target.entries.prefix(8)), omittedEntries: max(0, target.entries.count - 8))
     }
-    return ContextReport(scope: "experiment: unchanged declaration candidates reached by written annotation names or adjacent direct calls",
+    return ContextReport(scope: "experiment: unchanged declaration candidates reached by written annotation names, adjacent calls or exact member label spellings",
       limitations: [
-        "Function inventory retains direct file, nominal and extension declarations, including written conditional paths; executable local functions are excluded. Correspondence requires a unique lexical scope and signature. Repeated extension/branch scopes, changed extension headers/guards and moves can be unpaired. Active conditions and extension owner types are not resolved. Retained extension/top-level functions remain ineligible for the adjacent-call query.",
+        "Member spelling entries search exact written method names and argument-label sequences among indexed function declarations. One indexed match is not a unique applicable callee; receiver types, default arguments, SDK/unindexed declarations, property-held functions and overload semantics are not resolved. Trailing closures, unqualified calls and specialized expressions are outside this route.",
+        "Member spelling anchors have declaration text absent from the old file's function inventory. Uniquely paired anchors search call expressions absent from the old body; other anchors use written body calls and explicitly lack a unique old correspondence. Calls inside control blocks/closures are syntax occurrences, not proof of execution. Local function/type bodies are excluded. Eligible occurrences are grouped before output by caller, receiver spelling and selector, using the first position and a count. Targets require equal enclosing lexical headers and declaration tokens.",
+        "Function inventory retains direct file, nominal and extension declarations, including written conditional paths; executable local functions are excluded. Correspondence requires a unique declaration key. Repeated identical extension headers do not by themselves make different declarations ambiguous; duplicate nominal/branch scopes and duplicate declaration keys do. Changed extension headers/guards and moves can be unpaired. Active conditions and extension owner types are not resolved. Retained extension/top-level functions remain ineligible for the adjacent-call query.",
         "Type entries search new written names in property annotations by terminal name, including generic arguments. Qualified owners/modules and aliases are not resolved. Known lexical generic/associated type parameters and Self references are excluded; placeholder and unsupported qualified types are reported separately. Nominal/alias declarations and properties inside extensions or local functions are not indexed.",
         "Type candidates are paired uniquely by file, lexical owner, name and kind. A missing indexed property counterpart does not prove that no declaration existed outside the indexed scope. Other inherited or shadowing type bindings are not resolved. The candidate declaration tokens are unchanged, not the entire type including extensions, alias expansion, macros or active conditional branches. Each property's repeated qualified name uses its first written position.",
         "Written type and selector candidates, not resolved callees, dependencies or shared responsibility. Adjacency and identical argument spelling do not prove related behavior or equal values.",

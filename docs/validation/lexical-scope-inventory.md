@@ -33,7 +33,7 @@
 
 ## 自己利用と仕上げ
 
-ローカル記録は`.build/lexical-scope`。公開Gitに第三者の生ソースや生レビューを置かない。最終バイナリの回帰・自己利用は下記。PR/Actionsは仕上げで確認する。本番CLI/配布への統合は保留。
+ローカル記録は`.build/lexical-scope`。公開Gitに第三者の生ソースや生レビューを置かない。最終バイナリの回帰・自己利用は下記。PR #84で完了。head9059a43の[Actions36291086238](https://github.com/KantoYamamoto/sekka/actions/runs/36291086238)と[実コメント/成果物の照合](https://github.com/KantoYamamoto/sekka/pull/84#issuecomment-5852283522)を確認してmergeした。本記録は当時の契約/結果であり、分割extensionの宣言対応は[0041](../decisions/0041-written-member-relations.md)で見直す。本番CLI/配布への統合は保留。
 
 追加確認: Map/Filterのgenerate宣言は両版で索引に保持されたが、返却型BoolからIntへの変更でsignatureが変わるため、一意対応した9関数には含まれない。9関数はUniqueDeque/UniqueSet/MutableContainer/Producer.reduce等の別の変更である。signature変更の対応も今後の不足として残す。
 

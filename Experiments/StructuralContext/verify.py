@@ -115,6 +115,27 @@ with tempfile.TemporaryDirectory(prefix='sekka-type-context-') as directory:
     results.append({'case': 'type-annotation-context', 'report': report})
     text_samples.append('Case: type-annotation-context\n' + text)
 
+# Signature changes cannot establish an old caller identity; show a written-label search instead.
+with tempfile.TemporaryDirectory(prefix='sekka-member-spelling-') as directory:
+    root = Path(directory)
+    helper = 'extension Buffer where Element: P { func prune(from index: Int, where test: (Int) -> Bool) {} }\nextension Buffer where Element: P { func other() {} }'
+    for side, result_type, result in [('before', 'Bool', 'true'), ('after', 'Int', '0')]:
+        folder = root / side; folder.mkdir()
+        (folder / 'Helper.swift').write_text(helper)
+        (folder / 'Caller.swift').write_text('extension Worker { func generate() -> ' + result_type + ' { defer { target.prune(from: 0, where: { $0 == 0 }) }; return ' + result + ' } }')
+    report = run(root / 'before', root / 'after')
+    assert len(report['contexts']) == 1
+    target = report['contexts'][0]
+    assert target['after']['declaration'] == 'extension Buffer.prune(from:where:)' and target['fileUnchanged']
+    entry = target['entries'][0]['memberSpelling']['evidence']
+    assert entry['callerEvidence'] == 'no-unique-old-indexed-correspondence' and 'beforeCaller' not in entry
+    assert entry['call']['selector'] == 'prune(from:where:)' and entry['call']['receiverSpelling'] == 'target'
+    assert entry['matchingIndexedDeclarations'] == entry['eligibleOccurrences'] == 1
+    text = subprocess.check_output([binary, str(root / 'before'), str(root / 'after'), '--text']).decode()
+    assert '一意な旧索引対応は未確認' in text and '同一記載ラベル列の索引内宣言 1件' in text
+    results.append({'case': 'member-spelling-unknown-caller', 'report': report})
+    text_samples.append('Case: member-spelling-unknown-caller\n' + text)
+
 # Already-known fact controls; these do not measure review benefit.
 fixture_path = Path(__file__).resolve().parents[2] / 'Fixtures/structural-reconsideration/cases.json'
 expected_entries = {'dispatch-spread': 3, 'dispatch-growth': 2, 'single-site': 1,
@@ -170,9 +191,10 @@ if args.oss_input:
         report = run(root / 'before', root / 'after')
         for side in ['before', 'after']:
             assert report[side + 'FileCount'] == sum(f['side'] == side and f['path'].endswith('.swift') for f in case['files'])
-        # These previously read OSS changes have no eligible path in this query.
+        # These previously read OSS changes had no eligible adjacent-call/type path.
+        # Record any new member-spelling route separately; this is a known replay.
         # Record rejection reasons; zero is not evidence about their design.
-        assert report['contexts'] == [], case['id']
+        assert all('existingCall' not in e and 'changedType' not in e for t in report['contexts'] for e in t['entries']), case['id']
         results.append({'case': case['id'], 'report': report})
         if args.text_output:
             text_samples.append('Case: ' + case['id'] + '\n' + subprocess.check_output([binary, str(root / 'before'), str(root / 'after'), '--text']).decode())

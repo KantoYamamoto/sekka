@@ -9,16 +9,17 @@ python3 Experiments/StructuralContext/verify.py --binary .build/structural-conte
 .build/structural-context/debug/context-probe BEFORE AFTER --text
 ```
 
-Swift 6以降とSwiftSyntax 604.0.0が必要。`BEFORE`/`AFTER`は比較するSwiftソースを含むディレクトリ。末尾の`--text`を省くとJSON。`verify.py`は既存7対照・型注釈・条件付きborrow/mutate・入力境界の計10例を検証する。**合成例の成功は実PRで役立つことの証明ではない。**
+Swift 6以降とSwiftSyntax 604.0.0が必要。`BEFORE`/`AFTER`は比較するSwiftソースを含むディレクトリ。末尾の`--text`を省くとJSON。`verify.py`は既存7対照・型注釈・条件付きborrow/mutate・入力境界・member表記の計11例を検証する。**合成例の成功は実PRで役立つことの証明ではない。**
 
 ## 未変更宣言と根拠経路
 
-出力の単位は未変更の宣言候補。同じ宣言へ複数の場所から届けば1件にまとめ、型宣言とそのmember関数は別の宣言として扱う。次の二種類の根拠を同じ一覧へ統合する。
+出力の単位は未変更の宣言候補。同じ宣言へ複数の場所から届けば1件にまとめ、型宣言とそのmember関数は別の宣言として扱う。次の三種類の根拠を同じ一覧へ統合する。
 
 | 根拠 | 観測できること | 確定しないこと |
 | --- | --- | --- |
 | propertyの型注釈 | 新しく現れた表記の末尾名と、同名nominal/typealias宣言の位置。例えば`[Migration]`→`OrderedDictionary<String, Migration>`から既存OrderedDictionaryへ進む | 実型、module/owner、alias展開先、依存の追加、同じ責務 |
 | 既存callとの接点 | 旧版にも一度現れる直前のmember call、共通する識別子引数、receiverの明示型から関数候補への旧新経路 | call挿入か既存callの編集か、実callee、同じ値・挙動、統合必要性 |
+| member callの表記 | 変更関数に書かれた名前・明示ラベル列と、同一記載ラベル列の索引内1関数宣言への位置 | receiver型、実callee、default引数等の適合性、責務の一致 |
 
 **候補があるのは、その宣言を読む入口があるというだけ。配置を見直す必要があるか、通常検索より助かるかは別に評価する。** 名前から役割を推論しない。
 
@@ -26,21 +27,27 @@ Swift 6以降とSwiftSyntax 604.0.0が必要。`BEFORE`/`AFTER`は比較するSw
 
 型/alias宣言はfile・字句owner・名前・種別が一意に対応し、宣言全体のトークンが同じものを候補にする。同名別宣言は別候補で、変更済みの一方を除いても他方を消さない。条件分岐等で前後対応が曖昧なら未変更と断定しない。属性・準拠・generic・extensionの存在自体を、書かれた宣言を消す理由にしない。
 
-call経路はmember関数本体の直下、単純な識別子引数、同じowner内の明示型propertyに限定する。nested block、try/await、closureや曖昧なscopeは対象外。旧版に同じ文がないcallを検索し、callの挿入とは断定しない。[索引の経緯](../../docs/validation/source-inventory.md)。
+既存callとの接点経路はmember関数本体の直下、単純な識別子引数、同じowner内の明示型propertyに限定する。nested block、try/await、closureや曖昧なscopeは対象外。旧版に同じ文がないcallを検索し、callの挿入とは断定しない。[索引の経緯](../../docs/validation/source-inventory.md)。
+
+member表記経路は、変更fileのafter関数の宣言トークンが旧fileの関数索引にない場合を入口にする。一意に対応したcallerでは旧本文に同じcallトークンがない出現だけを検索。対応不明なら本文のmember表記を読み、「新規call」とは呼ばない。defer/if/closure内も表記として読み、local関数・local型の本文は混ぜない。初回は明示的な引数リストだけで、trailing closure/unqualified/specialized callは対象外。
+
+一致数は変更済み/新規も含むafter索引全体で数え、複数なら選ばない。1件でも実calleeの一意性ではない。候補はbodyがあり、旧新の宣言と全字句祖先headerが同じもの。SDK・索引外・macro展開・propertyに格納した関数等は解決しない。[方式と結果](../../docs/validation/member-spelling-context.md)。
 
 ## 構文索引と検索の適格性
 
 関数索引にはnominal直下だけでなく、ファイル直下とextension内の関数を保持する。字句scopeにはextensionの表記型・属性・where節、宣言位置、条件分岐の表記経路を記録する。これを解決済みの型やactiveなコンパイル条件とは呼ばない。実行ブロック内のlocal関数・closure/accessor内のlocal関数は対象外。
 
-関数の前後対応はfile・字句scope・signatureと条件経路が一意な場合だけ。同じheaderのextensionが複数ある場合や、同じ親に同じ条件経路のブロックが繰り返される場合は、子の名前だけでblockを対応させない。where/属性/条件経路の変更や移動は対応外になり得る。条件経路は外→内の順と、現在節までの先行条件も保持するので、先行#ifの変更が#elseから消えない。
+関数の前後対応はfile・字句scope・signatureと条件経路の一意な宣言キーを使う。分割された同一headerのextensionでも、完全な宣言キーが一意なら構文上の対応を取る。blockの実体同一性は主張しない。同じキーの複数関数、nominal/条件blockの重複は不明として保持する。条件経路は外→内の順と先行条件を含む。member表記の候補では全字句祖先headerも照合する。[判断0041](../../docs/decisions/0041-written-member-relations.md)。
 
-extension内のnested nominalにも字句祖先を保持するが、今回それらを型注釈検索の候補へ暗黙に追加しない。新しく記録したextension/top-level関数もcall検索では未対応のまま。索引に存在することと、確認先へ案内できることを分ける。[検証](../../docs/validation/lexical-scope-inventory.md)。
+extension内のnested nominalにも字句祖先を保持するが、型注釈検索の対象へ暗黙に追加しない。既存call接点の保守的判定とmember表記経路の事実を分ける。[索引の検証](../../docs/validation/lexical-scope-inventory.md)。
 
 ## JSON/textの範囲と不明
 
-`contexts`の各候補に前後位置、`kind`、`fileUnchanged`、根拠の`entries`を持つ。根拠は`existingCall.evidence`または`changedType.evidence`。textでも候補1件の罫線の下へ根拠を並べる。最大8候補・各8入口で、省略数を共有する。
+`contexts`の各候補に前後位置、`kind`、`fileUnchanged`、根拠の`entries`を持つ。根拠は`existingCall.evidence` / `changedType.evidence` / `memberSpelling.evidence`。textでも候補1件の罫線の下へ根拠を並べる。最大8候補・各8入口で、省略数を共有する。
 
 型経路は旧新property/型表記、新しく現れた名前の位置、末尾名が一致する宣言数を持つ。同じpropertyの同じqualified名は最初の位置を使う。`beforeStatus: no-indexed-counterpart`は旧版索引に対応がない状態であり、旧宣言の不存在や新規propertyの証明ではない。
+
+member表記の根拠には前後caller・対応状態、call位置・receiver表記・記載ラベル列を持つ。`callerEvidence: no-unique-old-indexed-correspondence`は旧宣言不存在を意味しない。差分の適格性で出現を絞ってから同じcaller/selector/receiverを集約し、最初の位置と`eligibleOccurrences`を示す。
 
 - `changedFunctions`と`unpairedBefore/After`は索引内の関数数。`changedTypeAnnotations`は索引内の型注釈差の件数で、新しい実型や依存の数ではない。
 - `skipped`はcall検索・型注釈の対応・宣言検索の各試行を退けた理由の件数。名前一致なし、旧宣言未確認、変更済み、対応不明、型表記不明を区別する。ファイル数や網羅率として足し合わせない。型注釈の組が未変更の曖昧propertyは毎回再掲しない。
