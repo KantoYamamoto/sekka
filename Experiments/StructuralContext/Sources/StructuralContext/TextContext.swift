@@ -23,6 +23,17 @@ extension ContextReport {
           lines.append("├─ member表記の入口: \(position(entry.afterCaller))")
           lines.append("│  \(entry.beforeCaller.map { "旧版の対応: " + position($0) + " · 同じcall本文なし" } ?? "一意な旧索引対応は未確認（新規callとは限らない）")")
           lines.append("│  call \(position(entry.call.site)) · receiver表記: \(safe(entry.call.receiverSpelling))")
+          if !entry.call.writtenConditions.isEmpty {
+            func header(_ clause: WrittenConditionClause) -> String {
+              "\(safe(clause.site.declaration)) [\(safe(clause.site.file)):\(clause.site.line)]"
+            }
+            let path = entry.call.writtenConditions.map { branch in
+              let prior = branch.preceding.map(header).joined(separator: " → ")
+              return header(branch.selected)
+                + (prior.isEmpty ? "" : "（先行節: \(prior)）")
+            }.joined(separator: " / ")
+            lines.append("│  条件の記載（外→内・有効節未判定）: \(path)")
+          }
           lines.append("│  名前・記載ラベル: \(safe(entry.call.selector)) · 適格な出現 \(entry.eligibleOccurrences)件（最初の位置）")
           lines.append("│  同一記載ラベル列の索引内宣言 \(entry.matchingIndexedDeclarations)件 · receiver型/実calleeは未解決")
         case let .changedType(entry):

@@ -72,4 +72,4 @@ Bは先読みで、変更された`upsertWithoutCallbacks`から未変更`DAO.up
 
 生資料はGit管理外`.build/m2-unseen`、入力/出力のbyte hash、段階の開放時刻、checkpointとraw reviewを保持した。機械結果の再現とAI所見の再現は異なる。必要箇所のA/B合併を網羅的正解集合にせず、precision/recallやレビュー負担削減を主張しない。
 
-独立結果点検で3,026入力の一覧/blob/SHAと段階・レビューhashが一致し、必要な位置と発見の帰属を確認。公開/非公開selectionと初回/再現runnerのhashの区別を明示した後、未解消の指摘はなかった。次は記録PR/Actions、その後に入口の字句条件表示。構造を見直す根拠への寄与がどこから来たかで判断し、案内候補が出た数でM3へ進めない。人間の判断待ちはない。
+独立結果点検で3,026入力の一覧/blob/SHAと段階・レビューhashが一致し、必要な位置と発見の帰属を確認。公開/非公開selectionと初回/再現runnerのhashの区別を明示した後、未解消の指摘はなかった。記録PR [#88](https://github.com/KantoYamamoto/sekka/pull/88)はhead `6d9b17f`、[Actions 36791837704](https://github.com/KantoYamamoto/sekka/actions/runs/36791837704)、実botコメントと10成果物のhead/summary一致を確認してmerge `739e0ab`で完了した。次は[#89](https://github.com/KantoYamamoto/sekka/issues/89)の入口の字句条件表示。構造を見直す根拠への寄与がどこから来たかで判断し、案内候補が出た数でM3へ進めない。人間の判断待ちはない。

@@ -35,7 +35,7 @@ enum MemberSpellingContext {
       let oldCalls = paired ? Set(previous[0].writtenMemberCalls.map(\.tokens)) : []
       // Eligibility precedes grouping: the old occurrence must not become the displayed first site.
       let eligible = caller.writtenMemberCalls.filter { !paired || !oldCalls.contains($0.tokens) }
-      let groups = Dictionary(grouping: eligible, by: { inventoryKey([$0.selector, $0.receiverSpelling]) })
+      let groups = Dictionary(grouping: eligible, by: { inventoryKey([$0.selector, $0.receiverSpelling, inventoryKey($0.writtenConditions.map(\.groupingKey))]) })
       for group in groups.values.sorted(by: { $0[0].site.line == $1[0].site.line ? $0[0].tokens < $1[0].tokens : $0[0].site.line < $1[0].site.line }) {
         let call = group[0], candidates = selectors[call.selector, default: []]
         guard candidates.count == 1 else { skip(candidates.isEmpty ? "no-exact-label-declaration" : "multiple-exact-label-declarations"); continue }
