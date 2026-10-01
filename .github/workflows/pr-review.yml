@@ -46,6 +46,8 @@ jobs:
         run: |
           swift test --package-path Experiments/StructuralContext --scratch-path .build/structural-context
           python3 Experiments/StructuralContext/verify.py --binary .build/structural-context/debug/context-probe --output .build/pr-review/structural-context.json --text-output .build/pr-review/structural-context.text
+      - name: Check known-context inventory diagnostic
+        run: python3 Experiments/StructuralContext/Diagnostics/verify.py --scratch .build/inventory-diagnostic --output .build/diagnostics/checks.json
       - name: Exercise review boundaries
         run: python3 Scripts/review_probes.py --output .build/pr-review/probes.json
       - name: Exercise structural review questions
