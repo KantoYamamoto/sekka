@@ -1,0 +1,2355 @@
+{
+  "cases": {
+    "grdb-swift-1858": {
+      "diagnosticAnchorFunctions": 6,
+      "needs": [
+        {
+          "after": [
+            599,
+            609
+          ],
+          "before": [
+            599,
+            609
+          ],
+          "case": "grdb-swift-1858",
+          "file": "Record/MutablePersistableRecord+Insert.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 2,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "insertWithCallbacks(_:onConflict:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [],
+              "site": {
+                "endLine": 609,
+                "file": "Record/MutablePersistableRecord+Insert.swift",
+                "line": 598
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [],
+          "question": "plain insertが既存fetch実行へ渡す先例",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            642,
+            675
+          ],
+          "before": [
+            642,
+            675
+          ],
+          "case": "grdb-swift-1858",
+          "file": "Record/MutablePersistableRecord+Insert.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 1,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "insertAndFetchWithoutCallbacks(_:onConflict:selection:fetch:)",
+              "sharedIndexedReturnNameTrial": [
+                {
+                  "anchor": {
+                    "endLine": 522,
+                    "file": "Record/MutablePersistableRecord+Upsert.swift",
+                    "line": 447
+                  },
+                  "anchorCall": {
+                    "endLine": 498,
+                    "file": "Record/MutablePersistableRecord+Upsert.swift",
+                    "line": 495
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [
+                    "InsertionSuccess"
+                  ],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "InsertionSuccess(rowID:rowIDColumn:persistenceContainer:)",
+                  "targetCall": {
+                    "endLine": 673,
+                    "file": "Record/MutablePersistableRecord+Insert.swift",
+                    "line": 670
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [
+                    "InsertionSuccess",
+                    "T"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 621,
+                    "file": "Record/MutablePersistableRecord+Upsert.swift",
+                    "line": 526
+                  },
+                  "anchorCall": {
+                    "endLine": 618,
+                    "file": "Record/MutablePersistableRecord+Upsert.swift",
+                    "line": 615
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [
+                    "InsertionSuccess",
+                    "T"
+                  ],
+                  "callerEvidence": "paired/token-absent",
+                  "form": "unqualified",
+                  "selector": "InsertionSuccess(rowID:rowIDColumn:persistenceContainer:)",
+                  "targetCall": {
+                    "endLine": 673,
+                    "file": "Record/MutablePersistableRecord+Insert.swift",
+                    "line": 670
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [
+                    "InsertionSuccess",
+                    "T"
+                  ],
+                  "trailingClosure": false
+                }
+              ],
+              "sharedWrittenOperationTrial": [
+                {
+                  "anchor": {
+                    "endLine": 522,
+                    "file": "Record/MutablePersistableRecord+Upsert.swift",
+                    "line": 447
+                  },
+                  "anchorCall": {
+                    "endLine": 458,
+                    "file": "Record/MutablePersistableRecord+Upsert.swift",
+                    "line": 458
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [
+                    "InsertionSuccess"
+                  ],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "DAO(_:_:)",
+                  "targetCall": {
+                    "endLine": 652,
+                    "file": "Record/MutablePersistableRecord+Insert.swift",
+                    "line": 652
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [
+                    "InsertionSuccess",
+                    "T"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 522,
+                    "file": "Record/MutablePersistableRecord+Upsert.swift",
+                    "line": 447
+                  },
+                  "anchorCall": {
+                    "endLine": 498,
+                    "file": "Record/MutablePersistableRecord+Upsert.swift",
+                    "line": 495
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [
+                    "InsertionSuccess"
+                  ],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "InsertionSuccess(rowID:rowIDColumn:persistenceContainer:)",
+                  "targetCall": {
+                    "endLine": 673,
+                    "file": "Record/MutablePersistableRecord+Insert.swift",
+                    "line": 670
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [
+                    "InsertionSuccess",
+                    "T"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 621,
+                    "file": "Record/MutablePersistableRecord+Upsert.swift",
+                    "line": 526
+                  },
+                  "anchorCall": {
+                    "endLine": 618,
+                    "file": "Record/MutablePersistableRecord+Upsert.swift",
+                    "line": 615
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [
+                    "InsertionSuccess",
+                    "T"
+                  ],
+                  "callerEvidence": "paired/token-absent",
+                  "form": "unqualified",
+                  "selector": "InsertionSuccess(rowID:rowIDColumn:persistenceContainer:)",
+                  "targetCall": {
+                    "endLine": 673,
+                    "file": "Record/MutablePersistableRecord+Insert.swift",
+                    "line": 670
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [
+                    "InsertionSuccess",
+                    "T"
+                  ],
+                  "trailingClosure": false
+                }
+              ],
+              "site": {
+                "endLine": 675,
+                "file": "Record/MutablePersistableRecord+Insert.swift",
+                "line": 641
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [],
+          "question": "既存insert executorのsuccess組立てとupsert側の反復",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            394,
+            422
+          ],
+          "before": [
+            394,
+            422
+          ],
+          "case": "grdb-swift-1858",
+          "file": "Record/MutablePersistableRecord.swift",
+          "indexedFunctions": [],
+          "indexedProperties": [
+            {
+              "name": "rowID",
+              "site": {
+                "endLine": 411,
+                "file": "Record/MutablePersistableRecord.swift",
+                "line": 411
+              }
+            },
+            {
+              "name": "rowIDColumn",
+              "site": {
+                "endLine": 414,
+                "file": "Record/MutablePersistableRecord.swift",
+                "line": 414
+              }
+            },
+            {
+              "name": "persistenceContainer",
+              "site": {
+                "endLine": 421,
+                "file": "Record/MutablePersistableRecord.swift",
+                "line": 421
+              }
+            }
+          ],
+          "indexedTypes": [
+            {
+              "kind": "struct",
+              "name": "InsertionSuccess",
+              "site": {
+                "endLine": 422,
+                "file": "Record/MutablePersistableRecord.swift",
+                "line": 394
+              }
+            }
+          ],
+          "question": "InsertionSuccessの結果形状と制約",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            145,
+            194
+          ],
+          "before": [
+            145,
+            194
+          ],
+          "case": "grdb-swift-1858",
+          "file": "Record/MutablePersistableRecord.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical/bodyless",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 5,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "willInsert(_:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [],
+              "site": {
+                "endLine": 145,
+                "file": "Record/MutablePersistableRecord.swift",
+                "line": 145
+              }
+            },
+            {
+              "beforeAfter": "token-identical/bodyless",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 3,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "aroundInsert(_:insert:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [],
+              "site": {
+                "endLine": 168,
+                "file": "Record/MutablePersistableRecord.swift",
+                "line": 168
+              }
+            },
+            {
+              "beforeAfter": "token-identical/bodyless",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 5,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "didInsert(_:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [],
+              "site": {
+                "endLine": 194,
+                "file": "Record/MutablePersistableRecord.swift",
+                "line": 194
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [
+            {
+              "kind": "protocol",
+              "name": "MutablePersistableRecord",
+              "site": {
+                "endLine": 313,
+                "file": "Record/MutablePersistableRecord.swift",
+                "line": 128
+              }
+            }
+          ],
+          "question": "mutable callback要件",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            44,
+            83
+          ],
+          "before": [
+            44,
+            83
+          ],
+          "case": "grdb-swift-1858",
+          "file": "Record/PersistableRecord.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical/bodyless",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 5,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "willInsert(_:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [],
+              "site": {
+                "endLine": 54,
+                "file": "Record/PersistableRecord.swift",
+                "line": 54
+              }
+            },
+            {
+              "beforeAfter": "token-identical/bodyless",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 5,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "didInsert(_:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [],
+              "site": {
+                "endLine": 83,
+                "file": "Record/PersistableRecord.swift",
+                "line": 83
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [
+            {
+              "kind": "protocol",
+              "name": "PersistableRecord",
+              "site": {
+                "endLine": 84,
+                "file": "Record/PersistableRecord.swift",
+                "line": 44
+              }
+            }
+          ],
+          "question": "nonmutating callback境界",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            1663,
+            1671
+          ],
+          "before": [
+            1663,
+            1671
+          ],
+          "case": "grdb-swift-1858",
+          "file": "Core/Database+Schema.swift",
+          "indexedFunctions": [],
+          "indexedProperties": [
+            {
+              "name": "rowIDColumn",
+              "site": {
+                "endLine": 1672,
+                "file": "Core/Database+Schema.swift",
+                "line": 1663
+              }
+            }
+          ],
+          "indexedTypes": [
+            {
+              "kind": "struct",
+              "name": "PrimaryKeyInfo",
+              "site": {
+                "endLine": 1729,
+                "file": "Core/Database+Schema.swift",
+                "line": 1609
+              }
+            }
+          ],
+          "question": "rowIDColumnの意味とhidden rowID",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            1689,
+            1698
+          ],
+          "before": [
+            1689,
+            1698
+          ],
+          "case": "grdb-swift-1858",
+          "file": "Core/Database+Schema.swift",
+          "indexedFunctions": [],
+          "indexedProperties": [
+            {
+              "name": "tableHasRowID",
+              "site": {
+                "endLine": 1698,
+                "file": "Core/Database+Schema.swift",
+                "line": 1689
+              }
+            }
+          ],
+          "indexedTypes": [
+            {
+              "kind": "struct",
+              "name": "PrimaryKeyInfo",
+              "site": {
+                "endLine": 1729,
+                "file": "Core/Database+Schema.swift",
+                "line": 1609
+              }
+            }
+          ],
+          "question": "tableHasRowIDの実際の判定条件",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            246,
+            275
+          ],
+          "before": [
+            246,
+            275
+          ],
+          "case": "grdb-swift-1858",
+          "file": "Record/MutablePersistableRecord+DAO.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 1,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "makeStatement(sql:checkedArguments:returning:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [],
+              "site": {
+                "endLine": 275,
+                "file": "Record/MutablePersistableRecord+DAO.swift",
+                "line": 246
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [
+            {
+              "kind": "class",
+              "name": "DAO",
+              "site": {
+                "endLine": 276,
+                "file": "Record/MutablePersistableRecord+DAO.swift",
+                "line": 2
+              }
+            }
+          ],
+          "question": "候補SQL宣言から更に必要なRETURNING rendererへ辿れるか",
+          "selectedContextOverlaps": []
+        }
+      ],
+      "omittedEntries": 0,
+      "omittedTargets": 0,
+      "selectedContexts": 1
+    },
+    "grdb-swift-1864": {
+      "diagnosticAnchorFunctions": 3,
+      "needs": [
+        {
+          "after": [
+            264,
+            275
+          ],
+          "before": [
+            264,
+            275
+          ],
+          "case": "grdb-swift-1864",
+          "file": "Core/TransactionObserver.swift",
+          "indexedFunctions": [],
+          "indexedProperties": [
+            {
+              "name": "statementObservations",
+              "site": {
+                "endLine": 276,
+                "file": "Core/TransactionObserver.swift",
+                "line": 264
+              }
+            }
+          ],
+          "indexedTypes": [
+            {
+              "kind": "class",
+              "name": "DatabaseObservationBroker",
+              "site": {
+                "endLine": 752,
+                "file": "Core/TransactionObserver.swift",
+                "line": 247
+              }
+            }
+          ],
+          "question": "update hookを管理するproperty境界",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            132,
+            155
+          ],
+          "before": [
+            132,
+            155
+          ],
+          "case": "grdb-swift-1864",
+          "file": "Core/StatementAuthorizer.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 1,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "authorize(_:_:_:_:_:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [],
+              "site": {
+                "endLine": 212,
+                "file": "Core/StatementAuthorizer.swift",
+                "line": 82
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [
+            {
+              "kind": "class",
+              "name": "StatementAuthorizer",
+              "site": {
+                "endLine": 225,
+                "file": "Core/StatementAuthorizer.swift",
+                "line": 31
+              }
+            }
+          ],
+          "question": "authorizer deletion経路の既存方針",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            451,
+            489
+          ],
+          "before": [
+            498,
+            536
+          ],
+          "case": "grdb-swift-1864",
+          "file": "Core/TransactionObserver.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 4,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "databaseWillChange(with:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [],
+              "site": {
+                "endLine": 464,
+                "file": "Core/TransactionObserver.swift",
+                "line": 452
+              }
+            },
+            {
+              "beforeAfter": "token-identical",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 6,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "databaseDidChange(with:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [],
+              "site": {
+                "endLine": 489,
+                "file": "Core/TransactionObserver.swift",
+                "line": 468
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [
+            {
+              "kind": "class",
+              "name": "DatabaseObservationBroker",
+              "site": {
+                "endLine": 752,
+                "file": "Core/TransactionObserver.swift",
+                "line": 247
+              }
+            }
+          ],
+          "question": "即時event deliveryの既存predicate利用",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            650,
+            658
+          ],
+          "before": [
+            697,
+            705
+          ],
+          "case": "grdb-swift-1864",
+          "file": "Core/TransactionObserver.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 1,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "notifyBufferedEvents()",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [],
+              "site": {
+                "endLine": 660,
+                "file": "Core/TransactionObserver.swift",
+                "line": 604
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [
+            {
+              "kind": "class",
+              "name": "DatabaseObservationBroker",
+              "site": {
+                "endLine": 752,
+                "file": "Core/TransactionObserver.swift",
+                "line": 247
+              }
+            }
+          ],
+          "question": "buffered event deliveryの既存predicate利用",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            1147,
+            1164
+          ],
+          "before": [
+            1056,
+            1073
+          ],
+          "case": "grdb-swift-1864",
+          "file": "Core/TransactionObserver.swift",
+          "indexedFunctions": [],
+          "indexedProperties": [
+            {
+              "name": "transactionObservation",
+              "site": {
+                "endLine": 1150,
+                "file": "Core/TransactionObserver.swift",
+                "line": 1150
+              }
+            },
+            {
+              "name": "tracksEvent",
+              "site": {
+                "endLine": 1159,
+                "file": "Core/TransactionObserver.swift",
+                "line": 1159
+              }
+            }
+          ],
+          "indexedTypes": [
+            {
+              "kind": "struct",
+              "name": "StatementObservation",
+              "site": {
+                "endLine": 1165,
+                "file": "Core/TransactionObserver.swift",
+                "line": 1149
+              }
+            }
+          ],
+          "question": "StatementObservationが保持する関係",
+          "selectedContextOverlaps": []
+        }
+      ],
+      "omittedEntries": 0,
+      "omittedTargets": 0,
+      "selectedContexts": 0
+    },
+    "swift-collections-724": {
+      "diagnosticAnchorFunctions": 25,
+      "needs": [
+        {
+          "after": [
+            55,
+            81
+          ],
+          "before": [
+            55,
+            81
+          ],
+          "case": "swift-collections-724",
+          "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 3,
+              "sameWrittenHeaderNameFamilyAnchors": [
+                {
+                  "endLine": 169,
+                  "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                  "line": 143
+                },
+                {
+                  "endLine": 34,
+                  "file": "SpanPreview/OutputSpan+InputSpanHelpers.swift",
+                  "line": 21
+                }
+              ],
+              "selector": "_append(moving:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [
+                {
+                  "anchor": {
+                    "endLine": 144,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 113
+                  },
+                  "anchorCall": {
+                    "endLine": 138,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 138
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 62,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 62
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 168,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 146
+                  },
+                  "anchorCall": {
+                    "endLine": 160,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 158
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 62,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 62
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 228,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 206
+                  },
+                  "anchorCall": {
+                    "endLine": 219,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 219
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 62,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 62
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 35,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 19
+                  },
+                  "anchorCall": {
+                    "endLine": 34,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 26
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [
+                    "R"
+                  ],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "member",
+                  "selector": "withUnsafeMutableBufferPointer()",
+                  "targetCall": {
+                    "endLine": 67,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 60
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": true
+                },
+                {
+                  "anchor": {
+                    "endLine": 35,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 19
+                  },
+                  "anchorCall": {
+                    "endLine": 31,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 31
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [
+                    "R"
+                  ],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 62,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 62
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 72,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 39
+                  },
+                  "anchorCall": {
+                    "endLine": 71,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 52
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "member",
+                  "selector": "withUnsafeMutableBufferPointer()",
+                  "targetCall": {
+                    "endLine": 67,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 60
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": true
+                },
+                {
+                  "anchor": {
+                    "endLine": 72,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 39
+                  },
+                  "anchorCall": {
+                    "endLine": 47,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 45
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 62,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 62
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 104,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 76
+                  },
+                  "anchorCall": {
+                    "endLine": 103,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 86
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "member",
+                  "selector": "withUnsafeMutableBufferPointer()",
+                  "targetCall": {
+                    "endLine": 67,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 60
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": true
+                },
+                {
+                  "anchor": {
+                    "endLine": 104,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 76
+                  },
+                  "anchorCall": {
+                    "endLine": 84,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 82
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 62,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 62
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 129,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 110
+                  },
+                  "anchorCall": {
+                    "endLine": 128,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 122
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "member",
+                  "selector": "withUnsafeMutableBufferPointer()",
+                  "targetCall": {
+                    "endLine": 67,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 60
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": true
+                },
+                {
+                  "anchor": {
+                    "endLine": 129,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 110
+                  },
+                  "anchorCall": {
+                    "endLine": 118,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 116
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 62,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 62
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 147,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 132
+                  },
+                  "anchorCall": {
+                    "endLine": 145,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 140
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "member",
+                  "selector": "withUnsafeMutableBufferPointer()",
+                  "targetCall": {
+                    "endLine": 67,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 60
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": true
+                },
+                {
+                  "anchor": {
+                    "endLine": 147,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 132
+                  },
+                  "anchorCall": {
+                    "endLine": 139,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 137
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 62,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 62
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 169,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 143
+                  },
+                  "anchorCall": {
+                    "endLine": 157,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 157
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [
+                    "R"
+                  ],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 62,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 62
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 56,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 22
+                  },
+                  "anchorCall": {
+                    "endLine": 55,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 36
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "member",
+                  "selector": "withUnsafeMutableBufferPointer()",
+                  "targetCall": {
+                    "endLine": 67,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 60
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": true
+                },
+                {
+                  "anchor": {
+                    "endLine": 56,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 22
+                  },
+                  "anchorCall": {
+                    "endLine": 31,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 29
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 62,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 62
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 88,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 59
+                  },
+                  "anchorCall": {
+                    "endLine": 87,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 70
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "member",
+                  "selector": "withUnsafeMutableBufferPointer()",
+                  "targetCall": {
+                    "endLine": 67,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 60
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": true
+                },
+                {
+                  "anchor": {
+                    "endLine": 88,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 59
+                  },
+                  "anchorCall": {
+                    "endLine": 68,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 66
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 62,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 62
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": false
+                }
+              ],
+              "site": {
+                "endLine": 68,
+                "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                "line": 52
+              }
+            },
+            {
+              "beforeAfter": "token-identical",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 3,
+              "sameWrittenHeaderNameFamilyAnchors": [
+                {
+                  "endLine": 169,
+                  "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                  "line": 143
+                },
+                {
+                  "endLine": 34,
+                  "file": "SpanPreview/OutputSpan+InputSpanHelpers.swift",
+                  "line": 21
+                }
+              ],
+              "selector": "_append(moving:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [
+                {
+                  "anchor": {
+                    "endLine": 35,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 19
+                  },
+                  "anchorCall": {
+                    "endLine": 34,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 26
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [
+                    "R"
+                  ],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "member",
+                  "selector": "withUnsafeMutableBufferPointer()",
+                  "targetCall": {
+                    "endLine": 80,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 76
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": true
+                },
+                {
+                  "anchor": {
+                    "endLine": 72,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 39
+                  },
+                  "anchorCall": {
+                    "endLine": 71,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 52
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "member",
+                  "selector": "withUnsafeMutableBufferPointer()",
+                  "targetCall": {
+                    "endLine": 80,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 76
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": true
+                },
+                {
+                  "anchor": {
+                    "endLine": 104,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 76
+                  },
+                  "anchorCall": {
+                    "endLine": 103,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 86
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "member",
+                  "selector": "withUnsafeMutableBufferPointer()",
+                  "targetCall": {
+                    "endLine": 80,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 76
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": true
+                },
+                {
+                  "anchor": {
+                    "endLine": 129,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 110
+                  },
+                  "anchorCall": {
+                    "endLine": 128,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 122
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "member",
+                  "selector": "withUnsafeMutableBufferPointer()",
+                  "targetCall": {
+                    "endLine": 80,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 76
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": true
+                },
+                {
+                  "anchor": {
+                    "endLine": 147,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 132
+                  },
+                  "anchorCall": {
+                    "endLine": 145,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 140
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "member",
+                  "selector": "withUnsafeMutableBufferPointer()",
+                  "targetCall": {
+                    "endLine": 80,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 76
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": true
+                },
+                {
+                  "anchor": {
+                    "endLine": 56,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 22
+                  },
+                  "anchorCall": {
+                    "endLine": 55,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 36
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "member",
+                  "selector": "withUnsafeMutableBufferPointer()",
+                  "targetCall": {
+                    "endLine": 80,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 76
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": true
+                },
+                {
+                  "anchor": {
+                    "endLine": 88,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 59
+                  },
+                  "anchorCall": {
+                    "endLine": 87,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 70
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "member",
+                  "selector": "withUnsafeMutableBufferPointer()",
+                  "targetCall": {
+                    "endLine": 80,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 76
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": true
+                }
+              ],
+              "site": {
+                "endLine": 81,
+                "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                "line": 70
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [],
+          "question": "既存のraw appendとOutputSpan adapterをどう分けているか",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            25,
+            33
+          ],
+          "before": [
+            25,
+            33
+          ],
+          "case": "swift-collections-724",
+          "file": "SpanPreview/OutputSpan+InputSpanHelpers.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "changed-declaration/body-identical",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 3,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "_append(moving:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [],
+              "site": {
+                "endLine": 34,
+                "file": "SpanPreview/OutputSpan+InputSpanHelpers.swift",
+                "line": 21
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [],
+          "question": "既存InputSpan adapterは共通処理へどう接続するか。宣言とbodyの不変を分ける",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            203,
+            214
+          ],
+          "before": [
+            203,
+            214
+          ],
+          "case": "swift-collections-724",
+          "file": "SpanPreview/InputSpan.swift",
+          "indexedFunctions": [],
+          "indexedProperties": [],
+          "indexedTypes": [],
+          "question": "InputSpanの初期化済み領域の不変条件",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            556,
+            605
+          ],
+          "before": [
+            556,
+            605
+          ],
+          "case": "swift-collections-724",
+          "file": "SpanPreview/InputSpan.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 2,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "withUnsafeMutableBufferPointer(_:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [
+                {
+                  "anchor": {
+                    "endLine": 144,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 113
+                  },
+                  "anchorCall": {
+                    "endLine": 138,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 138
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 585,
+                    "file": "SpanPreview/InputSpan.swift",
+                    "line": 585
+                  },
+                  "targetOccurrences": 2,
+                  "targetReturnNames": [
+                    "R"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 168,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 146
+                  },
+                  "anchorCall": {
+                    "endLine": 160,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 158
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 585,
+                    "file": "SpanPreview/InputSpan.swift",
+                    "line": 585
+                  },
+                  "targetOccurrences": 2,
+                  "targetReturnNames": [
+                    "R"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 228,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 206
+                  },
+                  "anchorCall": {
+                    "endLine": 219,
+                    "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                    "line": 219
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 585,
+                    "file": "SpanPreview/InputSpan.swift",
+                    "line": 585
+                  },
+                  "targetOccurrences": 2,
+                  "targetReturnNames": [
+                    "R"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 35,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 19
+                  },
+                  "anchorCall": {
+                    "endLine": 31,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 31
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [
+                    "R"
+                  ],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 585,
+                    "file": "SpanPreview/InputSpan.swift",
+                    "line": 585
+                  },
+                  "targetOccurrences": 2,
+                  "targetReturnNames": [
+                    "R"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 72,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 39
+                  },
+                  "anchorCall": {
+                    "endLine": 47,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 45
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 585,
+                    "file": "SpanPreview/InputSpan.swift",
+                    "line": 585
+                  },
+                  "targetOccurrences": 2,
+                  "targetReturnNames": [
+                    "R"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 104,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 76
+                  },
+                  "anchorCall": {
+                    "endLine": 84,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 82
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 585,
+                    "file": "SpanPreview/InputSpan.swift",
+                    "line": 585
+                  },
+                  "targetOccurrences": 2,
+                  "targetReturnNames": [
+                    "R"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 129,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 110
+                  },
+                  "anchorCall": {
+                    "endLine": 118,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 116
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 585,
+                    "file": "SpanPreview/InputSpan.swift",
+                    "line": 585
+                  },
+                  "targetOccurrences": 2,
+                  "targetReturnNames": [
+                    "R"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 147,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 132
+                  },
+                  "anchorCall": {
+                    "endLine": 139,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 137
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 585,
+                    "file": "SpanPreview/InputSpan.swift",
+                    "line": 585
+                  },
+                  "targetOccurrences": 2,
+                  "targetReturnNames": [
+                    "R"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 169,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 143
+                  },
+                  "anchorCall": {
+                    "endLine": 157,
+                    "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+                    "line": 157
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [
+                    "R"
+                  ],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 585,
+                    "file": "SpanPreview/InputSpan.swift",
+                    "line": 585
+                  },
+                  "targetOccurrences": 2,
+                  "targetReturnNames": [
+                    "R"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 56,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 22
+                  },
+                  "anchorCall": {
+                    "endLine": 31,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 29
+                  },
+                  "anchorOccurrences": 2,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 585,
+                    "file": "SpanPreview/InputSpan.swift",
+                    "line": 585
+                  },
+                  "targetOccurrences": 2,
+                  "targetReturnNames": [
+                    "R"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 88,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 59
+                  },
+                  "anchorCall": {
+                    "endLine": 68,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 66
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:_:)",
+                  "targetCall": {
+                    "endLine": 585,
+                    "file": "SpanPreview/InputSpan.swift",
+                    "line": 585
+                  },
+                  "targetOccurrences": 2,
+                  "targetReturnNames": [
+                    "R"
+                  ],
+                  "trailingClosure": false
+                }
+              ],
+              "site": {
+                "endLine": 606,
+                "file": "SpanPreview/InputSpan.swift",
+                "line": 573
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [],
+          "question": "InputSpanのbuffer/lifetime契約",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            30,
+            41
+          ],
+          "before": [
+            30,
+            41
+          ],
+          "case": "swift-collections-724",
+          "file": "ContainersPreview/Protocols/Container/MutableContainer.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical/bodyless",
+              "eligibleExactMemberOccurrences": 2,
+              "exactMemberSites": [
+                {
+                  "endLine": 67,
+                  "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                  "line": 67
+                },
+                {
+                  "endLine": 186,
+                  "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                  "line": 186
+                }
+              ],
+              "sameSelectorDeclarations": 8,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "nextMutableSpan(after:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [],
+              "site": {
+                "endLine": 31,
+                "file": "ContainersPreview/Protocols/Container/MutableContainer.swift",
+                "line": 30
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [
+            {
+              "kind": "protocol",
+              "name": "MutableContainer",
+              "site": {
+                "endLine": 102,
+                "file": "ContainersPreview/Protocols/Container/MutableContainer.swift",
+                "line": 16
+              }
+            }
+          ],
+          "question": "更新処理が前提にするmutable span取得の要件",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            85,
+            101
+          ],
+          "before": [
+            85,
+            101
+          ],
+          "case": "swift-collections-724",
+          "file": "ContainersPreview/Protocols/Container/MutableContainer.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical/bodyless",
+              "eligibleExactMemberOccurrences": 1,
+              "exactMemberSites": [
+                {
+                  "endLine": 128,
+                  "file": "ContainersPreview/Protocols/Container/MutableContainer+UpdateSubrange.swift",
+                  "line": 125
+                }
+              ],
+              "sameSelectorDeclarations": 8,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "nextMutableSpan(after:maxCount:limitedBy:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [],
+              "site": {
+                "endLine": 101,
+                "file": "ContainersPreview/Protocols/Container/MutableContainer.swift",
+                "line": 96
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [
+            {
+              "kind": "protocol",
+              "name": "MutableContainer",
+              "site": {
+                "endLine": 102,
+                "file": "ContainersPreview/Protocols/Container/MutableContainer.swift",
+                "line": 16
+              }
+            }
+          ],
+          "question": "chunk走査の要件を便利wrapperだけで説明しない",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            17,
+            20
+          ],
+          "before": [
+            17,
+            20
+          ],
+          "case": "swift-collections-724",
+          "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical",
+              "eligibleExactMemberOccurrences": 8,
+              "exactMemberSites": [
+                {
+                  "endLine": 61,
+                  "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                  "line": 61
+                },
+                {
+                  "endLine": 62,
+                  "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                  "line": 62
+                },
+                {
+                  "endLine": 93,
+                  "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                  "line": 93
+                },
+                {
+                  "endLine": 94,
+                  "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                  "line": 94
+                },
+                {
+                  "endLine": 45,
+                  "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                  "line": 45
+                },
+                {
+                  "endLine": 46,
+                  "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                  "line": 46
+                },
+                {
+                  "endLine": 77,
+                  "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                  "line": 77
+                },
+                {
+                  "endLine": 78,
+                  "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                  "line": 78
+                }
+              ],
+              "sameSelectorDeclarations": 3,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "_ptr(at:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [
+                {
+                  "anchor": {
+                    "endLine": 104,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 76
+                  },
+                  "anchorCall": {
+                    "endLine": 91,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 91
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "assert(_:)",
+                  "targetCall": {
+                    "endLine": 18,
+                    "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+                    "line": 18
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [
+                    "Element",
+                    "UnsafeMutablePointer"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 88,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 59
+                  },
+                  "anchorCall": {
+                    "endLine": 75,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 75
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "assert(_:)",
+                  "targetCall": {
+                    "endLine": 18,
+                    "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+                    "line": 18
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [
+                    "Element",
+                    "UnsafeMutablePointer"
+                  ],
+                  "trailingClosure": false
+                }
+              ],
+              "site": {
+                "endLine": 20,
+                "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+                "line": 15
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [],
+          "question": "raw pointer propertyへの表記上の接点",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            177,
+            187
+          ],
+          "before": [
+            177,
+            187
+          ],
+          "case": "swift-collections-724",
+          "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 1,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "_moveInitializePrefix(from:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [
+                {
+                  "anchor": {
+                    "endLine": 72,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 39
+                  },
+                  "anchorCall": {
+                    "endLine": 59,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 59
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:)",
+                  "targetCall": {
+                    "endLine": 183,
+                    "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+                    "line": 183
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [
+                    "Int"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 129,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 110
+                  },
+                  "anchorCall": {
+                    "endLine": 126,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 126
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:)",
+                  "targetCall": {
+                    "endLine": 183,
+                    "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+                    "line": 183
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [
+                    "Int"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 147,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 132
+                  },
+                  "anchorCall": {
+                    "endLine": 146,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 146
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:)",
+                  "targetCall": {
+                    "endLine": 183,
+                    "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+                    "line": 183
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [
+                    "Int"
+                  ],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 56,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 22
+                  },
+                  "anchorCall": {
+                    "endLine": 43,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 43
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "precondition(_:)",
+                  "targetCall": {
+                    "endLine": 183,
+                    "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+                    "line": 183
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [
+                    "Int"
+                  ],
+                  "trailingClosure": false
+                }
+              ],
+              "site": {
+                "endLine": 187,
+                "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+                "line": 178
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [],
+          "question": "transfer utilityの既存配置",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            339,
+            344
+          ],
+          "before": [
+            339,
+            344
+          ],
+          "case": "swift-collections-724",
+          "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+          "indexedFunctions": [
+            {
+              "beforeAfter": "token-identical",
+              "eligibleExactMemberOccurrences": 0,
+              "exactMemberSites": [],
+              "sameSelectorDeclarations": 4,
+              "sameWrittenHeaderNameFamilyAnchors": [],
+              "selector": "moveInitializeAll(fromContentsOf:)",
+              "sharedIndexedReturnNameTrial": [],
+              "sharedWrittenOperationTrial": [
+                {
+                  "anchor": {
+                    "endLine": 104,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 76
+                  },
+                  "anchorCall": {
+                    "endLine": 91,
+                    "file": "InternalCollectionsUtilities/MutableSpan+Extras.swift",
+                    "line": 91
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "assert(_:)",
+                  "targetCall": {
+                    "endLine": 343,
+                    "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+                    "line": 343
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": false
+                },
+                {
+                  "anchor": {
+                    "endLine": 88,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 59
+                  },
+                  "anchorCall": {
+                    "endLine": 75,
+                    "file": "SpanPreview/MutableSpan+InputSpanHelpers.swift",
+                    "line": 75
+                  },
+                  "anchorOccurrences": 1,
+                  "anchorReturnNames": [],
+                  "callerEvidence": "no-unique-old-correspondence",
+                  "form": "unqualified",
+                  "selector": "assert(_:)",
+                  "targetCall": {
+                    "endLine": 343,
+                    "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+                    "line": 343
+                  },
+                  "targetOccurrences": 1,
+                  "targetReturnNames": [],
+                  "trailingClosure": false
+                }
+              ],
+              "site": {
+                "endLine": 344,
+                "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+                "line": 340
+              }
+            }
+          ],
+          "indexedProperties": [],
+          "indexedTypes": [],
+          "question": "initialized count操作の既存配置",
+          "selectedContextOverlaps": []
+        },
+        {
+          "after": [
+            90,
+            111
+          ],
+          "before": [
+            90,
+            111
+          ],
+          "case": "swift-collections-724",
+          "file": "ContainersPreview/Protocols/Producer/Producer.swift",
+          "indexedFunctions": [],
+          "indexedProperties": [],
+          "indexedTypes": [
+            {
+              "kind": "protocol",
+              "name": "Producer",
+              "site": {
+                "endLine": 190,
+                "file": "ContainersPreview/Protocols/Producer/Producer.swift",
+                "line": 34
+              }
+            }
+          ],
+          "question": "部分失敗時のproducer契約",
+          "selectedContextOverlaps": []
+        }
+      ],
+      "omittedEntries": 0,
+      "omittedTargets": 0,
+      "selectedContexts": 4
+    },
+    "swift-collections-725": {
+      "diagnosticAnchorFunctions": 0,
+      "needs": [],
+      "omittedEntries": 0,
+      "omittedTargets": 0,
+      "selectedContexts": 0
+    }
+  },
+  "meaning": "Known position diagnostic and trial spelling relations. Not a callee, duplication, coverage or usefulness verdict. No source tokens emitted."
+}

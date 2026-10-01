@@ -1,0 +1,307 @@
+{
+  "meaning": "Known #87 reviewer/source-required positions, fixed before this diagnostic. Not a ground-truth recall set or new benefit evaluation. Paths relative to manifest sourcePrefix.",
+  "negativeCases": [
+    "swift-collections-725"
+  ],
+  "needs": [
+    {
+      "case": "swift-collections-724",
+      "file": "InternalCollectionsUtilities/OutputSpan+Extras.swift",
+      "before": [
+        55,
+        81
+      ],
+      "after": [
+        55,
+        81
+      ],
+      "question": "既存のraw appendとOutputSpan adapterをどう分けているか"
+    },
+    {
+      "case": "swift-collections-724",
+      "file": "SpanPreview/OutputSpan+InputSpanHelpers.swift",
+      "before": [
+        25,
+        33
+      ],
+      "after": [
+        25,
+        33
+      ],
+      "question": "既存InputSpan adapterは共通処理へどう接続するか。宣言とbodyの不変を分ける"
+    },
+    {
+      "case": "swift-collections-724",
+      "file": "SpanPreview/InputSpan.swift",
+      "before": [
+        203,
+        214
+      ],
+      "after": [
+        203,
+        214
+      ],
+      "question": "InputSpanの初期化済み領域の不変条件"
+    },
+    {
+      "case": "swift-collections-724",
+      "file": "SpanPreview/InputSpan.swift",
+      "before": [
+        556,
+        605
+      ],
+      "after": [
+        556,
+        605
+      ],
+      "question": "InputSpanのbuffer/lifetime契約"
+    },
+    {
+      "case": "swift-collections-724",
+      "file": "ContainersPreview/Protocols/Container/MutableContainer.swift",
+      "before": [
+        30,
+        41
+      ],
+      "after": [
+        30,
+        41
+      ],
+      "question": "更新処理が前提にするmutable span取得の要件"
+    },
+    {
+      "case": "swift-collections-724",
+      "file": "ContainersPreview/Protocols/Container/MutableContainer.swift",
+      "before": [
+        85,
+        101
+      ],
+      "after": [
+        85,
+        101
+      ],
+      "question": "chunk走査の要件を便利wrapperだけで説明しない"
+    },
+    {
+      "case": "swift-collections-724",
+      "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+      "before": [
+        17,
+        20
+      ],
+      "after": [
+        17,
+        20
+      ],
+      "question": "raw pointer propertyへの表記上の接点"
+    },
+    {
+      "case": "swift-collections-724",
+      "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+      "before": [
+        177,
+        187
+      ],
+      "after": [
+        177,
+        187
+      ],
+      "question": "transfer utilityの既存配置"
+    },
+    {
+      "case": "swift-collections-724",
+      "file": "InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+      "before": [
+        339,
+        344
+      ],
+      "after": [
+        339,
+        344
+      ],
+      "question": "initialized count操作の既存配置"
+    },
+    {
+      "case": "swift-collections-724",
+      "file": "ContainersPreview/Protocols/Producer/Producer.swift",
+      "before": [
+        90,
+        111
+      ],
+      "after": [
+        90,
+        111
+      ],
+      "question": "部分失敗時のproducer契約"
+    },
+    {
+      "case": "grdb-swift-1858",
+      "file": "Record/MutablePersistableRecord+Insert.swift",
+      "before": [
+        599,
+        609
+      ],
+      "after": [
+        599,
+        609
+      ],
+      "question": "plain insertが既存fetch実行へ渡す先例"
+    },
+    {
+      "case": "grdb-swift-1858",
+      "file": "Record/MutablePersistableRecord+Insert.swift",
+      "before": [
+        642,
+        675
+      ],
+      "after": [
+        642,
+        675
+      ],
+      "question": "既存insert executorのsuccess組立てとupsert側の反復"
+    },
+    {
+      "case": "grdb-swift-1858",
+      "file": "Record/MutablePersistableRecord.swift",
+      "before": [
+        394,
+        422
+      ],
+      "after": [
+        394,
+        422
+      ],
+      "question": "InsertionSuccessの結果形状と制約"
+    },
+    {
+      "case": "grdb-swift-1858",
+      "file": "Record/MutablePersistableRecord.swift",
+      "before": [
+        145,
+        194
+      ],
+      "after": [
+        145,
+        194
+      ],
+      "question": "mutable callback要件"
+    },
+    {
+      "case": "grdb-swift-1858",
+      "file": "Record/PersistableRecord.swift",
+      "before": [
+        44,
+        83
+      ],
+      "after": [
+        44,
+        83
+      ],
+      "question": "nonmutating callback境界"
+    },
+    {
+      "case": "grdb-swift-1858",
+      "file": "Core/Database+Schema.swift",
+      "before": [
+        1663,
+        1671
+      ],
+      "after": [
+        1663,
+        1671
+      ],
+      "question": "rowIDColumnの意味とhidden rowID"
+    },
+    {
+      "case": "grdb-swift-1858",
+      "file": "Core/Database+Schema.swift",
+      "before": [
+        1689,
+        1698
+      ],
+      "after": [
+        1689,
+        1698
+      ],
+      "question": "tableHasRowIDの実際の判定条件"
+    },
+    {
+      "case": "grdb-swift-1858",
+      "file": "Record/MutablePersistableRecord+DAO.swift",
+      "before": [
+        246,
+        275
+      ],
+      "after": [
+        246,
+        275
+      ],
+      "question": "候補SQL宣言から更に必要なRETURNING rendererへ辿れるか"
+    },
+    {
+      "case": "grdb-swift-1864",
+      "file": "Core/TransactionObserver.swift",
+      "before": [
+        264,
+        275
+      ],
+      "after": [
+        264,
+        275
+      ],
+      "question": "update hookを管理するproperty境界"
+    },
+    {
+      "case": "grdb-swift-1864",
+      "file": "Core/StatementAuthorizer.swift",
+      "before": [
+        132,
+        155
+      ],
+      "after": [
+        132,
+        155
+      ],
+      "question": "authorizer deletion経路の既存方針"
+    },
+    {
+      "case": "grdb-swift-1864",
+      "file": "Core/TransactionObserver.swift",
+      "before": [
+        498,
+        536
+      ],
+      "after": [
+        451,
+        489
+      ],
+      "question": "即時event deliveryの既存predicate利用"
+    },
+    {
+      "case": "grdb-swift-1864",
+      "file": "Core/TransactionObserver.swift",
+      "before": [
+        697,
+        705
+      ],
+      "after": [
+        650,
+        658
+      ],
+      "question": "buffered event deliveryの既存predicate利用"
+    },
+    {
+      "case": "grdb-swift-1864",
+      "file": "Core/TransactionObserver.swift",
+      "before": [
+        1056,
+        1073
+      ],
+      "after": [
+        1147,
+        1164
+      ],
+      "question": "StatementObservationが保持する関係"
+    }
+  ]
+}
