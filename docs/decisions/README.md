@@ -59,7 +59,7 @@
 | [0040](0040-reach-before-integration.md) | 未到達は入力非対応と検索条件を分け、入口を見直す | 採用・extension block対応は0041へ置換 |
 | [0041](0041-written-member-relations.md) | 旧callerの対応とmember表記の関係を分け、一意な宣言キーから確認先へ辿る | 実験採用 |
 | [0042](0042-context-evidence-provenance.md) | 配置の問いを根拠の出所へ戻して評価し、条件付き表記は字句条件を示す | M2継続・本番保留 |
-
 | [0043](0043-written-conditional-context.md) | 条件付きの接点は選択節/先行節の表記と位置を添え、異条件を別集約にする | M2実験 |
+| [0044](0044-existing-result-producers.md) | call先だけでは先例へ届かない場合、戻り値名/call表記を使う既存producerを比較先として試す | M2仮説 |
 
 0001〜0006は2026-09-06に、会話・既存実装（`691d82e`, `f7ccc3b`）・検証記録から遡及記録した。過去の全実装詳細を網羅した議事録ではない。今後は判断をした変更の中で記録する。
