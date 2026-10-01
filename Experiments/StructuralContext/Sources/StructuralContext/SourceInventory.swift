@@ -231,18 +231,16 @@ private final class InventoryReader: SyntaxVisitor {
       headerTokens: "", site: site(tree, name: file))
     frames = [scope]; scopes = [scope]; scopeKeys = [scope.id]
   }
-  func clauses(_ syntax: some SyntaxProtocol) -> [IfConfigClauseSyntax] {
-    WrittenConditionalContext.clauses(syntax)
+  func guards(_ syntax: some SyntaxProtocol) -> [[String]] {
+    WrittenConditionalContext.clauses(syntax).map(WrittenConditionalContext.conditionPrefix)
   }
-  func conditionPrefix(_ clause: IfConfigClauseSyntax) -> [String] {
-    WrittenConditionalContext.conditionPrefix(clause)
+  func guardKeys(_ syntax: some SyntaxProtocol) -> [String] {
+    WrittenConditionalContext.clauses(syntax).compactMap { branchKeys[$0.id] }
   }
-  func guards(_ syntax: some SyntaxProtocol) -> [[String]] { clauses(syntax).map(conditionPrefix) }
-  func guardKeys(_ syntax: some SyntaxProtocol) -> [String] { clauses(syntax).compactMap { branchKeys[$0.id] } }
   override func visit(_ node: IfConfigDeclSyntax) -> SyntaxVisitorContinueKind {
     let outer = guards(node).map(inventoryKey)
     for clause in node.clauses {
-      let key = inventoryKey([frames.last!.id, "branch"] + outer + [inventoryKey(conditionPrefix(clause))])
+      let key = inventoryKey([frames.last!.id, "branch"] + outer + [inventoryKey(WrittenConditionalContext.conditionPrefix(clause))])
       branchKeys[clause.id] = key; scopeKeys.append(key)
     }
     return .visitChildren
