@@ -136,6 +136,38 @@ with tempfile.TemporaryDirectory(prefix='sekka-member-spelling-') as directory:
     results.append({'case': 'member-spelling-unknown-caller', 'report': report})
     text_samples.append('Case: member-spelling-unknown-caller\n' + text)
 
+# Conditional paths must remain beside the written relation, without evaluating activation.
+with tempfile.TemporaryDirectory(prefix='sekka-written-conditions-') as directory:
+    root = Path(directory)
+    for side in ['before', 'after']:
+        folder = root / side; folder.mkdir()
+        (folder / 'Helper.swift').write_text('extension Helper { func clean(_ value: Int) {} }')
+        (folder / 'Caller.swift').write_text('' if side == 'before' else '''#if OUTER
+func run() {
+#if false
+  helper.clean(0)
+#else
+  helper.clean(0)
+#endif
+  helper.clean(0)
+}
+#endif
+''')
+    report = run(root / 'before', root / 'after')
+    assert len(report['contexts']) == 1
+    entries = [e['memberSpelling']['evidence'] for e in report['contexts'][0]['entries']]
+    assert len(entries) == 3 and all(e['eligibleOccurrences'] == 1 for e in entries)
+    paths = [e['call']['writtenConditions'] for e in entries]
+    assert [len(p) for p in paths] == [2, 2, 1]
+    assert paths[0][1]['selected']['condition'] == 'false'
+    assert paths[1][1]['selected']['keyword'] == '#else'
+    assert paths[1][1]['preceding'][0]['condition'] == 'false'
+    assert paths[0][1]['selected']['site']['line'] == 3
+    text = subprocess.check_output([binary, str(root / 'before'), str(root / 'after'), '--text']).decode()
+    assert '#if false [Caller.swift:3]' in text and '有効節未判定' in text
+    results.append({'case': 'written-conditional-context', 'report': report})
+    text_samples.append('Case: written-conditional-context\n' + text)
+
 # Already-known fact controls; these do not measure review benefit.
 fixture_path = Path(__file__).resolve().parents[2] / 'Fixtures/structural-reconsideration/cases.json'
 expected_entries = {'dispatch-spread': 3, 'dispatch-growth': 2, 'single-site': 1,

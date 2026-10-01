@@ -165,7 +165,7 @@ public struct MemberLookup: Codable, Sendable {
   static func unknown(_ reason: String) -> Self { Self(evidence: nil, reason: reason) }
 }
 
-private func inventoryTokens(_ node: some SyntaxProtocol) -> String {
+func inventoryTokens(_ node: some SyntaxProtocol) -> String {
   node.tokens(viewMode: .sourceAccurate).map(\.text).joined(separator: " ")
 }
 private func inventorySelector(_ node: FunctionDeclSyntax) -> String {
@@ -231,29 +231,16 @@ private final class InventoryReader: SyntaxVisitor {
       headerTokens: "", site: site(tree, name: file))
     frames = [scope]; scopes = [scope]; scopeKeys = [scope.id]
   }
-  func clauses(_ syntax: some SyntaxProtocol) -> [IfConfigClauseSyntax] {
-    var result: [IfConfigClauseSyntax] = [], parent = syntax.parent
-    while let node = parent {
-      if let clause = node.as(IfConfigClauseSyntax.self) { result.append(clause) }
-      parent = node.parent
-    }
-    return result.reversed()
+  func guards(_ syntax: some SyntaxProtocol) -> [[String]] {
+    WrittenConditionalContext.clauses(syntax).map(WrittenConditionalContext.conditionPrefix)
   }
-  func conditionPrefix(_ clause: IfConfigClauseSyntax) -> [String] {
-    guard let list = clause.parent?.as(IfConfigClauseListSyntax.self) else { return [] }
-    var result: [String] = []
-    for item in list {
-      result.append(inventoryKey([item.poundKeyword.text, item.condition.map(inventoryTokens) ?? ""]))
-      if item.id == clause.id { break }
-    }
-    return result
+  func guardKeys(_ syntax: some SyntaxProtocol) -> [String] {
+    WrittenConditionalContext.clauses(syntax).compactMap { branchKeys[$0.id] }
   }
-  func guards(_ syntax: some SyntaxProtocol) -> [[String]] { clauses(syntax).map(conditionPrefix) }
-  func guardKeys(_ syntax: some SyntaxProtocol) -> [String] { clauses(syntax).compactMap { branchKeys[$0.id] } }
   override func visit(_ node: IfConfigDeclSyntax) -> SyntaxVisitorContinueKind {
     let outer = guards(node).map(inventoryKey)
     for clause in node.clauses {
-      let key = inventoryKey([frames.last!.id, "branch"] + outer + [inventoryKey(conditionPrefix(clause))])
+      let key = inventoryKey([frames.last!.id, "branch"] + outer + [inventoryKey(WrittenConditionalContext.conditionPrefix(clause))])
       branchKeys[clause.id] = key; scopeKeys.append(key)
     }
     return .visitChildren
@@ -385,7 +372,8 @@ private final class InventoryReader: SyntaxVisitor {
     if node.signature.parameterClause.parameters.contains(where: { $0.defaultValue != nil || $0.ellipsis != nil }) {
       reasons.append("flexible-parameters")
     }
-    let calls = WrittenMemberCalls { self.site($0, name: display + selector) }
+    let calls = WrittenMemberCalls(site: { self.site($0, name: display + selector) },
+      conditions: { WrittenConditionalContext.path($0, file: self.file, converter: self.converter) })
     if let body = node.body { calls.walk(body) }
     let id = ownerID + ":" + signature
     functions.append(InventoryFunction(id: id, ownerID: ownerID, selector: selector,

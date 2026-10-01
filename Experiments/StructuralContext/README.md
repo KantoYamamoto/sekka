@@ -9,7 +9,7 @@ python3 Experiments/StructuralContext/verify.py --binary .build/structural-conte
 .build/structural-context/debug/context-probe BEFORE AFTER --text
 ```
 
-Swift 6以降とSwiftSyntax 604.0.0が必要。`BEFORE`/`AFTER`は比較するSwiftソースを含むディレクトリ。末尾の`--text`を省くとJSON。`verify.py`は既存7対照・型注釈・条件付きborrow/mutate・入力境界・member表記の計11例を検証する。**合成例の成功は実PRで役立つことの証明ではない。**
+Swift 6以降とSwiftSyntax 604.0.0が必要。`BEFORE`/`AFTER`は比較するSwiftソースを含むディレクトリ。末尾の`--text`を省くとJSON。`verify.py`は既存7対照・型注釈・条件付きborrow/mutate・入力境界・member表記・字句条件の計12例を検証する。**合成例の成功は実PRで役立つことの証明ではない。**
 
 ## 未変更宣言と根拠経路
 
@@ -47,7 +47,7 @@ extension内のnested nominalにも字句祖先を保持するが、型注釈検
 
 型経路は旧新property/型表記、新しく現れた名前の位置、末尾名が一致する宣言数を持つ。同じpropertyの同じqualified名は最初の位置を使う。`beforeStatus: no-indexed-counterpart`は旧版索引に対応がない状態であり、旧宣言の不存在や新規propertyの証明ではない。
 
-member表記の根拠には前後caller・対応状態、call位置・receiver表記・記載ラベル列を持つ。`callerEvidence: no-unique-old-indexed-correspondence`は旧宣言不存在を意味しない。差分の適格性で出現を絞ってから同じcaller/selector/receiverを集約し、最初の位置と`eligibleOccurrences`を示す。
+member表記の根拠には前後caller・対応状態、call位置・receiver表記・記載ラベル列を持つ。`callerEvidence: no-unique-old-indexed-correspondence`は旧宣言不存在を意味しない。差分の適格性で出現を絞ってから同じcaller/selector/receiver/記載条件経路を集約し、最初の位置と`eligibleOccurrences`を示す。`call.writtenConditions`は外→内の選択節と先行節のkeyword/条件表記/header位置。条件なしは空配列、異なる条件は別入口、同じ条件の行移動は集約を分けない。textはcallのそばへ条件と「有効節未判定」を示す。旧本文に同じcallトークンがあれば、条件移動だけでは新しく適格にしない。[条件表示の検証](../../docs/validation/written-conditional-context.md)。
 
 - `changedFunctions`と`unpairedBefore/After`は索引内の関数数。`changedTypeAnnotations`は索引内の型注釈差の件数で、新しい実型や依存の数ではない。
 - `skipped`はcall検索・型注釈の対応・宣言検索の各試行を退けた理由の件数。名前一致なし、旧宣言未確認、変更済み、対応不明、型表記不明を区別する。ファイル数や網羅率として足し合わせない。型注釈の組が未変更の曖昧propertyは毎回再掲しない。
