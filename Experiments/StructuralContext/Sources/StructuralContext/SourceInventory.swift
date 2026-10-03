@@ -10,6 +10,7 @@ public struct SourceInventory: Sendable {
   public let aliasNames: [String]
   public let aliasDeclarations: [InventoryDeclaration]
   public let scopes: [InventoryScope]
+  public let directValueNames: [String: [String]]
   private let ambiguousScopeKeys: Set<String>
   private let extensionScopeKeys: Set<String>
   public func hasUniqueScope(_ function: InventoryFunction) -> Bool {
@@ -30,6 +31,7 @@ public struct SourceInventory: Sendable {
     var extensions: [String] = [], aliases: [String] = [], uncertain: [String] = []
     var aliasDeclarations: [InventoryDeclaration] = []
     var scopes: [InventoryScope] = [], scopeKeys: [String] = []
+    var valueNames: [String: [String]] = [:]
     var unknownGlobal = false
     for (file, source) in files.sorted(by: { $0.0 < $1.0 }) {
       let tree = Array(source.utf8).withUnsafeBufferPointer { Parser.parse(source: $0, swiftVersion: .v6) }
@@ -37,6 +39,7 @@ public struct SourceInventory: Sendable {
       let reader = InventoryReader(file: file, tree: tree)
       reader.walk(tree)
       scopes += reader.scopes; scopeKeys += reader.scopeKeys
+      for (key, names) in reader.valueNames { valueNames[key, default: []] += names }
       types += reader.types; functions += reader.functions; properties += reader.properties
       extensions += reader.extensions; aliases += reader.aliases
       aliasDeclarations += reader.aliasDeclarations
@@ -44,6 +47,7 @@ public struct SourceInventory: Sendable {
     }
     self.types = types; self.functions = functions; self.properties = properties
     self.scopes = scopes
+    directValueNames = valueNames.mapValues { Array(Set($0)).sorted() }
     extensionScopeKeys = Set(scopes.filter { $0.kind == "extension" }.map(\.id))
     ambiguousScopeKeys = Set(Dictionary(grouping: scopeKeys, by: { $0 }).filter { $0.value.count > 1 }.keys)
     self.aliasDeclarations = aliasDeclarations
@@ -109,7 +113,10 @@ public struct InventoryFunction: Codable, Sendable {
   public let correspondenceScopes: [String]
   public let conditionalPath: [[String]]
   public let lexicalScopeHeaders: [String]
-  public let writtenMemberCalls: [InventoryWrittenMemberCall]
+  public let writtenCalls: [InventoryWrittenCall]
+  public let returnTypeNames: [InventoryTypeName]
+  public let returnTypeUnknowns: [String]
+  public let boundTypeNames: [String]
   public let site: SourceSite
   public let declarationTokens: String
   public let bodyTokens: String?
@@ -198,11 +205,20 @@ private final class LocalNames: SyntaxVisitor {
     if node.catchItems.isEmpty { names.append("error") }
     return .visitChildren
   }
-  override func visit(_ node: ClosureExprSyntax) -> SyntaxVisitorContinueKind { closure = true; return .skipChildren }
+  override func visit(_ node: ClosureExprSyntax) -> SyntaxVisitorContinueKind { closure = true; return .visitChildren }
+  override func visit(_ node: ClosureParameterSyntax) -> SyntaxVisitorContinueKind {
+    names.append((node.secondName ?? node.firstName).text); return .visitChildren
+  }
+  override func visit(_ node: ClosureShorthandParameterSyntax) -> SyntaxVisitorContinueKind { names.append(node.name.text); return .visitChildren }
+  override func visit(_ node: ClosureCaptureSyntax) -> SyntaxVisitorContinueKind {
+    names.append(node.name.text)
+    return .visitChildren
+  }
   override func visit(_ node: StructDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
   override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
   override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
   override func visit(_ node: ActorDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
+  override func visit(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
   override func visit(_ node: TypeAliasDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
 
 }
@@ -224,6 +240,7 @@ private final class InventoryReader: SyntaxVisitor {
   var aliasDeclarations: [InventoryDeclaration] = []
   var uncertainOwners: [String] = []
   var unknownGlobal = false
+  var valueNames: [String: [String]] = [:]
   init(file: String, tree: SourceFileSyntax) {
     self.file = file; converter = SourceLocationConverter(fileName: file, tree: tree)
     super.init(viewMode: .sourceAccurate)
@@ -357,6 +374,7 @@ private final class InventoryReader: SyntaxVisitor {
   override func visit(_ node: FunctionDeclSyntax) -> SyntaxVisitorContinueKind {
     if !node.attributes.isEmpty { markUnknownMembers() }
     let scope = frames.last!
+    valueNames[scope.id, default: []].append(node.name.text)
     let ownerID = scope.kind == "nominal" ? owners.last!.id : scope.id
     let display = scope.kind == "file" ? "" : scope.writtenOwner + "."
     let signature = inventorySignature(node), selector = inventorySelector(node)
@@ -372,14 +390,18 @@ private final class InventoryReader: SyntaxVisitor {
     if node.signature.parameterClause.parameters.contains(where: { $0.defaultValue != nil || $0.ellipsis != nil }) {
       reasons.append("flexible-parameters")
     }
-    let calls = WrittenMemberCalls(site: { self.site($0, name: display + selector) },
+    let returnNames = TypeNames { self.site($0, name: display + selector + " return") }
+    if let type = node.signature.returnClause?.type { returnNames.walk(type) }
+    let boundNames = ["Self"] + (owners.last?.boundTypeNames ?? []) + (node.genericParameterClause?.parameters.map { $0.name.text } ?? [])
+    let calls = WrittenCalls(site: { self.site($0, name: display + selector) },
       conditions: { WrittenConditionalContext.path($0, file: self.file, converter: self.converter) })
     if let body = node.body { calls.walk(body) }
     let id = ownerID + ":" + signature
     functions.append(InventoryFunction(id: id, ownerID: ownerID, selector: selector,
       scopeKind: scope.kind, correspondenceID: inventoryKey([id, scope.id] + guards(node).map(inventoryKey)),
       correspondenceScopes: frames.map(\.id) + guardKeys(node), conditionalPath: guards(node),
-      lexicalScopeHeaders: frames.map { inventoryKey([$0.kind, $0.headerTokens]) }, writtenMemberCalls: calls.calls,
+      lexicalScopeHeaders: frames.map { inventoryKey([$0.kind, $0.headerTokens]) }, writtenCalls: calls.calls,
+      returnTypeNames: returnNames.names, returnTypeUnknowns: Array(Set(returnNames.unknowns)).sorted(), boundTypeNames: Array(Set(boundNames)).sorted(),
       site: site(node, name: display + selector, signature: signature),
       declarationTokens: inventoryTokens(node), bodyTokens: node.body.map(inventoryTokens),
       statements: node.body?.statements.map { statement in
@@ -403,6 +425,10 @@ private final class InventoryReader: SyntaxVisitor {
     if !node.attributes.isEmpty { markUnknownMembers() }; return .skipChildren
   }
   override func visit(_ node: VariableDeclSyntax) -> SyntaxVisitorContinueKind {
+    for binding in node.bindings {
+      let names = LocalNames(); names.walk(binding.pattern)
+      valueNames[frames.last!.id, default: []] += names.names
+    }
     guard extensionDepth == 0 else { return .skipChildren }
     if !node.attributes.isEmpty { markUnknownMembers() }
     guard let owner = owners.last else { return .skipChildren }
@@ -422,6 +448,10 @@ private final class InventoryReader: SyntaxVisitor {
         typeSpelling: type.map(inventoryTokens), typeNames: names.names, typeNameUnknowns: Array(Set(names.unknowns)).sorted(), declarationTokens: inventoryTokens(node.attributes) + "|" + inventoryTokens(node.modifiers) + "|" + node.bindingSpecifier.text + "|" + inventoryTokens(binding),
         site: site(binding, name: display), typeSite: type.map { site($0, name: display) }, unsupported: reasons))
     }
+    return .skipChildren
+  }
+  override func visit(_ node: EnumCaseElementSyntax) -> SyntaxVisitorContinueKind {
+    valueNames[frames.last!.id, default: []].append(node.name.text)
     return .skipChildren
   }
 }

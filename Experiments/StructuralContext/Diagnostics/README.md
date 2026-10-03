@@ -10,7 +10,7 @@ python3 Experiments/StructuralContext/Diagnostics/verify.py --scratch /tmp/sekka
 .build/context-diagnostic/inventory-probe BEFORE_SWIFT_DIRECTORY AFTER_SWIFT_DIRECTORY > .build/context-diagnostic/index.json
 ```
 
-`verify.py`は現在のHEADにある自分のtracked packageをarchiveし、同じreaderと診断bodyを合成してビルドする。実験本体用と異なるscratchを使う。tuple/genericの表記・位置、JSON/終了コード/stderr二回一致、不正入力の部分出力拒否を合成例で確認する。出力binary/checksをGitへ追加しない。
+`verify.py`は自分のtracked packageをarchiveし、同じreaderと診断bodyを合成してビルドする。通常はHEAD。#91の公開結果を再現する場合は`--source-ref a566217dcc1eb15a908a6355dcacabab054b2727`で当時のlibrary/bodyを固定する。最新HEADでの検証と過去結果の再現は区別する。実験本体用と異なるscratchを使い、tuple/genericの表記・位置、JSON/終了コード/stderr二回一致、不正入力の部分出力拒否を合成例で確認する。出力binary/checksをGitへ追加しない。
 
 外部入力は[Holdout](../Holdout/README.md)の固定manifestから再現し、**全ファイル一覧/ハッシュを照合してから**診断する。対象OSSのbuild/test/scriptは実行しない。各caseのbefore/after/sourcePrefixを指定し、index JSONを各二回実行してbyte一致を確認する。各結果は`INDEX_DIRECTORY/<case-id>.json`へ置く。基準のcontextsも同じmanifestから[Reach runner](../Reach/run.py)で再現する。
 

@@ -9,14 +9,15 @@ python3 Experiments/StructuralContext/verify.py --binary .build/structural-conte
 .build/structural-context/debug/context-probe BEFORE AFTER --text
 ```
 
-Swift 6以降とSwiftSyntax 604.0.0が必要。`BEFORE`/`AFTER`は比較するSwiftソースを含むディレクトリ。末尾の`--text`を省くとJSON。`verify.py`は既存7対照・型注釈・条件付きborrow/mutate・入力境界・member表記・字句条件の計12例を検証する。**合成例の成功は実PRで役立つことの証明ではない。**
+Swift 6以降とSwiftSyntax 604.0.0が必要。`BEFORE`/`AFTER`は比較するSwiftソースを含むディレクトリ。末尾の`--text`を省くとJSON。`verify.py`は既存7対照・型注釈・条件付きborrow/mutate・入力境界・member表記・字句条件・戻り値名の計13例を検証する。**合成例の成功は実PRで役立つことの証明ではない。**
 
 ## 未変更宣言と根拠経路
 
-出力の単位は未変更の宣言候補。同じ宣言へ複数の場所から届けば1件にまとめ、型宣言とそのmember関数は別の宣言として扱う。次の三種類の根拠を同じ一覧へ統合する。
+出力の単位は未変更の宣言候補。同じ宣言へ複数の場所から届けば1件にまとめ、型宣言とそのmember関数は別の宣言として扱う。次の四種類の根拠を同じ一覧へ統合する。
 
 | 根拠 | 観測できること | 確定しないこと |
 | --- | --- | --- |
+| 戻り値名/call表記 | 変更関数と未変更の既存関数にある同じ戻り値名、unqualified callの名前/明示ラベル列、同名nominal宣言、両call/型表記の位置・条件 | 実型/constructor、callがその戻り値を返すこと、引数値、挙動や責務の一致、共通化の必要性 |
 | propertyの型注釈 | 新しく現れた表記の末尾名と、同名nominal/typealias宣言の位置。例えば`[Migration]`→`OrderedDictionary<String, Migration>`から既存OrderedDictionaryへ進む | 実型、module/owner、alias展開先、依存の追加、同じ責務 |
 | 既存callとの接点 | 旧版にも一度現れる直前のmember call、共通する識別子引数、receiverの明示型から関数候補への旧新経路 | call挿入か既存callの編集か、実callee、同じ値・挙動、統合必要性 |
 | member callの表記 | 変更関数に書かれた名前・明示ラベル列と、同一記載ラベル列の索引内1関数宣言への位置 | receiver型、実callee、default引数等の適合性、責務の一致 |
@@ -33,6 +34,14 @@ member表記経路は、変更fileのafter関数の宣言トークンが旧file�
 
 一致数は変更済み/新規も含むafter索引全体で数え、複数なら選ばない。1件でも実calleeの一意性ではない。候補はbodyがあり、旧新の宣言と全字句祖先headerが同じもの。SDK・索引外・macro展開・propertyに格納した関数等は解決しない。[方式と結果](../../docs/validation/member-spelling-context.md)。
 
+## 戻り値名から既存producerを比較する
+
+call先の宣言だけでなく、同じ結果表記を扱う既存処理へ進む。両関数の戻り値に書かれたunqualified名と、本文の同名call/明示ラベル列が一致し、after索引に同名の非alias nominal宣言が1件ある場合を候補にする。tupleやgeneric引数内の名前も記載名として読む。式が実際にその戻り値を作る/返すかは解析しない。
+
+member経路と同じcaller適格性・旧対応・target不変を使う。parameter default/header/local宣言本文を混ぜず、既知generic/associated/Self、parameter/local/closure bindingと同名なら除外する。direct file/字句ownerのfunction・variable pattern・enum case名も除外し、単純なextension owner表記と索引内nominal名の一致はbinding除外にだけ使う。owner型を解決したとはしない。位置/条件の前後を問わないため偽陰性を許容する。alias/qualified/specialized/implicit/trailingの形式は対象外。継承、qualified extension、SDK/生成/未索引bindingは未解決。
+
+`resultSpelling.evidence`は前後callerと対応状態、`anchorReturn`/`targetReturn`/`matchingNominal`、`anchorCall`/`targetCall`、両側の出現数を持つ。入口と比較先の条件経路を別々に集約し、その組を表示する。同条件内は最初の位置と件数だけで、引数値や挙動を比較しない。複数の未変更関数が同じ条件を満たせば全て候補とし、共通の上限・省略へ統合する。[方式と検証](../../docs/validation/result-spelling-context.md)。
+
 ## 構文索引と検索の適格性
 
 関数索引にはnominal直下だけでなく、ファイル直下とextension内の関数を保持する。字句scopeにはextensionの表記型・属性・where節、宣言位置、条件分岐の表記経路を記録する。これを解決済みの型やactiveなコンパイル条件とは呼ばない。実行ブロック内のlocal関数・closure/accessor内のlocal関数は対象外。
@@ -43,7 +52,7 @@ extension内のnested nominalにも字句祖先を保持するが、型注釈検
 
 ## JSON/textの範囲と不明
 
-`contexts`の各候補に前後位置、`kind`、`fileUnchanged`、根拠の`entries`を持つ。根拠は`existingCall.evidence` / `changedType.evidence` / `memberSpelling.evidence`。textでも候補1件の罫線の下へ根拠を並べる。最大8候補・各8入口で、省略数を共有する。
+`contexts`の各候補に前後位置、`kind`、`fileUnchanged`、根拠の`entries`を持つ。根拠は`existingCall.evidence` / `changedType.evidence` / `memberSpelling.evidence` / `resultSpelling.evidence`。textでも候補1件の罫線の下へ根拠を並べる。最大8候補・各8入口で、省略数を共有する。
 
 型経路は旧新property/型表記、新しく現れた名前の位置、末尾名が一致する宣言数を持つ。同じpropertyの同じqualified名は最初の位置を使う。`beforeStatus: no-indexed-counterpart`は旧版索引に対応がない状態であり、旧宣言の不存在や新規propertyの証明ではない。
 
