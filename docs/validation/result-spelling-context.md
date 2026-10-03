@@ -10,7 +10,7 @@
 
 ## 既知4PRへの回帰
 
-#91の診断で仮説を選んだ**既知入力**。未見の有用性・precision/recall評価ではない。修正後の同じfrozen binary（SHA256 `bda3c3c39ca37246fb907be42d1b4a0bbfb0fe47755d7d3887953886187d2ecc`）でJSON/text各二回、終了コード/stdout/stderrが一致。旧経路の全候補/根拠・旧理由件数・変更関数/型注釈/対応外件数を前回と照合し、新callのformフィールドを除いて不変。候補/根拠の省略は全て0。
+#91の診断で仮説を選んだ**既知入力**。未見の有用性・precision/recall評価ではない。修正後の同じfrozen binary（SHA256 `b403f914b496b93d77f484a04fcf498a6b972a6300ed6f36a969811505612a73`）でJSON/text各二回、終了コード/stdout/stderrが一致。旧経路の全候補/根拠・旧理由件数・変更関数/型注釈/対応外件数を前回と照合し、新callのformフィールドを除いて不変。候補/根拠の省略は全て0。
 
 | 既知PR | 変更前の候補/根拠 | 新経路の候補/根拠 | 意味 |
 | --- | ---: | ---: | --- |
@@ -27,10 +27,12 @@
 
 独立コードレビューで、同名member function/enum caseのknown value bindingが除外されない穴を確認。関数名・variable pattern（tupleを含む）・enum case名をdirect scope索引へ統合し、split extension/全fileの値名とbody/closure bindingも保守的に除外するよう修正。実callee判定を足さない。textの範囲列挙にも新経路を統合。修正後、両側のmember/enum bindingとtuple/split extension/closure capture・positiveの8対照、入力順反転JSON、20回の実行出力を独立点検し、未解消指摘なし。
 
+自己利用後の共通化を独立増分レビューし、旧新WrittenCallSearchの11合成対照でJSON/anchors/stable理由がbyte一致。local protocolの名前除外も確認。整理後の85テスト/13 CLIと既知4PRも再実行し、四件のJSON/textが前述のbinding修正後と同一。未解消指摘なし。
+
 過去#91の診断JSONを現在のauditで再計算し、公開resultsとbyte一致。library変更後のHEAD検証と過去結果の再現を混同しないため、診断builderは`--source-ref`を明示可能にした。過去索引のschema読取りだけを保持し、旧call inventoryをlibraryへ併存させない。
 
 ## 自己利用・Actions・次の判断
 
-自己利用の初稿はbase `3e374a3`→`cfe5367`、同じ本番binaryをbaseline/candidateへ使用。モデル/API変更と本文未比較を入口にし、Python/docs/テストは普通diffへ戻った。固定試作はroot/experiment/diagnostic Swift24→26入力に4候補/14根拠（JSON/text各二回一致）。hasUnambiguousDeclarationContext/InventoryTypeName/SourceSite/WrittenConditionalBranchを読む入口になった。既存対応判定への4call位置と普通diffを照らすと、入口/targetの一意性と字句header判定が同じだったため`counterpart`へ共通化した。Sekkaが重複や設計不良を自動検出したとはしない。整理後の既知回帰/独立点検と自己利用を再確認する。
+自己利用の初稿はbase `3e374a3`→`cfe5367`、同じ本番binaryをbaseline/candidateへ使用。モデル/API変更と本文未比較を入口にし、Python/docs/テストは普通diffへ戻った。固定試作はroot/experiment/diagnostic Swift24→26入力に4候補/14根拠（JSON/text各二回一致）。hasUnambiguousDeclarationContext/InventoryTypeName/SourceSite/WrittenConditionalBranchを読む入口になった。既存対応判定への4call位置と普通diffを照らすと、入口/targetの一意性と字句header判定が同じだったため`counterpart`へ共通化した。Sekkaが重複や設計不良を自動検出したとはしない。整理後`c329c3d`で自己利用を再実行し、同じ24→26入力の4候補/12根拠を確認。対応判定の4call入口が2にまとまり、型注釈からmodel再利用へ進む位置は維持。新result経路自体による独自の構造問題の発見はない。同じ本番binaryのbaseline/candidate一致、試作のJSON/text各二回一致を確認。
 
 必須Actions・実コメント/10成果物の照合は未完了。M3/本番統合は保留。事実性と既知到達を確認できた場合だけ別の固定比較を分解し、一般的な結果名から無関係なproducerへ広がるか、必要な先例を読み忘れにくくするかを確認する。人間の判断待ちはない。

@@ -33,7 +33,7 @@ M1の#73（構文索引/PR #75）と#74（検索と表示/PR #76）は完了。M
 | 7 | [#89 入口の字句条件](https://github.com/KantoYamamoto/sekka/issues/89) | 記載条件をcall根拠へ添え、異なる条件を別集約にする。適格性/一意性は維持。71テスト/12 CLI・既知4PR・独立レビュー・自己利用・Actions/実成果物までPR #90で完了 |
 | 8 | [#91 必要先への未到達診断](https://github.com/KantoYamamoto/sekka/issues/91) | 既存レビューの23位置を固定し索引/検索条件へ戻す。無条件の逆引き/記載API family/戻り値名の仮説を比較、独立点検・自己利用・Actions/実成果物までPR #92で完了 |
 
-| 9 | [#93 戻り値名/call表記](https://github.com/KantoYamamoto/sekka/issues/93) | 既存producerとの関係を現索引/一覧へ統合。85テスト/13 CLIと独立指摘修正を実施、既知4PR・自己利用・Actionsを検証中 |
+| 9 | [#93 戻り値名/call表記](https://github.com/KantoYamamoto/sekka/issues/93) | 既存producerとの関係を現索引/一覧へ統合。85テスト/13 CLIと独立指摘修正を実施、既知4PR・自己利用も完了。PR #94のActions/実成果物を検証中 |
 
 必要な確認先へ届いた例はA/B比較を始める根拠とし、有用性の合格とはしない。範囲内の必要箇所へ届かなければ検索方式へ戻す。確認先を特定できない例だけなら今回の標本では判断保留。出力に合う入力への差し替え、同じ入力の未見扱いはしない。M2の続きとM3は結果が出てから分解する。
 
