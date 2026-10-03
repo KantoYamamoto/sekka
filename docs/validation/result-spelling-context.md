@@ -31,4 +31,6 @@
 
 ## 自己利用・Actions・次の判断
 
-自己利用と必須Actions・実コメント/10成果物の照合は未完了。独立レビューを閉じてから記録する。M3/本番統合は保留。事実性と既知到達を確認できた場合だけ別の固定比較を分解し、一般的な結果名から無関係なproducerへ広がるか、必要な先例を読み忘れにくくするかを確認する。人間の判断待ちはない。
+自己利用の初稿はbase `3e374a3`→`cfe5367`、同じ本番binaryをbaseline/candidateへ使用。モデル/API変更と本文未比較を入口にし、Python/docs/テストは普通diffへ戻った。固定試作はroot/experiment/diagnostic Swift24→26入力に4候補/14根拠（JSON/text各二回一致）。hasUnambiguousDeclarationContext/InventoryTypeName/SourceSite/WrittenConditionalBranchを読む入口になった。既存対応判定への4call位置と普通diffを照らすと、入口/targetの一意性と字句header判定が同じだったため`counterpart`へ共通化した。Sekkaが重複や設計不良を自動検出したとはしない。整理後の既知回帰/独立点検と自己利用を再確認する。
+
+必須Actions・実コメント/10成果物の照合は未完了。M3/本番統合は保留。事実性と既知到達を確認できた場合だけ別の固定比較を分解し、一般的な結果名から無関係なproducerへ広がるか、必要な先例を読み忘れにくくするかを確認する。人間の判断待ちはない。

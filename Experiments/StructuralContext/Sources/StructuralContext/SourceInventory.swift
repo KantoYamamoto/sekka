@@ -218,6 +218,7 @@ private final class LocalNames: SyntaxVisitor {
   override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
   override func visit(_ node: EnumDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
   override func visit(_ node: ActorDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
+  override func visit(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
   override func visit(_ node: TypeAliasDeclSyntax) -> SyntaxVisitorContinueKind { if !node.attributes.isEmpty { macro = true }; names.append(node.name.text); return .skipChildren }
 
 }

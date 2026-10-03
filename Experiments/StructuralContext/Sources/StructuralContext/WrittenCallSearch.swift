@@ -21,24 +21,26 @@ struct WrittenCallSearch {
     return new.functions.compactMap { caller in
       guard oldFiles[caller.site.file] != newFiles[caller.site.file],
         !oldTexts[caller.site.file, default: []].contains(caller.declarationTokens) else { return nil }
-      let previous = beforeByKey[caller.correspondenceID, default: []]
-      let paired = previous.count == 1 && afterByKey[caller.correspondenceID, default: []].count == 1
-        && old.hasUnambiguousDeclarationContext(previous[0]) && new.hasUnambiguousDeclarationContext(caller)
-        && previous[0].lexicalScopeHeaders == caller.lexicalScopeHeaders
-      let oldCalls = paired ? Set(previous[0].writtenCalls.map(\.tokens)) : []
-      return WrittenCallAnchor(after: caller, before: paired ? previous[0] : nil,
-        eligible: caller.writtenCalls.filter { !paired || !oldCalls.contains($0.tokens) })
+      let previous = counterpart(caller).before
+      let oldCalls = Set(previous?.writtenCalls.map(\.tokens) ?? [])
+      return WrittenCallAnchor(after: caller, before: previous,
+        eligible: caller.writtenCalls.filter { previous == nil || !oldCalls.contains($0.tokens) })
     }
   }
   func stable(_ target: InventoryFunction) -> (before: InventoryFunction?, reason: String?) {
     guard target.bodyTokens != nil else { return (nil, "declaration-without-body") }
+    let paired = counterpart(target)
+    guard let before = paired.before else { return paired }
+    guard before.declarationTokens == target.declarationTokens else { return (nil, "target-declaration-changed") }
+    return (before, nil)
+  }
+  private func counterpart(_ target: InventoryFunction) -> (before: InventoryFunction?, reason: String?) {
     let before = beforeByKey[target.correspondenceID, default: []]
     guard before.count == 1, afterByKey[target.correspondenceID, default: []].count == 1,
       old.hasUnambiguousDeclarationContext(before[0]), new.hasUnambiguousDeclarationContext(target) else {
       return (nil, "target-correspondence-unknown")
     }
     guard before[0].lexicalScopeHeaders == target.lexicalScopeHeaders else { return (nil, "target-scope-header-changed") }
-    guard before[0].declarationTokens == target.declarationTokens else { return (nil, "target-declaration-changed") }
     return (before[0], nil)
   }
 }

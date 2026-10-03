@@ -77,6 +77,7 @@ private func resultEntries(_ report: ContextReport) -> [ResultSpellingEntry] {
     "func fresh(_ Receipt: (Int) -> Receipt) -> Receipt { Receipt(value: 2) }",
     "func fresh() -> Receipt { let Receipt = factory; return Receipt(value: 2) }",
     "func fresh() -> Receipt { func Receipt(value: Int) -> Receipt { fatalError() }; return Receipt(value: 2) }",
+    "func fresh() -> Receipt { protocol Receipt {}; return Receipt(value: 2) }",
     "func fresh() -> Receipt { consume { (Receipt: Factory) in Receipt(value: 2) }; return fallback() }",
     "func fresh() -> Receipt { consume { Receipt in Receipt(value: 2) }; return fallback() }",
     "func fresh() -> Receipt { consume { [Receipt = factory] in Receipt(value: 2) }; return fallback() }",
