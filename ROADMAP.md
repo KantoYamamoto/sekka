@@ -1,12 +1,12 @@
 # Sekka: 現在位置と作業順
 
-更新日: 2026-10-01。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
+更新日: 2026-10-02。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
 
 ## ゴールと現在位置
 
 **通常diffを補い、変更を既存構造へどう組み込むか考えるための未変更実装を、関連根拠付きで示す。** 構文上の候補と不明を区別し、設計の良否・実calleeを推測で確定しない。Swift 6以降、CLI/Actions、LLMなしの決定論性を維持する。
 
-現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#87の固定4PRの独立比較はPR #88で完了し、#89で入口の字句条件表示と条件別集約を検証中。** 二件で両担当が具体的な反復負担と別配置の比較へ到達。案内併用側の差分外buffer/SQL契約は支持/反対理由に使われたが、中心の負担や先例は通常diff/追加検索から得た。独自発見や効率改善とはしない。[結果](docs/validation/member-relations-holdout.md)。#if false内の表記が実経路解釈を招き得た点を先に修正する。本番統合は保留。人間の判断待ちはない。
+現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#87の独立比較と#89の条件表示をPR #88/#90で完了し、#91で必要な差分外実装への未到達を診断中。** 二件で両担当が具体的な反復負担と別配置の比較へ到達。案内併用側の差分外buffer/SQL契約は支持/反対理由に使われたが、中心の負担や先例は通常diff/追加検索から得た。独自発見や効率改善とはしない。[結果](docs/validation/member-relations-holdout.md)。条件表示は修正済み。現在は共有の先例へ届かない検索単位を見直し、戻り値名/call表記を使う既存producerとの関係を限定仮説として点検している。本番統合は保留。人間の判断待ちはない。
 
 ## Issueの階層と判断の節目
 
@@ -30,7 +30,8 @@ M1の#73（構文索引/PR #75）と#74（検索と表示/PR #76）は完了。M
 | 4 | [#83 字句scopeの索引](https://github.com/KantoYamamoto/sekka/issues/83) | extension/top-levelの関数を保持し、前後対応の曖昧さを残す。53テスト・独立レビュー修正・固定入力・自己利用・Actions/実成果物までPR #84で完了 |
 | 5 | [#85 member表記の関係](https://github.com/KantoYamamoto/sekka/issues/85) | 旧caller/receiverの不明と同形宣言を分ける。63テスト・11 CLI対照・独立レビュー・既知回帰・自己利用・Actions/実成果物までPR #86で完了 |
 | 6 | [#87 固定未読PRの比較](https://github.com/KantoYamamoto/sekka/issues/87) | 別4PR/評価器固定、段階別A/B・根拠照合・独立結果点検・Actions/実成果物までPR #88で完了 |
-| 7 | [#89 入口の字句条件](https://github.com/KantoYamamoto/sekka/issues/89) | 記載条件をcall根拠へ添え、異なる条件を別集約にする。適格性/一意性は維持。合成対照・既知4PR・独立レビュー・自己利用・Actionsを検証中 |
+| 7 | [#89 入口の字句条件](https://github.com/KantoYamamoto/sekka/issues/89) | 記載条件をcall根拠へ添え、異なる条件を別集約にする。適格性/一意性は維持。71テスト/12 CLI・既知4PR・独立レビュー・自己利用・Actions/実成果物までPR #90で完了 |
+| 8 | [#91 必要先への未到達診断](https://github.com/KantoYamamoto/sekka/issues/91) | 既存レビューの23位置を固定し索引/検索条件へ戻す。無条件の逆引き/記載API family/戻り値名の仮説を比較、独立点検と記録PRへ |
 
 必要な確認先へ届いた例はA/B比較を始める根拠とし、有用性の合格とはしない。範囲内の必要箇所へ届かなければ検索方式へ戻す。確認先を特定できない例だけなら今回の標本では判断保留。出力に合う入力への差し替え、同じ入力の未見扱いはしない。M2の続きとM3は結果が出てから分解する。
 

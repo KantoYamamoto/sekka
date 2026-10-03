@@ -1,0 +1,20 @@
+{
+  "base": "66089fff8a9b921324eb051588a47da05a32889a",
+  "needsSHA256": "e62a2c205b6ea4b1daed65f8e8772862eaec73292feaa0da3eb2b7984783c74e",
+  "inputManifestSHA256": "eaed1d8f67dd70713b895d62d4609e6b8672bafe23249ddb1d851ef21b0b9a60",
+  "queryBinarySHA256": "88816fceca3b6f0a77333fc2fc1e72d479a542072f45bb24dd8982ecc046311d",
+  "interpretation": "Known-input missed-context diagnosis. Need positions fixed before new index diagnostic; selected from existing #87 reviews, no unseen or efficiency claim.",
+  "exploration": "Unrestricted shared written operations were noisy (assert/precondition). Return-name trial was chosen after this known-input exploration, not preregistered or validated on unseen data.",
+  "finalDiagnosticBinarySHA256": "e9db61766a1ceb312ddb23ed1ee5885070b6207ab659557b510c2e1f7b3d58d4",
+  "finalDiagnosticBodySHA256": "06b53b57656bcaccc95220356ff0109b579177bef89d5b2ce3978980e2032ad3",
+  "auditScriptSHA256": "3730420d1dcc983fa92b805b1c60599ad02f533ebfdcde6300e3398f418bea1e",
+  "resultsSHA256": "ff46ef0e905a13d8f88d6d82691ca41eb4cdc669b62d2d60fe9dda2a00996ada",
+  "indexSHA256": {
+    "grdb-swift-1858.json": "f4523d8ac984f8bda531a75f1c44762269086147fb4ea1ecd30eb26dbe99dce2",
+    "grdb-swift-1864.json": "138593ffa13daf50095628d043b795cbad5159da778f6e1a9280730d4f71f4c8",
+    "swift-collections-724.json": "661743e1a03ca03526f851c24a98afbf8e1f77781982a5c5511e317dee81d1b8",
+    "swift-collections-725.json": "47a81e6b6d2efcfbcd19a893ab1df8a7a52be7cd57f87840663d55f1145fc582"
+  },
+  "libraryTree": "5756c24646ca8ae114ab4a69d4833e3a1228eca8",
+  "toolchain": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0"
+}
