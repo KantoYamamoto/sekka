@@ -24,6 +24,7 @@ public enum ContextEvidence: Codable, Sendable {
   case existingCall(evidence: CallEntry)
   case changedType(evidence: TypeEntry)
   case memberSpelling(evidence: MemberSpellingEntry)
+  case resultSpelling(evidence: ResultSpellingEntry)
   public var call: CallEntry? {
     if case let .existingCall(evidence) = self { return evidence }; return nil
   }
@@ -170,6 +171,12 @@ public enum UnchangedContext {
       let key = "function:" + match.after.correspondenceID
       add(key, before: match.before.site, after: match.after.site, kind: "function", entry: .memberSpelling(evidence: match.entry))
     }
+    let results = ResultSpellingContext.find(old: old, new: new, oldFiles: oldFiles, newFiles: newFiles)
+    for (reason, count) in results.skipped { skips[reason, default: 0] += count }
+    for match in results.matches {
+      add("function:" + match.after.correspondenceID, before: match.before.site, after: match.after.site,
+        kind: "function", entry: .resultSpelling(evidence: match.entry))
+    }
     let keys = targets.keys.sorted {
       let a = targets[$0]!, b = targets[$1]!
       if a.after.file != b.after.file { return a.after.file < b.after.file }
@@ -182,8 +189,10 @@ public enum UnchangedContext {
         fileUnchanged: oldFiles[target.before.file] == newFiles[target.after.file], kind: target.kind,
         entries: Array(target.entries.prefix(8)), omittedEntries: max(0, target.entries.count - 8))
     }
-    return ContextReport(scope: "experiment: unchanged declaration candidates reached by written annotation names, adjacent calls or exact member label spellings",
+    return ContextReport(scope: "experiment: unchanged declaration candidates reached by annotation names, adjacent calls, member label spellings or shared return-name/call spellings",
       limitations: [
+        "Result spelling entries relate a changed caller to an unchanged existing function, not a callee. Both explicitly spell the same unqualified return name and unqualified, nontrailing call name/argument labels; one non-alias nominal declaration with that name is indexed. Types, constructors, argument values, behavior and responsibility are not resolved or compared. Qualified, specialized, implicit or trailing call forms and known lexical generic/associated/Self/value bindings are excluded. Function/variable names in direct file and lexical owner scopes, simple written extension-owner matches, parameters and body/closure bindings are conservatively excluded regardless of position or branch activation. Inherited, qualified extension, SDK, macro and unindexed bindings can remain unknown.",
+        "Result and member routes share changed-file/declaration-text anchor eligibility, old correspondence and unchanged-target checks. Result entries group each caller and target by selector and written conditional path separately, retaining each first call position and count. All matching unchanged functions are candidates, subject to the common target/entry caps. Return annotation sites and the indexed nominal position are evidence of written names, not proof that the calls construct or return that type.",
         "Member spelling entries search exact written method names and argument-label sequences among indexed function declarations. One indexed match is not a unique applicable callee; receiver types, default arguments, SDK/unindexed declarations, property-held functions and overload semantics are not resolved. Trailing closures, unqualified calls and specialized expressions are outside this route.",
         "Member spelling anchors have declaration text absent from the old file's function inventory. Uniquely paired anchors search call expressions absent from the old body; other anchors use written body calls and explicitly lack a unique old correspondence. Calls inside control blocks/closures are syntax occurrences, not proof of execution. Written conditional paths retain outer-to-inner selected and preceding clauses and their header sites; active configuration is not evaluated. Local function/type bodies are excluded. Eligible occurrences are grouped by caller, receiver spelling, selector and written conditional path (excluding source positions), using the first position and a count. Different written branches are separate; moving an old call between conditions does not itself make its unchanged tokens eligible. Targets require equal enclosing lexical headers and declaration tokens.",
         "Function inventory retains direct file, nominal and extension declarations, including written conditional paths; executable local functions are excluded. Correspondence requires a unique declaration key. Repeated identical extension headers do not by themselves make different declarations ambiguous; duplicate nominal/branch scopes and duplicate declaration keys do. Changed extension headers/guards and moves can be unpaired. Active conditions and extension owner types are not resolved. Retained extension/top-level functions remain ineligible for the adjacent-call query.",

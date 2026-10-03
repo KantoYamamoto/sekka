@@ -168,6 +168,42 @@ func run() {
     results.append({'case': 'written-conditional-context', 'report': report})
     text_samples.append('Case: written-conditional-context\n' + text)
 
+# Written result names relate existing producers, not resolved constructors/callees.
+with tempfile.TemporaryDirectory(prefix='sekka-result-spelling-') as directory:
+    root = Path(directory)
+    helper = '''struct Receipt {}
+func prior() -> Receipt {
+#if OLD
+  return Receipt(value: 1)
+#else
+  return Receipt(value: 9)
+#endif
+}
+'''
+    for side in ['before', 'after']:
+        folder = root / side; folder.mkdir()
+        (folder / 'Helper.swift').write_text(helper)
+        (folder / 'Caller.swift').write_text('' if side == 'before' else '''func fresh() -> (Receipt, Int) {
+#if false
+  return (Receipt(value: 2), 0)
+#else
+  return (Receipt(value: 3), 0)
+#endif
+}
+''')
+    report = run(root / 'before', root / 'after')
+    assert len(report['contexts']) == 1 and report['contexts'][0]['after']['declaration'] == 'prior()'
+    entries = [e['resultSpelling']['evidence'] for e in report['contexts'][0]['entries']]
+    assert len(entries) == 4
+    assert all(e['callerEvidence'] == 'no-unique-old-indexed-correspondence' for e in entries)
+    assert all(e['anchorCall']['form'] == 'unqualified' and e['matchingNominal']['line'] == 1 for e in entries)
+    assert [e['anchorCall']['site']['line'] for e in entries] == [3, 3, 5, 5]
+    assert [e['targetCall']['site']['line'] for e in entries] == [4, 6, 4, 6]
+    text = subprocess.check_output([binary, str(root / 'before'), str(root / 'after'), '--text']).decode()
+    assert '\u65e2\u5b58\u6761\u4ef6' in text and 'callee\u3067\u306f\u306a\u3044' in text
+    results.append({'case': 'result-spelling-existing-producer', 'report': report})
+    text_samples.append('Case: result-spelling-existing-producer\n' + text)
+
 # Already-known fact controls; these do not measure review benefit.
 fixture_path = Path(__file__).resolve().parents[2] / 'Fixtures/structural-reconsideration/cases.json'
 expected_entries = {'dispatch-spread': 3, 'dispatch-growth': 2, 'single-site': 1,

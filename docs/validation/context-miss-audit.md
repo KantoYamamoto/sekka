@@ -56,4 +56,4 @@ InputSpan/Producerの不変条件の文書やinit等は、必要な行と索引�
 
 自己利用はbase `66089ff`→診断実装`760e7a7`で、本番Sekkaと固定試作を使用。本番は新しい診断型を確認する入口として使い、型モデル/API境界と未比較本文を通常diff/sourceで点検した。試作の23→24 sourceには診断Swiftも含め、既存InventoryScope/Function/Declaration/Propertyへの型注釈入口4件/4経路が出た。既存model再利用の位置確認にはなるが、新しい構造判断の材料はなかった。試作のJSON/text二回一致、本番baseline/candidateの同一出力を確認。本番の機能改善とはしない。
 
-必須Actions・実PRコメント/成果物は記録PRの完了時に照合する。次の実装/別の固定比較を別Issueに分け、この既知四件を未見として再採点しない。人間判断待ちはない。
+PR #92（head `a566217`、merge `3e374a3`）はActions `36886505635`でroot65テスト/39 CLI/renderer13、実験71テスト/12 CLI、診断helperの合成検証が成功。10成果物のmanifest headと実Botコメント本文を照合した。[完了記録](https://github.com/KantoYamamoto/sekka/pull/92#issuecomment-5971686943)。次の実装は#93、別の固定比較は実装結果後に分解する。この既知四件を未見として再採点しない。人間判断待ちはない。

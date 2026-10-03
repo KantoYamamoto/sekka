@@ -24,6 +24,12 @@ def keyed(functions):
         result[f['declaration']['correspondenceID']].append(f)
     return result
 
+def member_calls(declaration):
+    # Historical diagnostic inputs predate the shared inventory. Never hide a missing schema.
+    if 'writtenCalls' in declaration:
+        return [c for c in declaration['writtenCalls'] if c['form'] == 'member']
+    return declaration['writtenMemberCalls']
+
 cases = {}
 for name in sorted(set(n['case'] for n in needs['needs']) | set(needs['negativeCases'])):
     index = json.loads((args.index / (name + '.json')).read_text())
@@ -42,8 +48,8 @@ for name in sorted(set(n['case'] for n in needs['needs']) | set(needs['negativeC
             continue
         previous = old_keys[d['correspondenceID']]
         paired = len(previous) == len(new_keys[d['correspondenceID']]) == 1 and f['unambiguousDeclarationContext'] and previous[0]['unambiguousDeclarationContext'] and previous[0]['declaration']['lexicalScopeHeaders'] == d['lexicalScopeHeaders']
-        old_calls = {c['tokens'] for c in previous[0]['declaration']['writtenMemberCalls']} if paired else set()
-        eligible = [c for c in d['writtenMemberCalls'] if not paired or c['tokens'] not in old_calls]
+        old_calls = {c['tokens'] for c in member_calls(previous[0]['declaration'])} if paired else set()
+        eligible = [c for c in member_calls(d) if not paired or c['tokens'] not in old_calls]
         anchors.append((f, paired, eligible))
 
     def unchanged(f):
