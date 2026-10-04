@@ -49,5 +49,11 @@
     "selection.json": "331ae2d4a60596a82430f5c0a182857211212d136f008b7e4326e92df57630fd",
     "verify_diff.py": "60c60857c6279418dcbb2ba1753ee0e72ae11d0874d1c6dc7c3f56ee817ecad3",
     "verify_diff_controls.py": "1e76d3198e50e78c4052af245c62ed05e1854ed682ba0b69f338bb5e3d0221f0"
+  },
+  "reviewSnapshotMeaning": "reviewedPublicEvidenceSHA256 records the exact snapshot read by the independent auditor, before final status/link updates to README and candidate-audit meaning. Facts/classifications remain unchanged. Final publication bytes are bound by this PR commit; audit hashes are not claimed to match subsequent status text.",
+  "coordinatorAdditionalCheck": {
+    "packageTreeMatchesSourceHead": "8bf06e6cfe9b919dfbe4bb23ad0687ceaa2094f9",
+    "lockfileSHA256MatchesSourceHead": "6ae0524d69c3905315d7685e879747a4f1383529877460d2e37f43fdfd6570f6",
+    "scope": "Own local Git objects only; remote input tree is not newly verified by the independent auditor."
   }
 }

@@ -47,4 +47,4 @@ M2を継続し、M3/本番統合は保留。新しい候補経路を便利と称
 
 独立結果点検は全3,006入力/65変更/381 hunk、四つの資料開放/8初期checkpoint、queryと新旧帰属/B実使用を含む6,260検査とsource根拠照合を実施。7有効/11不正の自作素材対照も通過。Aの条件付きの問い、Bの非成立、新resultの非必須、5同名棄却、公開metadataにbody/tokens/生レビューがないことを確認した。[点検receipt](../../Experiments/StructuralContext/ResultHoldout/independent-review.json)。
 
-独立担当は当時のstderr二回分やremote/Git object結合、閲覧の実操作を再生監査していない。型/callee/active条件、対象build/test/lifetime/実行/性能も未検証。hashと保存証拠の整合性を、これらの保証へ広げない。記録PRの必須Actions/実コメント/10成果物は未完了。
+独立担当は当時のstderr二回分やremote/Git object結合、閲覧の実操作を再生監査していない。型/callee/active条件、対象build/test/lifetime/実行/性能も未検証。統合担当は自分のGit objectからsource head→package tree/lockfileの一致を追加確認した。hashと保存証拠の整合性を、他の保証へ広げない。記録PRの必須Actions/実コメント/10成果物とmergeの完了状態は[PR #97](https://github.com/KantoYamamoto/sekka/pull/97)に残す。
