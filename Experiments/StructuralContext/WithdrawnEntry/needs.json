@@ -1,0 +1,1056 @@
+{
+  "meaning": "Known reviewer-used required positions, fixed before #96 diagnostic output. Ranges are reading positions, not complete declaration extents, resolved contracts or exhaustive ground truth.",
+  "needs": [
+    {
+      "id": "n01",
+      "case": "swift-collections-723",
+      "file": "Sources/InternalCollectionsUtilities/BorrowingIteratorProtocol+Extras.swift",
+      "before": [
+        37,
+        47
+      ],
+      "after": [
+        37,
+        47
+      ],
+      "use": "structural-precedent",
+      "review": "A",
+      "reviewLine": 50,
+      "reviewSHA256": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+      "question": "短いspanを繰り返す入力供給を既存窓口へ置けるか"
+    },
+    {
+      "id": "n02",
+      "case": "swift-collections-723",
+      "file": "Sources/InternalCollectionsUtilities/OutputSpan+Extras.swift",
+      "before": [
+        88,
+        111
+      ],
+      "after": [
+        88,
+        111
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 49,
+      "reviewSHA256": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+      "question": "全量copyと容量の契約"
+    },
+    {
+      "id": "n03",
+      "case": "swift-collections-723",
+      "file": "Sources/ContainersPreview/Protocols/Container/Container.swift",
+      "before": [
+        138,
+        190
+      ],
+      "after": [
+        138,
+        190
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 51,
+      "reviewSHA256": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+      "question": "maxCount上限と短いspanの契約"
+    },
+    {
+      "id": "n04",
+      "case": "swift-collections-723",
+      "file": "Sources/ContainersPreview/Protocols/Container/Container.swift",
+      "before": [
+        311,
+        319
+      ],
+      "after": [
+        311,
+        319
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 51,
+      "reviewSHA256": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+      "question": "nextSpan overloadの契約"
+    },
+    {
+      "id": "n05",
+      "case": "swift-collections-723",
+      "file": "Sources/DequeModule/RigidDeque/RigidDeque+ContainerOperations.swift",
+      "before": [
+        62,
+        79
+      ],
+      "after": [
+        62,
+        79
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 52,
+      "reviewSHA256": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+      "question": "分割source実装"
+    },
+    {
+      "id": "n06",
+      "case": "swift-collections-723",
+      "file": "Sources/BasicContainers/RigidArray/RigidArray+Consumption.swift",
+      "before": [
+        178,
+        195
+      ],
+      "after": [
+        185,
+        202
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 53,
+      "reviewSHA256": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+      "question": "finalize後の破棄責務"
+    },
+    {
+      "id": "n07",
+      "case": "swift-collections-723",
+      "file": "Sources/DequeModule/RigidDeque/RigidDeque+Consumption.swift",
+      "before": [
+        211,
+        235
+      ],
+      "after": [
+        218,
+        242
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 54,
+      "reviewSHA256": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+      "question": "Deque破棄責務"
+    },
+    {
+      "id": "n08",
+      "case": "swift-collections-723",
+      "file": "Sources/BasicContainers/RigidArray/RigidArray.swift",
+      "before": [
+        436,
+        447
+      ],
+      "after": [
+        437,
+        448
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 55,
+      "reviewSHA256": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+      "question": "gap移動の契約"
+    },
+    {
+      "id": "n09",
+      "case": "swift-collections-723",
+      "file": "Sources/DequeModule/_UnsafeDequeHandle.swift",
+      "before": [
+        1122,
+        1170
+      ],
+      "after": [
+        1134,
+        1182
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 56,
+      "reviewSHA256": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+      "question": "gap移動とcount更新"
+    },
+    {
+      "id": "n10",
+      "case": "swift-collections-723",
+      "file": "Sources/DequeModule/_UnsafeDequeHandle.swift",
+      "before": [
+        691,
+        715
+      ],
+      "after": [
+        691,
+        715
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 57,
+      "reviewSHA256": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+      "question": "deferで初期化数を反映"
+    },
+    {
+      "id": "n11",
+      "case": "swift-collections-723",
+      "file": "Sources/BasicContainers/RigidArray/RigidArray+Removals.swift",
+      "before": [
+        60,
+        66
+      ],
+      "after": [
+        79,
+        85
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 58,
+      "reviewSHA256": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+      "question": "removeLast native経路"
+    },
+    {
+      "id": "n12",
+      "case": "swift-collections-723",
+      "file": "Sources/BasicContainers/RigidArray/RigidArray+Removals.swift",
+      "before": [
+        79,
+        89
+      ],
+      "after": [
+        98,
+        108
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 58,
+      "reviewSHA256": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+      "question": "removeLast複数native経路"
+    },
+    {
+      "id": "n13",
+      "case": "swift-collections-723",
+      "file": "Sources/BasicContainers/RigidArray/RigidArray.swift",
+      "before": [
+        474,
+        474
+      ],
+      "after": [
+        475,
+        475
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 36,
+      "reviewSHA256": "bc055ce2acfd4b19e92a6309038381673b403ab09129ab6802631b17719b30d9",
+      "question": "部分初期化cleanup"
+    },
+    {
+      "id": "n14",
+      "case": "swift-collections-723",
+      "file": "Sources/BasicContainers/RigidArray/RigidArray+ContainerOperations.swift",
+      "before": [
+        34,
+        36
+      ],
+      "after": [
+        34,
+        36
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 37,
+      "reviewSHA256": "bc055ce2acfd4b19e92a6309038381673b403ab09129ab6802631b17719b30d9",
+      "question": "countと返却Index上限"
+    },
+    {
+      "id": "n15",
+      "case": "swift-collections-723",
+      "file": "Sources/BasicContainers/RigidArray/RigidArray+ContainerOperations.swift",
+      "before": [
+        60,
+        61
+      ],
+      "after": [
+        60,
+        61
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 37,
+      "reviewSHA256": "bc055ce2acfd4b19e92a6309038381673b403ab09129ab6802631b17719b30d9",
+      "question": "endIndexと返却上限"
+    },
+    {
+      "id": "n16",
+      "case": "swift-collections-723",
+      "file": "Sources/BasicContainers/RigidArray/RigidArray+Consumption.swift",
+      "before": [
+        126,
+        130
+      ],
+      "after": [
+        133,
+        137
+      ],
+      "use": "changed-declaration-part",
+      "review": "A",
+      "reviewLine": 62,
+      "reviewSHA256": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+      "question": "callback付きsignatureとdefault不存在"
+    },
+    {
+      "id": "n17",
+      "case": "swift-collections-721",
+      "file": "Sources/DequeModule/Deque/Deque+Collection.swift",
+      "before": [
+        221,
+        221
+      ],
+      "after": [
+        221,
+        221
+      ],
+      "use": "changed-comment-declaration-part",
+      "review": "A",
+      "reviewLine": 17,
+      "reviewSHA256": "cadc1052fa9b7d1d4e1859a294c04822285c9873dcfed109706aa74efe34aff7",
+      "question": "変更コメントの内部引数名照合。別の未変更targetではない"
+    },
+    {
+      "id": "n18",
+      "case": "swift-collections-721",
+      "file": "Sources/DequeModule/Deque/Deque+Collection.swift",
+      "before": [
+        235,
+        235
+      ],
+      "after": [
+        235,
+        235
+      ],
+      "use": "changed-comment-declaration-part",
+      "review": "A",
+      "reviewLine": 18,
+      "reviewSHA256": "cadc1052fa9b7d1d4e1859a294c04822285c9873dcfed109706aa74efe34aff7",
+      "question": "変更コメントの内部引数名照合。別の未変更targetではない"
+    },
+    {
+      "id": "n19",
+      "case": "swift-collections-721",
+      "file": "Sources/DequeModule/Deque/Deque+Collection.swift",
+      "before": [
+        252,
+        252
+      ],
+      "after": [
+        252,
+        252
+      ],
+      "use": "changed-comment-declaration-part",
+      "review": "A",
+      "reviewLine": 19,
+      "reviewSHA256": "cadc1052fa9b7d1d4e1859a294c04822285c9873dcfed109706aa74efe34aff7",
+      "question": "変更コメントの内部引数名照合。別の未変更targetではない"
+    },
+    {
+      "id": "n20",
+      "case": "swift-collections-721",
+      "file": "Sources/DequeModule/Deque/Deque+Collection.swift",
+      "before": [
+        265,
+        265
+      ],
+      "after": [
+        265,
+        265
+      ],
+      "use": "changed-comment-declaration-part",
+      "review": "A",
+      "reviewLine": 20,
+      "reviewSHA256": "cadc1052fa9b7d1d4e1859a294c04822285c9873dcfed109706aa74efe34aff7",
+      "question": "変更コメントの内部引数名照合。別の未変更targetではない"
+    },
+    {
+      "id": "n21",
+      "case": "swift-collections-721",
+      "file": "Sources/BitCollections/BitSet/BitSet+BidirectionalCollection.swift",
+      "before": [
+        187,
+        187
+      ],
+      "after": [
+        187,
+        187
+      ],
+      "use": "changed-comment-declaration-part",
+      "review": "A",
+      "reviewLine": 21,
+      "reviewSHA256": "cadc1052fa9b7d1d4e1859a294c04822285c9873dcfed109706aa74efe34aff7",
+      "question": "変更コメントの内部引数名照合。別の未変更targetではない"
+    },
+    {
+      "id": "n22",
+      "case": "swift-collections-721",
+      "file": "Sources/BitCollections/BitSet/BitSet+BidirectionalCollection.swift",
+      "before": [
+        207,
+        207
+      ],
+      "after": [
+        207,
+        207
+      ],
+      "use": "changed-comment-declaration-part",
+      "review": "A",
+      "reviewLine": 22,
+      "reviewSHA256": "cadc1052fa9b7d1d4e1859a294c04822285c9873dcfed109706aa74efe34aff7",
+      "question": "変更コメントの内部引数名照合。別の未変更targetではない"
+    },
+    {
+      "id": "n23",
+      "case": "grdb-swift-1852",
+      "file": "GRDB/Core/Database+Schema.swift",
+      "before": [
+        1637,
+        1637
+      ],
+      "after": [
+        1637,
+        1637
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 19,
+      "reviewSHA256": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+      "question": "primaryKey列の非空契約"
+    },
+    {
+      "id": "n24",
+      "case": "grdb-swift-1852",
+      "file": "GRDB/QueryInterface/Request/QueryInterfaceRequest.swift",
+      "before": [
+        1869,
+        1869
+      ],
+      "after": [
+        1869,
+        1869
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 20,
+      "reviewSHA256": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+      "question": "nil assignmentのSQL化除外"
+    },
+    {
+      "id": "n25",
+      "case": "grdb-swift-1852",
+      "file": "GRDB/QueryInterface/Request/QueryInterfaceRequest.swift",
+      "before": [
+        1912,
+        1912
+      ],
+      "after": [
+        1924,
+        1924
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 20,
+      "reviewSHA256": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+      "question": "noOverwrite表現"
+    },
+    {
+      "id": "n26",
+      "case": "grdb-swift-1852",
+      "file": "GRDB/Record/EncodableRecord.swift",
+      "before": [
+        405,
+        405
+      ],
+      "after": [
+        405,
+        405
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 21,
+      "reviewSHA256": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+      "question": "encode由来の格納内容"
+    },
+    {
+      "id": "n27",
+      "case": "grdb-swift-1852",
+      "file": "GRDB/Record/EncodableRecord.swift",
+      "before": [
+        413,
+        413
+      ],
+      "after": [
+        413,
+        413
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 21,
+      "reviewSHA256": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+      "question": "格納column一覧"
+    },
+    {
+      "id": "n28",
+      "case": "grdb-swift-1852",
+      "file": "GRDB/Record/PersistableRecord.swift",
+      "before": [
+        43,
+        58
+      ],
+      "after": [
+        44,
+        59
+      ],
+      "use": "behavior-required",
+      "review": "A",
+      "reviewLine": 22,
+      "reviewSHA256": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+      "question": "継承とcallback責務"
+    },
+    {
+      "id": "n29",
+      "case": "grdb-swift-1852",
+      "file": "GRDB/Record/MutablePersistableRecord+DAO.swift",
+      "before": [
+        243,
+        243
+      ],
+      "after": [
+        246,
+        246
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 30,
+      "reviewSHA256": "d19d70e320ea596ab04ed32d78836e94803269c736722d7bef19960cf4e1e4b9",
+      "question": "RETURNING SQLへの変換"
+    },
+    {
+      "id": "n30",
+      "case": "grdb-swift-1852",
+      "file": "GRDB/Record/MutablePersistableRecord+DAO.swift",
+      "before": [
+        96,
+        117
+      ],
+      "after": [
+        99,
+        120
+      ],
+      "use": "changed-declaration-part",
+      "review": "A",
+      "reviewLine": 17,
+      "reviewSHA256": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+      "question": "空assignmentと自己代入fallback"
+    },
+    {
+      "id": "n31",
+      "case": "grdb-swift-1852",
+      "file": "GRDB/Record/MutablePersistableRecord+Upsert.swift",
+      "before": [
+        417,
+        437
+      ],
+      "after": [
+        436,
+        456
+      ],
+      "use": "changed-declaration-part",
+      "review": "A",
+      "reviewLine": 18,
+      "reviewSHA256": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+      "question": "rowID selectionと返却行"
+    },
+    {
+      "id": "n32",
+      "case": "grdb-swift-1852",
+      "file": "GRDB/Record/MutablePersistableRecord+Upsert.swift",
+      "before": [
+        4,
+        4
+      ],
+      "after": [
+        4,
+        4
+      ],
+      "use": "changed-declaration-header",
+      "review": "A",
+      "reviewLine": 23,
+      "reviewSHA256": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+      "question": "availability/条件によるAPI反復。call関係ではない"
+    },
+    {
+      "id": "n33",
+      "case": "grdb-swift-1852",
+      "file": "GRDB/Record/MutablePersistableRecord+Upsert.swift",
+      "before": [
+        181,
+        181
+      ],
+      "after": [
+        189,
+        189
+      ],
+      "use": "changed-declaration-header",
+      "review": "A",
+      "reviewLine": 23,
+      "reviewSHA256": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+      "question": "availability/条件によるAPI反復。call関係ではない"
+    },
+    {
+      "id": "n34",
+      "case": "grdb-swift-1852",
+      "file": "GRDB/Record/MutablePersistableRecord+Upsert.swift",
+      "before": [
+        306,
+        306
+      ],
+      "after": [
+        311,
+        311
+      ],
+      "use": "changed-declaration-header",
+      "review": "A",
+      "reviewLine": 23,
+      "reviewSHA256": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+      "question": "availability/条件によるAPI反復。call関係ではない"
+    },
+    {
+      "id": "n35",
+      "case": "grdb-swift-1852",
+      "file": "GRDB/Record/MutablePersistableRecord+Upsert.swift",
+      "before": [
+        334,
+        334
+      ],
+      "after": [
+        349,
+        349
+      ],
+      "use": "changed-declaration-header",
+      "review": "A",
+      "reviewLine": 23,
+      "reviewSHA256": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+      "question": "availability/条件によるAPI反復。call関係ではない"
+    },
+    {
+      "id": "n36",
+      "case": "grdb-swift-1852",
+      "file": "GRDB/Record/MutablePersistableRecord+Upsert.swift",
+      "before": [
+        360,
+        360
+      ],
+      "after": [
+        376,
+        376
+      ],
+      "use": "changed-declaration-header",
+      "review": "A",
+      "reviewLine": 23,
+      "reviewSHA256": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+      "question": "availability/条件によるAPI反復。call関係ではない"
+    },
+    {
+      "id": "n37",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/Core/StatementAuthorizer.swift",
+      "before": [
+        80,
+        80
+      ],
+      "after": [
+        82,
+        82
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 22,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "Android importのstrcmp用途"
+    },
+    {
+      "id": "n38",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/Core/Database+SQLCipher.swift",
+      "before": [
+        78,
+        78
+      ],
+      "after": [
+        78,
+        78
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 23,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "cipherProvider getter契約"
+    },
+    {
+      "id": "n39",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/Core/Support/Foundation/DatabaseValueConvertible+ReferenceConvertible.swift",
+      "before": [
+        16,
+        25
+      ],
+      "after": [
+        16,
+        25
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 24,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "reference bridge既存窓口"
+    },
+    {
+      "id": "n40",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/Core/Support/Foundation/DatabaseValueConvertible+ReferenceConvertible.swift",
+      "before": [
+        27,
+        36
+      ],
+      "after": [
+        27,
+        36
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 24,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "Decodable bridge"
+    },
+    {
+      "id": "n41",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/Core/Support/Foundation/DatabaseValueConvertible+ReferenceConvertible.swift",
+      "before": [
+        38,
+        38
+      ],
+      "after": [
+        38,
+        38
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 24,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "Encodable bridge"
+    },
+    {
+      "id": "n42",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/Utils/Utils.swift",
+      "before": [
+        60,
+        60
+      ],
+      "after": [
+        60,
+        60
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 25,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "cast helper"
+    },
+    {
+      "id": "n43",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/QueryInterface/TableRecord+QueryInterfaceRequest.swift",
+      "before": [
+        80,
+        80
+      ],
+      "after": [
+        80,
+        80
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 26,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "select始点の戻り型"
+    },
+    {
+      "id": "n44",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/QueryInterface/TableRecord+QueryInterfaceRequest.swift",
+      "before": [
+        789,
+        789
+      ],
+      "after": [
+        789,
+        789
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 26,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "aliased始点の戻り型"
+    },
+    {
+      "id": "n45",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/QueryInterface/Request/RequestProtocols.swift",
+      "before": [
+        248,
+        248
+      ],
+      "after": [
+        248,
+        248
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 27,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "query chainのSelf保持"
+    },
+    {
+      "id": "n46",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/QueryInterface/Request/RequestProtocols.swift",
+      "before": [
+        465,
+        465
+      ],
+      "after": [
+        465,
+        465
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 27,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "query chainのSelf保持"
+    },
+    {
+      "id": "n47",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/QueryInterface/Request/RequestProtocols.swift",
+      "before": [
+        644,
+        644
+      ],
+      "after": [
+        644,
+        644
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 27,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "query chainのSelf保持"
+    },
+    {
+      "id": "n48",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/QueryInterface/Request/RequestProtocols.swift",
+      "before": [
+        1208,
+        1208
+      ],
+      "after": [
+        1208,
+        1208
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 27,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "query chainのSelf保持"
+    },
+    {
+      "id": "n49",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/QueryInterface/Request/RequestProtocols.swift",
+      "before": [
+        1242,
+        1242
+      ],
+      "after": [
+        1242,
+        1242
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 27,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "query chainのSelf保持"
+    },
+    {
+      "id": "n50",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/QueryInterface/Request/RequestProtocols.swift",
+      "before": [
+        1463,
+        1463
+      ],
+      "after": [
+        1463,
+        1463
+      ],
+      "use": "behavior-required",
+      "review": "B",
+      "reviewLine": 27,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "query chainのSelf保持"
+    },
+    {
+      "id": "n51",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/Core/Support/Foundation/NSNumber.swift",
+      "before": [
+        22,
+        22
+      ],
+      "after": [
+        21,
+        21
+      ],
+      "use": "conditional-applicability-changed",
+      "review": "A",
+      "reviewLine": 18,
+      "reviewSHA256": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54",
+      "question": "Windows guard解除。body同一を宣言適用の不変と呼ばない"
+    },
+    {
+      "id": "n52",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/Core/Support/Foundation/NSNumber.swift",
+      "before": [
+        82,
+        82
+      ],
+      "after": [
+        81,
+        81
+      ],
+      "use": "conditional-applicability-changed",
+      "review": "A",
+      "reviewLine": 18,
+      "reviewSHA256": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54",
+      "question": "Windows guard解除。body同一を宣言適用の不変と呼ばない"
+    },
+    {
+      "id": "n53",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/Core/Support/Foundation/URL.swift",
+      "before": [
+        8,
+        8
+      ],
+      "after": [
+        7,
+        7
+      ],
+      "use": "conditional-applicability-changed",
+      "review": "A",
+      "reviewLine": 19,
+      "reviewSHA256": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54",
+      "question": "Windows guard解除。body同一を宣言適用の不変と呼ばない"
+    },
+    {
+      "id": "n54",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/Core/Support/Foundation/URL.swift",
+      "before": [
+        16,
+        16
+      ],
+      "after": [
+        15,
+        15
+      ],
+      "use": "conditional-applicability-changed",
+      "review": "A",
+      "reviewLine": 19,
+      "reviewSHA256": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54",
+      "question": "Windows guard解除。body同一を宣言適用の不変と呼ばない"
+    },
+    {
+      "id": "n55",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/Core/Support/Foundation/UUID.swift",
+      "before": [
+        19,
+        19
+      ],
+      "after": [
+        18,
+        18
+      ],
+      "use": "conditional-applicability-changed",
+      "review": "A",
+      "reviewLine": 20,
+      "reviewSHA256": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54",
+      "question": "Windows guard解除。body同一を宣言適用の不変と呼ばない"
+    },
+    {
+      "id": "n56",
+      "case": "grdb-swift-1850",
+      "file": "GRDB/Core/Support/Foundation/UUID.swift",
+      "before": [
+        35,
+        35
+      ],
+      "after": [
+        34,
+        34
+      ],
+      "use": "conditional-applicability-changed",
+      "review": "A",
+      "reviewLine": 20,
+      "reviewSHA256": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54",
+      "question": "Windows guard解除。body同一を宣言適用の不変と呼ばない"
+    },
+    {
+      "id": "n57",
+      "case": "grdb-swift-1850",
+      "file": "Tests/GRDBTests/AssociationTableAliasTestsSQLTests.swift",
+      "before": [
+        133,
+        209
+      ],
+      "after": [
+        133,
+        209
+      ],
+      "use": "outside-production-test",
+      "review": "B",
+      "reviewLine": 13,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "local request型注釈と既存chain"
+    },
+    {
+      "id": "n58",
+      "case": "grdb-swift-1850",
+      "file": "Tests/GRDBTests/EncryptionTests.swift",
+      "before": [
+        750,
+        770
+      ],
+      "after": [
+        750,
+        770
+      ],
+      "use": "outside-production-test",
+      "review": "B",
+      "reviewLine": 14,
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+      "question": "provider test。production索引外"
+    }
+  ],
+  "externalUnknowns": [
+    "Windows/Android SDK symbol availability",
+    "Foundation bridge execution",
+    "Swift overload/type/lifetime resolution",
+    "active compiler conditions",
+    "target build/test/performance"
+  ]
+}

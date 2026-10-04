@@ -3,7 +3,7 @@
 **方針：追加後のcallから必要な共通先例へ届かない場合は、候補経路を積む前に、減った利用表記と残る既存の窓口を診断する。**
 
 - 記録日：2026-10-04
-- 状態：採用（M2の次の診断方針）。結果の独立点検完了、検索方式の採用は未決定
+- 状態：採用（M2の診断方針）。#95の結果点検と#96の診断を実施、検索方式の採用は未決定
 - 経緯：[0042](0042-context-evidence-provenance.md)/[0044](0044-existing-result-producers.md)/[0045](0045-written-result-relations.md)の固定比較結果から選択。事実性の契約は維持
 
 ## 目的・状況
@@ -24,8 +24,14 @@ Collections723では旧Deque経路が既存のcopy helperを使い、変更後�
 
 ## How / 見直す条件
 
-次の[#96](https://github.com/KantoYamamoto/sekka/issues/96)で必要位置を先に固定し、現在のcall索引に前後両側があるか、減少表記・caller対応・同形宣言の一意性と不変・条件を調べる。同名のSDK候補や移動/rename/trailing形式、削除宣言、0候補を分ける。生sourceやレビューは公開Gitへ入れず、metadata/位置/件数/hashと判断だけを残す。
+[#96](https://github.com/KantoYamamoto/sekka/issues/96)で必要位置を先に固定し、現在のcall索引に前後両側があるか、減少表記・caller対応・同形宣言の一意性と不変・条件を調べた。同名のSDK候補や移動/rename/trailing形式、削除宣言、0候補を分ける。生sourceやレビューは公開Gitへ入れず、metadata/位置/件数/hashと判断だけを残す。
 
 診断段階では現評価器を変更しない。必要先に届く事実と不要候補が追跡可能なら次の実装を分解し、その後の別入力で再評価する。必要先の根拠が薄い、入口の対応を捏造する、無関係な同名へ広がるなら実装せず関係単位へ戻る。対象checkout/build/test/scriptや外部OSSへの投稿はしない。今回の比較と診断を未見の有用性や効率改善とは称さない。
 
 原型のLogger/Analyticsのように異なるSDKへの役割配置を含む全パターンを、この仮説で解決済みとはしない。#95の独立点検は四条件/帰属とmetadataの限定を確認し、未解消の修正要求なし。対象の型検査・実行/性能は未確認。
+
+## 診断を受けた次の選択
+
+#96の既知4caseでは全42減少selectorから不変の一意宣言4件を得た。必要なcopy先例（4→0）と挙動確認のgap helper（3→2）へ交差する一方、SDK等のdeinitialize同名と、必要集合外のpointer helperも残る。[診断結果](../validation/withdrawn-entry-diagnostic.md)。削除callerをafter入口から取り落とす不足は確認できたが、4件を有用な実依存として扱えない。次の実装では既存call検索の入口を両側へ組み直す案を比較し、別検出器/scoreを積む前に同じ候補一覧へ統合する。効果はその後の別入力で比較する。
+
+その前に[#98](https://github.com/KantoYamamoto/sekka/issues/98)で実験CLIの失敗出力を直す。診断で同じ欠落directoryのFoundation stderrが毎回異なり、成功時だけの決定論性では要件を満たさないため。#96では診断catchだけをdomain/codeへ修正し、元の失敗/修正後凍結を分けた。runtime検索方式の変更やstderr後処理とは混ぜない。候補の有用性を支持しない場合のM3保留は維持する。

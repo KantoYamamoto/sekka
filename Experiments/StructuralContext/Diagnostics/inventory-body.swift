@@ -106,5 +106,14 @@ do {
   let data = try encoder.encode(diagnostic)
   FileHandle.standardOutput.write(data); FileHandle.standardOutput.write(Data([10]))
 } catch {
-  FileHandle.standardError.write(Data("\(error)\n".utf8)); exit(2)
+  // Foundation descriptions can include NSUnderlyingError memory addresses.
+  // Keep input failures deterministic; do not strip fields from captured evidence.
+  let foundation = error as NSError
+  let message: String
+  if foundation.domain == NSCocoaErrorDomain || foundation.domain == NSPOSIXErrorDomain {
+    message = "input-error domain=\(foundation.domain) code=\(foundation.code)"
+  } else {
+    message = String(describing: error)
+  }
+  FileHandle.standardError.write(Data("\(message)\n".utf8)); exit(2)
 }
