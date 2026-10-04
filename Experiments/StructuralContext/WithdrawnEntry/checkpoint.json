@@ -1,0 +1,31 @@
+{
+  "issue": 96,
+  "recordedAtUTC": "2026-10-04T06:25:15.057481+00:00",
+  "stage": "Required positions and diagnostic conditions fixed before index execution or audit implementation",
+  "sourceHead": "78e0b4d7ac54f042a523376f5e9de709ad1dabe4",
+  "filesSHA256": {
+    "Experiments/StructuralContext/WithdrawnEntry/plan.md": "615d5ebd6398d4f6afdfdbbd08fdfcb4cdd11c13e11d630d8f9ee60995c09ef2",
+    "Experiments/StructuralContext/WithdrawnEntry/needs.json": "97db20aaecadfa99ba281811e00a3218ed50a8036fda0af5609752f485d47f8d",
+    "Experiments/StructuralContext/ResultHoldout/inputs.json": "b081017375bc5c8fe5f0591b505636ffe6d2468e6e5c1582ba7b1d90b5cb10c5",
+    "Experiments/StructuralContext/Diagnostics/inventory-body.swift": "06b53b57656bcaccc95220356ff0109b579177bef89d5b2ce3978980e2032ad3",
+    "Experiments/StructuralContext/Diagnostics/verify.py": "1e2f18dc2455f5fb9f8d6f7180ef8d3874239fb37558e6bb5fee0bae3c71838a"
+  },
+  "rawReviewsSHA256": {
+    "reviews/grdb-swift-1850/A-result.md": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54",
+    "reviews/grdb-swift-1850/B-result.md": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
+    "reviews/grdb-swift-1852/A-result.md": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+    "reviews/grdb-swift-1852/B-result.md": "d19d70e320ea596ab04ed32d78836e94803269c736722d7bef19960cf4e1e4b9",
+    "reviews/swift-collections-721/A-result.md": "cadc1052fa9b7d1d4e1859a294c04822285c9873dcfed109706aa74efe34aff7",
+    "reviews/swift-collections-721/B-result.md": "556db3ef5b147dbddea79b0cd3b46fa0c85d51ebe22ed6e4d60ef0eca99b38dd",
+    "reviews/swift-collections-723/A-result.md": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+    "reviews/swift-collections-723/B-result.md": "bc055ce2acfd4b19e92a6309038381673b403ab09129ab6802631b17719b30d9"
+  },
+  "inputFreezeSHA256": "51240037ef85aebd1a8ebe35236bcfb11b7c48daa283e0d3b9da4c870a963a2a",
+  "next": "Build unchanged own diagnostic dump at sourceHead, then freeze binary/toolchain before target parsing",
+  "executionRecordedAtUTC": "2026-10-04T06:25:43.567116+00:00",
+  "diagnosticBinarySHA256": "40736bebe8741a73d22b3c44e6aa26a91f09e258cabe78a8f33713e6a7fbcf93",
+  "toolchain": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n",
+  "runnerSHA256": "de3b414b8bbf48f10adeff66bfe978abb32504717da58787961594b4063daa61",
+  "dumpChecksSHA256": "d79002f9ac90f1f17e8ca1b56c7cc248376eb9c476b21ea34b037263e7746845",
+  "validatedInputEntries": 3006
+}
