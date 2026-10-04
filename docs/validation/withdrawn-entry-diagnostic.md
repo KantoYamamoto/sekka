@@ -33,8 +33,8 @@ Collections723の`_copyContents(into:)`は記載利用4→0、索引内宣言は
 
 自己利用（base `78e0b4d` → `42ea458`）はSwift変更1を読む入口にはなったが観測0。変更がtop-level catchのため、6 indexed bodyがtoken同一と出る。本体比較の範囲外である今回の失敗表示変更は通常diffと対照で確かめた。独立した有用性や全体の整合性確認とはしない。
 
-修正後binaryでも全4caseを二回実行し、元の成功時dumpと全bytes同一だった。集計も二回一致。独立診断レビューで全3,006 entries、42group/4候補、58必要位置、全索引callのAST body境界、元の失敗と最終出力を点検し、未解消の修正要求なし。公開版は独立再生成とも全bytes一致。[独立receipt](../../Experiments/StructuralContext/WithdrawnEntry/independent-review.json)。PR/Actions・実コメント/成果物の完了状態はIssue #96と記録PRで追う。
+修正後binaryでも全4caseを二回実行し、元の成功時dumpと全bytes同一だった。集計も二回一致。独立診断レビューで全3,006 entries、42group/4候補、58必要位置、全索引callのAST body境界、元の失敗と最終出力を点検し、未解消の修正要求なし。公開版は独立再生成とも全bytes一致。[独立receipt](../../Experiments/StructuralContext/WithdrawnEntry/independent-review.json)。[PR #99](https://github.com/KantoYamamoto/sekka/pull/99)の最終Actions [37183945478](https://github.com/KantoYamamoto/sekka/actions/runs/37183945478)は成功。実Botコメントと10成果物を照合し、merge `8409378`で完了した。
 
 ## 次の分岐
 
-4caseの構文事実として「使わなくなる窓口」への入口は成立した。一例への到達だけで実装採用せず、独立点検で事実性/不要接続を確認する。本番統合/M3は保留。次の単位は先に#98の失敗出力境界、その後に、必要だった先例と未解決を一緒に読める最小表示の実装か、無関係接続を抑える関係単位の診断を選ぶ。既読4caseを新しい有用性評価へ読み替えず、原型のLogger/Analytics全般の解決と呼ばない。
+4caseの構文事実として「使わなくなる窓口」への入口は成立した。一例への到達だけで実装採用せず、独立点検で事実性/不要接続を確認する。本番統合/M3は保留。次の単位は先に#98の失敗出力境界、その後に#100で既存call入口を前後両側の共有契約へ組み直す。必要だった先例と未解決を同じ候補一覧で読めるようにし、別検出器の継ぎ足しと比較する。既読4caseを新しい有用性評価へ読み替えず、原型のLogger/Analytics全般の解決と呼ばない。
