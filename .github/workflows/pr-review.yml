@@ -48,6 +48,8 @@ jobs:
           python3 Experiments/StructuralContext/verify.py --binary .build/structural-context/debug/context-probe --output .build/pr-review/structural-context.json --text-output .build/pr-review/structural-context.text
       - name: Check known-context inventory diagnostic
         run: python3 Experiments/StructuralContext/Diagnostics/verify.py --scratch .build/inventory-diagnostic --output .build/diagnostics/checks.json
+      - name: Check withdrawn-entry diagnostic controls
+        run: python3 Experiments/StructuralContext/WithdrawnEntry/verify.py --binary .build/diagnostics/inventory-probe --output .build/diagnostics/withdrawn-entry.json
       - name: Check fixed review material controls
         run: python3 Experiments/StructuralContext/ResultHoldout/verify_diff_controls.py
       - name: Exercise review boundaries

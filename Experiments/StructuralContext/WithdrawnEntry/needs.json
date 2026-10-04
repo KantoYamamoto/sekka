@@ -951,7 +951,7 @@
       ],
       "use": "conditional-applicability-changed",
       "review": "A",
-      "reviewLine": 18,
+      "reviewLine": 19,
       "reviewSHA256": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54",
       "question": "Windows guard解除。body同一を宣言適用の不変と呼ばない"
     },
@@ -969,7 +969,7 @@
       ],
       "use": "conditional-applicability-changed",
       "review": "A",
-      "reviewLine": 18,
+      "reviewLine": 19,
       "reviewSHA256": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54",
       "question": "Windows guard解除。body同一を宣言適用の不変と呼ばない"
     },
@@ -987,7 +987,7 @@
       ],
       "use": "conditional-applicability-changed",
       "review": "A",
-      "reviewLine": 18,
+      "reviewLine": 20,
       "reviewSHA256": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54",
       "question": "Windows guard解除。body同一を宣言適用の不変と呼ばない"
     },
@@ -1005,7 +1005,7 @@
       ],
       "use": "conditional-applicability-changed",
       "review": "A",
-      "reviewLine": 18,
+      "reviewLine": 20,
       "reviewSHA256": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54",
       "question": "Windows guard解除。body同一を宣言適用の不変と呼ばない"
     },
@@ -1023,7 +1023,7 @@
       ],
       "use": "outside-production-test",
       "review": "B",
-      "reviewLine": 11,
+      "reviewLine": 13,
       "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
       "question": "local request型注釈と既存chain"
     },
@@ -1041,7 +1041,7 @@
       ],
       "use": "outside-production-test",
       "review": "B",
-      "reviewLine": 12,
+      "reviewLine": 14,
       "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18",
       "question": "provider test。production索引外"
     }

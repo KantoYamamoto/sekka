@@ -1,0 +1,15 @@
+{
+  "recordedAtUTC": "2026-10-04T06:33:24.583680+00:00",
+  "stage": "Diagnostic error boundary repaired and 22 own controls passed; frozen before repeating target index",
+  "sourceHead": "42ea4580d42c0200c2bea6f9350c88f9df27600d",
+  "diagnosticBinarySHA256": "a82321d57dd2be4b515f196747db24d4f169efebd3acf890a286db93197b786d",
+  "diagnosticBodySHA256": "f1e3b2a56cc89f41500847df544607cea4d046b8d9c539f92ed5697332a1a40d",
+  "originalCheckpointSHA256": "d1b57e4f832f803e50b7288a549bfaa6422c2b895cf95b05eee8e1f27c5fa7c4",
+  "initialBoundaryFailureSHA256": "035aba18fc2d5ee7b5d0caf353e14311b4f59ea409edeee9cc0730e5c9ddd7d8",
+  "controlsSHA256": "04228e79dbd2c5f5ccaf2dd0ef0555585e699deb6d889faf7f6325661af70cdb",
+  "auditSHA256": "db20280bc5f5c63c459a1862d69326885100098a2727681b1134f4ddff45f0c1",
+  "needsSHA256": "97db20aaecadfa99ba281811e00a3218ed50a8036fda0af5609752f485d47f8d",
+  "planSHA256": "615d5ebd6398d4f6afdfdbbd08fdfcb4cdd11c13e11d630d8f9ee60995c09ef2",
+  "sourceScope": "Same 4 fixed inputs and unchanged library; only diagnostic failure message changed",
+  "runtimeContextProbeChanged": false
+}

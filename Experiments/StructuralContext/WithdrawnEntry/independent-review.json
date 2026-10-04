@@ -1,0 +1,58 @@
+{
+  "outcome": "completed; no unresolved correction requests",
+  "meaning": "Independent known-input diagnostic consistency review, not fresh benefit evaluation or resolved dependencies.",
+  "rawReviewSHA256": "3e6c3f91eb7d19d96c2469a76c4693fc7bad34f82078e5db127e69291348ebda",
+  "rawChecksSHA256": "41f70bcbabb5a23a29c765f2cee291d9411651f560c77cca9c48719084d40036",
+  "rawControlsSHA256": "0f9cdeaa876b1cd712d314d7481d50569eef67804086915befeabc7c17b409b4",
+  "validatedEntries": 3006,
+  "checks": {
+    "receiptFourCases": true,
+    "manifestHash": true,
+    "binaryHash": true,
+    "runnerHash": true,
+    "allSuccessByteStable": true,
+    "allOutputHashes": true,
+    "unchangedSuccessVsInitial": true,
+    "swift-collections-723GroupSet": true,
+    "swift-collections-723Counts": true,
+    "swift-collections-723WrittenASTBoundary": true,
+    "swift-collections-721GroupSet": true,
+    "swift-collections-721Counts": true,
+    "swift-collections-721WrittenASTBoundary": true,
+    "grdb-swift-1852GroupSet": true,
+    "grdb-swift-1852Counts": true,
+    "grdb-swift-1852WrittenASTBoundary": true,
+    "grdb-swift-1850GroupSet": true,
+    "grdb-swift-1850Counts": true,
+    "grdb-swift-1850WrittenASTBoundary": true,
+    "packetEntries": true
+  },
+  "decreasedSelectors": 42,
+  "retainedCandidates": 4,
+  "fixedRequiredPositions": 58,
+  "positionIntersections": [
+    "n01: structural precedent",
+    "n13: behavior check"
+  ],
+  "independentRegenerationMatchesPublicBytes": true,
+  "finalFilesSHA256": {
+    "results.json": "938670f918fc10766cdc33fe173cdfb09c0623ba37ebff76e3e6b6c5c21c2688",
+    "execution.json": "358a107b481018c62171775ef1725394ef15facb8f8a1a6fd829f344b65c8c7b",
+    "needs.json": "e839b2179de7c4db15c6d6b6c1996e43f7372be676949a8d2415c99c91e10fdf",
+    "provenance-corrections.json": "aac21d35ee9e8ba0a4e8747b3869794d330bd14e78ef10a370dcaf9f1f6693e4",
+    "audit.py": "fd7103be7295b9212d6a76f44744212cd3e2d53fa1fcbe9e67a2a5beca4a704c",
+    "verify.py": "cf1b26ba6cbd43da5d6cb3da7b17d17ab94d6d3ff39e044b8fe43648fbca90ce",
+    "run.py": "f886fde207c59db112201c6652762d862a57a694b7e3721f8fdbf2a2dea6decc"
+  },
+  "corrections": [
+    "completed replay receipt required before audit",
+    "six reviewLine references corrected without source/use changes",
+    "three lexical-header/preceding-else/no-body controls added"
+  ],
+  "limitations": [
+    "Known inputs and reading-range intersections; no fresh benefit/recall/time evidence",
+    "No SDK/callee/type/overload/active condition or target execution/performance verification",
+    "Receipt consistency is not signed independent proof of execution",
+    "PR Actions/artifacts/comment checked separately by coordinator"
+  ]
+}

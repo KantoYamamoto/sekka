@@ -1,0 +1,56 @@
+{
+  "reason": "Independent review found six incorrect line references. Source positions, use categories and diagnostic conditions unchanged.",
+  "originalNeedsCommit": "42ea4580d42c0200c2bea6f9350c88f9df27600d",
+  "originalNeedsSHA256": "97db20aaecadfa99ba281811e00a3218ed50a8036fda0af5609752f485d47f8d",
+  "correctedNeedsSHA256": "e839b2179de7c4db15c6d6b6c1996e43f7372be676949a8d2415c99c91e10fdf",
+  "changes": [
+    {
+      "id": "n53",
+      "field": "reviewLine",
+      "before": 18,
+      "after": 19,
+      "review": "A",
+      "reviewSHA256": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54"
+    },
+    {
+      "id": "n54",
+      "field": "reviewLine",
+      "before": 18,
+      "after": 19,
+      "review": "A",
+      "reviewSHA256": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54"
+    },
+    {
+      "id": "n55",
+      "field": "reviewLine",
+      "before": 18,
+      "after": 20,
+      "review": "A",
+      "reviewSHA256": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54"
+    },
+    {
+      "id": "n56",
+      "field": "reviewLine",
+      "before": 18,
+      "after": 20,
+      "review": "A",
+      "reviewSHA256": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54"
+    },
+    {
+      "id": "n57",
+      "field": "reviewLine",
+      "before": 11,
+      "after": 13,
+      "review": "B",
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18"
+    },
+    {
+      "id": "n58",
+      "field": "reviewLine",
+      "before": 12,
+      "after": 14,
+      "review": "B",
+      "reviewSHA256": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18"
+    }
+  ]
+}

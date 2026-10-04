@@ -1,0 +1,117 @@
+{
+  "binarySHA256": "a82321d57dd2be4b515f196747db24d4f169efebd3acf890a286db93197b786d",
+  "runnerSHA256": "f886fde207c59db112201c6652762d862a57a694b7e3721f8fdbf2a2dea6decc",
+  "inputsSHA256": "b081017375bc5c8fe5f0591b505636ffe6d2468e6e5c1582ba7b1d90b5cb10c5",
+  "validatedEntries": 3006,
+  "results": [
+    {
+      "case": "swift-collections-723",
+      "exit": 0,
+      "allExitStdoutStderrBytesEqual": true,
+      "stdoutSHA256": "0f255191b86fb7f6d96df8065e3c728be3794377db30b280bc1af3fd9216edd9",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "swift-collections-721",
+      "exit": 0,
+      "allExitStdoutStderrBytesEqual": true,
+      "stdoutSHA256": "e31b9736476501d41cfdb49d84601e3972eca40c54ffee25ece9269c8f94572b",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "grdb-swift-1852",
+      "exit": 0,
+      "allExitStdoutStderrBytesEqual": true,
+      "stdoutSHA256": "0c06e4c6dbd894d6c067a00756ee5a0ecafcb99dff97110a58195fdc2323a841",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "grdb-swift-1850",
+      "exit": 0,
+      "allExitStdoutStderrBytesEqual": true,
+      "stdoutSHA256": "b0a035986c4d9556f4c7df89881ecd811302d4fdb43ba53f2be5f714c3405917",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "meaning": "Known fixed #95 inputs, no new review-benefit evidence. Private stdout/stderr preserved; no filtering.",
+  "diagnosticSourceHead": "42ea4580d42c0200c2bea6f9350c88f9df27600d",
+  "originalSuccessfulIndexesEqualAfterErrorFix": true,
+  "resultsSHA256": "938670f918fc10766cdc33fe173cdfb09c0623ba37ebff76e3e6b6c5c21c2688",
+  "needsSHA256": "e839b2179de7c4db15c6d6b6c1996e43f7372be676949a8d2415c99c91e10fdf",
+  "auditSHA256": "fd7103be7295b9212d6a76f44744212cd3e2d53fa1fcbe9e67a2a5beca4a704c",
+  "auditTwiceBytesEqual": true,
+  "controls": {
+    "binarySHA256": "a82321d57dd2be4b515f196747db24d4f169efebd3acf890a286db93197b786d",
+    "auditSHA256": "fd7103be7295b9212d6a76f44744212cd3e2d53fa1fcbe9e67a2a5beca4a704c",
+    "checks": [
+      "deleted-caller",
+      "moved-call-not-decrease",
+      "renamed-caller-remains-unknown",
+      "signature-change-remains-unknown",
+      "added-argument-remains-unknown",
+      "same-name-sdk-is-not-resolved",
+      "helper-deleted",
+      "helper-body-changed",
+      "helper-moved",
+      "conditional-header-changed",
+      "ancestor-header-changed",
+      "preceding-else-condition-changed",
+      "declaration-without-body",
+      "false-branch-counted-not-active",
+      "ambiguous-target",
+      "overload-labels-not-unique",
+      "body-boundary",
+      "trailing-closure-outside-written-index",
+      "specialized-call-outside-written-index",
+      "member-to-unqualified-is-not-decrease",
+      "zero-identical-input",
+      "malformed-rejects-partial-success",
+      "non-utf8-rejects-partial-success",
+      "symlink-rejects-partial-success",
+      "missing-directory-rejects-partial-success",
+      "complete-receipt",
+      "missing-receipt",
+      "wrong-manifest",
+      "wrong-binary",
+      "wrong-runner",
+      "wrong-input-count",
+      "missing-case",
+      "duplicate-case",
+      "failed-case",
+      "unstable-case",
+      "wrong-stdout",
+      "wrong-stderr"
+    ],
+    "meaning": "Own syntax controls; SDK same-name remains unresolved, not an asserted dependency or useful relation."
+  },
+  "verifySHA256": "cf1b26ba6cbd43da5d6cb3da7b17d17ab94d6d3ff39e044b8fe43648fbca90ce",
+  "initialFailure": {
+    "stage": "Original frozen diagnostic, prior to failure-rendering fix",
+    "sourceHead": "78e0b4d7ac54f042a523376f5e9de709ad1dabe4",
+    "failure": "Missing-directory NSError stderr contains differing NSUnderlyingError addresses; do not normalize or call byte stable",
+    "validInputsAllBytesEqual": true,
+    "newDiagnosticOnlyFix": "Foundation domain/code, no library/context-probe runtime change",
+    "initialAuditSHA256": "54e3e64618ce2cfc4fa13fa6035c5e450915f7410890d6fb4ad389a707fd69a9",
+    "originalBinarySHA256": "40736bebe8741a73d22b3c44e6aa26a91f09e258cabe78a8f33713e6a7fbcf93"
+  },
+  "experimentalRuntimeFailure": {
+    "evaluator": "frozen #94 experiment context-probe",
+    "exitCodes": [
+      2,
+      2
+    ],
+    "stdoutEmpty": true,
+    "stderrBytesEqual": false,
+    "stderrSHA256": [
+      "274b6aaa66d936a4c9b343a2ce0af5842b6306db493da54ca9039838c7dfe158",
+      "276ffe91a666612dc4f7d5bc05478efa3b29b38abcc0fb4b22db4483152ac64a"
+    ]
+  },
+  "selfUse": {
+    "base": "78e0b4d7ac54f042a523376f5e9de709ad1dabe4",
+    "head": "42ea4580d42c0200c2bea6f9350c88f9df27600d",
+    "textSHA256": "71b1471a3452cb2c6b6855e6a29685665f70d88814f99a877be15c367073f40d",
+    "jsonSHA256": "0b121a2b4c1df4bf7cf8b32dc4ba618ea28171f624f28555b4ab0be61ed04288",
+    "meaning": "One changed Swift file, zero structural observations; top-level catch change confirmed by ordinary diff and own controls, not indexed body equality."
+  }
+}

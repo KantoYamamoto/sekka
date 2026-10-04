@@ -102,13 +102,18 @@ def analyze(case, index, prefix, needs):
                       status=status, beforeDeclarations=[function_fact(f) for f in om],
                       afterDeclarations=[function_fact(f) for f in nm])
         for side, occurrences in [('before', a), ('after', b)]:
-            record[side+'Occurrences'] = [dict(site=position(c['site']), form=c['form'], caller=position(f['declaration']['site']),
+            facts = [dict(site=position(c['site']), form=c['form'], caller=position(f['declaration']['site']),
                 callerSelector=f['declaration']['selector'],
                 callerState=caller_state(f, old_keys, new_keys, new) if side == 'before' else 'after-indexed-caller',
                 receiverSpellingSHA256=digest(c.get('receiverSpelling')),
                 conditionsSHA256=digest(c['writtenConditions']),
                 conditionPositions=[condition_fact(condition) for condition in c['writtenConditions']])
                 for f,c in occurrences]
+            record[side+'OccurrencesSHA256'] = digest(facts)
+            # Keep every group/count/status. Rejected groups have no candidate
+            # to navigate to; their full sites remain in the bound private index.
+            if status == 'retained-token-identical-candidate':
+                record[side+'Occurrences'] = facts
         record['needIntersections'] = [need['id'] for need in needs
             if status == 'retained-token-identical-candidate' and any(
                 intersects(f['declaration']['site'], need['file'][len(prefix):], need['after']) for f in nm)]
@@ -154,14 +159,33 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--index',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--binary',type=Path,required=True,help='Own diagnostic binary used by the completed replay; hash checked, never executed here')
     p.add_argument('--manifest',type=Path,default=Path(__file__).parents[1]/'ResultHoldout/inputs.json')
     p.add_argument('--needs',type=Path,default=Path(__file__).with_name('needs.json'))
     args=p.parse_args()
     manifest=json.loads(args.manifest.read_text()); needs=json.loads(args.needs.read_text())['needs']
     expected={c['id']+'.json' for c in manifest}
-    actual={p.name for p in args.index.glob('*.json')}
+    actual={p.name for p in args.index.glob('*.json') if p.name != 'execution.json'}
     if actual != expected:
         raise ValueError('Index case inventory differs from fixed manifest')
+    receipt=json.loads((args.index/'execution.json').read_text())
+    if receipt['inputsSHA256'] != hashlib.sha256(args.manifest.read_bytes()).hexdigest():
+        raise ValueError('Execution input manifest differs')
+    if receipt['binarySHA256'] != hashlib.sha256(args.binary.read_bytes()).hexdigest():
+        raise ValueError('Execution binary differs')
+    if receipt['runnerSHA256'] != hashlib.sha256(Path(__file__).with_name('run.py').read_bytes()).hexdigest():
+        raise ValueError('Execution runner differs; use the matching diagnostic source for replay')
+    if receipt['validatedEntries'] != sum(len(c['files']) for c in manifest):
+        raise ValueError('Execution input inventory count differs')
+    records=receipt['results']
+    if len(records)!=len(manifest) or {r['case'] for r in records}!={c['id'] for c in manifest}:
+        raise ValueError('Incomplete or duplicate execution case records')
+    for r in records:
+        if r['exit']!=0 or r['allExitStdoutStderrBytesEqual'] is not True:
+            raise ValueError('Execution failed or was unstable')
+        for suffix,key in [('json','stdoutSHA256'),('stderr','stderrSHA256')]:
+            if hashlib.sha256((args.index/(r['case']+'.'+suffix)).read_bytes()).hexdigest()!=r[key]:
+                raise ValueError('Execution output bytes differ: '+r['case'])
     results=[]
     for c in manifest:
         j=json.loads((args.index/(c['id']+'.json')).read_text())
@@ -169,6 +193,7 @@ def main():
     args.output.parent.mkdir(parents=True,exist_ok=True)
     args.output.write_text(json.dumps(dict(meaning='Known-input syntax diagnostic, not resolved callees, migrations, coverage, review benefit or design verdict.',
         inputsSHA256=hashlib.sha256(args.manifest.read_bytes()).hexdigest(),needsSHA256=hashlib.sha256(args.needs.read_bytes()).hexdigest(),
+        executionSHA256=hashlib.sha256((args.index/'execution.json').read_bytes()).hexdigest(),
         auditSHA256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),cases=results),sort_keys=True,ensure_ascii=False,indent=2)+'\n')
 
 

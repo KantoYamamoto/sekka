@@ -1,10 +1,12 @@
 """Exercise the diagnostic with own Swift examples and unchanged inventory dump."""
 import argparse
+import copy
 import hashlib
 import importlib.util
 import json
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 
 spec=importlib.util.spec_from_file_location('withdrawn_audit',Path(__file__).with_name('audit.py'))
@@ -40,6 +42,9 @@ def main():
         ('helper-body-changed',{'H.swift':helper+caller},{'H.swift':'struct Helper { func copy(into target: Int) { print(target) } }'},'target-declaration-changed',None),
         ('helper-moved',{'H.swift':helper+caller},{'New.swift':helper},'target-correspondence-changed',None),
         ('conditional-header-changed',{'H.swift':'#if FLAG\n'+helper+'#endif\n'+caller},{'H.swift':'#if OTHER\n'+helper+'#endif'},'target-correspondence-changed',None),
+        ('ancestor-header-changed',{'H.swift':helper+caller},{'H.swift':helper.replace('struct Helper','struct Helper<T>')},'target-header-changed',None),
+        ('preceding-else-condition-changed',{'H.swift':'#if FLAG\n#else\n'+helper+'#endif\n'+caller},{'H.swift':'#if OTHER\n#else\n'+helper+'#endif'},'target-correspondence-changed',None),
+        ('declaration-without-body',{'H.swift':'protocol Helper { func copy(into target: Int) }\n'+caller},{'H.swift':'protocol Helper { func copy(into target: Int) }'},'declaration-without-body',None),
         ('false-branch-counted-not-active',{'H.swift':helper+'#if false\n'+caller+'#endif'},{'H.swift':helper},'retained-token-identical-candidate',None),
         ('ambiguous-target',{'H.swift':helper+helper+caller},{'H.swift':helper+helper},'same-selector-declaration-not-unique',None),
         ('overload-labels-not-unique',{'H.swift':helper+helper.replace('target: Int','target: String')+caller},{'H.swift':helper+helper.replace('target: Int','target: String')},'same-selector-declaration-not-unique',None),
@@ -77,6 +82,36 @@ def main():
             assert (a.returncode,a.stdout,a.stderr)==(b.returncode,b.stdout,b.stderr),(name,a.returncode,a.stderr,b.returncode,b.stderr)
             assert a.returncode==2 and not a.stdout and a.stderr,(name,a)
             passed.append(name+'-rejects-partial-success')
+        # The audit must not turn a partial/corrupted replay into a successful report.
+        index=root/'receipt-index';index.mkdir();folder=root/'zero-identical-input'
+        raw=subprocess.run([str(binary),str(folder/'before'),str(folder/'after')],capture_output=True,check=True)
+        (index/'receipt-case.json').write_bytes(raw.stdout);(index/'receipt-case.stderr').write_bytes(raw.stderr)
+        manifest=root/'manifest.json';manifest.write_text(json.dumps([dict(id='receipt-case',prefix='',files=[])]))
+        needs=root/'needs.json';needs.write_text(json.dumps(dict(needs=[])))
+        base=dict(inputsSHA256=hashlib.sha256(manifest.read_bytes()).hexdigest(),binarySHA256=hashlib.sha256(binary.read_bytes()).hexdigest(),
+            runnerSHA256=hashlib.sha256(Path(__file__).with_name('run.py').read_bytes()).hexdigest(),validatedEntries=0,
+            results=[dict(case='receipt-case',exit=0,allExitStdoutStderrBytesEqual=True,
+                stdoutSHA256=hashlib.sha256(raw.stdout).hexdigest(),stderrSHA256=hashlib.sha256(raw.stderr).hexdigest())])
+        changes=[('complete-receipt',None,None),('missing-receipt',None,None),('wrong-manifest','inputsSHA256','bad'),
+            ('wrong-binary','binarySHA256','bad'),('wrong-runner','runnerSHA256','bad'),('wrong-input-count','validatedEntries',1),
+            ('missing-case','results',[]),('duplicate-case','results',base['results']*2),
+            ('failed-case','exit',2),('unstable-case','allExitStdoutStderrBytesEqual',False),
+            ('wrong-stdout','stdoutSHA256','bad'),('wrong-stderr','stderrSHA256','bad')]
+        for name,key,value in changes:
+            receipt=copy.deepcopy(base)
+            if key in ('exit','allExitStdoutStderrBytesEqual','stdoutSHA256','stderrSHA256'):receipt['results'][0][key]=value
+            elif key:receipt[key]=value
+            path=index/'execution.json'
+            if name=='missing-receipt':path.unlink()
+            else:path.write_text(json.dumps(receipt))
+            output=root/(name+'.json')
+            command=[sys.executable,str(Path(__file__).with_name('audit.py')),'--binary',str(binary),'--index',str(index),
+                '--manifest',str(manifest),'--needs',str(needs),'--output',str(output)]
+            a=subprocess.run(command,capture_output=True);b=subprocess.run(command,capture_output=True)
+            assert (a.returncode,a.stdout,a.stderr)==(b.returncode,b.stdout,b.stderr),(name,a,b)
+            if name=='complete-receipt':assert a.returncode==0 and output.exists()
+            else:assert a.returncode!=0 and not a.stdout and not output.exists(),(name,a)
+            passed.append(name)
     args.output.parent.mkdir(parents=True,exist_ok=True)
     args.output.write_text(json.dumps(dict(binarySHA256=hashlib.sha256(binary.read_bytes()).hexdigest(),
         auditSHA256=hashlib.sha256(Path(__file__).with_name('audit.py').read_bytes()).hexdigest(),checks=passed,
