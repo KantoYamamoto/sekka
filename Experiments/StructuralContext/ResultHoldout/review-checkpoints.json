@@ -1,0 +1,114 @@
+{
+  "recordedAtUTC": "2026-10-03T19:00:31.250340+00:00",
+  "inputEvaluatorCheckpointSHA256": "51240037ef85aebd1a8ebe35236bcfb11b7c48daa283e0d3b9da4c870a963a2a",
+  "commonPromptSHA256": "16648891d5665845f5e8936dcfeb6356a2e1fa57864bd6f584f396c1629d2167",
+  "queryRunnerSHA256": "de143743e996850200fd4b3448a658f054a02e440f2483cfd6a50de0ed2313fe",
+  "stage": "All stage1 material fixed before independent reviewers",
+  "rootExposure": "Coordinator accidentally printed the first 10000 characters of aggregate query JSON while intending to inspect metadata, before independent reviews. This includes some first-case call tokens/positions. Coordinator is not an independent reviewer and passes neither this excerpt nor conclusions to reviewers. Reviewers use fresh context and only their own allowed paths.",
+  "cases": [
+    {
+      "case": "swift-collections-723",
+      "stage1MaterialSHA256": {
+        "A": {
+          "ordinary.diff": "2e745cc816b9e515574ef67bb87085e52f66a6e0acef4c20075e5ae36d1c999c",
+          "pr-context.md": "4e52a0fedcb25ba8d92a414f09767658dd353fb1e8bad42eca5c383df30ac9d4"
+        },
+        "B": {
+          "pr-context.md": "4e52a0fedcb25ba8d92a414f09767658dd353fb1e8bad42eca5c383df30ac9d4",
+          "scope.md": "2bef496377c1e8754e92c903fdf853e847f90fc7340acc46ccf3bc326605d4f8",
+          "sekka.json": "300911a35ea775336f3f6d7f8f03730d9bcd6b18176384d11a062bd6f54f3ec1",
+          "sekka.text": "93c542750abd9eed6b9ca17f931739f7ba2c8d58a48a658df46de00808794850"
+        }
+      },
+      "outputSHA256": {
+        "json": "300911a35ea775336f3f6d7f8f03730d9bcd6b18176384d11a062bd6f54f3ec1",
+        "text": "93c542750abd9eed6b9ca17f931739f7ba2c8d58a48a658df46de00808794850"
+      },
+      "counts": {
+        "targets": 7,
+        "entries": 12,
+        "resultEntries": 0,
+        "omittedTargets": 0,
+        "omittedEntries": 0
+      }
+    },
+    {
+      "case": "swift-collections-721",
+      "stage1MaterialSHA256": {
+        "A": {
+          "ordinary.diff": "99b17617007a3a3b3136d2acd2717425ee0be0b69e5e802b9682e3ee7618e9da",
+          "pr-context.md": "d61463e8737da57343f64ab982bdd86b121634e7f395f445d125ba8e599e3616"
+        },
+        "B": {
+          "pr-context.md": "d61463e8737da57343f64ab982bdd86b121634e7f395f445d125ba8e599e3616",
+          "scope.md": "2bef496377c1e8754e92c903fdf853e847f90fc7340acc46ccf3bc326605d4f8",
+          "sekka.json": "8e1465a3b45c7563cb7f8603ecbdac539ba35151075c2201f3b91080af0cafb3",
+          "sekka.text": "a1c230a49c4ee2e4ecc6b9bcc8db8060efd7bab1379c259881a5bae84077e20b"
+        }
+      },
+      "outputSHA256": {
+        "json": "8e1465a3b45c7563cb7f8603ecbdac539ba35151075c2201f3b91080af0cafb3",
+        "text": "a1c230a49c4ee2e4ecc6b9bcc8db8060efd7bab1379c259881a5bae84077e20b"
+      },
+      "counts": {
+        "targets": 0,
+        "entries": 0,
+        "resultEntries": 0,
+        "omittedTargets": 0,
+        "omittedEntries": 0
+      }
+    },
+    {
+      "case": "grdb-swift-1852",
+      "stage1MaterialSHA256": {
+        "A": {
+          "ordinary.diff": "17ff307d2f8f4c04f173d5bc36ec4d4329e124bbf08d02badc211b1383e1e5ca",
+          "pr-context.md": "e2b20cd011bb0e09216cdd1696db860efb8c0fca6eae4430285ba16483c92037"
+        },
+        "B": {
+          "pr-context.md": "e2b20cd011bb0e09216cdd1696db860efb8c0fca6eae4430285ba16483c92037",
+          "scope.md": "2bef496377c1e8754e92c903fdf853e847f90fc7340acc46ccf3bc326605d4f8",
+          "sekka.json": "12f4fe01a7b0a01d454199eb068ae7b41d897f9284d12eea6055ff2dc6d36fb5",
+          "sekka.text": "876da8ea7992550dbbe5458870725875cb131d79819290ab574f12a4fc3280dc"
+        }
+      },
+      "outputSHA256": {
+        "json": "12f4fe01a7b0a01d454199eb068ae7b41d897f9284d12eea6055ff2dc6d36fb5",
+        "text": "876da8ea7992550dbbe5458870725875cb131d79819290ab574f12a4fc3280dc"
+      },
+      "counts": {
+        "targets": 3,
+        "entries": 3,
+        "resultEntries": 1,
+        "omittedTargets": 0,
+        "omittedEntries": 0
+      }
+    },
+    {
+      "case": "grdb-swift-1850",
+      "stage1MaterialSHA256": {
+        "A": {
+          "ordinary.diff": "b80da42aa83d17a03af81dfb9f07f215548c8daaba843185f5aad0bae70646c6",
+          "pr-context.md": "cb69330ab49e88d5ac2631ad21fa7871372dcc40fa5241c683bc8a7b637a10a1"
+        },
+        "B": {
+          "pr-context.md": "cb69330ab49e88d5ac2631ad21fa7871372dcc40fa5241c683bc8a7b637a10a1",
+          "scope.md": "2bef496377c1e8754e92c903fdf853e847f90fc7340acc46ccf3bc326605d4f8",
+          "sekka.json": "3f2552cbb47750ee91706c7218366634621a52441ae04cf0342172ee87685080",
+          "sekka.text": "386386a31f0cb7a7f36e623ff5029df1d6fa7d579a50dcca268bb63cd8b9c023"
+        }
+      },
+      "outputSHA256": {
+        "json": "3f2552cbb47750ee91706c7218366634621a52441ae04cf0342172ee87685080",
+        "text": "386386a31f0cb7a7f36e623ff5029df1d6fa7d579a50dcca268bb63cd8b9c023"
+      },
+      "counts": {
+        "targets": 0,
+        "entries": 0,
+        "resultEntries": 0,
+        "omittedTargets": 0,
+        "omittedEntries": 0
+      }
+    }
+  ]
+}

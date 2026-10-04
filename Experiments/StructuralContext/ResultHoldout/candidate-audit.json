@@ -1,0 +1,678 @@
+{
+  "meaning": "Written syntax positions plus B reviewer use classification; not resolved callees, an exhaustive truth set, precision/recall or a design verdict. B use classification independently checked against private reviews/source; no unresolved change request. No third-party bodies/tokens.",
+  "cases": [
+    {
+      "case": "swift-collections-723",
+      "before": "1f94ac8f549699afe2cbffcb2c86e64dcfdca37b",
+      "after": "5cebba6f29b7d63ad9c59d5f63a4f94288e43230",
+      "sourcePrefix": "Sources/",
+      "omittedTargets": 0,
+      "targets": [
+        {
+          "before": {
+            "side": "before",
+            "path": "Sources/BasicContainers/RigidArray/RigidArray.swift",
+            "line": 435,
+            "endLine": 446,
+            "declaration": "extension RigidArray._closeGap(at:count:)"
+          },
+          "after": {
+            "side": "after",
+            "path": "Sources/BasicContainers/RigidArray/RigidArray.swift",
+            "line": 436,
+            "endLine": 447,
+            "declaration": "extension RigidArray._closeGap(at:count:)"
+          },
+          "kind": "function",
+          "entries": [
+            {
+              "id": "1.1",
+              "route": "memberSpelling",
+              "attribution": "existing-only",
+              "anchor": {
+                "side": "after",
+                "path": "Sources/BasicContainers/RigidArray/RigidArray+Replacements.swift",
+                "line": 79,
+                "endLine": 102,
+                "declaration": "extension RigidArray._uncheckedReplaceSubrange(_:addingCount:initializingWith:)"
+              },
+              "call": {
+                "selector": "_closeGap(at:count:)",
+                "site": {
+                  "side": "after",
+                  "path": "Sources/BasicContainers/RigidArray/RigidArray+Replacements.swift",
+                  "line": 92,
+                  "endLine": 94,
+                  "declaration": "extension RigidArray._uncheckedReplaceSubrange(_:addingCount:initializingWith:)"
+                },
+                "writtenConditionCount": 1
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "BReviewUse": "required-for-behavior-check",
+              "supportsFourStructuralGrounds": false
+            },
+            {
+              "id": "1.2",
+              "route": "memberSpelling",
+              "attribution": "existing-only",
+              "anchor": {
+                "side": "after",
+                "path": "Sources/BasicContainers/RigidArray/RigidArray+Replacements.swift",
+                "line": 175,
+                "endLine": 207,
+                "declaration": "extension RigidArray._uncheckedReplaceSubrange(_:consumingWith:addingCount:initializingWith:)"
+              },
+              "call": {
+                "selector": "_closeGap(at:count:)",
+                "site": {
+                  "side": "after",
+                  "path": "Sources/BasicContainers/RigidArray/RigidArray+Replacements.swift",
+                  "line": 196,
+                  "endLine": 198,
+                  "declaration": "extension RigidArray._uncheckedReplaceSubrange(_:consumingWith:addingCount:initializingWith:)"
+                },
+                "writtenConditionCount": 2
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "BReviewUse": "required-for-behavior-check",
+              "supportsFourStructuralGrounds": false
+            }
+          ],
+          "omittedEntries": 0
+        },
+        {
+          "before": {
+            "side": "before",
+            "path": "Sources/ContainersPreview/Protocols/Container/Container.swift",
+            "line": 311,
+            "endLine": 319,
+            "declaration": "extension Container.nextSpan(after:maxCount:)"
+          },
+          "after": {
+            "side": "after",
+            "path": "Sources/ContainersPreview/Protocols/Container/Container.swift",
+            "line": 311,
+            "endLine": 319,
+            "declaration": "extension Container.nextSpan(after:maxCount:)"
+          },
+          "kind": "function",
+          "entries": [
+            {
+              "id": "2.1",
+              "route": "memberSpelling",
+              "attribution": "existing-only",
+              "anchor": {
+                "side": "after",
+                "path": "Sources/ContainersPreview/Protocols/Container/RangeReplaceableContainer.swift",
+                "line": 572,
+                "endLine": 589,
+                "declaration": "extension RangeReplaceableContainer._replaceContainerSubrange(_:copying:)"
+              },
+              "call": {
+                "selector": "nextSpan(after:maxCount:)",
+                "site": {
+                  "side": "after",
+                  "path": "Sources/ContainersPreview/Protocols/Container/RangeReplaceableContainer.swift",
+                  "line": 583,
+                  "endLine": 583,
+                  "declaration": "extension RangeReplaceableContainer._replaceContainerSubrange(_:copying:)"
+                },
+                "writtenConditionCount": 1
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "BReviewUse": "context-only",
+              "supportsFourStructuralGrounds": false
+            }
+          ],
+          "omittedEntries": 0
+        },
+        {
+          "before": {
+            "side": "before",
+            "path": "Sources/ContainersPreview/Protocols/Drain/Drain.swift",
+            "line": 114,
+            "endLine": 119,
+            "declaration": "extension Drain.drainNext()"
+          },
+          "after": {
+            "side": "after",
+            "path": "Sources/ContainersPreview/Protocols/Drain/Drain.swift",
+            "line": 114,
+            "endLine": 119,
+            "declaration": "extension Drain.drainNext()"
+          },
+          "kind": "function",
+          "entries": [
+            {
+              "id": "3.1",
+              "route": "memberSpelling",
+              "attribution": "existing-only",
+              "anchor": {
+                "side": "after",
+                "path": "Sources/ContainersPreview/Protocols/Container/DrainableContainer.swift",
+                "line": 218,
+                "endLine": 231,
+                "declaration": "extension DrainableContainer.consumeSubrange(_:consumingWith:)"
+              },
+              "call": {
+                "selector": "drainNext()",
+                "site": {
+                  "side": "after",
+                  "path": "Sources/ContainersPreview/Protocols/Container/DrainableContainer.swift",
+                  "line": 226,
+                  "endLine": 226,
+                  "declaration": "extension DrainableContainer.consumeSubrange(_:consumingWith:)"
+                },
+                "writtenConditionCount": 1
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "BReviewUse": "context-only",
+              "supportsFourStructuralGrounds": false
+            }
+          ],
+          "omittedEntries": 0
+        },
+        {
+          "before": {
+            "side": "before",
+            "path": "Sources/DequeModule/_UnsafeDequeSegments.swift",
+            "line": 156,
+            "endLine": 167,
+            "declaration": "extension _UnsafeMutableDequeSegments.prefix(_:)"
+          },
+          "after": {
+            "side": "after",
+            "path": "Sources/DequeModule/_UnsafeDequeSegments.swift",
+            "line": 156,
+            "endLine": 167,
+            "declaration": "extension _UnsafeMutableDequeSegments.prefix(_:)"
+          },
+          "kind": "function",
+          "entries": [
+            {
+              "id": "4.1",
+              "route": "memberSpelling",
+              "attribution": "existing-only",
+              "anchor": {
+                "side": "after",
+                "path": "Sources/DequeModule/_UnsafeDequeHandle.swift",
+                "line": 1436,
+                "endLine": 1471,
+                "declaration": "extension _UnsafeDequeHandle._insertAfterReplace(_:addingCount:initializingWith:)"
+              },
+              "call": {
+                "selector": "prefix(_:)",
+                "site": {
+                  "side": "after",
+                  "path": "Sources/DequeModule/_UnsafeDequeHandle.swift",
+                  "line": 1452,
+                  "endLine": 1452,
+                  "declaration": "extension _UnsafeDequeHandle._insertAfterReplace(_:addingCount:initializingWith:)"
+                },
+                "writtenConditionCount": 1
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "BReviewUse": "unrelated-written-name-candidate",
+              "supportsFourStructuralGrounds": false
+            }
+          ],
+          "omittedEntries": 0
+        },
+        {
+          "before": {
+            "side": "before",
+            "path": "Sources/DequeModule/_UnsafeDequeSegments.swift",
+            "line": 169,
+            "endLine": 183,
+            "declaration": "extension _UnsafeMutableDequeSegments.suffix(_:)"
+          },
+          "after": {
+            "side": "after",
+            "path": "Sources/DequeModule/_UnsafeDequeSegments.swift",
+            "line": 169,
+            "endLine": 183,
+            "declaration": "extension _UnsafeMutableDequeSegments.suffix(_:)"
+          },
+          "kind": "function",
+          "entries": [
+            {
+              "id": "5.1",
+              "route": "memberSpelling",
+              "attribution": "existing-only",
+              "anchor": {
+                "side": "after",
+                "path": "Sources/DequeModule/_UnsafeDequeHandle.swift",
+                "line": 1436,
+                "endLine": 1471,
+                "declaration": "extension _UnsafeDequeHandle._insertAfterReplace(_:addingCount:initializingWith:)"
+              },
+              "call": {
+                "selector": "suffix(_:)",
+                "site": {
+                  "side": "after",
+                  "path": "Sources/DequeModule/_UnsafeDequeHandle.swift",
+                  "line": 1452,
+                  "endLine": 1452,
+                  "declaration": "extension _UnsafeDequeHandle._insertAfterReplace(_:addingCount:initializingWith:)"
+                },
+                "writtenConditionCount": 1
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "BReviewUse": "unrelated-written-name-candidate",
+              "supportsFourStructuralGrounds": false
+            }
+          ],
+          "omittedEntries": 0
+        },
+        {
+          "before": {
+            "side": "before",
+            "path": "Sources/DequeModule/_UnsafeDequeSegments.swift",
+            "line": 187,
+            "endLine": 192,
+            "declaration": "extension _UnsafeMutableDequeSegments.deinitialize()"
+          },
+          "after": {
+            "side": "after",
+            "path": "Sources/DequeModule/_UnsafeDequeSegments.swift",
+            "line": 187,
+            "endLine": 192,
+            "declaration": "extension _UnsafeMutableDequeSegments.deinitialize()"
+          },
+          "kind": "function",
+          "entries": [
+            {
+              "id": "6.1",
+              "route": "memberSpelling",
+              "attribution": "existing-only",
+              "anchor": {
+                "side": "after",
+                "path": "Sources/BasicContainers/RigidArray/RigidArray+Removals.swift",
+                "line": 119,
+                "endLine": 128,
+                "declaration": "extension RigidArray.removeSubrange(_:)"
+              },
+              "call": {
+                "selector": "deinitialize()",
+                "site": {
+                  "side": "after",
+                  "path": "Sources/BasicContainers/RigidArray/RigidArray+Removals.swift",
+                  "line": 124,
+                  "endLine": 124,
+                  "declaration": "extension RigidArray.removeSubrange(_:)"
+                },
+                "writtenConditionCount": 1
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "BReviewUse": "unrelated-written-name-candidate",
+              "supportsFourStructuralGrounds": false
+            },
+            {
+              "id": "6.2",
+              "route": "memberSpelling",
+              "attribution": "existing-only",
+              "anchor": {
+                "side": "after",
+                "path": "Sources/BasicContainers/RigidArray/RigidArray+Replacements.swift",
+                "line": 79,
+                "endLine": 102,
+                "declaration": "extension RigidArray._uncheckedReplaceSubrange(_:addingCount:initializingWith:)"
+              },
+              "call": {
+                "selector": "deinitialize()",
+                "site": {
+                  "side": "after",
+                  "path": "Sources/BasicContainers/RigidArray/RigidArray+Replacements.swift",
+                  "line": 86,
+                  "endLine": 86,
+                  "declaration": "extension RigidArray._uncheckedReplaceSubrange(_:addingCount:initializingWith:)"
+                },
+                "writtenConditionCount": 1
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "BReviewUse": "unrelated-written-name-candidate",
+              "supportsFourStructuralGrounds": false
+            },
+            {
+              "id": "6.3",
+              "route": "memberSpelling",
+              "attribution": "existing-only",
+              "anchor": {
+                "side": "after",
+                "path": "Sources/DequeModule/_UnsafeDequeHandle.swift",
+                "line": 1419,
+                "endLine": 1428,
+                "declaration": "extension _UnsafeDequeHandle.uncheckedRemove(offsets:)"
+              },
+              "call": {
+                "selector": "deinitialize()",
+                "site": {
+                  "side": "after",
+                  "path": "Sources/DequeModule/_UnsafeDequeHandle.swift",
+                  "line": 1425,
+                  "endLine": 1425,
+                  "declaration": "extension _UnsafeDequeHandle.uncheckedRemove(offsets:)"
+                },
+                "writtenConditionCount": 0
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "BReviewUse": "context-only",
+              "supportsFourStructuralGrounds": false
+            },
+            {
+              "id": "6.4",
+              "route": "memberSpelling",
+              "attribution": "existing-only",
+              "anchor": {
+                "side": "after",
+                "path": "Sources/DequeModule/_UnsafeDequeHandle.swift",
+                "line": 1473,
+                "endLine": 1489,
+                "declaration": "extension _UnsafeDequeHandle.uncheckedReplaceSubrange(_:addingCount:initializingWith:)"
+              },
+              "call": {
+                "selector": "deinitialize()",
+                "site": {
+                  "side": "after",
+                  "path": "Sources/DequeModule/_UnsafeDequeHandle.swift",
+                  "line": 1484,
+                  "endLine": 1484,
+                  "declaration": "extension _UnsafeDequeHandle.uncheckedReplaceSubrange(_:addingCount:initializingWith:)"
+                },
+                "writtenConditionCount": 1
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "BReviewUse": "context-only",
+              "supportsFourStructuralGrounds": false
+            }
+          ],
+          "omittedEntries": 0
+        },
+        {
+          "before": {
+            "side": "before",
+            "path": "Sources/InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+            "line": 178,
+            "endLine": 187,
+            "declaration": "extension UnsafeMutableBufferPointer._moveInitializePrefix(from:)"
+          },
+          "after": {
+            "side": "after",
+            "path": "Sources/InternalCollectionsUtilities/UnsafeMutableBufferPointer+Extras.swift",
+            "line": 178,
+            "endLine": 187,
+            "declaration": "extension UnsafeMutableBufferPointer._moveInitializePrefix(from:)"
+          },
+          "kind": "function",
+          "entries": [
+            {
+              "id": "7.1",
+              "route": "memberSpelling",
+              "attribution": "existing-only",
+              "anchor": {
+                "side": "after",
+                "path": "Sources/BasicContainers/RigidArray/RigidArray+Append.swift",
+                "line": 104,
+                "endLine": 117,
+                "declaration": "extension RigidArray._appendUnchecked(moving:)"
+              },
+              "call": {
+                "selector": "_moveInitializePrefix(from:)",
+                "site": {
+                  "side": "after",
+                  "path": "Sources/BasicContainers/RigidArray/RigidArray+Append.swift",
+                  "line": 112,
+                  "endLine": 112,
+                  "declaration": "extension RigidArray._appendUnchecked(moving:)"
+                },
+                "writtenConditionCount": 1
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "BReviewUse": "context-only",
+              "supportsFourStructuralGrounds": false
+            },
+            {
+              "id": "7.2",
+              "route": "memberSpelling",
+              "attribution": "existing-only",
+              "anchor": {
+                "side": "after",
+                "path": "Sources/BasicContainers/RigidArray/RigidArray+Replacements.swift",
+                "line": 242,
+                "endLine": 253,
+                "declaration": "extension RigidArray.replaceSubrange(_:moving:)"
+              },
+              "call": {
+                "selector": "_moveInitializePrefix(from:)",
+                "site": {
+                  "side": "after",
+                  "path": "Sources/BasicContainers/RigidArray/RigidArray+Replacements.swift",
+                  "line": 250,
+                  "endLine": 250,
+                  "declaration": "extension RigidArray.replaceSubrange(_:moving:)"
+                },
+                "writtenConditionCount": 1
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "BReviewUse": "context-only",
+              "supportsFourStructuralGrounds": false
+            }
+          ],
+          "omittedEntries": 0
+        }
+      ]
+    },
+    {
+      "case": "swift-collections-721",
+      "before": "774d6ba63114dd8302f2b509237748f54943ff2a",
+      "after": "80216ab0267270ebb16cecf68b7dcd388853bef2",
+      "sourcePrefix": "Sources/",
+      "omittedTargets": 0,
+      "targets": []
+    },
+    {
+      "case": "grdb-swift-1852",
+      "before": "7f9d1503a026a1e4ecf33a879f59f1b2669a663c",
+      "after": "7b01c9b72bc5b1420df24f2aa25f103a175ed335",
+      "sourcePrefix": "GRDB/",
+      "omittedTargets": 0,
+      "targets": [
+        {
+          "before": {
+            "side": "before",
+            "path": "GRDB/Core/Cursor.swift",
+            "line": 335,
+            "endLine": 342,
+            "declaration": "extension Cursor.contains(where:)"
+          },
+          "after": {
+            "side": "after",
+            "path": "GRDB/Core/Cursor.swift",
+            "line": 335,
+            "endLine": 342,
+            "declaration": "extension Cursor.contains(where:)"
+          },
+          "kind": "function",
+          "entries": [
+            {
+              "id": "1.1",
+              "route": "memberSpelling",
+              "attribution": "existing-only",
+              "anchor": {
+                "side": "after",
+                "path": "GRDB/Record/MutablePersistableRecord+DAO.swift",
+                "line": 42,
+                "endLine": 139,
+                "declaration": "DAO.upsertStatement(_:onConflict:updating:doUpdate:updateCondition:returning:)"
+              },
+              "call": {
+                "selector": "contains(where:)",
+                "site": {
+                  "side": "after",
+                  "path": "GRDB/Record/MutablePersistableRecord+DAO.swift",
+                  "line": 91,
+                  "endLine": 91,
+                  "declaration": "DAO.upsertStatement(_:onConflict:updating:doUpdate:updateCondition:returning:)"
+                },
+                "writtenConditionCount": 0
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "BReviewUse": "unrelated-written-name-candidate",
+              "supportsFourStructuralGrounds": false
+            }
+          ],
+          "omittedEntries": 0
+        },
+        {
+          "before": {
+            "side": "before",
+            "path": "GRDB/QueryInterface/Request/QueryInterfaceRequest.swift",
+            "line": 1907,
+            "endLine": 1909,
+            "declaration": "extension ColumnExpression.set(to:)"
+          },
+          "after": {
+            "side": "after",
+            "path": "GRDB/QueryInterface/Request/QueryInterfaceRequest.swift",
+            "line": 1919,
+            "endLine": 1921,
+            "declaration": "extension ColumnExpression.set(to:)"
+          },
+          "kind": "function",
+          "entries": [
+            {
+              "id": "2.1",
+              "route": "memberSpelling",
+              "attribution": "existing-only",
+              "anchor": {
+                "side": "after",
+                "path": "GRDB/Record/MutablePersistableRecord+DAO.swift",
+                "line": 42,
+                "endLine": 139,
+                "declaration": "DAO.upsertStatement(_:onConflict:updating:doUpdate:updateCondition:returning:)"
+              },
+              "call": {
+                "selector": "set(to:)",
+                "site": {
+                  "side": "after",
+                  "path": "GRDB/Record/MutablePersistableRecord+DAO.swift",
+                  "line": 96,
+                  "endLine": 96,
+                  "declaration": "DAO.upsertStatement(_:onConflict:updating:doUpdate:updateCondition:returning:)"
+                },
+                "writtenConditionCount": 0
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "BReviewUse": "context-only",
+              "supportsFourStructuralGrounds": false
+            }
+          ],
+          "omittedEntries": 0
+        },
+        {
+          "before": {
+            "side": "before",
+            "path": "GRDB/Record/MutablePersistableRecord+Insert.swift",
+            "line": 641,
+            "endLine": 675,
+            "declaration": "extension MutablePersistableRecord.insertAndFetchWithoutCallbacks(_:onConflict:selection:fetch:)"
+          },
+          "after": {
+            "side": "after",
+            "path": "GRDB/Record/MutablePersistableRecord+Insert.swift",
+            "line": 641,
+            "endLine": 675,
+            "declaration": "extension MutablePersistableRecord.insertAndFetchWithoutCallbacks(_:onConflict:selection:fetch:)"
+          },
+          "kind": "function",
+          "entries": [
+            {
+              "id": "3.1",
+              "route": "resultSpelling",
+              "attribution": "new-only",
+              "anchor": {
+                "side": "after",
+                "path": "GRDB/Record/MutablePersistableRecord+Upsert.swift",
+                "line": 426,
+                "endLine": 483,
+                "declaration": "extension MutablePersistableRecord.upsertAndFetchWithoutCallbacks(_:onConflict:updating:doUpdate:selection:decode:)"
+              },
+              "call": {
+                "selector": "InsertionSuccess(rowID:rowIDColumn:persistenceContainer:)",
+                "site": {
+                  "side": "after",
+                  "path": "GRDB/Record/MutablePersistableRecord+Upsert.swift",
+                  "line": 478,
+                  "endLine": 481,
+                  "declaration": "extension MutablePersistableRecord.upsertAndFetchWithoutCallbacks(_:onConflict:updating:doUpdate:selection:decode:)"
+                },
+                "writtenConditionCount": 0
+              },
+              "callerEvidence": "no-unique-old-indexed-correspondence",
+              "eligibleOccurrences": 1,
+              "targetCall": {
+                "selector": "InsertionSuccess(rowID:rowIDColumn:persistenceContainer:)",
+                "site": {
+                  "side": "after",
+                  "path": "GRDB/Record/MutablePersistableRecord+Insert.swift",
+                  "line": 670,
+                  "endLine": 673,
+                  "declaration": "extension MutablePersistableRecord.insertAndFetchWithoutCallbacks(_:onConflict:selection:fetch:)"
+                },
+                "writtenConditionCount": 0
+              },
+              "matchingNominal": {
+                "side": "after",
+                "path": "GRDB/Record/MutablePersistableRecord.swift",
+                "line": 394,
+                "endLine": 422,
+                "declaration": "InsertionSuccess"
+              },
+              "returnSites": {
+                "anchor": {
+                  "side": "after",
+                  "path": "GRDB/Record/MutablePersistableRecord+Upsert.swift",
+                  "line": 434,
+                  "endLine": 434,
+                  "declaration": "extension MutablePersistableRecord.upsertAndFetchWithoutCallbacks(_:onConflict:updating:doUpdate:selection:decode:) return"
+                },
+                "target": {
+                  "side": "after",
+                  "path": "GRDB/Record/MutablePersistableRecord+Insert.swift",
+                  "line": 647,
+                  "endLine": 647,
+                  "declaration": "extension MutablePersistableRecord.insertAndFetchWithoutCallbacks(_:onConflict:selection:fetch:) return"
+                }
+              },
+              "BReviewUse": "context-only",
+              "supportsFourStructuralGrounds": false
+            }
+          ],
+          "omittedEntries": 0
+        }
+      ]
+    },
+    {
+      "case": "grdb-swift-1850",
+      "before": "e784b103141daa4d4ed851550d5b4b47774904ba",
+      "after": "14567635e42cc2cfa399d755d308fb4bebe08735",
+      "sourcePrefix": "GRDB/",
+      "omittedTargets": 0,
+      "targets": []
+    }
+  ]
+}

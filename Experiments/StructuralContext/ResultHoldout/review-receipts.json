@@ -1,0 +1,116 @@
+{
+  "meaning": "Initial checkpoints checked before release; raw source/reviews remain private. Hashes do not reconstruct raw materials. Instruction separation, not OS isolation.",
+  "stage1ReceiptSHA256": "47e4dcdec14299088770dcf8735ceca3b3ce83c37c878226a11a5bd87d48aba7",
+  "interruption": {
+    "stage": "Resume after usage interruption without changing frozen evaluation conditions",
+    "recordedAtUTC": "2026-10-04T05:35:23+00:00",
+    "interruptedAgents": [
+      "holdout1852_a_review",
+      "holdout1852_b_review",
+      "holdout1850_a_review"
+    ],
+    "effect": "1852 initial checkpoints already saved; verified hashes before stage2. 1850 A had no checkpoint and resumed stage1 with the same allowed material. No case substitution, model override, evaluator change or public posting to external OSS. Wall clock gap is not review-time evidence."
+  },
+  "cases": [
+    {
+      "case": "swift-collections-723",
+      "release": {
+        "case": "swift-collections-723",
+        "recordedAtUTC": "2026-10-03T19:03:52.868890+00:00",
+        "stage": "Both initial checkpoints verified before common material release",
+        "initialCheckpointSHA256": {
+          "A": "1e33f14f0d31d074aa8f733f78103bd8f763aa7d8e4453ede132c3520b7eb9ad",
+          "B": "320dd4c7ec9efd8923f9e604a144acba45dbdd3543d148e2d23ff641b25f4c33"
+        },
+        "stage1MaterialReceiptSHA256": "47e4dcdec14299088770dcf8735ceca3b3ce83c37c878226a11a5bd87d48aba7",
+        "stage2PromptSHA256": "7f512d102c3b8e1c1f353c1934e48e0bdaeadf1e2560470641a5186f1a064987",
+        "access": "Both reviewers receive the same packet and their own stage1 folder/checkpoint only; instruction separation, not OS isolation.",
+        "commonMaterialFileCount": 1174,
+        "commonMaterialInventorySHA256": "428673f446b680af478bd4fcb3d8d5d7395a987c28401bca787beb4af387f15a",
+        "commonMaterialBinding": "Files match fixed inputs.json; ordinary.diff and pr-context.md match the initial freeze; all bytes rechecked after review."
+      },
+      "releaseSHA256": "dd61542ee4a7d2f76caed1fdc8f4aafdabb4c25fae3a8aaf601ffeb8ede629e4",
+      "rawReviewSHA256": {
+        "A-checkpoint.md": "1e33f14f0d31d074aa8f733f78103bd8f763aa7d8e4453ede132c3520b7eb9ad",
+        "A-result.md": "0ab2e293629bc617facfd082f082041c0c2679a4c6381842816c968fc6d76a23",
+        "B-checkpoint.md": "320dd4c7ec9efd8923f9e604a144acba45dbdd3543d148e2d23ff641b25f4c33",
+        "B-result.md": "bc055ce2acfd4b19e92a6309038381673b403ab09129ab6802631b17719b30d9"
+      }
+    },
+    {
+      "case": "swift-collections-721",
+      "release": {
+        "case": "swift-collections-721",
+        "recordedAtUTC": "2026-10-03T19:03:53.099413+00:00",
+        "stage": "Both initial checkpoints verified before common material release",
+        "initialCheckpointSHA256": {
+          "A": "d71e9f701c9b9f8eb2a0e99280f8c0037dd6200d3f2223c6425284d6d95bfcff",
+          "B": "3b26b29b15e0e7fceb9b98570bd657ec925a0f019b6fe5fbfc2bc4acc7d663f1"
+        },
+        "stage1MaterialReceiptSHA256": "47e4dcdec14299088770dcf8735ceca3b3ce83c37c878226a11a5bd87d48aba7",
+        "stage2PromptSHA256": "7f512d102c3b8e1c1f353c1934e48e0bdaeadf1e2560470641a5186f1a064987",
+        "access": "Both reviewers receive the same packet and their own stage1 folder/checkpoint only; instruction separation, not OS isolation.",
+        "commonMaterialFileCount": 1154,
+        "commonMaterialInventorySHA256": "7790bb7396d8869d7287d707cc871cea3fcf536951c47f61f18f4013f6f38361",
+        "commonMaterialBinding": "Files match fixed inputs.json; ordinary.diff and pr-context.md match the initial freeze; all bytes rechecked after review."
+      },
+      "releaseSHA256": "b0f9e252e38a7a85ddcd7869e12684b83c60b727e854d89ac9ee4e9c9cf16bdf",
+      "rawReviewSHA256": {
+        "A-checkpoint.md": "d71e9f701c9b9f8eb2a0e99280f8c0037dd6200d3f2223c6425284d6d95bfcff",
+        "A-result.md": "cadc1052fa9b7d1d4e1859a294c04822285c9873dcfed109706aa74efe34aff7",
+        "B-checkpoint.md": "3b26b29b15e0e7fceb9b98570bd657ec925a0f019b6fe5fbfc2bc4acc7d663f1",
+        "B-result.md": "556db3ef5b147dbddea79b0cd3b46fa0c85d51ebe22ed6e4d60ef0eca99b38dd"
+      }
+    },
+    {
+      "case": "grdb-swift-1852",
+      "release": {
+        "case": "grdb-swift-1852",
+        "recordedAtUTC": "2026-10-04T05:35:37.542242+00:00",
+        "stage": "Both initial checkpoints verified before common material release",
+        "initialCheckpointSHA256": {
+          "A": "c317bd3d70c1635c83825b95f432e5312c10bb4819aeb0b177feee745a09cbd3",
+          "B": "23e0dcba9351d2582a70d086630ce2a31d72c1ecf1053eb73b13289e984ec411"
+        },
+        "stage1MaterialReceiptSHA256": "47e4dcdec14299088770dcf8735ceca3b3ce83c37c878226a11a5bd87d48aba7",
+        "stage2PromptSHA256": "7f512d102c3b8e1c1f353c1934e48e0bdaeadf1e2560470641a5186f1a064987",
+        "access": "Both reviewers receive the same packet and their own stage1 folder/checkpoint only; instruction separation, not OS isolation.",
+        "commonMaterialFileCount": 344,
+        "commonMaterialInventorySHA256": "5eaa8bf53e86ff630218dddbb1f41e8130d029a6a0112f7a6bdff5254d7cad5d",
+        "commonMaterialBinding": "Files match fixed inputs.json; ordinary.diff and pr-context.md match the initial freeze; all bytes rechecked after review."
+      },
+      "releaseSHA256": "6fc3679c3a49f9eda8f132ebec97c745bca6021094aa94ffd0b591cfa2da4054",
+      "rawReviewSHA256": {
+        "A-checkpoint.md": "c317bd3d70c1635c83825b95f432e5312c10bb4819aeb0b177feee745a09cbd3",
+        "A-result.md": "05f5ebb1e2480050c2f3716abd7fe4e4c7c326be343a1fc7c2d3d2bda29fee30",
+        "B-checkpoint.md": "23e0dcba9351d2582a70d086630ce2a31d72c1ecf1053eb73b13289e984ec411",
+        "B-result.md": "d19d70e320ea596ab04ed32d78836e94803269c736722d7bef19960cf4e1e4b9"
+      }
+    },
+    {
+      "case": "grdb-swift-1850",
+      "release": {
+        "case": "grdb-swift-1850",
+        "recordedAtUTC": "2026-10-04T05:38:26.637420+00:00",
+        "stage": "Both initial checkpoints verified before common material release",
+        "initialCheckpointSHA256": {
+          "A": "5c23a68923134bec2bb2b972abb825f5b577b134919423d5dbb8e447694f5aac",
+          "B": "5f01c2eddbafdfc5d9669e91b96663d87b8741ee35b1a3acd8b8a626241c2769"
+        },
+        "stage1MaterialReceiptSHA256": "47e4dcdec14299088770dcf8735ceca3b3ce83c37c878226a11a5bd87d48aba7",
+        "stage2PromptSHA256": "7f512d102c3b8e1c1f353c1934e48e0bdaeadf1e2560470641a5186f1a064987",
+        "access": "Both reviewers receive the same packet and their own stage1 folder/checkpoint only; instruction separation, not OS isolation.",
+        "commonMaterialFileCount": 342,
+        "commonMaterialInventorySHA256": "67523aceabf1dfed949e0c020efa917c16111a807e0f1d719ad7e33f30c06577",
+        "commonMaterialBinding": "Files match fixed inputs.json; ordinary.diff and pr-context.md match the initial freeze; all bytes rechecked after review."
+      },
+      "releaseSHA256": "8418d448e82d34803abde3852d6e55a738db72bf6b745a218ccf36f522748050",
+      "rawReviewSHA256": {
+        "A-checkpoint.md": "5c23a68923134bec2bb2b972abb825f5b577b134919423d5dbb8e447694f5aac",
+        "A-result.md": "a06209b3db64b12a08ec9a4667bf7cc1cfbf5ab5fc24708ab0b40073854f8a54",
+        "B-checkpoint.md": "5f01c2eddbafdfc5d9669e91b96663d87b8741ee35b1a3acd8b8a626241c2769",
+        "B-result.md": "9a0823ce7f510a622da555a7bc6f472f6883ff1ac7ad5defed8fcd758b11ac18"
+      }
+    }
+  ]
+}

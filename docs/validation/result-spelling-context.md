@@ -35,4 +35,6 @@
 
 自己利用の初稿はbase `3e374a3`→`cfe5367`、同じ本番binaryをbaseline/candidateへ使用。モデル/API変更と本文未比較を入口にし、Python/docs/テストは普通diffへ戻った。固定試作はroot/experiment/diagnostic Swift24→26入力に4候補/14根拠（JSON/text各二回一致）。hasUnambiguousDeclarationContext/InventoryTypeName/SourceSite/WrittenConditionalBranchを読む入口になった。既存対応判定への4call位置と普通diffを照らすと、入口/targetの一意性と字句header判定が同じだったため`counterpart`へ共通化した。Sekkaが重複や設計不良を自動検出したとはしない。整理後`c329c3d`で自己利用を再実行し、同じ24→26入力の4候補/12根拠を確認。対応判定の4call入口が2にまとまり、型注釈からmodel再利用へ進む位置は維持。新result経路自体による独自の構造問題の発見はない。同じ本番binaryのbaseline/candidate一致、試作のJSON/text各二回一致を確認。
 
-必須Actions・実コメント/10成果物の照合は未完了。M3/本番統合は保留。事実性と既知到達を確認できた場合だけ別の固定比較を分解し、一般的な結果名から無関係なproducerへ広がるか、必要な先例を読み忘れにくくするかを確認する。人間の判断待ちはない。
+PR #94は最終head `a2172a0`、merge `f18508d`で完了。Actions `37143757700`（Swift6.3.2）はroot65テスト/39 CLI・Git/renderer13、実験85テスト/13 CLI、診断helperが成功。10成果物のmanifest headと実Botコメント本文を照合し、罫線・fileリンク・非Swift/本文未比較と単位付き件数、新経路の両側根拠/条件も点検。[完了記録](https://github.com/KantoYamamoto/sekka/pull/94#issuecomment-5972163803)。
+
+M3/本番統合は保留。次は#95の別4PR固定A/B比較。一般的な結果名から無関係なproducerへ広がるか、必要な先例を読み忘れにくくするかを確認する。人間の判断待ちはない。

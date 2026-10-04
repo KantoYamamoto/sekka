@@ -1,0 +1,102 @@
+{
+  "issue": 95,
+  "recordedAtUTC": "2026-10-03T18:43:00.652009+00:00",
+  "stage": "Full input/evaluator freeze before any new query and before A/B",
+  "sourceHead": "a2172a0d4cc5c3f309cdefabc68b82d8ff3b6a9c",
+  "mergeCommit": "f18508d98d7888816184736da988504706d2cf48",
+  "packageTree": "8bf06e6cfe9b919dfbe4bb23ad0687ceaa2094f9",
+  "binarySHA256": "b403f914b496b93d77f484a04fcf498a6b972a6300ed6f36a969811505612a73",
+  "lockfileSHA256": "6ae0524d69c3905315d7685e879747a4f1383529877460d2e37f43fdfd6570f6",
+  "toolchain": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0\n",
+  "OS": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0\nBuildVersion:\t\t26A428\n",
+  "runnerSHA256": "de143743e996850200fd4b3448a658f054a02e440f2483cfd6a50de0ed2313fe",
+  "filesSHA256": {
+    "inputs.json": "b081017375bc5c8fe5f0591b505636ffe6d2468e6e5c1582ba7b1d90b5cb10c5",
+    "public-selection.json": "331ae2d4a60596a82430f5c0a182857211212d136f008b7e4326e92df57630fd",
+    "selection-checkpoint.json": "f17e9f896e22b1caac1410c51a8b2f8ecbd35a335c63c11d62aab7f21cf9e987",
+    "plan.md": "f88dd9092e7058b1c6978cdc3303e074b04e78a872a1ae32aed9997f29921ce3",
+    "body-receipts.json": "b1e8cc9a5c6aef9532441969d824e4b8ec44b360c490bfd4366cb4bf481af8df",
+    "diff-source-checks.json": "d30e46e7a31bac9c00e158f664551e31471045b38b05be8fb88c7bfeb78bb1aa",
+    "verify_diff.py": "60c60857c6279418dcbb2ba1753ee0e72ae11d0874d1c6dc7c3f56ee817ecad3",
+    "verify_diff_controls.py": "1e76d3198e50e78c4052af245c62ed05e1854ed682ba0b69f338bb5e3d0221f0"
+  },
+  "diffMethod": "GET compare/{merge-base}...{head}; Accept application/vnd.github.diff; default GitHub context/rename; text hunks/gaps/tails independently bound to snapshot bytes",
+  "cases": [
+    {
+      "id": "swift-collections-723",
+      "before": "1f94ac8f549699afe2cbffcb2c86e64dcfdca37b",
+      "after": "5cebba6f29b7d63ad9c59d5f63a4f94288e43230",
+      "entries": 1172,
+      "sourcePrefix": "Sources/",
+      "materialSHA256": {
+        "ordinary.diff": "2e745cc816b9e515574ef67bb87085e52f66a6e0acef4c20075e5ae36d1c999c",
+        "pr-context.md": "4e52a0fedcb25ba8d92a414f09767658dd353fb1e8bad42eca5c383df30ac9d4"
+      },
+      "command": [
+        "BINARY",
+        "CASE/before/Sources/",
+        "CASE/after/Sources/"
+      ],
+      "textCommandExtraArgument": "--text"
+    },
+    {
+      "id": "swift-collections-721",
+      "before": "774d6ba63114dd8302f2b509237748f54943ff2a",
+      "after": "80216ab0267270ebb16cecf68b7dcd388853bef2",
+      "entries": 1152,
+      "sourcePrefix": "Sources/",
+      "materialSHA256": {
+        "ordinary.diff": "99b17617007a3a3b3136d2acd2717425ee0be0b69e5e802b9682e3ee7618e9da",
+        "pr-context.md": "d61463e8737da57343f64ab982bdd86b121634e7f395f445d125ba8e599e3616"
+      },
+      "command": [
+        "BINARY",
+        "CASE/before/Sources/",
+        "CASE/after/Sources/"
+      ],
+      "textCommandExtraArgument": "--text"
+    },
+    {
+      "id": "grdb-swift-1852",
+      "before": "7f9d1503a026a1e4ecf33a879f59f1b2669a663c",
+      "after": "7b01c9b72bc5b1420df24f2aa25f103a175ed335",
+      "entries": 342,
+      "sourcePrefix": "GRDB/",
+      "materialSHA256": {
+        "ordinary.diff": "17ff307d2f8f4c04f173d5bc36ec4d4329e124bbf08d02badc211b1383e1e5ca",
+        "pr-context.md": "e2b20cd011bb0e09216cdd1696db860efb8c0fca6eae4430285ba16483c92037"
+      },
+      "command": [
+        "BINARY",
+        "CASE/before/GRDB/",
+        "CASE/after/GRDB/"
+      ],
+      "textCommandExtraArgument": "--text"
+    },
+    {
+      "id": "grdb-swift-1850",
+      "before": "e784b103141daa4d4ed851550d5b4b47774904ba",
+      "after": "14567635e42cc2cfa399d755d308fb4bebe08735",
+      "entries": 340,
+      "sourcePrefix": "GRDB/",
+      "materialSHA256": {
+        "ordinary.diff": "b80da42aa83d17a03af81dfb9f07f215548c8daaba843185f5aad0bae70646c6",
+        "pr-context.md": "cb69330ab49e88d5ac2631ad21fa7871372dcc40fa5241c683bc8a7b637a10a1"
+      },
+      "command": [
+        "BINARY",
+        "CASE/before/GRDB/",
+        "CASE/after/GRDB/"
+      ],
+      "textCommandExtraArgument": "--text"
+    }
+  ],
+  "historicalPlanAtSelectionSHA256": "4653929965ee0b7a63c934c733b7b76fc1b62f12c940089fe6b5333351bdc021",
+  "historicalSelectorAtSelectionSHA256": "49443cfcd0c10fb01581cfaab871fb5ddd489669d31bc542b6b6e79207232a04",
+  "materialControls": {
+    "valid": 7,
+    "rejected": 11
+  },
+  "rawCheckpointSHA256": "51240037ef85aebd1a8ebe35236bcfb11b7c48daa283e0d3b9da4c870a963a2a",
+  "meaning": "Public metadata checkpoint; commands use placeholders. Raw absolute-command checkpoint remains ignored with recorded hash. No source or raw reviews published."
+}

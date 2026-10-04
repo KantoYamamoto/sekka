@@ -1,6 +1,6 @@
 # 変更から未変更の実装候補へ辿る実験
 
-本番CLIへ採用する前の試作。[判断0038](../../docs/decisions/0038-outside-diff-context.md)に従い、通常diffを読むときに、変更していない既存実装も確認する入口を作る。Swift構文を決定論的に読み、LLMや対象アプリのビルドを使わない。
+本番CLIへ採用する前の試作。[判断0038](../../docs/decisions/0038-outside-diff-context.md)に従い、通常diffを読むときに、変更していない既存実装も確認する入口を作る。Swift構文を決定論的に読み、LLMや対象アプリのビルドを使わない。[別4PRの比較](../../docs/validation/result-relations-holdout.md)では、構造の再検討への利益は未支持で本番統合を保留している。候補への到達と有用性を分ける。
 
 ```sh
 set -e
