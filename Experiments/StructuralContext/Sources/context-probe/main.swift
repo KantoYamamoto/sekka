@@ -32,7 +32,11 @@ func sources(at path: String) throws -> [(String, String)] {
       throw CocoaError(.fileReadUnknown)
     }
     let relative = components.dropFirst(root.pathComponents.count).joined(separator: "/")
-    files.append((relative, try String(contentsOf: url, encoding: .utf8)))
+    do {
+      files.append((relative, try String(contentsOf: url, encoding: .utf8)))
+    } catch {
+      throw SourceReadFailure(path: root.appendingPathComponent(relative).path, cause: error)
+    }
   }
   if let readError { throw readError }
   return files

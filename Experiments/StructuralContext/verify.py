@@ -43,7 +43,7 @@ with tempfile.TemporaryDirectory(prefix='sekka-input-errors-') as directory:
         assert 'NSUnderlyingError=' not in message
     (after/'Bad.swift').write_bytes(b'\xff')
     message=failed_twice([binary,str(before),str(after)])
-    assert 'Input is not UTF-8 [NSCocoaErrorDomain:' in message and 'Bad.swift' in message
+    assert 'Unable to read Swift source as UTF-8' in message and '[NSCocoaErrorDomain:' in message and 'Bad.swift' in message
     (after/'Bad.swift').unlink();(after/'Bad.swift').write_text('func {')
     message=failed_twice([binary,str(before),str(after)])
     assert 'Bad.swift' in message

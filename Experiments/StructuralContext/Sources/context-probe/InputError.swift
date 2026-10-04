@@ -1,7 +1,16 @@
 import Foundation
 
+/// The text reader knows the source path even when Foundation omits userInfo.
+struct SourceReadFailure: Error {
+  let path: String
+  let cause: any Error
+}
+
 /// Stable input failure facts, without Foundation's nested error descriptions.
 func inputErrorMessage(_ error: any Error) -> String {
+  if let source = error as? SourceReadFailure {
+    return "Unable to read Swift source as UTF-8 \(String(reflecting: source.path)): \(inputErrorMessage(source.cause))"
+  }
   let failure = error as NSError
   guard failure.domain == NSCocoaErrorDomain || failure.domain == NSPOSIXErrorDomain else {
     return String(describing: error)

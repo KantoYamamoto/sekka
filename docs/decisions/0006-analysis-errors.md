@@ -28,7 +28,7 @@ Foundationのdescriptionを保存後に正規表現で消す案は、実際の�
 
 [Inputs.swift](../../Sources/SekkaCore/Inputs.swift)が入力エラーを投げ、[Analyzer.swift](../../Sources/SekkaCore/Analyzer.swift)が構文エラーで停止する。[CLI](../../Sources/sekka/main.swift)は解析完了後に出力し、例外はstderrと終了コード2へ変換する。観測による終了コード1は明示オプション時だけとする。
 
-実験CLIと一時合成したinventory診断は同じ[InputError.swift](../../Experiments/StructuralContext/Sources/context-probe/InputError.swift)を使う。Foundationの入力失敗では理由/domain/codeと、取得できるfile pathだけを表示し、nested userInfo/underlying errorのdescriptionは出さない。pathは引用/escapeして行構造を壊さない。Swiftのparse位置/usage等の既存非Foundationエラーは維持する。本番CLI/検索library/有用性の条件はこの修正で変更しない。
+実験CLIと一時合成したinventory診断は同じ[InputError.swift](../../Experiments/StructuralContext/Sources/context-probe/InputError.swift)を使う。Foundationの入力失敗では理由/domain/codeと、取得できるfile pathだけを表示し、nested userInfo/underlying errorのdescriptionは出さない。UTF8文字列readerはpathがないFoundation code259を返すことがあったため、reader自身がsource pathと読取操作を付ける。code259だけから失敗原因をUTF8と断定しない。pathは引用/escapeして行構造を壊さない。Swiftのparse位置/usage等の既存非Foundationエラーは維持する。本番CLI/検索library/有用性の条件はこの修正で変更しない。
 
 ## 制約・見直す条件
 
