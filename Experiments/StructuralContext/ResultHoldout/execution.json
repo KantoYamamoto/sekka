@@ -1,0 +1,88 @@
+{
+  "meaning": "Frozen execution receipt; candidates are written-syntax relations, not resolved calls or design judgments. Review benefit remains to be evaluated.",
+  "inputEvaluatorCheckpointSHA256": "51240037ef85aebd1a8ebe35236bcfb11b7c48daa283e0d3b9da4c870a963a2a",
+  "runnerSHA256": "de143743e996850200fd4b3448a658f054a02e440f2483cfd6a50de0ed2313fe",
+  "aggregateOutputSHA256": "69e2aa420e3294fb8ae6de3a18e73535f272cdfb1ef8203b606724b04a38eb3c",
+  "cases": [
+    {
+      "case": "swift-collections-723",
+      "returnCode": 0,
+      "comparison": "JSON and text each run twice; complete exit/stdout/stderr bytes equal, enforced by frozen Reach/run.py; stderr bytes not archived separately",
+      "outputSHA256": {
+        "json": "300911a35ea775336f3f6d7f8f03730d9bcd6b18176384d11a062bd6f54f3ec1",
+        "text": "93c542750abd9eed6b9ca17f931739f7ba2c8d58a48a658df46de00808794850"
+      },
+      "outputBytes": {
+        "json": 33943,
+        "text": 11986
+      },
+      "changedFunctions": 20,
+      "changedTypeAnnotations": 0,
+      "targets": 7,
+      "entries": 12,
+      "resultEntries": 0,
+      "omittedTargets": 0,
+      "omittedEntries": 0
+    },
+    {
+      "case": "swift-collections-721",
+      "returnCode": 0,
+      "comparison": "JSON and text each run twice; complete exit/stdout/stderr bytes equal, enforced by frozen Reach/run.py; stderr bytes not archived separately",
+      "outputSHA256": {
+        "json": "8e1465a3b45c7563cb7f8603ecbdac539ba35151075c2201f3b91080af0cafb3",
+        "text": "a1c230a49c4ee2e4ecc6b9bcc8db8060efd7bab1379c259881a5bae84077e20b"
+      },
+      "outputBytes": {
+        "json": 5763,
+        "text": 721
+      },
+      "changedFunctions": 0,
+      "changedTypeAnnotations": 0,
+      "targets": 0,
+      "entries": 0,
+      "resultEntries": 0,
+      "omittedTargets": 0,
+      "omittedEntries": 0
+    },
+    {
+      "case": "grdb-swift-1852",
+      "returnCode": 0,
+      "comparison": "JSON and text each run twice; complete exit/stdout/stderr bytes equal, enforced by frozen Reach/run.py; stderr bytes not archived separately",
+      "outputSHA256": {
+        "json": "12f4fe01a7b0a01d454199eb068ae7b41d897f9284d12eea6055ff2dc6d36fb5",
+        "text": "876da8ea7992550dbbe5458870725875cb131d79819290ab574f12a4fc3280dc"
+      },
+      "outputBytes": {
+        "json": 15287,
+        "text": 4640
+      },
+      "changedFunctions": 2,
+      "changedTypeAnnotations": 1,
+      "targets": 3,
+      "entries": 3,
+      "resultEntries": 1,
+      "omittedTargets": 0,
+      "omittedEntries": 0
+    },
+    {
+      "case": "grdb-swift-1850",
+      "returnCode": 0,
+      "comparison": "JSON and text each run twice; complete exit/stdout/stderr bytes equal, enforced by frozen Reach/run.py; stderr bytes not archived separately",
+      "outputSHA256": {
+        "json": "3f2552cbb47750ee91706c7218366634621a52441ae04cf0342172ee87685080",
+        "text": "386386a31f0cb7a7f36e623ff5029df1d6fa7d579a50dcca268bb63cd8b9c023"
+      },
+      "outputBytes": {
+        "json": 5763,
+        "text": 721
+      },
+      "changedFunctions": 0,
+      "changedTypeAnnotations": 0,
+      "targets": 0,
+      "entries": 0,
+      "resultEntries": 0,
+      "omittedTargets": 0,
+      "omittedEntries": 0
+    }
+  ]
+}

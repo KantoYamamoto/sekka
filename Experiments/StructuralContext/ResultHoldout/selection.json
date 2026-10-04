@@ -1,0 +1,151 @@
+{
+  "rule": "Created-desc then number-desc at most40, merged<=2026-09-21, exclude eight #77/#87 cases, first2 production Swift per repository; preregistered before viewing source/output",
+  "audit": [
+    {
+      "repository": "apple/swift-collections",
+      "number": 728,
+      "selected": false,
+      "reason": "Previously reviewed #77/#87 input"
+    },
+    {
+      "repository": "apple/swift-collections",
+      "number": 727,
+      "selected": false,
+      "reason": "Previously reviewed #77/#87 input"
+    },
+    {
+      "repository": "apple/swift-collections",
+      "number": 725,
+      "selected": false,
+      "reason": "Previously reviewed #77/#87 input"
+    },
+    {
+      "repository": "apple/swift-collections",
+      "number": 724,
+      "selected": false,
+      "reason": "Previously reviewed #77/#87 input"
+    },
+    {
+      "repository": "apple/swift-collections",
+      "number": 723,
+      "createdAt": "2026-09-15T03:38:43Z",
+      "mergedAt": "2026-09-16T20:40:57Z",
+      "productionSwift": [
+        "Sources/BasicContainers/RigidArray/RigidArray+Append.swift",
+        "Sources/BasicContainers/RigidArray/RigidArray+Consumption.swift",
+        "Sources/BasicContainers/RigidArray/RigidArray+Deprecated.swift",
+        "Sources/BasicContainers/RigidArray/RigidArray+Initializers.swift",
+        "Sources/BasicContainers/RigidArray/RigidArray+Insertions.swift",
+        "Sources/BasicContainers/RigidArray/RigidArray+Removals.swift",
+        "Sources/BasicContainers/RigidArray/RigidArray+Replacements.swift",
+        "Sources/BasicContainers/RigidArray/RigidArray.swift",
+        "Sources/BasicContainers/UniqueArray/UniqueArray+Append.swift",
+        "Sources/BasicContainers/UniqueArray/UniqueArray+Consumption.swift",
+        "Sources/BasicContainers/UniqueArray/UniqueArray+Deprecated.swift",
+        "Sources/BasicContainers/UniqueArray/UniqueArray+Insertions.swift",
+        "Sources/BasicContainers/UniqueArray/UniqueArray+Removals.swift",
+        "Sources/BasicContainers/UniqueArray/UniqueArray+Replacements.swift",
+        "Sources/ContainersPreview/Conformances/RigidArray+Container.swift",
+        "Sources/ContainersPreview/Conformances/RigidDeque+Container.swift",
+        "Sources/ContainersPreview/Conformances/RigidSet+Container.swift",
+        "Sources/ContainersPreview/Conformances/UniqueArray+Container.swift",
+        "Sources/ContainersPreview/Conformances/UniqueDeque+Container.swift",
+        "Sources/ContainersPreview/Conformances/UniqueSet+Container.swift",
+        "Sources/ContainersPreview/Protocols/Container/DrainableContainer.swift",
+        "Sources/ContainersPreview/Protocols/Container/DynamicContainer.swift",
+        "Sources/ContainersPreview/Protocols/Container/RangeReplaceableContainer.swift",
+        "Sources/ContainersPreview/Protocols/Drain/ContainerDrain.swift",
+        "Sources/ContainersPreview/Protocols/Producer/Producer.swift",
+        "Sources/DequeModule/RigidDeque/RigidDeque+Append.swift",
+        "Sources/DequeModule/RigidDeque/RigidDeque+Consumption.swift",
+        "Sources/DequeModule/RigidDeque/RigidDeque+Deprecations.swift",
+        "Sources/DequeModule/RigidDeque/RigidDeque+Experimental.swift",
+        "Sources/DequeModule/RigidDeque/RigidDeque+Insertions.swift",
+        "Sources/DequeModule/RigidDeque/RigidDeque+Prepend.swift",
+        "Sources/DequeModule/RigidDeque/RigidDeque+Removals.swift",
+        "Sources/DequeModule/RigidDeque/RigidDeque+Replacements.swift",
+        "Sources/DequeModule/RigidDeque/RigidDeque.swift",
+        "Sources/DequeModule/UniqueDeque/UniqueDeque+Append.swift",
+        "Sources/DequeModule/UniqueDeque/UniqueDeque+Consumption.swift",
+        "Sources/DequeModule/UniqueDeque/UniqueDeque+Deprecated.swift",
+        "Sources/DequeModule/UniqueDeque/UniqueDeque+Insertions.swift",
+        "Sources/DequeModule/UniqueDeque/UniqueDeque+Prepend.swift",
+        "Sources/DequeModule/UniqueDeque/UniqueDeque+Replacements.swift",
+        "Sources/DequeModule/UniqueDeque/UniqueDeque.swift",
+        "Sources/DequeModule/_UnsafeDequeHandle.swift"
+      ],
+      "selected": true
+    },
+    {
+      "repository": "apple/swift-collections",
+      "number": 722,
+      "createdAt": "2026-09-13T18:55:43Z",
+      "mergedAt": "2026-09-21T19:54:31Z",
+      "productionSwift": [],
+      "selected": false
+    },
+    {
+      "repository": "apple/swift-collections",
+      "number": 721,
+      "createdAt": "2026-09-11T05:07:48Z",
+      "mergedAt": "2026-09-21T19:54:45Z",
+      "productionSwift": [
+        "Sources/BitCollections/BitSet/BitSet+BidirectionalCollection.swift",
+        "Sources/DequeModule/Deque/Deque+Collection.swift"
+      ],
+      "selected": true
+    },
+    {
+      "repository": "groue/GRDB.swift",
+      "number": 1876,
+      "selected": false,
+      "reason": "Previously reviewed #77/#87 input"
+    },
+    {
+      "repository": "groue/GRDB.swift",
+      "number": 1869,
+      "selected": false,
+      "reason": "Previously reviewed #77/#87 input"
+    },
+    {
+      "repository": "groue/GRDB.swift",
+      "number": 1864,
+      "selected": false,
+      "reason": "Previously reviewed #77/#87 input"
+    },
+    {
+      "repository": "groue/GRDB.swift",
+      "number": 1858,
+      "selected": false,
+      "reason": "Previously reviewed #77/#87 input"
+    },
+    {
+      "repository": "groue/GRDB.swift",
+      "number": 1852,
+      "createdAt": "2026-02-14T15:49:59Z",
+      "mergedAt": "2026-02-15T13:10:33Z",
+      "productionSwift": [
+        "GRDB/QueryInterface/Request/QueryInterfaceRequest.swift",
+        "GRDB/Record/MutablePersistableRecord+DAO.swift",
+        "GRDB/Record/MutablePersistableRecord+Upsert.swift",
+        "GRDB/Record/MutablePersistableRecord.swift",
+        "GRDB/Record/PersistableRecord+Upsert.swift",
+        "GRDB/Record/PersistableRecord.swift"
+      ],
+      "selected": true
+    },
+    {
+      "repository": "groue/GRDB.swift",
+      "number": 1850,
+      "createdAt": "2026-02-03T23:05:51Z",
+      "mergedAt": "2026-02-04T07:38:49Z",
+      "productionSwift": [
+        "GRDB/Core/StatementAuthorizer.swift",
+        "GRDB/Core/Support/Foundation/NSNumber.swift",
+        "GRDB/Core/Support/Foundation/URL.swift",
+        "GRDB/Core/Support/Foundation/UUID.swift"
+      ],
+      "selected": true
+    }
+  ]
+}

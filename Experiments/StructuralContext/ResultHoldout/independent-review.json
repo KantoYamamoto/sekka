@@ -1,0 +1,59 @@
+{
+  "pass": true,
+  "errors": [],
+  "sourceCounts": {
+    "swift-collections-723": 1172,
+    "swift-collections-721": 1152,
+    "grdb-swift-1852": 342,
+    "grdb-swift-1850": 340
+  },
+  "totalSourceInputs": 3006,
+  "diffFiles": 65,
+  "diffHunks": 381,
+  "attribution": {
+    "existing-only": 14,
+    "new-only": 1
+  },
+  "BReviewUse": {
+    "required-for-behavior-check": 2,
+    "context-only": 8,
+    "unrelated-written-name-candidate": 5
+  },
+  "checkCount": 6260,
+  "reviewRole": "Independent results/evidence audit; not an A/B reviewer or implementation delegate",
+  "rawReviewSHA256": "a02b99046dd7a35c705fd79ebee21020983896cf33d7b9385df501c3ce6e4e91",
+  "rawVerificationSHA256": "3995e47829ce446edcde92c70b94b0f570f2b2c4a2f7f0b28469fc0e89fbbddb",
+  "meaning": "Saved inputs/outputs/receipts and limited static grounds are consistent. Not a type/build/runtime/performance validation or exhaustive truth set.",
+  "controls": {
+    "valid": 7,
+    "rejected": 11
+  },
+  "notIndependentlyVerified": [
+    "remote and commit-to-package Git object binding",
+    "historical stderr replay (bytes not separately archived)",
+    "spawn/read-operation isolation audit beyond receipts and self reports",
+    "resolved target callees/types, active conditions, lifetime, target build/test/runtime/performance"
+  ],
+  "reviewedPublicEvidenceSHA256": {
+    "README.md": "8db2411347a8020575390cef60bb6cafe1b68398827962f6a180502e23260d2c",
+    "candidate-audit.json": "4d8b18f2354c359e7e9fd21a363eb81f274f704cf3c787bc7480f76e02700833",
+    "checkpoint.json": "4dfde1daab86413ee12f8cd0ab0a335f5d29fdbc19022bfb747ccdcef580975d",
+    "diff-source-checks.json": "d30e46e7a31bac9c00e158f664551e31471045b38b05be8fb88c7bfeb78bb1aa",
+    "execution.json": "209f8a70eac6933bc7a5e1858b92de1697d46ea465ff57473dd7b6d4fd174335",
+    "inputs.json": "b081017375bc5c8fe5f0591b505636ffe6d2468e6e5c1582ba7b1d90b5cb10c5",
+    "plan.md": "f88dd9092e7058b1c6978cdc3303e074b04e78a872a1ae32aed9997f29921ce3",
+    "review-checkpoints.json": "47e4dcdec14299088770dcf8735ceca3b3ce83c37c878226a11a5bd87d48aba7",
+    "review-prompt-common.txt": "16648891d5665845f5e8936dcfeb6356a2e1fa57864bd6f584f396c1629d2167",
+    "review-prompt-stage2.txt": "7f512d102c3b8e1c1f353c1934e48e0bdaeadf1e2560470641a5186f1a064987",
+    "review-receipts.json": "99bcc4e52144287f4693cbdd58c3e2cad0780032a7a3dd67198c7badcd4bb64f",
+    "selection.json": "331ae2d4a60596a82430f5c0a182857211212d136f008b7e4326e92df57630fd",
+    "verify_diff.py": "60c60857c6279418dcbb2ba1753ee0e72ae11d0874d1c6dc7c3f56ee817ecad3",
+    "verify_diff_controls.py": "1e76d3198e50e78c4052af245c62ed05e1854ed682ba0b69f338bb5e3d0221f0"
+  },
+  "reviewSnapshotMeaning": "reviewedPublicEvidenceSHA256 records the exact snapshot read by the independent auditor, before final status/link updates to README and candidate-audit meaning. Facts/classifications remain unchanged. Final publication bytes are bound by this PR commit; audit hashes are not claimed to match subsequent status text.",
+  "coordinatorAdditionalCheck": {
+    "packageTreeMatchesSourceHead": "8bf06e6cfe9b919dfbe4bb23ad0687ceaa2094f9",
+    "lockfileSHA256MatchesSourceHead": "6ae0524d69c3905315d7685e879747a4f1383529877460d2e37f43fdfd6570f6",
+    "scope": "Own local Git objects only; remote input tree is not newly verified by the independent auditor."
+  }
+}

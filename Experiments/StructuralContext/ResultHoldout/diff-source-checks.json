@@ -1,0 +1,484 @@
+{
+  "meaning": "Read-only diff/source binding; not behavior or design validation",
+  "cases": [
+    {
+      "case": "swift-collections-723",
+      "diffSHA256": "2e745cc816b9e515574ef67bb87085e52f66a6e0acef4c20075e5ae36d1c999c",
+      "files": [
+        {
+          "before": "Sources/BasicContainers/RigidArray/RigidArray+Append.swift",
+          "after": "Sources/BasicContainers/RigidArray/RigidArray+Append.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 11
+        },
+        {
+          "before": "Sources/BasicContainers/RigidArray/RigidArray+Consumption.swift",
+          "after": "Sources/BasicContainers/RigidArray/RigidArray+Consumption.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 8
+        },
+        {
+          "before": "Sources/BasicContainers/RigidArray/RigidArray+Deprecated.swift",
+          "after": "Sources/BasicContainers/RigidArray/RigidArray+Deprecated.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 2
+        },
+        {
+          "before": "Sources/BasicContainers/RigidArray/RigidArray+Initializers.swift",
+          "after": "Sources/BasicContainers/RigidArray/RigidArray+Initializers.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 2
+        },
+        {
+          "before": "Sources/BasicContainers/RigidArray/RigidArray+Insertions.swift",
+          "after": "Sources/BasicContainers/RigidArray/RigidArray+Insertions.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 13
+        },
+        {
+          "before": "Sources/BasicContainers/RigidArray/RigidArray+Removals.swift",
+          "after": "Sources/BasicContainers/RigidArray/RigidArray+Removals.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 4
+        },
+        {
+          "before": "Sources/BasicContainers/RigidArray/RigidArray+Replacements.swift",
+          "after": "Sources/BasicContainers/RigidArray/RigidArray+Replacements.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 13
+        },
+        {
+          "before": "Sources/BasicContainers/RigidArray/RigidArray.swift",
+          "after": "Sources/BasicContainers/RigidArray/RigidArray.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        },
+        {
+          "before": "Sources/BasicContainers/UniqueArray/UniqueArray+Append.swift",
+          "after": "Sources/BasicContainers/UniqueArray/UniqueArray+Append.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 12
+        },
+        {
+          "before": "Sources/BasicContainers/UniqueArray/UniqueArray+Consumption.swift",
+          "after": "Sources/BasicContainers/UniqueArray/UniqueArray+Consumption.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 5
+        },
+        {
+          "before": "Sources/BasicContainers/UniqueArray/UniqueArray+Deprecated.swift",
+          "after": "Sources/BasicContainers/UniqueArray/UniqueArray+Deprecated.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 4
+        },
+        {
+          "before": "Sources/BasicContainers/UniqueArray/UniqueArray+Insertions.swift",
+          "after": "Sources/BasicContainers/UniqueArray/UniqueArray+Insertions.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 10
+        },
+        {
+          "before": "Sources/BasicContainers/UniqueArray/UniqueArray+Removals.swift",
+          "after": "Sources/BasicContainers/UniqueArray/UniqueArray+Removals.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 5
+        },
+        {
+          "before": "Sources/BasicContainers/UniqueArray/UniqueArray+Replacements.swift",
+          "after": "Sources/BasicContainers/UniqueArray/UniqueArray+Replacements.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 11
+        },
+        {
+          "before": "Sources/ContainersPreview/CMakeLists.txt",
+          "after": "Sources/ContainersPreview/CMakeLists.txt",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        },
+        {
+          "before": "Sources/ContainersPreview/Conformances/RigidArray+Container.swift",
+          "after": "Sources/ContainersPreview/Conformances/RigidArray+Container.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 3
+        },
+        {
+          "before": "Sources/ContainersPreview/Conformances/RigidDeque+Container.swift",
+          "after": "Sources/ContainersPreview/Conformances/RigidDeque+Container.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 7
+        },
+        {
+          "before": "Sources/ContainersPreview/Conformances/RigidSet+Container.swift",
+          "after": "Sources/ContainersPreview/Conformances/RigidSet+Container.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        },
+        {
+          "before": "Sources/ContainersPreview/Conformances/UniqueArray+Container.swift",
+          "after": "Sources/ContainersPreview/Conformances/UniqueArray+Container.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        },
+        {
+          "before": "Sources/ContainersPreview/Conformances/UniqueDeque+Container.swift",
+          "after": "Sources/ContainersPreview/Conformances/UniqueDeque+Container.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 7
+        },
+        {
+          "before": "Sources/ContainersPreview/Conformances/UniqueSet+Container.swift",
+          "after": "Sources/ContainersPreview/Conformances/UniqueSet+Container.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 2
+        },
+        {
+          "before": "Sources/ContainersPreview/Protocols/Container/DrainableContainer.swift",
+          "after": "Sources/ContainersPreview/Protocols/Container/DrainableContainer.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 11
+        },
+        {
+          "before": "Sources/ContainersPreview/Protocols/Container/DynamicContainer.swift",
+          "after": "Sources/ContainersPreview/Protocols/Container/DynamicContainer.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        },
+        {
+          "before": "Sources/ContainersPreview/Protocols/Container/RangeReplaceableContainer.swift",
+          "after": "Sources/ContainersPreview/Protocols/Container/RangeReplaceableContainer.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 23
+        },
+        {
+          "before": "Sources/DequeModule/UniqueDeque/UniqueDeque+Experimental.swift",
+          "after": "Sources/ContainersPreview/Protocols/Drain/ContainerDrain.swift",
+          "status": "renamed",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 2
+        },
+        {
+          "before": "Sources/ContainersPreview/Protocols/Producer/Producer.swift",
+          "after": "Sources/ContainersPreview/Protocols/Producer/Producer.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        },
+        {
+          "before": "Sources/DequeModule/CMakeLists.txt",
+          "after": "Sources/DequeModule/CMakeLists.txt",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 2
+        },
+        {
+          "before": "Sources/DequeModule/RigidDeque/RigidDeque+Append.swift",
+          "after": "Sources/DequeModule/RigidDeque/RigidDeque+Append.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 7
+        },
+        {
+          "before": "Sources/DequeModule/RigidDeque/RigidDeque+Consumption.swift",
+          "after": "Sources/DequeModule/RigidDeque/RigidDeque+Consumption.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 9
+        },
+        {
+          "before": "Sources/DequeModule/RigidDeque/RigidDeque+Deprecations.swift",
+          "after": "Sources/DequeModule/RigidDeque/RigidDeque+Deprecations.swift",
+          "status": "added",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        },
+        {
+          "before": "Sources/DequeModule/RigidDeque/RigidDeque+Experimental.swift",
+          "after": "Sources/DequeModule/RigidDeque/RigidDeque+Experimental.swift",
+          "status": "removed",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        },
+        {
+          "before": "Sources/DequeModule/RigidDeque/RigidDeque+Insertions.swift",
+          "after": "Sources/DequeModule/RigidDeque/RigidDeque+Insertions.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 12
+        },
+        {
+          "before": "Sources/DequeModule/RigidDeque/RigidDeque+Prepend.swift",
+          "after": "Sources/DequeModule/RigidDeque/RigidDeque+Prepend.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 11
+        },
+        {
+          "before": "Sources/DequeModule/RigidDeque/RigidDeque+Removals.swift",
+          "after": "Sources/DequeModule/RigidDeque/RigidDeque+Removals.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 3
+        },
+        {
+          "before": "Sources/DequeModule/RigidDeque/RigidDeque+Replacements.swift",
+          "after": "Sources/DequeModule/RigidDeque/RigidDeque+Replacements.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 11
+        },
+        {
+          "before": "Sources/DequeModule/RigidDeque/RigidDeque.swift",
+          "after": "Sources/DequeModule/RigidDeque/RigidDeque.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 2
+        },
+        {
+          "before": "Sources/DequeModule/UniqueDeque/UniqueDeque+Append.swift",
+          "after": "Sources/DequeModule/UniqueDeque/UniqueDeque+Append.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 7
+        },
+        {
+          "before": "Sources/DequeModule/UniqueDeque/UniqueDeque+Consumption.swift",
+          "after": "Sources/DequeModule/UniqueDeque/UniqueDeque+Consumption.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 4
+        },
+        {
+          "before": "Sources/DequeModule/UniqueDeque/UniqueDeque+Deprecated.swift",
+          "after": "Sources/DequeModule/UniqueDeque/UniqueDeque+Deprecated.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        },
+        {
+          "before": "Sources/DequeModule/UniqueDeque/UniqueDeque+Insertions.swift",
+          "after": "Sources/DequeModule/UniqueDeque/UniqueDeque+Insertions.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 12
+        },
+        {
+          "before": "Sources/DequeModule/UniqueDeque/UniqueDeque+Prepend.swift",
+          "after": "Sources/DequeModule/UniqueDeque/UniqueDeque+Prepend.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 10
+        },
+        {
+          "before": "Sources/DequeModule/UniqueDeque/UniqueDeque+Replacements.swift",
+          "after": "Sources/DequeModule/UniqueDeque/UniqueDeque+Replacements.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 11
+        },
+        {
+          "before": "Sources/DequeModule/UniqueDeque/UniqueDeque.swift",
+          "after": "Sources/DequeModule/UniqueDeque/UniqueDeque.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 2
+        },
+        {
+          "before": "Sources/DequeModule/_UnsafeDequeHandle.swift",
+          "after": "Sources/DequeModule/_UnsafeDequeHandle.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 22
+        },
+        {
+          "before": "Tests/BasicContainersTests/RigidArrayTests.swift",
+          "after": "Tests/BasicContainersTests/RigidArrayTests.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 8
+        },
+        {
+          "before": "Tests/BasicContainersTests/UniqueArrayTests.swift",
+          "after": "Tests/BasicContainersTests/UniqueArrayTests.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 4
+        },
+        {
+          "before": "Tests/DequeTests/RigidDequeTests.swift",
+          "after": "Tests/DequeTests/RigidDequeTests.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 20
+        },
+        {
+          "before": "Tests/DequeTests/UniqueDequeTests.swift",
+          "after": "Tests/DequeTests/UniqueDequeTests.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        }
+      ]
+    },
+    {
+      "case": "swift-collections-721",
+      "diffSHA256": "99b17617007a3a3b3136d2acd2717425ee0be0b69e5e802b9682e3ee7618e9da",
+      "files": [
+        {
+          "before": "Sources/BitCollections/BitSet/BitSet+BidirectionalCollection.swift",
+          "after": "Sources/BitCollections/BitSet/BitSet+BidirectionalCollection.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 2
+        },
+        {
+          "before": "Sources/DequeModule/Deque/Deque+Collection.swift",
+          "after": "Sources/DequeModule/Deque/Deque+Collection.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 4
+        }
+      ]
+    },
+    {
+      "case": "grdb-swift-1852",
+      "diffSHA256": "17ff307d2f8f4c04f173d5bc36ec4d4329e124bbf08d02badc211b1383e1e5ca",
+      "files": [
+        {
+          "before": "GRDB/QueryInterface/Request/QueryInterfaceRequest.swift",
+          "after": "GRDB/QueryInterface/Request/QueryInterfaceRequest.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        },
+        {
+          "before": "GRDB/Record/MutablePersistableRecord+DAO.swift",
+          "after": "GRDB/Record/MutablePersistableRecord+DAO.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 2
+        },
+        {
+          "before": "GRDB/Record/MutablePersistableRecord+Upsert.swift",
+          "after": "GRDB/Record/MutablePersistableRecord+Upsert.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 13
+        },
+        {
+          "before": "GRDB/Record/MutablePersistableRecord.swift",
+          "after": "GRDB/Record/MutablePersistableRecord.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        },
+        {
+          "before": "GRDB/Record/PersistableRecord+Upsert.swift",
+          "after": "GRDB/Record/PersistableRecord+Upsert.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 11
+        },
+        {
+          "before": "GRDB/Record/PersistableRecord.swift",
+          "after": "GRDB/Record/PersistableRecord.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        },
+        {
+          "before": "README.md",
+          "after": "README.md",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 3
+        },
+        {
+          "before": "Tests/GRDBTests/MutablePersistableRecordTests.swift",
+          "after": "Tests/GRDBTests/MutablePersistableRecordTests.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 4
+        },
+        {
+          "before": "Tests/GRDBTests/PersistableRecordTests.swift",
+          "after": "Tests/GRDBTests/PersistableRecordTests.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 5
+        }
+      ]
+    },
+    {
+      "case": "grdb-swift-1850",
+      "diffSHA256": "b80da42aa83d17a03af81dfb9f07f215548c8daaba843185f5aad0bae70646c6",
+      "files": [
+        {
+          "before": "GRDB/Core/StatementAuthorizer.swift",
+          "after": "GRDB/Core/StatementAuthorizer.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        },
+        {
+          "before": "GRDB/Core/Support/Foundation/NSNumber.swift",
+          "after": "GRDB/Core/Support/Foundation/NSNumber.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 2
+        },
+        {
+          "before": "GRDB/Core/Support/Foundation/URL.swift",
+          "after": "GRDB/Core/Support/Foundation/URL.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 2
+        },
+        {
+          "before": "GRDB/Core/Support/Foundation/UUID.swift",
+          "after": "GRDB/Core/Support/Foundation/UUID.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 2
+        },
+        {
+          "before": "Tests/GRDBTests/AssociationTableAliasTestsSQLTests.swift",
+          "after": "Tests/GRDBTests/AssociationTableAliasTestsSQLTests.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 4
+        },
+        {
+          "before": "Tests/GRDBTests/EncryptionTests.swift",
+          "after": "Tests/GRDBTests/EncryptionTests.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        }
+      ]
+    }
+  ]
+}
