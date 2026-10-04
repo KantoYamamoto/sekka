@@ -56,6 +56,6 @@ do {
     FileHandle.standardOutput.write(Data([10]))
   }
 } catch {
-  FileHandle.standardError.write(Data("\(error)\n".utf8))
+  FileHandle.standardError.write(Data("\(inputErrorMessage(error))\n".utf8))
   exit(2)
 }

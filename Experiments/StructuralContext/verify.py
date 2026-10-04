@@ -25,6 +25,36 @@ def run(before, after):
     return json.loads(first)
 
 
+def failed_twice(command):
+    first = subprocess.run(command, capture_output=True)
+    second = subprocess.run(command, capture_output=True)
+    assert (first.returncode, first.stdout, first.stderr) == (second.returncode, second.stdout, second.stderr), 'Unstable failure output'
+    assert first.returncode == 2 and not first.stdout and first.stderr, 'Failure produced partial success'
+    return first.stderr.decode()
+
+
+with tempfile.TemporaryDirectory(prefix='sekka-input-errors-') as directory:
+    root=Path(directory);before=root/'before';after=root/'after';before.mkdir();after.mkdir()
+    (before/'Good.swift').write_text('struct Model {}')
+    missing=root/'missing';file_input=root/'not-a-directory';file_input.write_text('struct Model {}')
+    for path in [missing,file_input]:
+        message=failed_twice([binary,str(before),str(path)])
+        assert 'Input unavailable [NSCocoaErrorDomain:' in message
+        assert 'NSUnderlyingError=' not in message
+    (after/'Bad.swift').write_bytes(b'\xff')
+    message=failed_twice([binary,str(before),str(after)])
+    assert 'Input is not UTF-8 [NSCocoaErrorDomain:' in message and 'Bad.swift' in message
+    (after/'Bad.swift').unlink();(after/'Bad.swift').write_text('func {')
+    message=failed_twice([binary,str(before),str(after)])
+    assert 'Bad.swift' in message
+    (after/'Bad.swift').unlink();(after/'link.swift').symlink_to(before/'Good.swift')
+    assert 'Unsupported input [NSCocoaErrorDomain:' in failed_twice([binary,str(before),str(after)])
+    link=root/'root-link';link.symlink_to(after,target_is_directory=True)
+    assert 'Unsupported input [NSCocoaErrorDomain:' in failed_twice([binary,str(before),str(link)])
+    assert 'Usage: context-probe' in failed_twice([binary])
+    results.append({'case':'stable-input-failures','checks':['missing directory','non-directory','invalid UTF-8 retains path','parse retains file','symlink file','symlink root','usage'],'exitStdoutStderrTwiceBytesEqual':True})
+
+
 with tempfile.TemporaryDirectory(prefix='sekka-context-') as directory:
     root = Path(directory) / '.parent'
     before, after = root / 'before', root / '.after'
