@@ -30,13 +30,27 @@ extension ContextReport {
         lines.append("│  既存call行 before \(entry.beforeExistingCall.line) → after \(entry.afterExistingCall.line) / 直後のcall（旧版に同じ文なし）行 \(entry.newOrChangedCall.line)")
         lines.append("│  receiverの明示型: \(safe(entry.writtenType)) · \(position(entry.afterReceiver))")
         lines.append("│  共通する引数表記: " + entry.sharedArgumentSpellings.map(safe).joined(separator: ", "))
-        case let .memberSpelling(entry):
+        case let .callSpelling(evidence):
+          switch evidence {
+          case let .introduced(entry):
           lines.append("├─ member表記の入口: \(position(entry.afterCaller))")
           lines.append("│  \(entry.beforeCaller.map { "旧版の対応: " + position($0) + " · 同じcall本文なし" } ?? "一意な旧索引対応は未確認（新規callとは限らない）")")
           lines.append("│  call \(position(entry.call.site)) · receiver表記: \(safe(entry.call.receiverSpelling ?? ""))")
           lines += conditionLines(entry.call, label: "")
           lines.append("│  名前・記載ラベル: \(safe(entry.call.selector)) · 適格な出現 \(entry.eligibleOccurrences)件（最初の位置）")
           lines.append("│  同一記載ラベル列の索引内宣言 \(entry.matchingIndexedDeclarations)件 · receiver型/実calleeは未解決")
+          case let .decreased(entry):
+            lines.append("├─ 減ったcall表記: \(safe(entry.selector)) · before \(entry.beforeOccurrences.count) → after \(entry.afterOccurrences.count)件")
+            lines.append("│  前後の同形宣言 各1件・本文/token/字句header不変。実callee・消失call・移行対応は未解決")
+            for (side, occurrences) in [("before", entry.beforeOccurrences), ("after", entry.afterOccurrences)] {
+              for occurrence in occurrences {
+                lines.append("│  \(side) call \(position(occurrence.call.site)) · caller \(position(occurrence.caller))")
+                lines.append("│    対応状態: \(safe(occurrence.correspondence))\(occurrence.counterpartCaller.map { " · 反対側 " + position($0) } ?? "（対応不明・削除とは断定しない）")")
+                lines += conditionLines(occurrence.call, label: side)
+              }
+            }
+            lines.append("│  既存窓口を読む材料。共通化の迂回・責務一致・改修必要性は未判定")
+          }
         case let .resultSpelling(entry):
           lines.append("├─ 戻り値名/call表記の入口: \(position(entry.afterCaller))")
           lines.append("│  \(entry.beforeCaller.map { "旧版の対応: " + position($0) + " · 同じcall本文なし" } ?? "一意な旧索引対応は未確認（新規callとは限らない）")")
@@ -55,13 +69,18 @@ extension ContextReport {
           lines.append("│  照合した末尾名: \(safe(entry.reference.name)) · 読み取った同名宣言 \(entry.matchingDeclarations)件（型の解決ではない）")
         }
       }
-      if target.omittedEntries > 0 { lines.append("│  他\(target.omittedEntries)入口省略") }
+      if target.omittedEntries > 0 { lines.append("│  他\(target.omittedEntries)入口の詳細省略（--allで全根拠）") }
       lines.append("└")
     }
-    if omittedTargets > 0 { lines.append("他\(omittedTargets)確認先省略") }
+    if omittedTargets > 0 {
+      lines.append("\n詳細を省略した確認先 \(omittedTargets)件（位置は全件表示・--allで全根拠）:")
+      for target in omittedContextIndex {
+        lines.append("  \(position(target.after)) [\(safe(target.kind))] · before \(position(target.before)) · 根拠 \(target.entryCount)件")
+      }
+    }
     lines.append("\n対応外 before \(unpairedBefore) / after \(unpairedAfter)関数")
     for item in skipped { lines.append("  検索対象外 \(safe(item.reason)): \(item.count)件") }
-    lines.append("範囲: member関数直下のcall接点、property型注釈の新しい名前、member callの同一記載ラベル列、または戻り値名/call表記から宣言を検索。責務の一致や統合必要性は判定しません。未変更はその宣言のトークンだけで、extension・alias展開・macro・有効な条件分岐を含む型全体の保証ではありません。diffのcontext行に出る場合もあり、0件も設計の妥当性を示しません。")
+    lines.append("範囲: member関数直下のcall接点、property型注釈の新しい名前、追加後のmember call表記、前後のselector利用総数減少、または戻り値名/call表記から宣言を検索。責務の一致や統合必要性は判定しません。未変更はその宣言のトークンだけで、extension・alias展開・macro・有効な条件分岐を含む型全体の保証ではありません。diffのcontext行に出る場合もあり、0件も設計の妥当性を示しません。")
     return lines.joined(separator: "\n") + "\n"
   }
 }
