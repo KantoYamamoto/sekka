@@ -32,6 +32,6 @@ Collections723では旧Deque経路が既存のcopy helperを使い、変更後�
 
 ## 診断を受けた次の選択
 
-#96の既知4caseでは全42減少selectorから不変の一意宣言4件を得た。必要なcopy先例（4→0）と挙動確認のgap helper（3→2）へ交差する一方、SDK等のdeinitialize同名と、必要集合外のpointer helperも残る。[診断結果](../validation/withdrawn-entry-diagnostic.md)。削除callerをafter入口から取り落とす不足は確認できたが、4件を有用な実依存として扱えない。次の実装では既存call検索の入口を両側へ組み直す案を比較し、別検出器/scoreを積む前に同じ候補一覧へ統合する。効果はその後の別入力で比較する。
+#96の既知4caseでは全42減少selectorから不変の一意宣言4件を得た。必要なcopy先例（4→0）と挙動確認のgap helper（3→2）へ交差する一方、SDK等のdeinitialize同名と、必要集合外のpointer helperも残る。[診断結果](../validation/withdrawn-entry-diagnostic.md)。削除callerをafter入口から取り落とす不足は確認できたが、4件を有用な実依存として扱えない。次の[#100](https://github.com/KantoYamamoto/sekka/issues/100)では既存call検索の入口を両側へ組み直す案を比較し、別検出器/scoreを積む前に同じ候補一覧へ統合する。効果はその後の別入力で比較する。
 
 その前に[#98](https://github.com/KantoYamamoto/sekka/issues/98)で実験CLIの失敗出力を直す。診断で同じ欠落directoryのFoundation stderrが毎回異なり、成功時だけの決定論性では要件を満たさないため。#96では診断catchだけをdomain/codeへ修正し、元の失敗/修正後凍結を分けた。runtime検索方式の変更やstderr後処理とは混ぜない。候補の有用性を支持しない場合のM3保留は維持する。

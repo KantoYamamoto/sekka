@@ -1,0 +1,62 @@
+{
+  "sourceHead": "99e2128359650c48fbab72882c8c9ba7b10ae4dd",
+  "toolchain": "Apple Swift 6.4 (swiftlang-6.4.0.34.1), arm64-apple-macosx27.0.0",
+  "runtimeBinarySHA256": "a4dec484e322b76ff191968d96a0facda8d6ac6cd1248e4ccbc4c0a8eefebbbd",
+  "diagnosticBinarySHA256": "7c8b8191d4f424763ac1697deb11140c06cd5c7dfccc72d6d3bf8c5e7adc07a1",
+  "swiftTestingCount": 85,
+  "localSwiftTestMode": "--disable-xctest",
+  "initialOrdinarySwiftTest": "exit 1: XCTest bundle loader failure after Swift Testing suite passed; not accepted as success",
+  "cliControlCount": 14,
+  "cliFailureCases": [
+    "missing directory",
+    "non-directory",
+    "invalid UTF-8 retains path",
+    "parse retains file",
+    "symlink file",
+    "symlink root",
+    "usage"
+  ],
+  "diagnosticChecks": [
+    "own tracked-source archive",
+    "stable JSON/exit/stderr",
+    "tuple return names and caller position",
+    "generic spelling remains syntax",
+    "body excludes default/header and local-type calls",
+    "malformed input rejects partial output"
+  ],
+  "withdrawnEntryControlCount": 37,
+  "independentRepairReview": {
+    "cliFailureCaseCount": 8,
+    "diagnosticFailureCaseCount": 8,
+    "allExitStdoutStderrTwiceEqual": true,
+    "initialPathFindingResolved": true,
+    "unresolvedCodeBoundaryFindings": 0,
+    "excluded": [
+      "final documentation receipt",
+      "self-use",
+      "Actions artifacts"
+    ]
+  },
+  "selfUse": {
+    "base": "8409378c6a18f370b05939d6651690c2638042f4",
+    "head": "99e2128359650c48fbab72882c8c9ba7b10ae4dd",
+    "changedSwiftFiles": 3,
+    "observations": 1,
+    "tokenIdenticalIndexedBodies": 6,
+    "meaning": "Added wrapper type visible; top-level catch/helper outside body comparison. Error stability verified by ordinary diff and actual input controls."
+  },
+  "evidenceSHA256": {
+    "runtime-checks.log": "27cd7c89d28216dfaccd5f8c820ac4b96a78db7f966ac18e14fc4f78b16813c5",
+    "runtime-final.log": "3077f32e1a565e8e2124f10fb61f1c77384e7b00c799dbe514c18f5433d94b92",
+    "runtime-fixed.log": "be4f37ba94a5d155a2efa37ebbe97e7833182c6aa6dfeeecacf722f7129acbbc",
+    "cli-checks.json": "7bc5123f5dc176456361b33a9d70b82d71a55f1d07c6681225bd7fc839dda751",
+    "final-diagnostic/checks.json": "0f7635f1a4dec022e596d213b9f17506fe3b2e1f7fa09990c677d69e8791352c",
+    "final-diagnostic/controls.json": "f57615df2823c3d5b267c2557dc53eee7f45fb30e62638f938201e547459f72b",
+    "review/cli-fixed-failures.json": "c818c919c1a8f09bc39fce98fd637f31e40fbe1a7f69dc3fe5a38c8c0e4a0eda",
+    "review/diagnostic-fixed-failures.json": "51b9e2e9677add8208978bb32010757957344319d2144af1e451abd3439bef32",
+    "independent-review.md": "72c3b16fcf812ac7abfbe86c335e3272080f6deb9e720c1e7a9f62e97b6d1d1a",
+    "self-use-final.text": "221863d05032236925f1c66b31361f2af5bdc5d54f340283b11bff18078f53ff",
+    "self-use-final.json": "a4728b7513203fdb0ac7b4455bbd71e707bd6b5b9d55940a1ff30e2a8119aaad"
+  },
+  "meaning": "Own input failure controls and review receipt; not search usefulness, target application execution, or a signed execution proof."
+}
