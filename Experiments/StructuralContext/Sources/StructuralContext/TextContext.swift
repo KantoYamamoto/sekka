@@ -72,7 +72,12 @@ extension ContextReport {
       if target.omittedEntries > 0 { lines.append("│  他\(target.omittedEntries)入口省略") }
       lines.append("└")
     }
-    if omittedTargets > 0 { lines.append("他\(omittedTargets)確認先省略") }
+    if omittedTargets > 0 {
+      lines.append("\n詳細を省略した確認先 \(omittedTargets)件（位置は全件表示・--allで全根拠）:")
+      for target in omittedContextIndex {
+        lines.append("  \(position(target.after)) [\(safe(target.kind))] · before \(position(target.before)) · 根拠 \(target.entryCount)件")
+      }
+    }
     lines.append("\n対応外 before \(unpairedBefore) / after \(unpairedAfter)関数")
     for item in skipped { lines.append("  検索対象外 \(safe(item.reason)): \(item.count)件") }
     lines.append("範囲: member関数直下のcall接点、property型注釈の新しい名前、追加後のmember call表記、前後のselector利用総数減少、または戻り値名/call表記から宣言を検索。責務の一致や統合必要性は判定しません。未変更はその宣言のトークンだけで、extension・alias展開・macro・有効な条件分岐を含む型全体の保証ではありません。diffのcontext行に出る場合もあり、0件も設計の妥当性を示しません。")

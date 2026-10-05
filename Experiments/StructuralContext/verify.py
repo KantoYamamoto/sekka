@@ -20,9 +20,11 @@ results = []
 
 def run(before, after):
     command = [binary, str(before), str(after)]
-    first = subprocess.check_output(command)
-    assert first == subprocess.check_output(command), 'Unstable output'
-    return json.loads(first)
+    first = subprocess.run(command, capture_output=True)
+    second = subprocess.run(command, capture_output=True)
+    assert (first.returncode, first.stdout, first.stderr) == (second.returncode, second.stdout, second.stderr), 'Unstable complete output'
+    assert first.returncode == 0 and not first.stderr, 'Failed input is not a zero result'
+    return json.loads(first.stdout)
 
 
 def failed_twice(command):
@@ -197,6 +199,50 @@ func run() {
     assert '#if false [Caller.swift:3]' in text and '有効節未判定' in text
     results.append({'case': 'written-conditional-context', 'report': report})
     text_samples.append('Case: written-conditional-context\n' + text)
+
+# Old use positions are not new calls or a proof of semantic migration.
+with tempfile.TemporaryDirectory(prefix='sekka-decreased-selector-') as directory:
+    root=Path(directory);before=root/'before';after=root/'after';before.mkdir();after.mkdir()
+    helper='extension Helper { func clean(_ value: Int) {} }'
+    for side in [before,after]:
+        (side/'Helper.swift').write_text(helper)
+    (before/'Caller.swift').write_text('''func old() {
+#if false
+  helper.clean(0)
+#else
+  clean(1)
+#endif
+}''')
+    (after/'Caller.swift').write_text('')
+    report=run(before,after)
+    assert len(report['contexts'])==1
+    target=report['contexts'][0]
+    entry=target['entries'][0]['callSpelling']['evidence']['decreased']['evidence']
+    assert target['fileUnchanged'] and target['after']['file']=='Helper.swift'
+    old=entry['beforeOccurrences'];new=entry['afterOccurrences']
+    assert len(old)==2 and not new and all(x['side']=='before' for x in old)
+    assert [x['call']['site']['line'] for x in old]==[3,5]
+    assert all('counterpartCaller' not in x for x in old)
+    assert old[1]['call']['writtenConditions'][0]['preceding'][0]['condition']=='false'
+    command=[binary,str(before),str(after),'--text']
+    first=subprocess.run(command,capture_output=True);second=subprocess.run(command,capture_output=True)
+    assert (first.returncode,first.stdout,first.stderr)==(second.returncode,second.stdout,second.stderr)
+    assert first.returncode==0 and not first.stderr
+    text=first.stdout.decode()
+    assert 'before 2 → after 0件' in text and '削除とは断定しない' in text and '改修必要性は未判定' in text
+    assert 'before call Caller.swift:3' in text and '有効節未判定' in text
+    results.append({'case':'decreased-selector-old-position','report':report,'exitStdoutStderrTwiceBytesEqual':True})
+    text_samples.append('Case: decreased-selector-old-position\n'+text)
+    (after/'Caller.swift').write_text('func renamed() { foreign.clean(2) }')
+    report=run(before,after)
+    entries=[e['callSpelling']['evidence']['decreased']['evidence'] for t in report['contexts'] for e in t['entries'] if 'decreased' in e.get('callSpelling',{}).get('evidence',{})]
+    assert len(entries)==1 and len(entries[0]['beforeOccurrences'])==2 and len(entries[0]['afterOccurrences'])==1
+    assert entries[0]['afterOccurrences'][0]['side']=='after'
+    assert all('counterpartCaller' not in x for x in entries[0]['beforeOccurrences']+entries[0]['afterOccurrences'])
+    results.append({'case':'decreased-selector-unknown-correspondence','report':report})
+    (after/'Caller.swift').write_text('func renamed() { foreign.clean(2); foreign.clean(3) }')
+    report=run(before,after)
+    assert not any('decreased' in e.get('callSpelling',{}).get('evidence',{}) for t in report['contexts'] for e in t['entries'])
 
 # Written result names relate existing producers, not resolved constructors/callees.
 with tempfile.TemporaryDirectory(prefix='sekka-result-spelling-') as directory:

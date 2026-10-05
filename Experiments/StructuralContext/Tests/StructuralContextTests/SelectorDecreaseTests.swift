@@ -136,6 +136,24 @@ private func decreases(_ report: ContextReport) -> [SelectorDecreaseEntry] {
   let report = try decreaseReport(old, "", oldHelper: helpers, newHelper: helpers)
   #expect(report.contexts.count == 8 && report.omittedTargets == 1)
   #expect(decreases(report).count == 8)
+  #expect(report.omittedContextIndex.count == 1 && report.omittedContextIndex[0].entryCount == 1)
+  #expect(report.text().contains(report.omittedContextIndex[0].after.declaration))
+  let all = try UnchangedContext.compare(before: [("Caller.swift", old), ("Helper.swift", helpers)],
+    after: [("Caller.swift", ""), ("Helper.swift", helpers)], allEvidence: true)
+  #expect(all.contexts.count == 9 && all.omittedTargets == 0 && all.omittedContextIndex.isEmpty)
+  #expect(decreases(all).count == 9)
+}
+
+@Test func allEvidenceRemovesEntryCapWithoutChangingSearchFacts() throws {
+  let callers = (0..<10).map { "func caller\($0)() { helper.clean(\($0)) }" }.joined(separator: "\n")
+  let old = [("Caller.swift", ""), ("Helper.swift", retained)]
+  let new = [("Caller.swift", callers), ("Helper.swift", retained)]
+  let capped = try UnchangedContext.compare(before: old, after: new)
+  let full = try UnchangedContext.compare(before: old, after: new, allEvidence: true)
+  #expect(capped.contexts[0].entries.count == 8 && capped.contexts[0].omittedEntries == 2)
+  #expect(full.contexts[0].entries.count == 10 && full.contexts[0].omittedEntries == 0)
+  #expect(capped.changedFunctions == full.changedFunctions && capped.skipped.map(\.reason) == full.skipped.map(\.reason))
+  #expect(capped.contexts[0].after == full.contexts[0].after)
 }
 
 @Test func noDecreaseAndEmptyInputsAreNotApproval() throws {

@@ -44,6 +44,12 @@ public struct SearchOmission: Codable, Sendable {
   public let reason: String
   public let count: Int
 }
+public struct OmittedContext: Codable, Sendable {
+  public let before: SourceSite
+  public let after: SourceSite
+  public let kind: String
+  public let entryCount: Int
+}
 public struct ContextReport: Codable, Sendable {
   public let scope: String
   public let limitations: [String]
@@ -55,6 +61,7 @@ public struct ContextReport: Codable, Sendable {
   public let unpairedAfter: Int
   public let contexts: [UnchangedTarget]
   public let omittedTargets: Int
+  public let omittedContextIndex: [OmittedContext]
   public let skipped: [SearchOmission]
 }
 
@@ -65,7 +72,7 @@ private struct TargetAccumulator {
   var entries: [ContextEvidence]
 }
 public enum UnchangedContext {
-  public static func compare(before: [(String, String)], after: [(String, String)]) throws -> ContextReport {
+  public static func compare(before: [(String, String)], after: [(String, String)], allEvidence: Bool = false) throws -> ContextReport {
     let old = try SourceInventory(files: before), new = try SourceInventory(files: after)
     let oldIDs = Dictionary(grouping: old.functions, by: \.correspondenceID), newIDs = Dictionary(grouping: new.functions, by: \.correspondenceID)
     let oldFiles = Dictionary(uniqueKeysWithValues: before), newFiles = Dictionary(uniqueKeysWithValues: after)
@@ -184,11 +191,18 @@ public enum UnchangedContext {
       if a.after.line != b.after.line { return a.after.line < b.after.line }
       return $0 < $1
     }
-    let contexts = keys.prefix(8).map { key -> UnchangedTarget in
+    // Search all candidates before choosing detail display. Never hide navigation sites.
+    let selectedKeys = allEvidence ? keys[...] : keys.prefix(8)
+    let contexts = selectedKeys.map { key -> UnchangedTarget in
       let target = targets[key]!
       return UnchangedTarget(before: target.before, after: target.after,
         fileUnchanged: oldFiles[target.before.file] == newFiles[target.after.file], kind: target.kind,
-        entries: Array(target.entries.prefix(8)), omittedEntries: max(0, target.entries.count - 8))
+        entries: allEvidence ? target.entries : Array(target.entries.prefix(8)),
+        omittedEntries: allEvidence ? 0 : max(0, target.entries.count - 8))
+    }
+    let omittedIndex = keys.dropFirst(contexts.count).map { key in
+      let target = targets[key]!
+      return OmittedContext(before: target.before, after: target.after, kind: target.kind, entryCount: target.entries.count)
     }
     return ContextReport(scope: "experiment: unchanged declaration candidates reached by annotation names, adjacent calls, introduced member spellings, decreased selector counts or shared return-name/call spellings",
       limitations: [
@@ -204,9 +218,10 @@ public enum UnchangedContext {
         "Call entries: only direct call statements in uniquely paired indexed member functions are searched. A newOrChangedCall has no token-identical statement in the old body; it can be an edit to an existing call, not necessarily an insertion. Added/removed/renamed or ambiguous functions, nested control blocks, try/await wrappers and complex argument expressions are not covered.",
         "Call entries: receiver annotation, owner/type headers and target declaration must match across snapshots. Same ID alone is not unchanged evidence. Supported lookup scopes and explicit rejection reasons come from SourceInventory.",
         "Unchanged declaration does not mean absent from diff context lines. File equality is explicit; hunk visibility is not evaluated. No design verdict or automatic integration advice.",
-        "At most 8 targets and 8 entries per target; omissions are counted. Skips count rejected call queries/functions, type correspondence groups or declaration-search attempts; they are not unique files or review coverage. Zero results is not approval.",
+        "By default at most 8 targets and 8 entries per target have detailed evidence; all omitted target navigation sites remain in omittedContextIndex. --all retains complete targets and entries, without changing search eligibility. Occurrence positions inside a decreased selector group are complete in either mode. Skips count rejected queries, not unique files or review coverage. Zero results is not approval.",
       ], beforeFileCount: before.count, afterFileCount: after.count, changedFunctions: changed, changedTypeAnnotations: changedAnnotations,
       unpairedBefore: unpairedBefore, unpairedAfter: unpairedAfter, contexts: contexts,
-      omittedTargets: max(0, keys.count - 8), skipped: skips.keys.sorted().map { SearchOmission(reason: $0, count: skips[$0]!) })
+      omittedTargets: omittedIndex.count, omittedContextIndex: omittedIndex,
+      skipped: skips.keys.sorted().map { SearchOmission(reason: $0, count: skips[$0]!) })
   }
 }
