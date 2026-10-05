@@ -157,7 +157,7 @@ with tempfile.TemporaryDirectory(prefix='sekka-member-spelling-') as directory:
     assert len(report['contexts']) == 1
     target = report['contexts'][0]
     assert target['after']['declaration'] == 'extension Buffer.prune(from:where:)' and target['fileUnchanged']
-    entry = target['entries'][0]['memberSpelling']['evidence']
+    entry = target['entries'][0]['callSpelling']['evidence']['introduced']['evidence']
     assert entry['callerEvidence'] == 'no-unique-old-indexed-correspondence' and 'beforeCaller' not in entry
     assert entry['call']['selector'] == 'prune(from:where:)' and entry['call']['receiverSpelling'] == 'target'
     assert entry['matchingIndexedDeclarations'] == entry['eligibleOccurrences'] == 1
@@ -185,7 +185,7 @@ func run() {
 ''')
     report = run(root / 'before', root / 'after')
     assert len(report['contexts']) == 1
-    entries = [e['memberSpelling']['evidence'] for e in report['contexts'][0]['entries']]
+    entries = [e['callSpelling']['evidence']['introduced']['evidence'] for e in report['contexts'][0]['entries']]
     assert len(entries) == 3 and all(e['eligibleOccurrences'] == 1 for e in entries)
     paths = [e['call']['writtenConditions'] for e in entries]
     assert [len(p) for p in paths] == [2, 2, 1]

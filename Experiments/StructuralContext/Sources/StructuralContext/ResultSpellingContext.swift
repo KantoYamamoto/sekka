@@ -1,4 +1,5 @@
 public struct ResultSpellingEntry: Codable, Sendable {
+  public let sourceSide: SnapshotSide
   public let beforeCaller: SourceSite?
   public let afterCaller: SourceSite
   public let callerEvidence: String
@@ -20,8 +21,8 @@ struct ResultSpellingResult {
   var skipped: [String: Int] = [:]
 }
 enum ResultSpellingContext {
-  static func find(old: SourceInventory, new: SourceInventory, oldFiles: [String: String], newFiles: [String: String]) -> ResultSpellingResult {
-    let search = WrittenCallSearch(old: old, new: new)
+  static func find(search: WrittenCallSearch, oldFiles: [String: String], newFiles: [String: String]) -> ResultSpellingResult {
+    let new = search.new
     let declarations = Dictionary(grouping: new.declarations, by: \.name)
     let scopesByID = Dictionary(grouping: new.scopes, by: \.id)
     let typesByOwner = Dictionary(grouping: new.types, by: { $0.site.declaration })
@@ -60,8 +61,8 @@ enum ResultSpellingContext {
       Dictionary(grouping: calls, by: { inventoryKey([$0.selector, inventoryKey($0.writtenConditions.map(\.groupingKey))]) })
         .values.sorted { $0[0].site.line == $1[0].site.line ? $0[0].tokens < $1[0].tokens : $0[0].site.line < $1[0].site.line }
     }
-    for anchor in search.anchors(oldFiles: oldFiles, newFiles: newFiles) {
-      let references = references(anchor.after)
+    for anchor in search.introducedAnchors(oldFiles: oldFiles, newFiles: newFiles) {
+      let references = references(anchor.caller)
       for group in groups(anchor.eligible.filter { $0.form == .unqualified }) {
         let call = group[0], name = String(call.selector.prefix { $0 != "(" })
         guard let reference = references.names[name] else {
@@ -71,7 +72,7 @@ enum ResultSpellingContext {
         let candidates = declarations[name, default: []]
         guard candidates.count == 1, candidates[0].kind != "typealias" else { skip(candidates.isEmpty ? "no-indexed-nominal" : "nominal-name-unknown"); continue }
         for (target, targetNames) in targetReferences {
-          guard target.correspondenceID != anchor.after.correspondenceID else { continue }
+          guard target.correspondenceID != anchor.caller.correspondenceID else { continue }
           let targetGroups = groups(target.writtenCalls.filter { $0.form == .unqualified && $0.selector == call.selector })
           guard !targetGroups.isEmpty else { continue }
           guard let targetReference = targetNames.names[name] else {
@@ -82,7 +83,7 @@ enum ResultSpellingContext {
           guard let before = stable.before else { skip(stable.reason!); continue }
           for targetGroup in targetGroups {
             result.matches.append(ResultSpellingMatch(before: before, after: target,
-              entry: ResultSpellingEntry(beforeCaller: anchor.before?.site, afterCaller: anchor.after.site,
+              entry: ResultSpellingEntry(sourceSide: anchor.side, beforeCaller: anchor.counterpart?.site, afterCaller: anchor.caller.site,
                 callerEvidence: anchor.callerEvidence, anchorReturn: reference, targetReturn: targetReference,
                 matchingNominal: candidates[0].site, anchorCall: call, targetCall: targetGroup[0],
                 eligibleOccurrences: group.count, targetOccurrences: targetGroup.count)))

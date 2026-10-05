@@ -97,7 +97,7 @@ private func compare(_ before: String, _ after: String, targetBefore: String = t
 
 @Test func existingCallerAndPropertyMustNotBeNew() throws {
   let report = try compare("", screen(extra: "analytics.track(event)"))
-  let weak = report.contexts.flatMap(\.entries).compactMap { if case let .memberSpelling(evidence) = $0 { return evidence }; return nil }
+  let weak = report.contexts.flatMap(\.entries).compactMap { if case let .callSpelling(.introduced(evidence)) = $0 { return evidence }; return nil }
   #expect(weak.count == 1 && weak[0].beforeCaller == nil)
   #expect(report.contexts.flatMap(\.entries).allSatisfy { $0.call == nil })
   #expect(report.contexts.contains { $0.kind == "struct" })

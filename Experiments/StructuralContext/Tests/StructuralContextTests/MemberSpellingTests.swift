@@ -7,7 +7,7 @@ private func spellingReport(_ before: String, _ after: String, oldHelper: String
   try UnchangedContext.compare(before: [("Caller.swift", before), ("Helper.swift", oldHelper)], after: [("Caller.swift", after), ("Helper.swift", newHelper)])
 }
 private func spellingEntries(_ report: ContextReport) -> [MemberSpellingEntry] {
-  report.contexts.flatMap(\.entries).compactMap { if case let .memberSpelling(evidence) = $0 { return evidence }; return nil }
+  report.contexts.flatMap(\.entries).compactMap { if case let .callSpelling(.introduced(evidence)) = $0 { return evidence }; return nil }
 }
 
 @Test func changedSignatureReachesUnchangedSplitExtensionMember() throws {

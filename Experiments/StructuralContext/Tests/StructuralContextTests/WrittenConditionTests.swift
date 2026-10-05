@@ -8,7 +8,7 @@ private func conditionReport(_ source: String, before: String = "") throws -> Co
     after: [("Caller.swift", source), ("Helper.swift", conditionHelper)])
 }
 private func conditionEntries(_ report: ContextReport) -> [MemberSpellingEntry] {
-  report.contexts.flatMap(\.entries).compactMap { if case let .memberSpelling(value) = $0 { return value }; return nil }
+  report.contexts.flatMap(\.entries).compactMap { if case let .callSpelling(.introduced(value)) = $0 { return value }; return nil }
 }
 
 @Test func nestedConditionsRetainSelectedAndPrecedingHeaders() throws {
