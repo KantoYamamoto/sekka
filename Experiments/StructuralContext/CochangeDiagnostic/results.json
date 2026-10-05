@@ -1,0 +1,1119 @@
+{
+  "state": "known diagnostic; independent result/PR checks pending",
+  "freezeCommit": "574da73",
+  "planSHA256": "19b59714d080748c4673e5c7cbd56daf7344456042ff273f562235bd6cae22cc",
+  "needsSHA256": "da925c47cf29f0dcfb25cfcf11fec69b9bf884ccbbe021853831b1882587a04c",
+  "checks": {
+    "source": "8373acec438ad52d81299e9ed61f3d2a3547f326",
+    "binarySHA256": "9a594fb406e4bb743fc0138559d1b4ddc0a5f116d20ce295e60421eabdc3c564",
+    "bodySHA256": "41cc31693ba471e8901e9c884c4cc75c622098d8c49395da5053282063deb7d0",
+    "analyzerSHA256": "189d8e0580906fb8102cb2e6c5dd902e815fb18d569c2804934c41b2b207657d",
+    "checks": [
+      {
+        "case": "initializer-changed-helper-property-user",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 1,
+        "unknown": 0
+      },
+      {
+        "case": "unchanged",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 0
+      },
+      {
+        "case": "already-shared-primary-rule",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 1,
+        "unknown": 0
+      },
+      {
+        "case": "different-arguments-or-purpose",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 1,
+        "unknown": 0
+      },
+      {
+        "case": "inactive-conditions-remain-unknown",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 1,
+        "unknown": 0
+      },
+      {
+        "case": "changed-owner-header-unpaired",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 2
+      },
+      {
+        "case": "added-deleted-regions",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 3
+      },
+      {
+        "case": "duplicate-switch-not-paired-by-order",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 1
+      },
+      {
+        "case": "ambiguous-declaration-header",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 1
+      },
+      {
+        "case": "conditional-case-lists-unexpanded",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 2
+      },
+      {
+        "case": "explicit-and-implicit-getters",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 1,
+        "unknown": 0
+      },
+      {
+        "case": "function-header-and-local-type-boundaries",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 0
+      },
+      {
+        "case": "normal-zero-no-switch",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 0
+      },
+      {
+        "case": "different-additional-trailing-labels",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 0
+      },
+      {
+        "case": "same-additional-label-transition",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 1,
+        "unknown": 0
+      },
+      {
+        "case": "different-trailing-closure-arguments",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 1,
+        "unknown": 0
+      },
+      {
+        "case": "else-if-condition-change",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 2
+      },
+      {
+        "case": "while-condition-change",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 2
+      },
+      {
+        "case": "repeat-condition-change",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 2
+      },
+      {
+        "case": "for-sequence-change",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 2
+      },
+      {
+        "case": "guard-else-condition-change",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 2
+      },
+      {
+        "case": "catch-condition-change",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 2
+      },
+      {
+        "case": "subscript-header-change",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "relationships": 0,
+        "unknown": 2
+      },
+      {
+        "case": "malformed",
+        "exit": 2,
+        "fullProcessBytesEqual": true,
+        "noPartialOutput": true
+      },
+      {
+        "case": "invalid-utf8",
+        "exit": 2,
+        "fullProcessBytesEqual": true,
+        "noPartialOutput": true
+      },
+      {
+        "case": "symlink",
+        "exit": 2,
+        "fullProcessBytesEqual": true,
+        "noPartialOutput": true
+      }
+    ],
+    "meaning": "Own syntax controls; neither independent review nor unseen usefulness"
+  },
+  "execution": {
+    "source": "8373acec438ad52d81299e9ed61f3d2a3547f326",
+    "binarySHA256": "9a594fb406e4bb743fc0138559d1b4ddc0a5f116d20ce295e60421eabdc3c564",
+    "inputsSHA256": "ac5d45948dc4da753910e9a09119721477036662bf49672ae7c89e09ac9c15d9",
+    "validatedEntries": 1891,
+    "runnerSHA256": "6949b6d71585e9105ac31444404b5f0853f7e373b9d4b0cda7f32dbdee374deb",
+    "analyzerSHA256": "189d8e0580906fb8102cb2e6c5dd902e815fb18d569c2804934c41b2b207657d",
+    "results": [
+      {
+        "case": "swift-collections-747",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "stdoutBytes": 59354426,
+        "stdoutSHA256": "ab7e57be54c32dc540f986b4d2041246baff24722d161a229dc83e8f9645a12b",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "relationshipBytesEqual": true,
+        "relationshipSHA256": "a09f4aa90464d3cc80038cadc41d1de2e60440014cb72fc8ef94e46852cec000",
+        "relationships": 0,
+        "users": 0,
+        "unknown": 23,
+        "switchCounts": {
+          "before": 37,
+          "after": 37
+        }
+      },
+      {
+        "case": "GRDB-swift-1885",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "stdoutBytes": 39431918,
+        "stdoutSHA256": "77d16cbd274bc11f0417a0ede15fa525c93e059c70097b3c240d1eb754d07ded",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "relationshipBytesEqual": true,
+        "relationshipSHA256": "8e1ade9322129841ba08ef2e7e13bc912af8f25985198f887a5eacb822caea0c",
+        "relationships": 1,
+        "users": 2,
+        "unknown": 4,
+        "switchCounts": {
+          "before": 262,
+          "after": 262
+        }
+      },
+      {
+        "case": "GRDB-swift-1884",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "stdoutBytes": 39406509,
+        "stdoutSHA256": "8906f6bc9d3945b636b3c70b60330f8597af1baafbf7fe3cd031d736235c019c",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "relationshipBytesEqual": true,
+        "relationshipSHA256": "5a1c5ac5a6a97d577bd58c1949e61432ad60e51db0fd012e403710b428c81fb8",
+        "relationships": 0,
+        "users": 0,
+        "unknown": 4,
+        "switchCounts": {
+          "before": 262,
+          "after": 262
+        }
+      }
+    ],
+    "meaning": "Known-input diagnostic, not independent or unseen benefit"
+  },
+  "relation": {
+    "members": [
+      {
+        "kind": "function",
+        "sides": {
+          "before": {
+            "switch": {
+              "site": {
+                "file": "GRDB/Core/DatabaseFunction.swift",
+                "line": 443,
+                "endLine": 456,
+                "offset": 17196
+              },
+              "physicalLines": 14,
+              "diffHunkLines": 8,
+              "outsideDiffHunkLines": 6
+            },
+            "owner": {
+              "site": {
+                "file": "GRDB/Core/DatabaseFunction.swift",
+                "line": 442,
+                "endLine": 457,
+                "offset": 17084
+              },
+              "physicalLines": 16,
+              "diffHunkLines": 8,
+              "outsideDiffHunkLines": 8
+            },
+            "caseCount": 5,
+            "writtenCallCount": 7,
+            "switchTokenSHA256": "32c39383bdb04027424bbe8c6f96e54ca911c3e63ea1b09d7fdfebfd461eef33",
+            "ownerTokenSHA256": "cd9b3be9947c1da06da91ccb54d1788d9426e523068ff554f3bceed7c91f6c0d",
+            "conditionsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          "after": {
+            "switch": {
+              "site": {
+                "file": "GRDB/Core/DatabaseFunction.swift",
+                "line": 445,
+                "endLine": 460,
+                "offset": 17254
+              },
+              "physicalLines": 16,
+              "diffHunkLines": 10,
+              "outsideDiffHunkLines": 6
+            },
+            "owner": {
+              "site": {
+                "file": "GRDB/Core/DatabaseFunction.swift",
+                "line": 444,
+                "endLine": 461,
+                "offset": 17142
+              },
+              "physicalLines": 18,
+              "diffHunkLines": 10,
+              "outsideDiffHunkLines": 8
+            },
+            "caseCount": 5,
+            "writtenCallCount": 8,
+            "switchTokenSHA256": "5af3fe6ab1be23040fc056bdad7b27ac07bbffc746155101a48d0cc9c631b317",
+            "ownerTokenSHA256": "29e418de02361ac6f9dfcef7d4c60a29f97612dac053a1fee218c79666c95435",
+            "conditionsSHA256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          }
+        },
+        "ownerTokensChanged": true
+      },
+      {
+        "kind": "initializer",
+        "sides": {
+          "before": {
+            "switch": {
+              "site": {
+                "file": "GRDB/Core/DatabaseFunction.swift",
+                "line": 101,
+                "endLine": 114,
+                "offset": 3416
+              },
+              "physicalLines": 14,
+              "diffHunkLines": 8,
+              "outsideDiffHunkLines": 6
+            },
+            "owner": {
+              "site": {
+                "file": "GRDB/Core/DatabaseFunction.swift",
+                "line": 90,
+                "endLine": 116,
+                "offset": 2915
+              },
+              "physicalLines": 27,
+              "diffHunkLines": 8,
+              "outsideDiffHunkLines": 19
+            },
+            "caseCount": 5,
+            "writtenCallCount": 7,
+            "switchTokenSHA256": "3abb7001f5341bef881c1d6b3005cd7c9c5145a1acff846c5e583c46e5c30107",
+            "ownerTokenSHA256": "87c0b3c3dcf020424b073e56289b5a63726f8d6e4811f2273c1cef5aff5c42b6",
+            "conditionsSHA256": "feefb33004e9e097517988b782c74806622bc8e4f6166310b3c4c8c0c69f6911"
+          },
+          "after": {
+            "switch": {
+              "site": {
+                "file": "GRDB/Core/DatabaseFunction.swift",
+                "line": 101,
+                "endLine": 116,
+                "offset": 3416
+              },
+              "physicalLines": 16,
+              "diffHunkLines": 10,
+              "outsideDiffHunkLines": 6
+            },
+            "owner": {
+              "site": {
+                "file": "GRDB/Core/DatabaseFunction.swift",
+                "line": 90,
+                "endLine": 118,
+                "offset": 2915
+              },
+              "physicalLines": 29,
+              "diffHunkLines": 10,
+              "outsideDiffHunkLines": 19
+            },
+            "caseCount": 5,
+            "writtenCallCount": 8,
+            "switchTokenSHA256": "a6f2c9d037beb22b1b428ebc58f50abae3c1362f933483efce4dcb96d8af3e27",
+            "ownerTokenSHA256": "4f5a75acab8058efae1368656aec5cb1764eaceca322422240ed8032a07d3113",
+            "conditionsSHA256": "feefb33004e9e097517988b782c74806622bc8e4f6166310b3c4c8c0c69f6911"
+          }
+        },
+        "ownerTokensChanged": true
+      }
+    ],
+    "users": [
+      {
+        "side": "before",
+        "call": {
+          "site": {
+            "file": "GRDB/Core/DatabaseFunction.swift",
+            "line": 391,
+            "endLine": 393,
+            "offset": 14626
+          },
+          "physicalLines": 3,
+          "diffHunkLines": 0,
+          "outsideDiffHunkLines": 3
+        },
+        "owner": {
+          "site": {
+            "file": "GRDB/Core/DatabaseFunction.swift",
+            "line": 379,
+            "endLine": 398,
+            "offset": 14069
+          },
+          "physicalLines": 20,
+          "diffHunkLines": 0,
+          "outsideDiffHunkLines": 20
+        },
+        "ownerState": "token-identical",
+        "callee": "unresolved-written-selector-only"
+      },
+      {
+        "side": "after",
+        "call": {
+          "site": {
+            "file": "GRDB/Core/DatabaseFunction.swift",
+            "line": 393,
+            "endLine": 395,
+            "offset": 14684
+          },
+          "physicalLines": 3,
+          "diffHunkLines": 0,
+          "outsideDiffHunkLines": 3
+        },
+        "owner": {
+          "site": {
+            "file": "GRDB/Core/DatabaseFunction.swift",
+            "line": 381,
+            "endLine": 400,
+            "offset": 14127
+          },
+          "physicalLines": 20,
+          "diffHunkLines": 0,
+          "outsideDiffHunkLines": 20
+        },
+        "ownerState": "token-identical",
+        "callee": "unresolved-written-selector-only"
+      }
+    ],
+    "argumentSpellingsDiffer": true,
+    "enclosingConditionsDiffer": true,
+    "meaning": "same-written-switch-shape-transition, not equivalent behavior or required abstraction"
+  },
+  "oldGates": {
+    "scalarIndexedAsFunction": false,
+    "existingHelperIndexedBeforeAndAfter": true,
+    "helperCorrespondenceIDEqual": true,
+    "helperLexicalHeadersEqual": true,
+    "helperDeclarationTokensEqual": false,
+    "existingUserKind": "property-body",
+    "otherRelationsResolved": false
+  },
+  "counterEvidence": {
+    "newSharedRuleDeclaration": {
+      "file": "GRDB/Core/Support/StandardLibrary/StandardLibrary.swift",
+      "line": 661,
+      "endLine": 677,
+      "offset": 24554
+    },
+    "sameWrittenNameCallSites": [
+      {
+        "file": "GRDB/Core/DatabaseFunction.swift",
+        "line": 109,
+        "endLine": 111,
+        "offset": 3769
+      },
+      {
+        "file": "GRDB/Core/DatabaseFunction.swift",
+        "line": 453,
+        "endLine": 455,
+        "offset": 17593
+      },
+      {
+        "file": "GRDB/Core/Support/StandardLibrary/StandardLibrary.swift",
+        "line": 628,
+        "endLine": 630,
+        "offset": 23284
+      },
+      {
+        "file": "GRDB/Core/Support/StandardLibrary/StandardLibrary.swift",
+        "line": 648,
+        "endLine": 652,
+        "offset": 24027
+      }
+    ],
+    "declarationTokenSHA256": "9f68435d22f84916d39e3f7347e987e1f16038cb8865dd525440054c767e9b64",
+    "callee": "unresolved; common written name only; parameter matching for trailing closure not performed",
+    "meaning": "already-shared primary rule from source review; same written name alone does not prove use"
+  },
+  "citationWindowCorrections": [
+    {
+      "role": "scalar-initializer",
+      "side": "before",
+      "frozenCitationWindow": {
+        "line": 90,
+        "endLine": 117
+      },
+      "actualASTSite": {
+        "file": "GRDB/Core/DatabaseFunction.swift",
+        "line": 90,
+        "endLine": 116,
+        "offset": 2915
+      },
+      "citationWindowIsExactASTRange": false
+    },
+    {
+      "role": "scalar-initializer",
+      "side": "after",
+      "frozenCitationWindow": {
+        "line": 90,
+        "endLine": 119
+      },
+      "actualASTSite": {
+        "file": "GRDB/Core/DatabaseFunction.swift",
+        "line": 90,
+        "endLine": 118,
+        "offset": 2915
+      },
+      "citationWindowIsExactASTRange": false
+    },
+    {
+      "role": "existing-changed-report",
+      "side": "before",
+      "frozenCitationWindow": {
+        "line": 442,
+        "endLine": 457
+      },
+      "actualASTSite": {
+        "file": "GRDB/Core/DatabaseFunction.swift",
+        "line": 442,
+        "endLine": 457,
+        "offset": 17084
+      },
+      "citationWindowIsExactASTRange": true
+    },
+    {
+      "role": "existing-changed-report",
+      "side": "after",
+      "frozenCitationWindow": {
+        "line": 444,
+        "endLine": 461
+      },
+      "actualASTSite": {
+        "file": "GRDB/Core/DatabaseFunction.swift",
+        "line": 444,
+        "endLine": 461,
+        "offset": 17142
+      },
+      "citationWindowIsExactASTRange": true
+    },
+    {
+      "role": "existing-aggregate-user",
+      "side": "before",
+      "frozenCitationWindow": {
+        "line": 379,
+        "endLine": 400
+      },
+      "actualASTSite": {
+        "file": "GRDB/Core/DatabaseFunction.swift",
+        "line": 379,
+        "endLine": 398,
+        "offset": 14069
+      },
+      "citationWindowIsExactASTRange": false
+    },
+    {
+      "role": "existing-aggregate-user",
+      "side": "after",
+      "frozenCitationWindow": {
+        "line": 381,
+        "endLine": 402
+      },
+      "actualASTSite": {
+        "file": "GRDB/Core/DatabaseFunction.swift",
+        "line": 381,
+        "endLine": 400,
+        "offset": 14127
+      },
+      "citationWindowIsExactASTRange": false
+    },
+    {
+      "role": "already-shared-main-rule",
+      "side": "after",
+      "frozenCitationWindow": {
+        "line": 661,
+        "endLine": 685
+      },
+      "actualASTSite": {
+        "file": "GRDB/Core/Support/StandardLibrary/StandardLibrary.swift",
+        "line": 661,
+        "endLine": 677,
+        "offset": 24554
+      },
+      "citationWindowIsExactASTRange": false
+    }
+  ],
+  "judgment": {
+    "A": "No established need for additional arrangement",
+    "B": "Limited question; not required refactor",
+    "source": "Prior ordinary diff/common source review, not this diagnostic",
+    "machineUtilityEstablished": false
+  },
+  "unresolved": [
+    "argument-values",
+    "receiver-types",
+    "callee",
+    "active-conditions",
+    "execution-order",
+    "purpose",
+    "performance"
+  ],
+  "next": "Independent result check then decide experimental relation contract; M3 held",
+  "unmatchedRegions": [
+    {
+      "case": "swift-collections-747",
+      "unknown": [
+        {
+          "reason": "no-executable-owner",
+          "before": [
+            {
+              "endLine": 138,
+              "file": "Sources/RopeModule/BigString/Chunk/BigString+Chunk+UnicodeScalar.swift",
+              "line": 117,
+              "offset": 2594
+            }
+          ],
+          "after": [
+            {
+              "endLine": 138,
+              "file": "Sources/RopeModule/BigString/Chunk/BigString+Chunk+UnicodeScalar.swift",
+              "line": 117,
+              "offset": 2622
+            }
+          ]
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [],
+          "after": [
+            {
+              "endLine": 74,
+              "file": "Sources/DequeModule/_UnsafeDequeSegments.swift",
+              "line": 70,
+              "offset": 1926
+            }
+          ]
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 71,
+              "file": "Sources/DequeModule/_UnsafeDequeSegments.swift",
+              "line": 67,
+              "offset": 1862
+            }
+          ],
+          "after": []
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [],
+          "after": [
+            {
+              "endLine": 274,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Builder.swift",
+              "line": 267,
+              "offset": 7075
+            }
+          ]
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [],
+          "after": [
+            {
+              "endLine": 257,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Builder.swift",
+              "line": 231,
+              "offset": 5916
+            }
+          ]
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [],
+          "after": [
+            {
+              "endLine": 194,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Builder.swift",
+              "line": 179,
+              "offset": 4314
+            }
+          ]
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [],
+          "after": [
+            {
+              "endLine": 222,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Builder.swift",
+              "line": 203,
+              "offset": 5037
+            }
+          ]
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [],
+          "after": [
+            {
+              "endLine": 294,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Builder.swift",
+              "line": 283,
+              "offset": 7533
+            }
+          ]
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 267,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Builder.swift",
+              "line": 260,
+              "offset": 6983
+            }
+          ],
+          "after": []
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 251,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Builder.swift",
+              "line": 225,
+              "offset": 5841
+            }
+          ],
+          "after": []
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 190,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Builder.swift",
+              "line": 175,
+              "offset": 4266
+            }
+          ],
+          "after": []
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 217,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Builder.swift",
+              "line": 198,
+              "offset": 4972
+            }
+          ],
+          "after": []
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 286,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Builder.swift",
+              "line": 275,
+              "offset": 7416
+            }
+          ],
+          "after": []
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [],
+          "after": [
+            {
+              "endLine": 167,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Builder.swift",
+              "line": 156,
+              "offset": 3781
+            }
+          ]
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 164,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Builder.swift",
+              "line": 153,
+              "offset": 3743
+            }
+          ],
+          "after": []
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [],
+          "after": [
+            {
+              "endLine": 94,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Primitive Replacement.swift",
+              "line": 69,
+              "offset": 2156
+            }
+          ]
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 90,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Primitive Replacement.swift",
+              "line": 65,
+              "offset": 1983
+            }
+          ],
+          "after": []
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 38,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Structural filter.swift",
+              "line": 30,
+              "offset": 1024
+            }
+          ],
+          "after": []
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [],
+          "after": [
+            {
+              "endLine": 38,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Structural filter.swift",
+              "line": 30,
+              "offset": 1052
+            }
+          ]
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [],
+          "after": [
+            {
+              "endLine": 120,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Subtree Modify.swift",
+              "line": 92,
+              "offset": 2467
+            }
+          ]
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [],
+          "after": [
+            {
+              "endLine": 148,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Subtree Modify.swift",
+              "line": 128,
+              "offset": 3451
+            }
+          ]
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 113,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Subtree Modify.swift",
+              "line": 85,
+              "offset": 2341
+            }
+          ],
+          "after": []
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 140,
+              "file": "Sources/HashTreeCollections/HashNode/_HashNode+Subtree Modify.swift",
+              "line": 120,
+              "offset": 3231
+            }
+          ],
+          "after": []
+        }
+      ],
+      "positionsOmitted": 0
+    },
+    {
+      "case": "GRDB-swift-1885",
+      "unknown": [
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 113,
+              "file": "GRDB/Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 105,
+              "offset": 3424
+            },
+            {
+              "endLine": 136,
+              "file": "GRDB/Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 116,
+              "offset": 3814
+            }
+          ],
+          "after": [
+            {
+              "endLine": 113,
+              "file": "GRDB/Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 105,
+              "offset": 3424
+            },
+            {
+              "endLine": 136,
+              "file": "GRDB/Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 116,
+              "offset": 3814
+            }
+          ]
+        },
+        {
+          "reason": "conditional-case-list-not-expanded",
+          "before": [
+            {
+              "endLine": 105,
+              "file": "GRDB/FTS/FTS3TokenizerDescriptor.swift",
+              "line": 93,
+              "offset": 2793
+            }
+          ],
+          "after": [
+            {
+              "endLine": 105,
+              "file": "GRDB/FTS/FTS3TokenizerDescriptor.swift",
+              "line": 93,
+              "offset": 2793
+            }
+          ]
+        },
+        {
+          "reason": "conditional-case-list-not-expanded",
+          "before": [
+            {
+              "endLine": 192,
+              "file": "GRDB/FTS/FTS5TokenizerDescriptor.swift",
+              "line": 180,
+              "offset": 5930
+            }
+          ],
+          "after": [
+            {
+              "endLine": 192,
+              "file": "GRDB/FTS/FTS5TokenizerDescriptor.swift",
+              "line": 180,
+              "offset": 5930
+            }
+          ]
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 465,
+              "file": "GRDB/QueryInterface/SQL/SQLRelation.swift",
+              "line": 458,
+              "offset": 17752
+            },
+            {
+              "endLine": 525,
+              "file": "GRDB/QueryInterface/SQL/SQLRelation.swift",
+              "line": 509,
+              "offset": 19851
+            }
+          ],
+          "after": [
+            {
+              "endLine": 465,
+              "file": "GRDB/QueryInterface/SQL/SQLRelation.swift",
+              "line": 458,
+              "offset": 17752
+            },
+            {
+              "endLine": 525,
+              "file": "GRDB/QueryInterface/SQL/SQLRelation.swift",
+              "line": 509,
+              "offset": 19851
+            }
+          ]
+        }
+      ],
+      "positionsOmitted": 0
+    },
+    {
+      "case": "GRDB-swift-1884",
+      "unknown": [
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 113,
+              "file": "GRDB/Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 105,
+              "offset": 3424
+            },
+            {
+              "endLine": 136,
+              "file": "GRDB/Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 116,
+              "offset": 3814
+            }
+          ],
+          "after": [
+            {
+              "endLine": 113,
+              "file": "GRDB/Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 105,
+              "offset": 3424
+            },
+            {
+              "endLine": 136,
+              "file": "GRDB/Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 116,
+              "offset": 3814
+            }
+          ]
+        },
+        {
+          "reason": "conditional-case-list-not-expanded",
+          "before": [
+            {
+              "endLine": 105,
+              "file": "GRDB/FTS/FTS3TokenizerDescriptor.swift",
+              "line": 93,
+              "offset": 2793
+            }
+          ],
+          "after": [
+            {
+              "endLine": 105,
+              "file": "GRDB/FTS/FTS3TokenizerDescriptor.swift",
+              "line": 93,
+              "offset": 2793
+            }
+          ]
+        },
+        {
+          "reason": "conditional-case-list-not-expanded",
+          "before": [
+            {
+              "endLine": 192,
+              "file": "GRDB/FTS/FTS5TokenizerDescriptor.swift",
+              "line": 180,
+              "offset": 5930
+            }
+          ],
+          "after": [
+            {
+              "endLine": 192,
+              "file": "GRDB/FTS/FTS5TokenizerDescriptor.swift",
+              "line": 180,
+              "offset": 5930
+            }
+          ]
+        },
+        {
+          "reason": "added-deleted-or-ambiguous-switch",
+          "before": [
+            {
+              "endLine": 465,
+              "file": "GRDB/QueryInterface/SQL/SQLRelation.swift",
+              "line": 458,
+              "offset": 17752
+            },
+            {
+              "endLine": 525,
+              "file": "GRDB/QueryInterface/SQL/SQLRelation.swift",
+              "line": 509,
+              "offset": 19851
+            }
+          ],
+          "after": [
+            {
+              "endLine": 465,
+              "file": "GRDB/QueryInterface/SQL/SQLRelation.swift",
+              "line": 458,
+              "offset": 17752
+            },
+            {
+              "endLine": 525,
+              "file": "GRDB/QueryInterface/SQL/SQLRelation.swift",
+              "line": 509,
+              "offset": 19851
+            }
+          ]
+        }
+      ],
+      "positionsOmitted": 0
+    }
+  ]
+}

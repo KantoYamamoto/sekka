@@ -50,6 +50,8 @@ jobs:
         run: python3 Experiments/StructuralContext/Diagnostics/verify.py --scratch .build/inventory-diagnostic --output .build/diagnostics/checks.json
       - name: Check withdrawn-entry diagnostic controls
         run: python3 Experiments/StructuralContext/WithdrawnEntry/verify.py --binary .build/diagnostics/inventory-probe --output .build/diagnostics/withdrawn-entry.json
+      - name: Check changed-region diagnostic controls
+        run: python3 Experiments/StructuralContext/CochangeDiagnostic/verify.py --scratch .build/cochange-diagnostic --output .build/diagnostics/cochange-checks.json
       - name: Check fixed review material controls
         run: |
           python3 Experiments/StructuralContext/ResultHoldout/verify_diff_controls.py
