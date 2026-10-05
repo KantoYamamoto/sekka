@@ -71,6 +71,7 @@ final class RegionReader: SyntaxVisitor {
     if let n = node.as(InitializerDeclSyntax.self) { return "initializer:" + header(n, until: n.body?.leftBrace.position) }
     if let n = node.as(DeinitializerDeclSyntax.self) { return "deinitializer:" + header(n, until: n.body?.leftBrace.position) }
     if let n = node.as(AccessorDeclSyntax.self) { return "accessor:" + header(n, until: n.body?.leftBrace.position) }
+    if let n = node.as(SubscriptDeclSyntax.self) { return "subscript:" + header(n, until: n.accessorBlock?.leftBrace.position) }
     if let n = node.as(PatternBindingSyntax.self) {
       return "binding:" + header(n, until: n.initializer?.positionAfterSkippingLeadingTrivia ?? n.accessorBlock?.positionAfterSkippingLeadingTrivia)
     }
@@ -107,6 +108,12 @@ final class RegionReader: SyntaxVisitor {
       if let loop = n.as(ForStmtSyntax.self) {
         result.append(["for", header(loop, until: loop.body.leftBrace.position)])
       }
+      if let guardStmt = n.as(GuardStmtSyntax.self) {
+        result.append(["guard", regionTokens(guardStmt.conditions), ancestors.contains(guardStmt.body.id) ? "else" : "condition"])
+      }
+      if let c = n.as(CatchClauseSyntax.self) { result.append(["catch", header(c, until: c.body.leftBrace.position)]) }
+      if let d = n.as(DeferStmtSyntax.self) { result.append(["defer", header(d, until: d.body.leftBrace.position)]) }
+      if let d = n.as(DoStmtSyntax.self) { result.append(["do", header(d, until: d.body.leftBrace.position)]) }
       if let c = n.as(ClosureExprSyntax.self) { result.append(["closure", c.signature.map(regionTokens) ?? "implicit"]) }
       if let c = n.as(SwitchCaseSyntax.self) { result.append(["enclosing-case", regionTokens(c.label)]) }
       ancestors.insert(n.id); parent = n.parent

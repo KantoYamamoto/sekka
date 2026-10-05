@@ -76,10 +76,14 @@ case .b: fallback()
         ('while-condition-change', 'while outerA { BODY }', ('outerA', 'outerB')),
         ('repeat-condition-change', 'repeat { BODY } while outerA', ('outerA', 'outerB')),
         ('for-sequence-change', 'for item in outerA { BODY }', ('outerA', 'outerB')),
+        ('guard-else-condition-change', 'guard outerA else { BODY; return }', ('outerA', 'outerB')),
+        ('catch-condition-change', 'do { work() } catch where outerA { BODY }', ('outerA', 'outerB')),
     ]:
         old = 'func first() { ' + wrapper.replace('BODY', dispatch) + ' }\nfunc second() { ' + dispatch + ' }'
         new = old.replace('withOld', 'withNew').replace(*changed_header)
         yield name, old, new
+    subscripts = 'struct Box { subscript(index: Int) -> Int { get { BODY } }\nvar other: Int { BODY } }'.replace('BODY', dispatch)
+    yield 'subscript-header-change', subscripts, subscripts.replace('withOld', 'withNew').replace('index: Int', 'index: String')
 
 
 def verify_case(name, report, result):
@@ -113,7 +117,8 @@ def verify_case(name, report, result):
         raise ValueError('Duplicate declaration not marked unknown')
     if name == 'conditional-case-lists-unexpanded' and 'conditional-case-list-not-expanded' not in reasons:
         raise ValueError('Conditional cases were treated as complete')
-    if name in {'else-if-condition-change', 'while-condition-change', 'repeat-condition-change', 'for-sequence-change'}:
+    if name in {'else-if-condition-change', 'while-condition-change', 'repeat-condition-change', 'for-sequence-change',
+                'guard-else-condition-change', 'catch-condition-change', 'subscript-header-change'}:
         if 'added-deleted-or-ambiguous-switch' not in reasons:
             raise ValueError('Changed enclosing conditions lost: ' + name)
     if name == 'function-header-and-local-type-boundaries':
