@@ -6,7 +6,7 @@
 
 **通常diffを補い、変更を既存構造へどう組み込むか考えるための未変更実装を、関連根拠付きで示す。** 構文上の候補と不明を区別し、設計の良否・実calleeを推測で確定しない。Swift 6以降、CLI/Actions、LLMなしの決定論性を維持する。
 
-現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#95 / PR #97、#96 / PR #99、#98 / PR #101は完了。現在は#100でcall入口を前後両側へ組み直し検証中。** [独立比較](docs/validation/result-relations-holdout.md)の利益は未支持、本番統合/M3は保留。#96の既読診断で旧利用4→0からcopy先例へ届いたが同名不要先も残ったため、前後利用/対応/不変判定を共有する。[判断0047](docs/decisions/0047-both-side-call-entry.md)。初稿では詳細8件の上限で必要先を隠したため、全確認先の位置と全根拠modeを分離した。既知4caseの全bytes再現・独立点検・自己利用まで確認し、PR検証を進める。その後#102で別の未読入力を独立比較する。同じ入力を未見利益と呼ばない。人間判断待ちなし。
+現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#100 / PR #103まで実装・検証を完了。現在は#102で両側call入口の別未読比較を準備中。** 既知4caseでは必要なcopy先例へ旧利用4→0から到達し、全確認先の位置と詳細上限を分離した。100 tests/17 CLI/診断37、独立81出現/13target、Actions/実コメント/10成果物を確認しmerge `cf97fee`。[実装検証](docs/validation/both-side-call-entry.md)。同名不要先は残り、この既読再現を未見の利益と呼ばない。本番/M3は保留。#102は選択条件と4入力/評価器をsource・diff・機械出力を見る前に固定し、これから素材照合と独立A/Bへ進む。[checkpoint](Experiments/StructuralContext/BothSideHoldout/checkpoint.json)。人間判断待ちなし。
 
 ## Issueの階層と判断の節目
 
@@ -36,8 +36,8 @@ M1の#73（構文索引/PR #75）と#74（検索と表示/PR #76）は完了。M
 | 10 | [#95 別の固定PRで独立比較](https://github.com/KantoYamamoto/sekka/issues/95) | 素材/二回実行/段階別A/Bと6,260検査・source根拠の独立点検まで完了。未解消指摘なし、本番保留。PR #97にActions/実コメント/10成果物の完了記録 |
 | 11 | [#96 減った利用と残る窓口の診断](https://github.com/KantoYamamoto/sekka/issues/96) | 58必要位置を先に固定、4caseの全42減少selector/4不変候補を照合。copy先例と挙動helperに交差、同名/必要集合外も記録。37対照・修正後全bytes一致・独立点検/指摘修正完了。PR #99でActions/実コメント/10成果物まで確認して完了 |
 | 12 | [#98 実験CLIの失敗表示](https://github.com/KantoYamamoto/sekka/issues/98) | reader/formatterを共有し、path欠落の独立指摘も修正。85テスト/14 CLI/37診断対照と失敗全bytes一致を確認。PR #101で通常Actions/実コメント/10成果物まで確認して完了 |
-| 13 | [#100 両側のcall入口](https://github.com/KantoYamamoto/sekka/issues/100) | 前後call索引と不変判定を共有、member経路をintroduced/decreasedへ置換。100テスト/17 CLI/診断37と既知4caseを確認、全81出現/13targetを独立点検。詳細外も全位置を残す。PR検証中 |
-| 14 | [#102 両側入口の別入力比較](https://github.com/KantoYamamoto/sekka/issues/102) | #100のPR完了後、方式/評価器/選択条件を固定し未読入力で段階別A/B。必要先への寄与・配置の問い・不要接続から本番/再設計/保留を選ぶ |
+| 13 | [#100 両側のcall入口](https://github.com/KantoYamamoto/sekka/issues/100) | 前後call索引と不変判定を共有、member経路をintroduced/decreasedへ置換。100テスト/17 CLI/診断37と既知4caseを確認、全81出現/13targetを独立点検。詳細外も全位置を残す。PR #103でActions/実Bot/10成果物まで完了 |
+| 14 | [#102 両側入口の別入力比較](https://github.com/KantoYamamoto/sekka/issues/102) | 方式/評価器/選択条件/4入力をsource閲覧前に固定。素材取得/全bytes照合と段階別A/Bはこれから。必要先への寄与・配置の問い・不要接続から本番/再設計/保留を選ぶ |
 
 必要な確認先へ届いた例はA/B比較を始める根拠とし、有用性の合格とはしない。範囲内の必要箇所へ届かなければ検索方式へ戻す。確認先を特定できない例だけなら今回の標本では判断保留。出力に合う入力への差し替え、同じ入力の未見扱いはしない。M2の続きとM3は結果が出てから分解する。
 

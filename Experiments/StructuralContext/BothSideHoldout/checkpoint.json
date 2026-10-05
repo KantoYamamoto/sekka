@@ -1,0 +1,18 @@
+{
+  "issue": 102,
+  "parent": 71,
+  "sourceHead": "f532b4857ca81efed4b35140c7ca2ce7b0b3da19",
+  "mergedSourceHead": "cf97fee1c86559cda1036f66543d9289e22c3f9d",
+  "binarySourceHead": "d4600071162d71f5eb397c9234375d559cebd36b",
+  "sourceTree": "4bb7a708751884a903dc99f224d08f1a93f40270",
+  "binarySHA256": "31b3dd776c7157eced96b1d21aa66bef8791c6ec5eeede9459b6d8170de2567f",
+  "toolchain": "Apple Swift 6.4 (swiftlang-6.4.0.34.1), SwiftSyntax604.0.0",
+  "modes": [
+    "default JSON and navigation text",
+    "--all JSON and text"
+  ],
+  "selectionSHA256": "f9550fc6f1bf8446ccd8c984dd3e0af6ab602b81a8009d97d8e4d30ca190d9d1",
+  "planSHA256": "c5dd58163d245abbfa7cfd76f4b4a6f43b17fa2e7e2228150f47d456e36e9788",
+  "state": "Selection and evaluator fixed before source/diff/tool-output viewing. Input acquisition and independent comparison pending.",
+  "meaning": "Preregistered comparison checkpoint; no review benefit or material validation yet."
+}
