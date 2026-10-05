@@ -69,6 +69,8 @@ case .b: fallback()
 } }'''
     yield 'different-additional-trailing-labels', trailing.replace('LABEL', 'failure'), trailing.replace('LABEL', 'failure').replace('old', 'new')
     yield 'same-additional-label-transition', trailing.replace('LABEL', 'success'), trailing.replace('LABEL', 'success').replace('success', 'failure')
+    closures = 'func first() { switch value { case .a: old { 1 }; case .b: fallback() } }\nfunc second() { switch value { case .a: old { 2 }; case .b: fallback() } }'
+    yield 'different-trailing-closure-arguments', closures, closures.replace('old', 'new')
     for name, wrapper, changed_header in [
         ('else-if-condition-change', 'if outerA {} else if inner { BODY }', ('outerA', 'outerB')),
         ('while-condition-change', 'while outerA { BODY }', ('outerA', 'outerB')),
@@ -84,7 +86,7 @@ def verify_case(name, report, result):
     relations = result['relationships']
     expected = name in {'initializer-changed-helper-property-user', 'already-shared-primary-rule',
                         'different-arguments-or-purpose', 'inactive-conditions-remain-unknown', 'explicit-and-implicit-getters',
-                        'same-additional-label-transition'}
+                        'same-additional-label-transition', 'different-trailing-closure-arguments'}
     if bool(relations) != expected:
         raise ValueError('Unexpected relationship: ' + name)
     if expected:
@@ -100,7 +102,7 @@ def verify_case(name, report, result):
             raise ValueError('Unchanged property user not recorded')
         if not relations[0]['enclosingConditionsDiffer']:
             raise ValueError('Closure boundary lost')
-    if name == 'different-arguments-or-purpose' and not relations[0]['argumentSpellingsDiffer']:
+    if name in {'different-arguments-or-purpose', 'different-trailing-closure-arguments'} and not relations[0]['argumentSpellingsDiffer']:
         raise ValueError('Arguments were silently equated')
     if name == 'inactive-conditions-remain-unknown' and not relations[0]['enclosingConditionsDiffer']:
         raise ValueError('Different lexical branches were conflated')

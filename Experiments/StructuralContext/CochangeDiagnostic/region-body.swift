@@ -26,6 +26,7 @@ struct RegionCall: Encodable {
   let selector: String?
   let calledExpression: String
   let argumentTokens: [String]
+  let trailingClosureArguments: [String]
   let trailingClosures: Int
   let trailingClosureLabels: [String]
   let conditions: [[String]]
@@ -166,6 +167,7 @@ final class RegionReader: SyntaxVisitor {
     return RegionCall(site: position(n), owner: owner(n), form: form,
       selector: name.map { $0 + "(" + n.arguments.map { ($0.label?.text ?? "_") + ":" }.joined() + ")" },
       calledExpression: regionTokens(n.calledExpression), argumentTokens: n.arguments.map { regionTokens($0.expression) },
+      trailingClosureArguments: (n.trailingClosure.map { [regionTokens($0)] } ?? []) + n.additionalTrailingClosures.map { regionTokens($0.closure) },
       trailingClosures: (n.trailingClosure == nil ? 0 : 1) + n.additionalTrailingClosures.count,
       trailingClosureLabels: n.additionalTrailingClosures.map { $0.label.text },
       conditions: conditions(n))

@@ -63,7 +63,7 @@ def analyze(report):
         if len(members) < 2:
             continue
         # Equal shapes do not assert equal arguments, conditions, types or purposes.
-        argument_vectors = [[[[c['argumentTokens'] for c in b['calls']] for b in t[side]['branches']]
+        argument_vectors = [[[[[c['argumentTokens'], c['trailingClosureArguments']] for c in b['calls']] for b in t[side]['branches']]
                              for side in ('before', 'after')] for t in members]
         relationships.append({'id': sha(identity), 'meaning': 'same-written-switch-shape-transition',
             'argumentSpellingsDiffer': len({key(a) for a in argument_vectors}) > 1,
