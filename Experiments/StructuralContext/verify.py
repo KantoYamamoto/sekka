@@ -18,13 +18,17 @@ binary = str(args.binary.resolve())
 results = []
 
 
-def run(before, after):
-    command = [binary, str(before), str(after)]
+def successful_twice(command):
     first = subprocess.run(command, capture_output=True)
     second = subprocess.run(command, capture_output=True)
     assert (first.returncode, first.stdout, first.stderr) == (second.returncode, second.stdout, second.stderr), 'Unstable complete output'
     assert first.returncode == 0 and not first.stderr, 'Failed input is not a zero result'
-    return json.loads(first.stdout)
+    return first.stdout
+
+
+def run(before, after, all_evidence=False):
+    command = [binary, str(before), str(after)] + (['--all'] if all_evidence else [])
+    return json.loads(successful_twice(command))
 
 
 def failed_twice(command):
@@ -243,6 +247,25 @@ with tempfile.TemporaryDirectory(prefix='sekka-decreased-selector-') as director
     (after/'Caller.swift').write_text('func renamed() { foreign.clean(2); foreign.clean(3) }')
     report=run(before,after)
     assert not any('decreased' in e.get('callSpelling',{}).get('evidence',{}) for t in report['contexts'] for e in t['entries'])
+
+# A detail limit cannot silently remove navigation to retained implementations.
+with tempfile.TemporaryDirectory(prefix='sekka-context-details-') as directory:
+    root=Path(directory);before=root/'before';after=root/'after';before.mkdir();after.mkdir()
+    helpers='\n'.join('func method%d() {}'%i for i in range(9))
+    for side in [before,after]: (side/'Helper.swift').write_text(helpers)
+    (before/'Caller.swift').write_text('func old() { '+';'.join('helper.method%d()'%i for i in range(9))+' }')
+    compact=run(before,after);full=run(before,after,all_evidence=True)
+    assert len(compact['contexts'])==8 and compact['omittedTargets']==1
+    assert len(compact['omittedContextIndex'])==1 and compact['omittedContextIndex'][0]['entryCount']==1
+    assert len(full['contexts'])==9 and full['omittedTargets']==0 and not full['omittedContextIndex']
+    assert compact['skipped']==full['skipped']
+    compact_text=successful_twice([binary,str(before),str(after),'--text']).decode()
+    full_text=successful_twice([binary,str(before),str(after),'--text','--all']).decode()
+    omitted=compact['omittedContextIndex'][0]['after']['declaration']
+    assert omitted in compact_text and '詳細を省略した確認先 1件' in compact_text
+    assert omitted in full_text and '詳細を省略した確認先' not in full_text
+    results.append({'case':'complete-navigation-and-all-evidence','report':compact,'fullTargetCount':len(full['contexts']),'exitStdoutStderrTwiceBytesEqual':True})
+    text_samples.append('Case: complete-navigation-and-all-evidence\n'+compact_text)
 
 # Written result names relate existing producers, not resolved constructors/callees.
 with tempfile.TemporaryDirectory(prefix='sekka-result-spelling-') as directory:

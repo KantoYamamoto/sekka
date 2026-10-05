@@ -151,6 +151,7 @@ private func decreases(_ report: ContextReport) -> [SelectorDecreaseEntry] {
   let capped = try UnchangedContext.compare(before: old, after: new)
   let full = try UnchangedContext.compare(before: old, after: new, allEvidence: true)
   #expect(capped.contexts[0].entries.count == 8 && capped.contexts[0].omittedEntries == 2)
+  #expect(capped.text().contains("他2入口の詳細省略（--allで全根拠）"))
   #expect(full.contexts[0].entries.count == 10 && full.contexts[0].omittedEntries == 0)
   #expect(capped.changedFunctions == full.changedFunctions && capped.skipped.map(\.reason) == full.skipped.map(\.reason))
   #expect(capped.contexts[0].after == full.contexts[0].after)

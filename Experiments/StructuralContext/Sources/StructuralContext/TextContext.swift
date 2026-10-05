@@ -69,7 +69,7 @@ extension ContextReport {
           lines.append("│  照合した末尾名: \(safe(entry.reference.name)) · 読み取った同名宣言 \(entry.matchingDeclarations)件（型の解決ではない）")
         }
       }
-      if target.omittedEntries > 0 { lines.append("│  他\(target.omittedEntries)入口省略") }
+      if target.omittedEntries > 0 { lines.append("│  他\(target.omittedEntries)入口の詳細省略（--allで全根拠）") }
       lines.append("└")
     }
     if omittedTargets > 0 {
