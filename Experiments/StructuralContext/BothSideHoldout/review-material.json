@@ -1,0 +1,64 @@
+{
+  "recordedAtUTC": "2026-10-05T02:28:08.662690+00:00",
+  "cases": [
+    {
+      "case": "swift-collections-747",
+      "stage1MaterialSHA256": {
+        "A": {
+          "ordinary.diff": "1129a5b11e7508f4fa1aa03185e5541689cb0a04e45d22558568ada92feebf34",
+          "pr-context.md": "35550e0d1b8a24777f662683a3a6311c630c03184fb9d608d708723fc0a2c994",
+          "scope.md": "03dc97f394464aeab58a64405a975c78192ee0dd82020171469e5d0acc6415dd"
+        },
+        "B": {
+          "pr-context.md": "35550e0d1b8a24777f662683a3a6311c630c03184fb9d608d708723fc0a2c994",
+          "scope.md": "03dc97f394464aeab58a64405a975c78192ee0dd82020171469e5d0acc6415dd",
+          "sekka.all-json": "bd6a8080e65f26b83d61984e697259b38f65033c97d6f1b84556f01c711e7899",
+          "sekka.all-text": "888d799b21b89d0c84b2e8330034df55e8f2bc12aafefe42d43d7df1158bdb3e",
+          "sekka.default-json": "6d62c50647371d50c6d917b077e1601eef1b0da13f58b107ee050edbb987965f",
+          "sekka.default-text": "365b7bfae4a5ecc36b07420ddf0f9d0cdf64702b365701685dd2dad4d696ac66"
+        }
+      }
+    },
+    {
+      "case": "GRDB-swift-1885",
+      "stage1MaterialSHA256": {
+        "A": {
+          "ordinary.diff": "4b63ea55920127f4a50db9c5e7056a68c48b02d665da9fbd8252ad2ee1fac042",
+          "pr-context.md": "826cdb5c20e6be488dd80102c052ec34551dbafdef070d42890bce2ba416c747",
+          "scope.md": "08ed5da33b26e44cd646125656b22973c876d2fb41e0101ae640ef821ee3755d"
+        },
+        "B": {
+          "pr-context.md": "826cdb5c20e6be488dd80102c052ec34551dbafdef070d42890bce2ba416c747",
+          "scope.md": "08ed5da33b26e44cd646125656b22973c876d2fb41e0101ae640ef821ee3755d",
+          "sekka.all-json": "089469788c8b2b55b3de03b219bf00c838158d9a3e3fe7b3a6b023c3b6acefb8",
+          "sekka.all-text": "57b544ff53eff9f5b17465a22de779ef0944d25aa5a59261f2d0163aa8104514",
+          "sekka.default-json": "089469788c8b2b55b3de03b219bf00c838158d9a3e3fe7b3a6b023c3b6acefb8",
+          "sekka.default-text": "57b544ff53eff9f5b17465a22de779ef0944d25aa5a59261f2d0163aa8104514"
+        }
+      }
+    },
+    {
+      "case": "GRDB-swift-1884",
+      "stage1MaterialSHA256": {
+        "A": {
+          "ordinary.diff": "716f330ab68a9c9c5e953e7da31714f25b43edb8fdefbf17b23d5343184a919d",
+          "pr-context.md": "08e1b35464b22aff245bd5852eaf7872ef4d7f4268e3090cd2b214ab7cf6f30f",
+          "scope.md": "08ed5da33b26e44cd646125656b22973c876d2fb41e0101ae640ef821ee3755d"
+        },
+        "B": {
+          "pr-context.md": "08e1b35464b22aff245bd5852eaf7872ef4d7f4268e3090cd2b214ab7cf6f30f",
+          "scope.md": "08ed5da33b26e44cd646125656b22973c876d2fb41e0101ae640ef821ee3755d",
+          "sekka.all-json": "3275893214b17e6b1461d8ba9f50d12c60954f945e2f8f370b90bc498f682c37",
+          "sekka.all-text": "1bcebccec058d95ef264b8264f16935598863567c60cdfe4665e25496125de1f",
+          "sekka.default-json": "3275893214b17e6b1461d8ba9f50d12c60954f945e2f8f370b90bc498f682c37",
+          "sekka.default-text": "1bcebccec058d95ef264b8264f16935598863567c60cdfe4665e25496125de1f"
+        }
+      }
+    }
+  ],
+  "commonPromptSHA256": "16648891d5665845f5e8936dcfeb6356a2e1fa57864bd6f584f396c1629d2167",
+  "stage2PromptSHA256": "d5345da757a7c7e79fe149da1c4ecf06f91755893574687508c83581557b7c39",
+  "executionSHA256": "b89ddba66d905baded90700cd74a7bd723dacd68301a52b22584523f91936df7",
+  "inputsSHA256": "ac5d45948dc4da753910e9a09119721477036662bf49672ae7c89e09ac9c15d9",
+  "rootExposure": "Coordinator viewed metadata, file paths, material/runtime receipts and own verifier; no new source/diff content, PR body, or query output content before reviewer dispatch. File/diff bytes processed by acquisition/validators, not displayed. Instruction separation, not OS isolation."
+}

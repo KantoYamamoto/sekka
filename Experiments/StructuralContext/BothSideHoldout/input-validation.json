@@ -1,0 +1,61 @@
+{
+  "selectionSHA256": "f9550fc6f1bf8446ccd8c984dd3e0af6ab602b81a8009d97d8e4d30ca190d9d1",
+  "inputsSHA256": "ac5d45948dc4da753910e9a09119721477036662bf49672ae7c89e09ac9c15d9",
+  "outcomes": [
+    {
+      "case": "swift-collections-747",
+      "status": "acquired"
+    },
+    {
+      "case": "swift-collections-745",
+      "status": "invalid-frozen-base",
+      "before": "afb6141ea090fbab3d341b270afefed04e60ea5e",
+      "observedMergeBase": "98ef3c98609a1e31b7e157b5b619579001a789d6",
+      "comparisonStatus": "diverged",
+      "meaning": "Not a zero result; no source/diff/query/review, no replacement or changed ref"
+    },
+    {
+      "case": "GRDB-swift-1885",
+      "status": "acquired"
+    },
+    {
+      "case": "GRDB-swift-1884",
+      "status": "acquired"
+    }
+  ],
+  "validatedEntries": 1891,
+  "diffVerificationSHA256": "b98493717de9cd9d78dc0fe4438247d970448af3b0de6c1af4fa77741bc558d6",
+  "verifierSHA256": "6059e8d600af7c01dfeca5d574b3502b47eff56ca13bc5a72ae5ff4cd8238000",
+  "legacyVerifierSHA256": "60c60857c6279418dcbb2ba1753ee0e72ae11d0874d1c6dc7c3f56ee817ecad3",
+  "controls": {
+    "valid": 11,
+    "rejected": 17
+  },
+  "scriptsSHA256": {
+    "materialize_inputs.py": "b87ea38eb0f11654d1392cbce88a4571b67a29b7e0f39f0052b72dad4744a1aa",
+    "replay.py": "b24e59d822a9a0858b23368be3c20e38c2b3fc777019ca41e9491cbfcb73b0a0"
+  },
+  "cases": [
+    {
+      "case": "swift-collections-747",
+      "changedFiles": 332,
+      "hunks": 1666,
+      "binaryMetadataOnlyFiles": 0
+    },
+    {
+      "case": "GRDB-swift-1885",
+      "changedFiles": 11,
+      "hunks": 30,
+      "binaryMetadataOnlyFiles": 0
+    },
+    {
+      "case": "GRDB-swift-1884",
+      "changedFiles": 1,
+      "hunks": 1,
+      "binaryMetadataOnlyFiles": 0
+    }
+  ],
+  "meaning": "3 complete materials; fourth invalid frozen base, no source/diff/query or replacement. Source bytes verified independently of meaning; no review benefit.",
+  "controlsSHA256": "42121048f0859f14178baecb92bc63d6975ad368d22b7eab43f22d1939f55794",
+  "legacyControlsSHA256": "1e76d3198e50e78c4052af245c62ed05e1854ed682ba0b69f338bb5e3d0221f0"
+}

@@ -51,7 +51,9 @@ jobs:
       - name: Check withdrawn-entry diagnostic controls
         run: python3 Experiments/StructuralContext/WithdrawnEntry/verify.py --binary .build/diagnostics/inventory-probe --output .build/diagnostics/withdrawn-entry.json
       - name: Check fixed review material controls
-        run: python3 Experiments/StructuralContext/ResultHoldout/verify_diff_controls.py
+        run: |
+          python3 Experiments/StructuralContext/ResultHoldout/verify_diff_controls.py
+          python3 Experiments/StructuralContext/BothSideHoldout/verify_diff_controls.py
       - name: Exercise review boundaries
         run: python3 Scripts/review_probes.py --output .build/pr-review/probes.json
       - name: Exercise structural review questions
