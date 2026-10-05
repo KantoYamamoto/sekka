@@ -1,0 +1,29 @@
+{
+  "resultsSHA256": "007eb4b259231a0c11b1c643f841ea20ac1b522993bb159d41c57f03979a2554",
+  "validationDocSHA256": "be60b3cd9b6a263322cff4cdfcc8a66d6b5b6a3035e70124020172adf5c9fbfc",
+  "independentEvidenceEntryHashesMatch": 25,
+  "publicExposureEntriesMatch": 25,
+  "unresolvedPublicCorrections": 0,
+  "meaning": "Integrated documents and latest results checked. Original asymmetric protocol deviation persists as an interpretation limit; exposure correction retains raw. Diagnosis policy only; runtime contract and production adoption undecided. Final PR validation belongs to coordinator and is pending.",
+  "independentSourceRegions": 65,
+  "validatedInputEntries": 1891,
+  "rawReviewSHA256": "aa4bff18d24fc27904c20c6ce3f90c9c3b1051abfaef177fcc8eba7748a46854",
+  "protocolRawReviewSHA256": "3dec5b932149e68d4484d2c03c6ea39fc2c00de4f179910ac2e073f8c92c9f3e",
+  "stageSeparation": "instruction separation, not OS isolation",
+  "privacy": "Reviewer disclosed one short machine-token display during schema inspection; no public raw source/review. Coordinator is not an independent A/B reviewer.",
+  "initialAuditSnapshot": {
+    "resultsSHA256": "3ce79720d6d2dbc02ea7fe73c95f2ca9c88817e2e5e0301e89919a9d2697af1b",
+    "validationDocSHA256": "46bb416a66b3b56d9759e98724ecc44810e8efb7889adfe7f00c73e45a6b71c7"
+  },
+  "integrationDocumentsSHA256": {
+    "ROADMAP.md": "5d39076176da171249c44f029ea45d7dd5d1707a314a5c517cac42d019e2da4c",
+    "Experiments/StructuralContext/BothSideHoldout/README.md": "60a03521704c4221c7b25af676ad981eaabdae246b0d46e37fdb8655bcd5ec19",
+    "docs/validation/both-side-call-holdout.md": "be60b3cd9b6a263322cff4cdfcc8a66d6b5b6a3035e70124020172adf5c9fbfc",
+    "docs/decisions/0048-changed-existing-context.md": "1e55b66d6b80d1f298ce07b933590939e37b7248f6f84bbb1bd2d9cc10a38a79",
+    "docs/decisions/README.md": "a2a5d261128055bccdc0ced8075b49088bca5d4ddb59ba0b1050ccdd1f155a27"
+  },
+  "historicalPublicAuditSHA256": "88685b82ee23ec7fa0665cf7179a2deffe3f7ee0f6f8ce25160e3e18b969d9ef",
+  "historicalAuditedResultsSHA256": "3ce79720d6d2dbc02ea7fe73c95f2ca9c88817e2e5e0301e89919a9d2697af1b",
+  "historicalAuditedValidationDocSHA256": "46bb416a66b3b56d9759e98724ecc44810e8efb7889adfe7f00c73e45a6b71c7",
+  "integrationReviewSHA256": "ca8ed7051a898c1dd875b4fa96e2378d5ff7ade0d40bb9a4d4f6826f87c9ec5e"
+}

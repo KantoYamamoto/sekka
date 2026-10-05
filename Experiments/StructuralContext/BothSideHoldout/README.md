@@ -2,7 +2,7 @@
 
 **既知の必要先へ届いた後は、同じ例を再採点せず、方式と選択を固定して別の未読変更を独立比較する。** [Issue #102](https://github.com/KantoYamamoto/sekka/issues/102)。前段の実装/既読再現は[検証記録](../../../docs/validation/both-side-call-entry.md)。本番/M3は保留。
 
-選択/評価器の固定後、3入力の1,891 entriesをGit tree/blob/size/SHAへ照合し、通常diffの全変更範囲も確認した。残る1入力は固定beforeがmerge-baseと一致せず不成立。機械出力は固定バイナリの4mode各二回で終了コード/stdout/stderrの全bytesが一致。独立A/Bを段階分離で実施中、結果点検は未完了。候補数や既知copy先例への到達を有用性の成功にしない。
+選択/評価器の固定後、3入力の1,891 entriesをGit tree/blob/size/SHAへ照合し、通常diffの全変更範囲も確認した。残る1入力は固定beforeがmerge-baseと一致せず不成立。機械出力は固定バイナリの4mode各二回で終了コード/stdout/stderrの全bytesが一致。全3pairsの独立A/Bと結果点検を完了。stage1の資料は原planと異なり非対称だったため、純増効果は評価できない。最終PR検証は確認待ち。候補数や既知copy先例への到達を有用性の成功にしない。
 
 - `plan.md`: source/diff/機械出力を見る前の原選択条件。PR #103のActions待ちだった時点の凍結文書で、現在の進捗ではない。
 - `selection.json`: metadata/filename/status/countだけの監査、採用/除外理由と前後ref。cutoffは2026-10-04末（UTC）。大きさや候補の有無による差し替えはしない。
@@ -16,6 +16,6 @@
 
 **素材のpath表記だけが照合器に未対応の場合は、既知metadataと厳密対応させて検証器を直し、評価器や入力内容は変えない。** #747には空白を含む未引用GitHub diff pathが63件あった。元照合器は空白で分割して拒否したため、[verify_diff.py](verify_diff.py)でheaderを凍結metadataの一つのpath対に対応させ、hunk前のfile markerの末尾tabだけを扱う。hunk内容・status/mode・全gap/tailの検証は既存照合器へ渡す。単純な空白分割や任意のtab削除ではpathや削除sourceの内容を変えてしまう。[対照](verify_diff_controls.py)と既存対照をCIで実行する。これは素材の検証能力の修正であり、Sekkaの検索条件や結果の補正ではない。
 
-次は全source/blob/SHA/通常Swift diffを同じ範囲で照合し、履歴なしA（通常diff+全source検索）とB（同じ素材+既定位置一覧/全根拠）を段階隔離で比較する。具体的な負担・別配置の成立条件・現配置の反対理由をsource位置へ戻す。案内の寄与、通常検索の発見、必須/文脈/無関係、正常0/入力失敗/中断を分ける。時間やトークン数だけで効率を断定しない。
+[比較結果と解釈制限](../../../docs/validation/both-side-call-holdout.md)へ、機械寄与0・新経路の1件の実使用・露出訂正・原手順との相違を統合した。GRDB #1885の配置の問いは通常sourceからで、必要性についてA/Bは異なる。次は[診断 #105](https://github.com/KantoYamamoto/sekka/issues/105)で、変更された既存窓口を不変target条件だけで除外する範囲を見直す。新たな未読比較は両stage1へ同じ通常diffを渡す契約を事前固定する。時間やトークン数だけで効率を断定しない。
 
 raw source/diff/出力/レビューはignored `.build/both-side-comparison/`、公開は位置/count/hashと自分のcode。外部OSSはGET/readのみ、対象checkout/build/test/scriptや先方への投稿は禁止。人間判断待ちなし。

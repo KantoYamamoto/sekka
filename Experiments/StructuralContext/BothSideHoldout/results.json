@@ -1,0 +1,849 @@
+{
+  "state": "Results and interpretation limits independently checked; final PR validation pending",
+  "protocolDeviation": "Original plan said same material plus Sekka. In stage1 A received ordinary diff, B did not. Stage2 material is common, but initial information/read order are asymmetric. Not a pure added-index comparison; incremental benefit or inefficiency remains unjudged. Preserve original plan and receipts; next comparison must freeze equal diff in both stage1 arms.",
+  "exposureCorrection": "Raw B review classified entry25 caller at after _BTree+UnsafeCursor.swift:301 as diff context. Independent hunk binding shows it outside hunks 273-295 and 311-368. Preserve raw; public entry25 exposure corrected to false. It remains context, not structural success.",
+  "selectedCases": 4,
+  "validCases": 3,
+  "invalidFrozenBaseCases": 1,
+  "reviewPairs": 3,
+  "evidence": {
+    "necessary": 4,
+    "context": 19,
+    "unrelated": 2,
+    "targets": 14,
+    "entries": 25,
+    "newDecreasedEntries": 1,
+    "oldIntroducedEntries": 22,
+    "oldTypeEntries": 2,
+    "newEntryActuallyUsed": true,
+    "newRouteIncrementalBenefitEstablished": false,
+    "machineAttributedStructuralQuestions": 0
+  },
+  "cases": [
+    {
+      "case": "swift-collections-747",
+      "targets": 14,
+      "entries": 25,
+      "structuralQuestionA": false,
+      "structuralQuestionB": false
+    },
+    {
+      "case": "GRDB-swift-1885",
+      "targets": 0,
+      "entries": 0,
+      "structuralQuestionA": false,
+      "structuralQuestionB": true,
+      "origin": "ordinary diff and common source; question disputed; helper itself changed"
+    },
+    {
+      "case": "GRDB-swift-1884",
+      "targets": 0,
+      "entries": 0,
+      "structuralQuestionA": false,
+      "structuralQuestionB": false
+    }
+  ],
+  "machineTargets": [
+    {
+      "id": "H1",
+      "before": {
+        "file": "BasicContainers/HashTable/_HTable+Find.swift",
+        "line": 19,
+        "endLine": 31
+      },
+      "after": {
+        "file": "BasicContainers/HashTable/_HTable+Find.swift",
+        "line": 19,
+        "endLine": 31
+      },
+      "kind": "function",
+      "entries": [
+        {
+          "id": 1,
+          "route": "decreased",
+          "evidenceSHA256": "ed2f176f3193a36c49a6767fa24b9c58c35c13d25aea8cd75a10aef7dd4f2e3a",
+          "category": "necessary",
+          "individuallyNamedInitially": true,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": null,
+          "afterCallOrAnnotation": null,
+          "beforeOccurrences": [
+            {
+              "caller": {
+                "file": "BasicContainers/RigidSet/RigidSet+Lookup.swift",
+                "line": 18,
+                "endLine": 32
+              },
+              "call": {
+                "file": "BasicContainers/RigidSet/RigidSet+Lookup.swift",
+                "line": 24,
+                "endLine": 24
+              }
+            }
+          ],
+          "afterOccurrences": []
+        }
+      ]
+    },
+    {
+      "id": "H2",
+      "before": {
+        "file": "BasicContainers/HashTable/_HTable+Find.swift",
+        "line": 33,
+        "endLine": 63
+      },
+      "after": {
+        "file": "BasicContainers/HashTable/_HTable+Find.swift",
+        "line": 33,
+        "endLine": 63
+      },
+      "kind": "function",
+      "entries": [
+        {
+          "id": 2,
+          "route": "introduced",
+          "evidenceSHA256": "ea4d2ead896e8d983bde8d1119efdee2ed21378e77b82f54595f6c7329305d0d",
+          "category": "necessary",
+          "individuallyNamedInitially": true,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "BasicContainers/RigidSet/RigidSet+Lookup.swift",
+            "line": 18,
+            "endLine": 32
+          },
+          "afterCallOrAnnotation": {
+            "file": "BasicContainers/RigidSet/RigidSet+Lookup.swift",
+            "line": 28,
+            "endLine": 30
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        }
+      ]
+    },
+    {
+      "id": "H3",
+      "before": {
+        "file": "BasicContainers/HashTable/_HTable+Iteration.swift",
+        "line": 133,
+        "endLine": 139
+      },
+      "after": {
+        "file": "BasicContainers/HashTable/_HTable+Iteration.swift",
+        "line": 134,
+        "endLine": 140
+      },
+      "kind": "function",
+      "entries": [
+        {
+          "id": 3,
+          "route": "introduced",
+          "evidenceSHA256": "0f84df4f75e6c77586562f340622aed4163040cfda0108c08fed8992cee30a71",
+          "category": "context",
+          "individuallyNamedInitially": true,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "BasicContainers/RigidSet/RigidSet+Iterable.swift",
+            "line": 95,
+            "endLine": 112
+          },
+          "afterCallOrAnnotation": {
+            "file": "BasicContainers/RigidSet/RigidSet+Iterable.swift",
+            "line": 109,
+            "endLine": 109
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        }
+      ]
+    },
+    {
+      "id": "H4",
+      "before": {
+        "file": "BasicContainers/HashTable/_HTable+Resizing.swift",
+        "line": 43,
+        "endLine": 71
+      },
+      "after": {
+        "file": "BasicContainers/HashTable/_HTable+Resizing.swift",
+        "line": 43,
+        "endLine": 71
+      },
+      "kind": "function",
+      "entries": [
+        {
+          "id": 4,
+          "route": "introduced",
+          "evidenceSHA256": "881f8e0ceee5d913feb8f6e0e7f249e629d57d5bb2a9efa79f0e88bd15996166",
+          "category": "necessary",
+          "individuallyNamedInitially": true,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "BasicContainers/RigidDictionary/RigidDictionary+Resizing.swift",
+            "line": 32,
+            "endLine": 87
+          },
+          "afterCallOrAnnotation": {
+            "file": "BasicContainers/RigidDictionary/RigidDictionary+Resizing.swift",
+            "line": 67,
+            "endLine": 85
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        },
+        {
+          "id": 5,
+          "route": "introduced",
+          "evidenceSHA256": "22410fc46f558dbd9451e0e4d7aff568c3d4c4ae432b6c87340093c6ff28a487",
+          "category": "necessary",
+          "individuallyNamedInitially": true,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "BasicContainers/RigidSet/RigidSet+Resizing.swift",
+            "line": 32,
+            "endLine": 81
+          },
+          "afterCallOrAnnotation": {
+            "file": "BasicContainers/RigidSet/RigidSet+Resizing.swift",
+            "line": 65,
+            "endLine": 80
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        }
+      ]
+    },
+    {
+      "id": "D1",
+      "before": {
+        "file": "DequeModule/_UnsafeDequeHandle.swift",
+        "line": 22,
+        "endLine": 23
+      },
+      "after": {
+        "file": "DequeModule/_UnsafeDequeHandle.swift",
+        "line": 23,
+        "endLine": 24
+      },
+      "kind": "typealias",
+      "entries": [
+        {
+          "id": 6,
+          "route": "changedType",
+          "evidenceSHA256": "1bf1e355b62ee54003ddee6044c35d229f5faf5e13e6fab6ce447d6875a69d61",
+          "category": "context",
+          "individuallyNamedInitially": true,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "DequeModule/_UnsafeDequeHandle.swift",
+            "line": 35,
+            "endLine": 35
+          },
+          "afterCallOrAnnotation": {
+            "file": "DequeModule/_UnsafeDequeHandle.swift",
+            "line": 35,
+            "endLine": 35
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        }
+      ]
+    },
+    {
+      "id": "X1",
+      "before": {
+        "file": "HashTreeCollections/HashNode/_HashSlot.swift",
+        "line": 92,
+        "endLine": 98
+      },
+      "after": {
+        "file": "HashTreeCollections/HashNode/_HashSlot.swift",
+        "line": 92,
+        "endLine": 98
+      },
+      "kind": "function",
+      "entries": [
+        {
+          "id": 7,
+          "route": "introduced",
+          "evidenceSHA256": "04958a2a5e93b7c5a74c3f5000a10dbb222993f1c300a06e4fc09558395a2260",
+          "category": "unrelated",
+          "individuallyNamedInitially": true,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "InternalCollectionsUtilities/Span+Extras.swift",
+            "line": 213,
+            "endLine": 237
+          },
+          "afterCallOrAnnotation": {
+            "file": "InternalCollectionsUtilities/Span+Extras.swift",
+            "line": 232,
+            "endLine": 232
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        }
+      ]
+    },
+    {
+      "id": "W1",
+      "before": {
+        "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet+_Word.swift",
+        "line": 59,
+        "endLine": 69
+      },
+      "after": {
+        "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet+_Word.swift",
+        "line": 59,
+        "endLine": 69
+      },
+      "kind": "function",
+      "entries": [
+        {
+          "id": 8,
+          "route": "introduced",
+          "evidenceSHA256": "8014397238af1d9d7e62d769ae08628a9670765ee59cded3788f29061ba0c63b",
+          "category": "context",
+          "individuallyNamedInitially": false,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 384,
+            "endLine": 423
+          },
+          "afterCallOrAnnotation": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 394,
+            "endLine": 394
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        },
+        {
+          "id": 9,
+          "route": "introduced",
+          "evidenceSHA256": "2976e2859afcac2e2bb3d49036489da8fddb5e7ecc044349b4a9d1506c03e3ec",
+          "category": "context",
+          "individuallyNamedInitially": false,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 384,
+            "endLine": 423
+          },
+          "afterCallOrAnnotation": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 400,
+            "endLine": 400
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        },
+        {
+          "id": 10,
+          "route": "introduced",
+          "evidenceSHA256": "346640e99f8cac031d0a82f642c76b8612008f11c927396e598b59015a399038",
+          "category": "context",
+          "individuallyNamedInitially": false,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 425,
+            "endLine": 477
+          },
+          "afterCallOrAnnotation": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 440,
+            "endLine": 440
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        },
+        {
+          "id": 11,
+          "route": "introduced",
+          "evidenceSHA256": "5bc600b214051603f0046dcbaf90f8fc325398625eb5557b87dd4ed06cc58411",
+          "category": "context",
+          "individuallyNamedInitially": false,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 425,
+            "endLine": 477
+          },
+          "afterCallOrAnnotation": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 448,
+            "endLine": 448
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        }
+      ]
+    },
+    {
+      "id": "W2",
+      "before": {
+        "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet+_Word.swift",
+        "line": 71,
+        "endLine": 81
+      },
+      "after": {
+        "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet+_Word.swift",
+        "line": 71,
+        "endLine": 81
+      },
+      "kind": "function",
+      "entries": [
+        {
+          "id": 12,
+          "route": "introduced",
+          "evidenceSHA256": "2c929f7875a4c9bd3d8522bb45b872452b77c3dd7508dfa8219b7fa51d94ae8c",
+          "category": "context",
+          "individuallyNamedInitially": false,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 384,
+            "endLine": 423
+          },
+          "afterCallOrAnnotation": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 412,
+            "endLine": 412
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        },
+        {
+          "id": 13,
+          "route": "introduced",
+          "evidenceSHA256": "c6a62bc7201442e8b5cbbe0dc5296ec844f6a0b3a85542b367bc295adda4e2db",
+          "category": "context",
+          "individuallyNamedInitially": false,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 384,
+            "endLine": 423
+          },
+          "afterCallOrAnnotation": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 419,
+            "endLine": 419
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        },
+        {
+          "id": 14,
+          "route": "introduced",
+          "evidenceSHA256": "4325db1fb942d8f1e68dfb9053b0f06aad33b22360243082034a8dcac236edad",
+          "category": "context",
+          "individuallyNamedInitially": false,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 425,
+            "endLine": 477
+          },
+          "afterCallOrAnnotation": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 463,
+            "endLine": 463
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        },
+        {
+          "id": 15,
+          "route": "introduced",
+          "evidenceSHA256": "b2c13768cf81c5e6e9f9ff6267d924dd3889ae5ed8dcbdbeb56087782b2beea0",
+          "category": "context",
+          "individuallyNamedInitially": false,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 425,
+            "endLine": 477
+          },
+          "afterCallOrAnnotation": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 471,
+            "endLine": 471
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        }
+      ]
+    },
+    {
+      "id": "W3",
+      "before": {
+        "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet+_Word.swift",
+        "line": 228,
+        "endLine": 235
+      },
+      "after": {
+        "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet+_Word.swift",
+        "line": 228,
+        "endLine": 235
+      },
+      "kind": "function",
+      "entries": [
+        {
+          "id": 16,
+          "route": "introduced",
+          "evidenceSHA256": "a0e22d293bb91cb9c29c878ecd22ab2273ace5c284be6e16c6f48093457d1770",
+          "category": "context",
+          "individuallyNamedInitially": false,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 315,
+            "endLine": 330
+          },
+          "afterCallOrAnnotation": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 321,
+            "endLine": 321
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        }
+      ]
+    },
+    {
+      "id": "W4",
+      "before": {
+        "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet+_Word.swift",
+        "line": 237,
+        "endLine": 243
+      },
+      "after": {
+        "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet+_Word.swift",
+        "line": 237,
+        "endLine": 243
+      },
+      "kind": "function",
+      "entries": [
+        {
+          "id": 17,
+          "route": "introduced",
+          "evidenceSHA256": "1c80ef518516b1394b5ad3496c567d05b6dc635ad86f2eac3273d8eca349ae71",
+          "category": "context",
+          "individuallyNamedInitially": false,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 332,
+            "endLine": 350
+          },
+          "afterCallOrAnnotation": {
+            "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet.swift",
+            "line": 340,
+            "endLine": 340
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        }
+      ]
+    },
+    {
+      "id": "W5",
+      "before": {
+        "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet+_Word.swift",
+        "line": 348,
+        "endLine": 353
+      },
+      "after": {
+        "file": "InternalCollectionsUtilities/UnsafeBitSet/_UnsafeBitSet+_Word.swift",
+        "line": 348,
+        "endLine": 353
+      },
+      "kind": "function",
+      "entries": [
+        {
+          "id": 18,
+          "route": "introduced",
+          "evidenceSHA256": "ee309f6fc7a2bab085b97858041f195bc45e64692af9bf547e8ebcf9177e91e8",
+          "category": "context",
+          "individuallyNamedInitially": false,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "BitCollections/BitArray/BitArray+ChunkedBitsIterators.swift",
+            "line": 39,
+            "endLine": 53
+          },
+          "afterCallOrAnnotation": {
+            "file": "BitCollections/BitArray/BitArray+ChunkedBitsIterators.swift",
+            "line": 45,
+            "endLine": 47
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        },
+        {
+          "id": 19,
+          "route": "introduced",
+          "evidenceSHA256": "71821815cab41a091e77b6e9d650571bc5cdd9d757602f4de7201b8687f0cf27",
+          "category": "context",
+          "individuallyNamedInitially": false,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "BitCollections/BitArray/BitArray+ChunkedBitsIterators.swift",
+            "line": 39,
+            "endLine": 53
+          },
+          "afterCallOrAnnotation": {
+            "file": "BitCollections/BitArray/BitArray+ChunkedBitsIterators.swift",
+            "line": 52,
+            "endLine": 52
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        },
+        {
+          "id": 20,
+          "route": "introduced",
+          "evidenceSHA256": "6ee1a1a40e6757b605035d017f38042437782a8d617e506d20787e9f83c24d9d",
+          "category": "context",
+          "individuallyNamedInitially": false,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "BitCollections/BitArray/BitArray+ChunkedBitsIterators.swift",
+            "line": 77,
+            "endLine": 91
+          },
+          "afterCallOrAnnotation": {
+            "file": "BitCollections/BitArray/BitArray+ChunkedBitsIterators.swift",
+            "line": 83,
+            "endLine": 85
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        }
+      ]
+    },
+    {
+      "id": "R1",
+      "before": {
+        "file": "RopeModule/Rope/Basics/RopeMetric.swift",
+        "line": 31,
+        "endLine": 36
+      },
+      "after": {
+        "file": "RopeModule/Rope/Basics/RopeMetric.swift",
+        "line": 31,
+        "endLine": 36
+      },
+      "kind": "function",
+      "entries": [
+        {
+          "id": 21,
+          "route": "introduced",
+          "evidenceSHA256": "b4c92219dfa1b62fc6d968f441b218e0f2a51b0fafa29dc3fd7ac71a87852e93",
+          "category": "context",
+          "individuallyNamedInitially": true,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "RopeModule/Rope/Conformances/Rope+Collection.swift",
+            "line": 361,
+            "endLine": 382
+          },
+          "afterCallOrAnnotation": {
+            "file": "RopeModule/Rope/Conformances/Rope+Collection.swift",
+            "line": 374,
+            "endLine": 374
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        },
+        {
+          "id": 22,
+          "route": "introduced",
+          "evidenceSHA256": "7fac7f01625d60a79099334ea6b286829f1141bacd11abe025a37b71f78bb6a1",
+          "category": "context",
+          "individuallyNamedInitially": true,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "RopeModule/Rope/Conformances/Rope+Collection.swift",
+            "line": 384,
+            "endLine": 406
+          },
+          "afterCallOrAnnotation": {
+            "file": "RopeModule/Rope/Conformances/Rope+Collection.swift",
+            "line": 396,
+            "endLine": 396
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        },
+        {
+          "id": 23,
+          "route": "introduced",
+          "evidenceSHA256": "569ea73f1bfd073d49c5641e09fb904a09a0cf85857cb0d3080bed3020ede65f",
+          "category": "context",
+          "individuallyNamedInitially": true,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "RopeModule/Rope/Operations/Rope+Extract.swift",
+            "line": 33,
+            "endLine": 94
+          },
+          "afterCallOrAnnotation": {
+            "file": "RopeModule/Rope/Operations/Rope+Extract.swift",
+            "line": 86,
+            "endLine": 86
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        }
+      ]
+    },
+    {
+      "id": "X2",
+      "before": {
+        "file": "SortedCollections/BTree/_BTree.swift",
+        "line": 59,
+        "endLine": 60
+      },
+      "after": {
+        "file": "SortedCollections/BTree/_BTree.swift",
+        "line": 59,
+        "endLine": 60
+      },
+      "kind": "typealias",
+      "entries": [
+        {
+          "id": 24,
+          "route": "changedType",
+          "evidenceSHA256": "1bf1e355b62ee54003ddee6044c35d229f5faf5e13e6fab6ce447d6875a69d61",
+          "category": "unrelated",
+          "individuallyNamedInitially": true,
+          "entryVisibleInOrdinaryDiff": true,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "DequeModule/_UnsafeDequeHandle.swift",
+            "line": 35,
+            "endLine": 35
+          },
+          "afterCallOrAnnotation": {
+            "file": "DequeModule/_UnsafeDequeHandle.swift",
+            "line": 35,
+            "endLine": 35
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        }
+      ]
+    },
+    {
+      "id": "S1",
+      "before": {
+        "file": "SortedCollections/BTree/_Node.Splinter.swift",
+        "line": 41,
+        "endLine": 53
+      },
+      "after": {
+        "file": "SortedCollections/BTree/_Node.Splinter.swift",
+        "line": 41,
+        "endLine": 53
+      },
+      "kind": "function",
+      "entries": [
+        {
+          "id": 25,
+          "route": "introduced",
+          "evidenceSHA256": "1e2589e9c40761d738642ff08dc3f58a3904a89acba45e98d2e46955bb3e3614",
+          "category": "context",
+          "individuallyNamedInitially": false,
+          "entryVisibleInOrdinaryDiff": false,
+          "usedForEstablishedStructuralQuestion": false,
+          "afterCaller": {
+            "file": "SortedCollections/BTree/_BTree+UnsafeCursor.swift",
+            "line": 271,
+            "endLine": 306
+          },
+          "afterCallOrAnnotation": {
+            "file": "SortedCollections/BTree/_BTree+UnsafeCursor.swift",
+            "line": 301,
+            "endLine": 301
+          },
+          "beforeOccurrences": [],
+          "afterOccurrences": []
+        }
+      ]
+    }
+  ],
+  "reviewReceipts": [
+    {
+      "case": "swift-collections-747",
+      "releaseSHA256": "0bf589467dc32a2d1f4dc863c9b8fe58b53f9d7476d7d91d8fff9c27900bb73e",
+      "reviews": {
+        "A": {
+          "checkpointSHA256": "76e12c4b2c1576869f58daf0f533d27fa5c05a8f4d406330fe7d4057cc5a2649",
+          "finalSHA256": "11c5873d0e2dda6f855b15e5caac112e7e59dbd9240818404abec8be182e7e2b"
+        },
+        "B": {
+          "checkpointSHA256": "4e607301e7b039aaf072fa61be51a0f5a28f1deba53a1d4395ed2b8348bdef32",
+          "finalSHA256": "9822e7a050d3ffda31dad73507dfd935d2fea30136d629225b68ecfe1ab3ade1"
+        }
+      }
+    },
+    {
+      "case": "GRDB-swift-1885",
+      "releaseSHA256": "71c7bf1f1bf59e20a00908dfe0a5f14526116c503af9c446d117c94b3a538d9c",
+      "reviews": {
+        "A": {
+          "checkpointSHA256": "d97bd518caf660a1876b8c19c4200c5da7aaf37ed4204b6e8f35590a46db22d4",
+          "finalSHA256": "5033b4ac2374bf755e5810030b1b7141aa54471de465a04ad0dd82881e118b3d"
+        },
+        "B": {
+          "checkpointSHA256": "7532fa12d84eb8e65741b8ec95262a6981fbed946d2ca095b3c1a2796efb6b42",
+          "finalSHA256": "c76665c12719d55dafeb6978ec00fb7db5f46a144643fdb1fb050b8c4702e592"
+        }
+      }
+    },
+    {
+      "case": "GRDB-swift-1884",
+      "releaseSHA256": "1da279c0ee25611b9193a75f67cbaf9a10d4e5587cc2ac01e666ddac010a896d",
+      "reviews": {
+        "A": {
+          "checkpointSHA256": "0c3513f4143d6c872bf120cd2372b7224c9c90d63622adc20cc3899e6841bc58",
+          "finalSHA256": "e61477cb817910f1410bf7d4bb2319e94af89e1af66917b0261ce459af4051dd"
+        },
+        "B": {
+          "checkpointSHA256": "4a67527c7e33f60f10f29f80574754ff7b78efeef7b732d0262cc5a95121216d",
+          "finalSHA256": "78a4b3521af082e991b638d665f3b897fd817d26df8cf71d300cd74230c3d8f1"
+        }
+      }
+    }
+  ],
+  "rootExposure": "Coordinator read final A/B reviews after checkpoint/release. Fresh reviewers received no coordinator findings or other-arm results. Raw material/reviews stay ignored; access separation is instruction-based, not OS isolation.",
+  "interruption": "747 stage2 and protocol correction audit interrupted by account usage limit, resumed by same reviewers on user instruction. Checkpoints unchanged. Partial read scopes are explicit in final reviews.",
+  "meaning": "Counts classify this reviewer material, not ground truth, recall, callee resolution, design necessity or human review efficiency."
+}
