@@ -1,6 +1,6 @@
 # 同種の構文変更と既存窓口の診断（#105）
 
-**関係の存在は既読素材で診断し、配置再考への利益は別の未読比較で確かめる。** 2026-10-05。[診断と再現](../../Experiments/StructuralContext/CochangeDiagnostic/README.md) / [判断0048](../decisions/0048-changed-existing-context.md)。通常CLI/libraryは変更なし。本番/M3保留。独立結果点検/最終PR検証は進行中。
+**関係の存在は既読素材で診断し、配置再考への利益は別の未読比較で確かめる。** 2026-10-05。[診断と再現](../../Experiments/StructuralContext/CochangeDiagnostic/README.md) / [判断0048](../decisions/0048-changed-existing-context.md)。通常CLI/libraryは変更なし。本番/M3保留。独立code/fact/文書点検と自己利用は完了、最終PR検証は進行中。
 
 ## 観測単位を変えた理由
 
@@ -30,7 +30,7 @@ GRDB #1885の`DatabaseFunction.swift`で、initializerのswitchは101–114→10
 
 26対照でinitializer/property/accessor、追加削除・重複header/switch、条件コンパイルの未展開case、引数/closure差異、共有済み主処理、異なる目的でも同じ構文、正常0・malformed/invalid UTF8/symlink失敗を検査。全process bytes二回一致。独立code点検の5指摘（trailing closure、外側条件、analyzer照合、guard、subscript所属header）は修正し、再点検に未解消指摘なし。独立syntheticでは権限/欠落入力、Unicode/#sourceLocationの物理位置も確認された。既読入力/有用性はこのcode点検の対象外。
 
-Sekka自己利用の初回は`fe3c1eb→d4be9ff`。新旧評価器のSHA/JSONは同じで、10構造観測/28未比較本体、Swift1ファイルとPython等の入口を表示した。closureラベル/祖先条件/照合器の問題をSekkaが発見したとはしない。通常diffと全body、Python/文書、独立syntheticで分かった。後続Swift修正後の最終自己利用`fe3c1eb→8373ace`も同じ評価器/JSONで、10観測/28未比較本体。通常diff/全bodyを再読し、guard/subscriptの修正範囲を確認した。結果独立点検とActions/実Bot/成果物はPRへ追跡する。
+Sekka自己利用の初回は`fe3c1eb→d4be9ff`。新旧評価器のSHA/JSONは同じで、10構造観測/28未比較本体、Swift1ファイルとPython等の入口を表示した。closureラベル/祖先条件/照合器の問題をSekkaが発見したとはしない。通常diffと全body、Python/文書、独立syntheticで分かった。後続Swift修正後の最終自己利用`fe3c1eb→8373ace`も同じ評価器/JSONで、10観測/28未比較本体。通常diff/全bodyを再読し、guard/subscriptの修正範囲を確認した。結果独立点検では全1,891 entries、位置/count/hash/diff露出/旧gate/反対材料/引用補正が一致、指摘なし。raw receiptとrunnerは確認したが独立した全再実行ではなく、未見利益/意味/実行時挙動を検証したものではない。Actions/実Bot/成果物はPRへ追跡する。
 
 ## 次の分岐と撤退
 

@@ -30,4 +30,4 @@ python3 Experiments/StructuralContext/CochangeDiagnostic/replay.py \
 
 raw dumpはsource tokenを含む大きな診断データで、製品出力の候補ではない。publicは`results.json`の位置/count/hashとown codeだけ。対応不明の位置も全件残し、fact上限による位置省略はない。外部OSSのbuild/test/script/checkoutや先方への投稿は行わない。
 
-[結果と限界](../../../docs/validation/cochange-diagnostic.md)。独立code点検は修正確認済み、結果/PR点検は進行中。本番/M3は保留。次の実験CLIと未読比較は、結果点検後にだけ分解する。
+[結果と限界](../../../docs/validation/cochange-diagnostic.md)。独立code/fact/文書点検と自己利用は完了、最終PR検証は進行中。本番/M3は保留。次の実験CLIと未読比較は、結果点検後にだけ分解する。

@@ -8,7 +8,7 @@
 
 現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#102 / PR #104は完了、#105で観測単位を診断中。** 前比較は構造再検討の機械寄与0、stage1資料の非対称による純増効果未判定を保持する。[結果と限界](docs/validation/both-side-call-holdout.md)。
 
-#105では未変更宣言という枠を外し、同じswitch構文形の変更が入る実行領域を試した。既読GRDBのinitializer/変更された既存helper/未変更property利用表記へ到達、他2件0。26対照とcode独立点検は完了、結果/PR点検を進めている。[診断](docs/validation/cochange-diagnostic.md) / [方針0048](docs/decisions/0048-changed-existing-context.md)。未読利益は未確立で、本番/M3は保留。必要性のA/B判断差を残し、到達だけを成功にしない。人間判断待ちなし。
+#105では未変更宣言という枠を外し、同じswitch構文形の変更が入る実行領域を試した。既読GRDBのinitializer/変更された既存helper/未変更property利用表記へ到達、他2件0。26対照・code/fact/文書独立点検・自己利用は完了、最終PR点検を進めている。[診断](docs/validation/cochange-diagnostic.md) / [方針0048](docs/decisions/0048-changed-existing-context.md)。未読利益は未確立で、本番/M3は保留。必要性のA/B判断差を残し、到達だけを成功にしない。人間判断待ちなし。
 
 ## Issueの階層と判断の節目
 
@@ -24,7 +24,7 @@
 
 | 順序 | Issue | 完了条件 / 状態 |
 | --- | --- | --- |
-| 現在 | [#105 変更された既存窓口の診断](https://github.com/KantoYamamoto/sekka/issues/105) | 先に必要位置と撤去条件を固定。関数の未索引/変更targetの除外を分離し、switch同形変更と既存利用側を試作。26対照・code修正確認済み、結果/PR点検中 |
+| 現在 | [#105 変更された既存窓口の診断](https://github.com/KantoYamamoto/sekka/issues/105) | 先に必要位置と撤去条件を固定。関数の未索引/変更targetの除外を分離し、switch同形変更と既存利用側を試作。26対照・code/fact/文書点検・自己利用済み、最終PR点検中 |
 | 次 | 診断結果後に分解 | 事実性と必要関係への到達が支持されれば最小の実験CLI契約、その後は同じ通常diffを両stage1へ渡す未読比較。範囲拡大だけなら撤去/用途限定 |
 
 <details><summary>完了したM1/M2の作業と根拠</summary>

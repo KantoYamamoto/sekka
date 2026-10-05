@@ -1,5 +1,5 @@
 {
-  "state": "known diagnostic; independent result/PR checks pending",
+  "state": "known diagnostic; independent code/fact/docs checks complete; final PR checks pending",
   "freezeCommit": "574da73",
   "planSHA256": "19b59714d080748c4673e5c7cbd56daf7344456042ff273f562235bd6cae22cc",
   "needsSHA256": "da925c47cf29f0dcfb25cfcf11fec69b9bf884ccbbe021853831b1882587a04c",
@@ -612,7 +612,7 @@
     "purpose",
     "performance"
   ],
-  "next": "Independent result check then decide experimental relation contract; M3 held",
+  "next": "Final PR check, then minimal experimental relation contract; M3 held",
   "unmatchedRegions": [
     {
       "case": "swift-collections-747",
