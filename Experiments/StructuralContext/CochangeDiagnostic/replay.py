@@ -25,6 +25,8 @@ def main():
     binary_sha = sha(args.binary.read_bytes())
     if binary_sha != checks['binarySHA256']:
         raise ValueError('Binary differs from control run')
+    if sha(Path(__file__).with_name('analyze.py').read_bytes()) != checks['analyzerSHA256']:
+        raise ValueError('Analyzer differs from control run')
     # Validate the complete frozen packet, not just files that happen to yield relationships.
     for case in cases:
         for side in ('before', 'after'):

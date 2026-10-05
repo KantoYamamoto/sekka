@@ -27,6 +27,7 @@ struct RegionCall: Encodable {
   let calledExpression: String
   let argumentTokens: [String]
   let trailingClosures: Int
+  let trailingClosureLabels: [String]
   let conditions: [[String]]
 }
 struct RegionBranch: Encodable {
@@ -83,6 +84,7 @@ final class RegionReader: SyntaxVisitor {
   // Lexical conditions, not active branches or control-flow dominance.
   func conditions(_ node: some SyntaxProtocol) -> [[String]] {
     var result: [[String]] = [], parent = node.parent
+    var ancestors: Set<SyntaxIdentifier> = [Syntax(node).id]
     while let n = parent {
       if let clause = n.as(IfConfigClauseSyntax.self), let list = clause.parent?.as(IfConfigClauseListSyntax.self) {
         var prefix: [String] = []
@@ -92,12 +94,21 @@ final class RegionReader: SyntaxVisitor {
         }
         result.append(["conditional-compilation"] + prefix)
       }
-      if let body = n.as(CodeBlockSyntax.self), let enclosing = body.parent?.as(IfExprSyntax.self) {
-        result.append(["if", regionTokens(enclosing.conditions), body.id == enclosing.body.id ? "then" : "else"])
+      if let enclosing = n.as(IfExprSyntax.self) {
+        let branch: String
+        if ancestors.contains(enclosing.body.id) { branch = "then" }
+        else if let body = enclosing.elseBody, ancestors.contains(Syntax(body).id) { branch = "else" }
+        else { branch = "condition-or-header" }
+        result.append(["if", regionTokens(enclosing.conditions), branch])
+      }
+      if let loop = n.as(WhileStmtSyntax.self) { result.append(["while", regionTokens(loop.conditions)]) }
+      if let loop = n.as(RepeatStmtSyntax.self) { result.append(["repeat-while", regionTokens(loop.condition)]) }
+      if let loop = n.as(ForStmtSyntax.self) {
+        result.append(["for", header(loop, until: loop.body.leftBrace.position)])
       }
       if let c = n.as(ClosureExprSyntax.self) { result.append(["closure", c.signature.map(regionTokens) ?? "implicit"]) }
       if let c = n.as(SwitchCaseSyntax.self) { result.append(["enclosing-case", regionTokens(c.label)]) }
-      parent = n.parent
+      ancestors.insert(n.id); parent = n.parent
     }
     return result.reversed()
   }
@@ -156,6 +167,7 @@ final class RegionReader: SyntaxVisitor {
       selector: name.map { $0 + "(" + n.arguments.map { ($0.label?.text ?? "_") + ":" }.joined() + ")" },
       calledExpression: regionTokens(n.calledExpression), argumentTokens: n.arguments.map { regionTokens($0.expression) },
       trailingClosures: (n.trailingClosure == nil ? 0 : 1) + n.additionalTrailingClosures.count,
+      trailingClosureLabels: n.additionalTrailingClosures.map { $0.label.text },
       conditions: conditions(n))
   }
   override func visit(_ n: FunctionCallExprSyntax) -> SyntaxVisitorContinueKind { calls.append(call(n)); return .visitChildren }

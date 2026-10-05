@@ -59,12 +59,32 @@ struct Local { var closure = { source() } }
 source()
 }'''
     yield 'normal-zero-no-switch', 'struct A {}', 'struct B {}'
+    trailing = '''func first() { switch value {
+case .a: old {} success: {}
+case .b: fallback()
+} }
+func second() { switch value {
+case .a: old {} LABEL: {}
+case .b: fallback()
+} }'''
+    yield 'different-additional-trailing-labels', trailing.replace('LABEL', 'failure'), trailing.replace('LABEL', 'failure').replace('old', 'new')
+    yield 'same-additional-label-transition', trailing.replace('LABEL', 'success'), trailing.replace('LABEL', 'success').replace('success', 'failure')
+    for name, wrapper, changed_header in [
+        ('else-if-condition-change', 'if outerA {} else if inner { BODY }', ('outerA', 'outerB')),
+        ('while-condition-change', 'while outerA { BODY }', ('outerA', 'outerB')),
+        ('repeat-condition-change', 'repeat { BODY } while outerA', ('outerA', 'outerB')),
+        ('for-sequence-change', 'for item in outerA { BODY }', ('outerA', 'outerB')),
+    ]:
+        old = 'func first() { ' + wrapper.replace('BODY', dispatch) + ' }\nfunc second() { ' + dispatch + ' }'
+        new = old.replace('withOld', 'withNew').replace(*changed_header)
+        yield name, old, new
 
 
 def verify_case(name, report, result):
     relations = result['relationships']
     expected = name in {'initializer-changed-helper-property-user', 'already-shared-primary-rule',
-                        'different-arguments-or-purpose', 'inactive-conditions-remain-unknown', 'explicit-and-implicit-getters'}
+                        'different-arguments-or-purpose', 'inactive-conditions-remain-unknown', 'explicit-and-implicit-getters',
+                        'same-additional-label-transition'}
     if bool(relations) != expected:
         raise ValueError('Unexpected relationship: ' + name)
     if expected:
@@ -91,6 +111,9 @@ def verify_case(name, report, result):
         raise ValueError('Duplicate declaration not marked unknown')
     if name == 'conditional-case-lists-unexpanded' and 'conditional-case-list-not-expanded' not in reasons:
         raise ValueError('Conditional cases were treated as complete')
+    if name in {'else-if-condition-change', 'while-condition-change', 'repeat-condition-change', 'for-sequence-change'}:
+        if 'added-deleted-or-ambiguous-switch' not in reasons:
+            raise ValueError('Changed enclosing conditions lost: ' + name)
     if name == 'function-header-and-local-type-boundaries':
         calls = [c for c in report['after']['calls'] if c.get('selector') == 'source()']
         kinds = [c.get('owner', {}).get('kind') for c in calls]

@@ -22,7 +22,7 @@ def group(items, get_key):
 def shape(switch):
     # Arguments and enclosing conditions deliberately remain separate evidence.
     # Do not call this equivalence, execution order or a resolved API sequence.
-    return [[b['label'], [[c['form'], c['calledExpression'], c.get('selector'), c['trailingClosures']]
+    return [[b['label'], [[c['form'], c['calledExpression'], c.get('selector'), c['trailingClosures'], c['trailingClosureLabels']]
                         for c in b['calls']]] for b in switch['branches']]
 
 
