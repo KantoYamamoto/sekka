@@ -35,4 +35,4 @@ own Git archiveのbinary source `d0772a6`で100 Swift Testing tests通過。独�
 
 本番Sekkaの自己利用はbase `af14520` → `d0772a6`。Swift変更11ファイル/31観測から、旧経路撤去、新evidence型、WrittenCallSearchの拡張、compare引数の追加へ進めた。比較本体6のうちtoken同一2、未比較10で、bodyの意味やcall検索の正しさは通常diff・対照・独立点検による。top-level CLI/test関数はfile diff入口として読む。自己利用を未見の有用性と呼ばない。
 
-PRの最終Actions、実Botコメント/10成果物、merge状態はIssue #100とリンクされたPRに記録する。次は[#102](https://github.com/KantoYamamoto/sekka/issues/102)でこの方式/評価器を固定し、別の未読入力で独立比較する。必要な差分外先例へ届くことと、具体的な反復負担・別配置の成立条件・現配置を支持する理由が揃うことを別に評価する。利益が弱ければ本番へ統合せず、入口の関係単位を再設計する。
+[PR #103](https://github.com/KantoYamamoto/sekka/pull/103)の最終Actions [37253750684](https://github.com/KantoYamamoto/sekka/actions/runs/37253750684)は成功。実Botコメントと10成果物、base/head/通常diff hashを照合し、merge `cf97fee`で完了した。次は[#102](https://github.com/KantoYamamoto/sekka/issues/102)でこの方式/評価器を固定し、別の未読入力で独立比較する。必要な差分外先例へ届くことと、具体的な反復負担・別配置の成立条件・現配置を支持する理由が揃うことを別に評価する。利益が弱ければ本番へ統合せず、入口の関係単位を再設計する。

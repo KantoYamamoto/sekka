@@ -1,0 +1,131 @@
+{
+  "binarySHA256": "31b3dd776c7157eced96b1d21aa66bef8791c6ec5eeede9459b6d8170de2567f",
+  "runnerSHA256": "b24e59d822a9a0858b23368be3c20e38c2b3fc777019ca41e9491cbfcb73b0a0",
+  "inputsSHA256": "ac5d45948dc4da753910e9a09119721477036662bf49672ae7c89e09ac9c15d9",
+  "validatedEntries": 1891,
+  "results": [
+    {
+      "case": "swift-collections-747",
+      "modes": [
+        {
+          "mode": "default-json",
+          "exit": 0,
+          "allExitStdoutStderrBytesEqual": true,
+          "stdoutBytes": 45246,
+          "stdoutSHA256": "6d62c50647371d50c6d917b077e1601eef1b0da13f58b107ee050edbb987965f",
+          "stderrBytes": 0,
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "default-text",
+          "exit": 0,
+          "allExitStdoutStderrBytesEqual": true,
+          "stdoutBytes": 15189,
+          "stdoutSHA256": "365b7bfae4a5ecc36b07420ddf0f9d0cdf64702b365701685dd2dad4d696ac66",
+          "stderrBytes": 0,
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "all-json",
+          "exit": 0,
+          "allExitStdoutStderrBytesEqual": true,
+          "stdoutBytes": 61794,
+          "stdoutSHA256": "bd6a8080e65f26b83d61984e697259b38f65033c97d6f1b84556f01c711e7899",
+          "stderrBytes": 0,
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "all-text",
+          "exit": 0,
+          "allExitStdoutStderrBytesEqual": true,
+          "stdoutBytes": 21325,
+          "stdoutSHA256": "888d799b21b89d0c84b2e8330034df55e8f2bc12aafefe42d43d7df1158bdb3e",
+          "stderrBytes": 0,
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "case": "GRDB-swift-1885",
+      "modes": [
+        {
+          "mode": "default-json",
+          "exit": 0,
+          "allExitStdoutStderrBytesEqual": true,
+          "stdoutBytes": 6815,
+          "stdoutSHA256": "089469788c8b2b55b3de03b219bf00c838158d9a3e3fe7b3a6b023c3b6acefb8",
+          "stderrBytes": 0,
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "default-text",
+          "exit": 0,
+          "allExitStdoutStderrBytesEqual": true,
+          "stdoutBytes": 799,
+          "stdoutSHA256": "57b544ff53eff9f5b17465a22de779ef0944d25aa5a59261f2d0163aa8104514",
+          "stderrBytes": 0,
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "all-json",
+          "exit": 0,
+          "allExitStdoutStderrBytesEqual": true,
+          "stdoutBytes": 6815,
+          "stdoutSHA256": "089469788c8b2b55b3de03b219bf00c838158d9a3e3fe7b3a6b023c3b6acefb8",
+          "stderrBytes": 0,
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "all-text",
+          "exit": 0,
+          "allExitStdoutStderrBytesEqual": true,
+          "stdoutBytes": 799,
+          "stdoutSHA256": "57b544ff53eff9f5b17465a22de779ef0944d25aa5a59261f2d0163aa8104514",
+          "stderrBytes": 0,
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "case": "GRDB-swift-1884",
+      "modes": [
+        {
+          "mode": "default-json",
+          "exit": 0,
+          "allExitStdoutStderrBytesEqual": true,
+          "stdoutBytes": 6912,
+          "stdoutSHA256": "3275893214b17e6b1461d8ba9f50d12c60954f945e2f8f370b90bc498f682c37",
+          "stderrBytes": 0,
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "default-text",
+          "exit": 0,
+          "allExitStdoutStderrBytesEqual": true,
+          "stdoutBytes": 869,
+          "stdoutSHA256": "1bcebccec058d95ef264b8264f16935598863567c60cdfe4665e25496125de1f",
+          "stderrBytes": 0,
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "all-json",
+          "exit": 0,
+          "allExitStdoutStderrBytesEqual": true,
+          "stdoutBytes": 6912,
+          "stdoutSHA256": "3275893214b17e6b1461d8ba9f50d12c60954f945e2f8f370b90bc498f682c37",
+          "stderrBytes": 0,
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "mode": "all-text",
+          "exit": 0,
+          "allExitStdoutStderrBytesEqual": true,
+          "stdoutBytes": 869,
+          "stdoutSHA256": "1bcebccec058d95ef264b8264f16935598863567c60cdfe4665e25496125de1f",
+          "stderrBytes": 0,
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  ]
+}
