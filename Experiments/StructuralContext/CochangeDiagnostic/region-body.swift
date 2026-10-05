@@ -199,15 +199,25 @@ final class BranchCalls: SyntaxVisitor {
   override func visit(_ n: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind { .skipChildren }
   override func visit(_ n: SwitchExprSyntax) -> SyntaxVisitorContinueKind { .skipChildren }
 }
+struct OldIndexedFunction: Encodable {
+  let site: SourceSite
+  let selector: String
+  let declarationTokens: String
+  let correspondenceID: String
+  let lexicalScopeHeaders: [String]
+}
 struct RegionSnapshot: Encodable {
   let regions: [RegionFact]
   let calls: [RegionCall]
   let switches: [RegionSwitch]
-  let indexedFunctions: [InventoryFunction]
+  let indexedFunctions: [OldIndexedFunction]
   init(_ files: [(String, String)]) throws {
     // Validate all sources before any output; retain old inventory for boundary diagnosis.
     let inventory = try SourceInventory(files: files)
-    indexedFunctions = inventory.functions
+    indexedFunctions = inventory.functions.map {
+      OldIndexedFunction(site: $0.site, selector: $0.selector, declarationTokens: $0.declarationTokens,
+        correspondenceID: $0.correspondenceID, lexicalScopeHeaders: $0.lexicalScopeHeaders)
+    }
     var rs: [RegionFact] = [], cs: [RegionCall] = [], ss: [RegionSwitch] = []
     for (file, source) in files.sorted(by: { $0.0 < $1.0 }) {
       let tree = Array(source.utf8).withUnsafeBufferPointer { Parser.parse(source: $0, swiftVersion: .v6) }
