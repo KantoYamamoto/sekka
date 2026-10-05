@@ -3,7 +3,7 @@
 **方針：追加後のcallだけでは既存窓口を落とす場合は、前後の利用索引と宣言対応を共有し、減った表記も同じ確認先の根拠にする。**
 
 - 記録日：2026-10-04
-- 状態：M2実装中、本番/M3は保留
+- 状態：M2実装検証済み、PR検証中。本番/M3は保留
 - 経緯：[0046](0046-withdrawn-entry-context.md)の既読診断から選択。[Issue #100](https://github.com/KantoYamamoto/sekka/issues/100)
 
 ## 目的・観測
@@ -24,6 +24,8 @@ beforeの全callを無条件に繋げる案は、移動だけで総数が同じ�
 
 ## How / 限界
 
-call表記evidenceをintroduced/decreasedに分け、旧版の位置はbeforeと明示する。introducedのgroupはこれまでのcaller・receiver・selector・条件別、decreasedはselector別に全位置を保持する。8 target/8 evidenceの共通capは維持し、省略を数える。group内位置を黙って省略しない。
+call表記evidenceをintroduced/decreasedに分け、旧版の位置はbeforeと明示する。introducedのgroupはこれまでのcaller・receiver・selector・条件別、decreasedはselector別に全位置を保持する。検索後の詳細表示だけを既定8 target/8 evidenceに絞り、省略を数える。省略したtargetも全位置を`omittedContextIndex`へ残し、`--all`で同じ適格条件の全根拠を読める。group内位置を黙って省略しない。
 
-既存経路の事実性・全削除/移動/署名/条件/同名SDK/本文なし/曖昧・失敗/全bytes一致を対照で確認し、#96の同じ4caseの候補と必要先/不要先を照合する。通常diff・自己利用・独立レビュー・Actions/実表示まで確認する。利益はその後の別入力で測る。必要先に届くことと設計を見直す理由が成立することを分け、根拠が弱ければM3へ進めない。
+初稿の既知Collections723では10 targetのうちcopy先例が8件の上限で詳細から落ちた。候補件数の成立だけでは目的を満たさないため、検索と表示の上限を分離した。copyだけを優先するscoreや、都合に合わせた入力差し替えは採らない。
+
+既存経路の事実性・全削除/移動/署名/条件/同名SDK/本文なし/曖昧・失敗/全bytes一致を対照で確認し、#96の同じ4caseの候補と必要先/不要先を照合する。通常diff・自己利用・独立レビュー・Actions/実表示まで確認する。利益はその後の[#102](https://github.com/KantoYamamoto/sekka/issues/102)の別入力で測る。必要先に届くことと設計を見直す理由が成立することを分け、根拠が弱ければM3へ進めない。

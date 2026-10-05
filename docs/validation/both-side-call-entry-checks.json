@@ -1,0 +1,175 @@
+{
+  "binarySHA256": "53e1a3c0cf2e8c4701dcf9057fa0adfdd4e1c34ed9532689268cc0b157bd0699",
+  "cliVerifierSHA256": "755a78325767f8f0ed0a38e2d7da594c1f5eb0db398329f9172e1f9662bf6b74",
+  "inputsSHA256": "b081017375bc5c8fe5f0591b505636ffe6d2468e6e5c1582ba7b1d90b5cb10c5",
+  "priorDiagnosticSHA256": "938670f918fc10766cdc33fe173cdfb09c0623ba37ebff76e3e6b6c5c21c2688",
+  "validatedEntries": 3006,
+  "swiftTestingCount": 100,
+  "cliControlCount": 17,
+  "cases": [
+    {
+      "case": "swift-collections-723",
+      "totalTargets": 10,
+      "totalEvidence": 16,
+      "defaultDetailedTargets": 8,
+      "defaultOmittedTargets": 2,
+      "decreasedSelectors": 38,
+      "retainedDecreaseCandidates": [
+        {
+          "selector": "_copyContents(into:)",
+          "beforeCount": 4,
+          "afterCount": 0,
+          "before": {
+            "file": "InternalCollectionsUtilities/BorrowingIteratorProtocol+Extras.swift",
+            "line": 34,
+            "endLine": 47
+          },
+          "after": {
+            "file": "InternalCollectionsUtilities/BorrowingIteratorProtocol+Extras.swift",
+            "line": 34,
+            "endLine": 47
+          },
+          "needIntersections": [
+            "n01"
+          ],
+          "defaultDetailed": false,
+          "defaultOmittedIndex": true
+        },
+        {
+          "selector": "_resizeGap(in:to:)",
+          "beforeCount": 3,
+          "afterCount": 2,
+          "before": {
+            "file": "BasicContainers/RigidArray/RigidArray.swift",
+            "line": 472,
+            "endLine": 490
+          },
+          "after": {
+            "file": "BasicContainers/RigidArray/RigidArray.swift",
+            "line": 473,
+            "endLine": 491
+          },
+          "needIntersections": [
+            "n13"
+          ],
+          "defaultDetailed": true,
+          "defaultOmittedIndex": false
+        },
+        {
+          "selector": "deinitialize()",
+          "beforeCount": 23,
+          "afterCount": 22,
+          "before": {
+            "file": "DequeModule/_UnsafeDequeSegments.swift",
+            "line": 187,
+            "endLine": 192
+          },
+          "after": {
+            "file": "DequeModule/_UnsafeDequeSegments.swift",
+            "line": 187,
+            "endLine": 192
+          },
+          "needIntersections": [],
+          "defaultDetailed": true,
+          "defaultOmittedIndex": false
+        },
+        {
+          "selector": "mutablePtr(at:)",
+          "beforeCount": 14,
+          "afterCount": 13,
+          "before": {
+            "file": "DequeModule/_UnsafeDequeHandle.swift",
+            "line": 244,
+            "endLine": 251
+          },
+          "after": {
+            "file": "DequeModule/_UnsafeDequeHandle.swift",
+            "line": 244,
+            "endLine": 251
+          },
+          "needIntersections": [],
+          "defaultDetailed": true,
+          "defaultOmittedIndex": false
+        }
+      ],
+      "fullJSONSHA256": "f4b2a1f41440c32ccada4d7ca9bc252d864e12da8e72321b98b6b92eea86e559",
+      "fullTextSHA256": "f218f3a78d54a7b689870e659531e9fe8f7ca055dd057aa42cad4a56a062a183"
+    },
+    {
+      "case": "swift-collections-721",
+      "totalTargets": 0,
+      "totalEvidence": 0,
+      "defaultDetailedTargets": 0,
+      "defaultOmittedTargets": 0,
+      "decreasedSelectors": 0,
+      "retainedDecreaseCandidates": [],
+      "fullJSONSHA256": "7d38803efb3be8c1ecc47c6426f3645568a64a69453b6858291837b992c15b79",
+      "fullTextSHA256": "930b40de0bfb89e69bb7749f403e7ce4aad721929a8ba711248e6d24ab58b744"
+    },
+    {
+      "case": "grdb-swift-1852",
+      "totalTargets": 3,
+      "totalEvidence": 3,
+      "defaultDetailedTargets": 3,
+      "defaultOmittedTargets": 0,
+      "decreasedSelectors": 4,
+      "retainedDecreaseCandidates": [],
+      "fullJSONSHA256": "541fd7a3c621e0aca2cd9df7e8885670d416e00773692a153a1931df55ff8bc0",
+      "fullTextSHA256": "6dc083f50a1ddec452bbf081bee4d4aafa128ce3ec9585bfcd299abd6e34aab5"
+    },
+    {
+      "case": "grdb-swift-1850",
+      "totalTargets": 0,
+      "totalEvidence": 0,
+      "defaultDetailedTargets": 0,
+      "defaultOmittedTargets": 0,
+      "decreasedSelectors": 0,
+      "retainedDecreaseCandidates": [],
+      "fullJSONSHA256": "ef065d57de9ed7c6e80d20c174d30d8f1bff8c483a31d5963813aeb9df72000d",
+      "fullTextSHA256": "2bef2dc1ce9df353b19d7afbff355321c10dcdf5a888e7595c00580cea582977"
+    }
+  ],
+  "evidenceSHA256": {
+    "runtime-final.log": "8be28bd67c7b2525f79601a930c5829bec81073f8079ffdd88284d35a72c7fb4",
+    "cli-final-checks.json": "d46f33849d2c43055810ed0155339fd77c4b02f5370868b253c33de346057424",
+    "known-default/execution.json": "97adb31f5ab9ec82fcb3f8abf78a0c9193aebc4f886847f19f396a06407e17a3",
+    "known-full/execution.json": "25fd79583044a042d6ad2a365fa498f49c949cd688603358b00a8d42ad6f517f",
+    "self-use.text": "7068af05d5a17ef8ec71a9953187c4dc8c02b3bb3847d7674d8312a48ba0da8c",
+    "self-use.json": "87d0017deb37c6f2b7b27fdfd7460fb089738739200c0b97ea7902f69a557e5c",
+    "diagnostic/checks.json": "cd1fefeb2a862c9589efa058fc7f7522110d97a8caa73bfb1c46f4aea43a44b7",
+    "diagnostic/controls.json": "18b8ca029aad22520608f29ff0f6f636a3e3d00fe5de07d75ce2a0ac188676d3",
+    "runtime-repair.log": "1ee68cafbce81e467b930f2633c2b51af89b80409665a52d6437d5b43d350585",
+    "cli-checks.json": "d46f33849d2c43055810ed0155339fd77c4b02f5370868b253c33de346057424",
+    "repair-replay.json": "610d8a416a525b7b98547b2ec14c6da386894d8df1fd3190d7cb62b0d2251987"
+  },
+  "meaning": "Known-input implementation replay, not unread review benefit, resolved dependencies or a refactoring verdict. Position intersection is not coverage.",
+  "knownReplaySourceHead": "d0772a6bfc9d3737d805f25abc407c1cc3d047b7",
+  "finalRuntimeSourceHead": "d4600071162d71f5eb397c9234375d559cebd36b",
+  "finalRuntimeBinarySHA256": "31b3dd776c7157eced96b1d21aa66bef8791c6ec5eeede9459b6d8170de2567f",
+  "postReviewRepair": "Entry-only omission also links --all; index/search/JSON unchanged. 100 tests/17 CLI passed again.",
+  "postRepairKnownReplay": {
+    "mode": "One --all JSON/text execution per case equals prior frozen twice-equal output",
+    "caseCount": 4,
+    "receiptSHA256": "610d8a416a525b7b98547b2ec14c6da386894d8df1fd3190d7cb62b0d2251987"
+  },
+  "independentReview": {
+    "inputEntries": 3006,
+    "selectorDecreaseGroups": 42,
+    "retainedDecreaseCandidates": 4,
+    "fullDecreaseOccurrences": 81,
+    "stableTargets": 13,
+    "singleTargetEntryOmissionCueFixed": true,
+    "unresolvedCodeBoundaryFindings": 0,
+    "excluded": [
+      "PR Actions and external artifacts",
+      "target compilation, execution and performance",
+      "new review usefulness"
+    ],
+    "evidenceSHA256": {
+      "synthetic-receipt.json": "1a939a5cc9ea76cd608cd0c9903c46cefa5dba4b538798938d28f0bd4e145e88",
+      "known-receipt.json": "46a9dcf494186f07c897810660b4d378b1293758f38ade5375800204bc4f0424",
+      "document-receipt.json": "390811cf9b05b90503668da3cfcf0143dc92650922d6a5b588ac8faab4d0e03d",
+      "repair-receipt.json": "4d1180c1ae714b539c0dd03f047754e6e96344569ddf576ee9c78eb588c1ece8"
+    }
+  }
+}

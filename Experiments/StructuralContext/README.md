@@ -1,6 +1,6 @@
 # 変更から未変更の実装候補へ辿る実験
 
-本番CLIへ採用する前の試作。[判断0038](../../docs/decisions/0038-outside-diff-context.md)に従い、通常diffを読むときに、変更していない既存実装も確認する入口を作る。Swift構文を決定論的に読み、LLMや対象アプリのビルドを使わない。[別4PRの比較](../../docs/validation/result-relations-holdout.md)では構造の再検討への利益は未支持。[減った利用の既読診断](../../docs/validation/withdrawn-entry-diagnostic.md)では必要なcopy先例へ届いたが同名誤接続も残る。本番統合/M3を保留し、入力失敗も安定させてから入口を前後両側へ見直す。候補への到達と有用性を分ける。
+本番CLIへ採用する前の試作。[判断0038](../../docs/decisions/0038-outside-diff-context.md)に従い、通常diffを読むときに、変更していない既存実装も確認する入口を作る。Swift構文を決定論的に読み、LLMや対象アプリのビルドを使わない。[別4PRの比較](../../docs/validation/result-relations-holdout.md)では構造の再検討への利益は未支持。[減った利用の既読診断](../../docs/validation/withdrawn-entry-diagnostic.md)では必要なcopy先例へ届いたが同名誤接続も残る。本番統合/M3を保留し、失敗表示はPR #101で修正済み。前後両側の利用索引から残る窓口を同じ候補一覧へ案内する方式を検証する。候補への到達と有用性を分ける。
 
 ```sh
 set -e
@@ -9,7 +9,7 @@ python3 Experiments/StructuralContext/verify.py --binary .build/structural-conte
 .build/structural-context/debug/context-probe BEFORE AFTER --text
 ```
 
-Swift 6以降とSwiftSyntax 604.0.0が必要。`BEFORE`/`AFTER`は比較するSwiftソースを含むディレクトリ。末尾の`--text`を省くとJSON。`verify.py`は既存7対照・型注釈・条件付きborrow/mutate・入力境界・member表記・字句条件・戻り値名の計13例を検証する。**合成例の成功は実PRで役立つことの証明ではない。**
+Swift 6以降とSwiftSyntax 604.0.0が必要。`BEFORE`/`AFTER`は比較するSwiftソースを含むディレクトリ。`--text`を省くとJSON。`--all`は検索条件を変えず全候補/全根拠の詳細を出す。`verify.py`は既存経路・入力失敗・減少selectorの旧位置/対応不明・省略位置/全根拠を計17例で検証する。**合成例の成功は実PRで役立つことの証明ではない。**
 
 ## 未変更宣言と根拠経路
 
@@ -20,7 +20,7 @@ Swift 6以降とSwiftSyntax 604.0.0が必要。`BEFORE`/`AFTER`は比較するSw
 | 戻り値名/call表記 | 変更関数と未変更の既存関数にある同じ戻り値名、unqualified callの名前/明示ラベル列、同名nominal宣言、両call/型表記の位置・条件 | 実型/constructor、callがその戻り値を返すこと、引数値、挙動や責務の一致、共通化の必要性 |
 | propertyの型注釈 | 新しく現れた表記の末尾名と、同名nominal/typealias宣言の位置。例えば`[Migration]`→`OrderedDictionary<String, Migration>`から既存OrderedDictionaryへ進む | 実型、module/owner、alias展開先、依存の追加、同じ責務 |
 | 既存callとの接点 | 旧版にも一度現れる直前のmember call、共通する識別子引数、receiverの明示型から関数候補への旧新経路 | call挿入か既存callの編集か、実callee、同じ値・挙動、統合必要性 |
-| member callの表記 | 変更関数に書かれた名前・明示ラベル列と、同一記載ラベル列の索引内1関数宣言への位置 | receiver型、実callee、default引数等の適合性、責務の一致 |
+| callの表記 | 変更後のmember call本文と同形宣言、または前後のselector利用総数減少と残る不変の一意宣言。各入口のside/位置・条件を分ける | receiver型、実callee、default引数適合性、消失call/移行、責務の一致/共通化迂回 |
 
 **候補があるのは、その宣言を読む入口があるというだけ。配置を見直す必要があるか、通常検索より助かるかは別に評価する。** 名前から役割を推論しない。
 
@@ -33,6 +33,8 @@ Swift 6以降とSwiftSyntax 604.0.0が必要。`BEFORE`/`AFTER`は比較するSw
 member表記経路は、変更fileのafter関数の宣言トークンが旧fileの関数索引にない場合を入口にする。一意に対応したcallerでは旧本文に同じcallトークンがない出現だけを検索。対応不明なら本文のmember表記を読み、「新規call」とは呼ばない。defer/if/closure内も表記として読み、local関数・local型の本文は混ぜない。初回は明示的な引数リストだけで、trailing closure/unqualified/specialized callは対象外。
 
 一致数は変更済み/新規も含むafter索引全体で数え、複数なら選ばない。1件でも実calleeの一意性ではない。候補はbodyがあり、旧新の宣言と全字句祖先headerが同じもの。SDK・索引外・macro展開・propertyに格納した関数等は解決しない。[方式と結果](../../docs/validation/member-spelling-context.md)。
+
+減少表記では全索引関数bodyのmember/unqualified nontrailing callをselector別に前後集計する。総数が減り、両側各1宣言・同じ一意な対応・字句header/宣言token不変・本文ありなら、残る窓口へ案内する。旧callerの対応が不明でも旧位置を保持し、削除/renameやどのcallが意味上消失したかは確定しない。同名SDKも混ざり得る。[共有契約と理由](../../docs/decisions/0047-both-side-call-entry.md)。
 
 ## 戻り値名から既存producerを比較する
 
@@ -52,11 +54,13 @@ extension内のnested nominalにも字句祖先を保持するが、型注釈検
 
 ## JSON/textの範囲と不明
 
-`contexts`の各候補に前後位置、`kind`、`fileUnchanged`、根拠の`entries`を持つ。根拠は`existingCall.evidence` / `changedType.evidence` / `memberSpelling.evidence` / `resultSpelling.evidence`。textでも候補1件の罫線の下へ根拠を並べる。最大8候補・各8入口で、省略数を共有する。
+`contexts`の各候補に前後位置、`kind`、`fileUnchanged`、根拠の`entries`を持つ。根拠は`existingCall.evidence` / `changedType.evidence` / `callSpelling.evidence`（`introduced` / `decreased`） / `resultSpelling.evidence`。textでも候補1件の罫線の下へ根拠を並べる。既定では8候補・各8入口の詳細を表示し、省略数を共有する。詳細外の候補も`omittedContextIndex`に前後位置/kind/根拠数を全件残し、textに位置一覧を出す。`--all`なら同じ検索条件の全詳細。減少group内の位置はどちらのmodeでも全件保持する。
 
 型経路は旧新property/型表記、新しく現れた名前の位置、末尾名が一致する宣言数を持つ。同じpropertyの同じqualified名は最初の位置を使う。`beforeStatus: no-indexed-counterpart`は旧版索引に対応がない状態であり、旧宣言の不存在や新規propertyの証明ではない。
 
-member表記の根拠には前後caller・対応状態、call位置・receiver表記・記載ラベル列を持つ。`callerEvidence: no-unique-old-indexed-correspondence`は旧宣言不存在を意味しない。差分の適格性で出現を絞ってから同じcaller/selector/receiver/記載条件経路を集約し、最初の位置と`eligibleOccurrences`を示す。`call.writtenConditions`は外→内の選択節と先行節のkeyword/条件表記/header位置。条件なしは空配列、異なる条件は別入口、同じ条件の行移動は集約を分けない。textはcallのそばへ条件と「有効節未判定」を示す。旧本文に同じcallトークンがあれば、条件移動だけでは新しく適格にしない。[条件表示の検証](../../docs/validation/written-conditional-context.md)。
+introducedは`sourceSide: after`とmember表記の前後caller・対応状態、call位置・receiver表記・記載ラベル列を持つ。`callerEvidence: no-unique-old-indexed-correspondence`は旧宣言不存在を意味しない。差分の適格性で出現を絞ってから同じcaller/selector/receiver/記載条件経路を集約し、最初の位置と`eligibleOccurrences`を示す。`call.writtenConditions`は外→内の選択節と先行節のkeyword/条件表記/header位置。条件なしは空配列、異なる条件は別入口、同じ条件の行移動は集約を分けない。textはcallのそばへ条件と「有効節未判定」を示す。旧本文に同じcallトークンがあれば、条件移動だけでは新しく適格にしない。[条件表示の検証](../../docs/validation/written-conditional-context.md)。
+
+decreasedの根拠には`beforeOccurrences`/`afterOccurrences`を分け、各出現のside・caller・反対側の対応位置（確認できた場合）・対応状態・call表記/条件を持つ。件数は配列長で再現できる。total減少は実callee数や削除callとの一対一対応ではない。
 
 - `changedFunctions`と`unpairedBefore/After`は索引内の関数数。`changedTypeAnnotations`は索引内の型注釈差の件数で、新しい実型や依存の数ではない。
 - `skipped`はcall検索・型注釈の対応・宣言検索の各試行を退けた理由の件数。名前一致なし、旧宣言未確認、変更済み、対応不明、型表記不明を区別する。ファイル数や網羅率として足し合わせない。型注釈の組が未変更の曖昧propertyは毎回再掲しない。
