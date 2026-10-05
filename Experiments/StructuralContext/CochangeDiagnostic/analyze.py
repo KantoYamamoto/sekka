@@ -42,11 +42,11 @@ def analyze(report):
         reason = None
         if identity is None:
             reason = 'no-executable-owner'
+        elif any(len(regions[side].get(key(s['owner']['key']), [])) != 1
+                 for side, entries in (('before', old), ('after', new)) for s in entries):
+            reason = 'ambiguous-owner'
         elif len(old) != 1 or len(new) != 1:
             reason = 'added-deleted-or-ambiguous-switch'
-        elif any(len(regions[side].get(key(s['owner']['key']), [])) != 1
-                 for side, s in (('before', old[0]), ('after', new[0]))):
-            reason = 'ambiguous-owner'
         elif old[0]['containsConditionalCases'] or new[0]['containsConditionalCases']:
             reason = 'conditional-case-list-not-expanded'
         if reason:

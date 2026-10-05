@@ -31,7 +31,7 @@ var finalize: () -> Void { { Box.report(value, input: input) } }
     yield 'inactive-conditions-remain-unknown', guarded, guarded.replace('withOld', 'withNew')
     yield 'changed-owner-header-unpaired', wrapped, changed.replace('func report(_ value: Value, input: Int)', 'func reportRenamed(_ value: Value, input: Int)')
     yield 'added-deleted-regions', 'func alone() { ' + dispatch + ' }', changed
-    duplicate = 'func first() { BODY BODY }\nfunc second() { BODY }'.replace('BODY', dispatch)
+    duplicate = 'func first() { BODY\nBODY }\nfunc second() { BODY }'.replace('BODY', dispatch)
     yield 'duplicate-switch-not-paired-by-order', duplicate, duplicate.replace('withOld', 'withNew')
     yield 'ambiguous-declaration-header', 'func same() { BODY }\nfunc same() { BODY }'.replace('BODY', dispatch), 'func same() { BODY }\nfunc same() { BODY }'.replace('BODY', dispatch.replace('withOld', 'withNew'))
     conditional = '''func first() { switch value {
@@ -47,7 +47,7 @@ case .a: old()
 default: fallback()
 } }'''
     yield 'conditional-case-lists-unexpanded', conditional, conditional.replace('old()', 'new()')
-    accessors = 'struct Box { var first: Int { get { BODY } } var second: Int { BODY } }'.replace('BODY', dispatch)
+    accessors = 'struct Box { var first: Int { get { BODY } }\nvar second: Int { BODY } }'.replace('BODY', dispatch)
     yield 'explicit-and-implicit-getters', accessors, accessors.replace('withOld', 'withNew')
     yield 'function-header-and-local-type-boundaries', '''func caller(_ value: Int = source()) {
 let stored = source()
