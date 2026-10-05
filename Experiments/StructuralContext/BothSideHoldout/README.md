@@ -2,7 +2,7 @@
 
 **既知の必要先へ届いた後は、同じ例を再採点せず、方式と選択を固定して別の未読変更を独立比較する。** [Issue #102](https://github.com/KantoYamamoto/sekka/issues/102)。前段の実装/既読再現は[検証記録](../../../docs/validation/both-side-call-entry.md)。本番/M3は保留。
 
-選択/評価器の固定後、3入力の1,891 entriesをGit tree/blob/size/SHAへ照合し、通常diffの全変更範囲も確認した。残る1入力は固定beforeがmerge-baseと一致せず不成立。機械出力は固定バイナリの4mode各二回で終了コード/stdout/stderrの全bytesが一致。全3pairsの独立A/Bと結果点検を完了。stage1の資料は原planと異なり非対称だったため、純増効果は評価できない。最終PR検証は確認待ち。候補数や既知copy先例への到達を有用性の成功にしない。
+選択/評価器の固定後、3入力の1,891 entriesをGit tree/blob/size/SHAへ照合し、通常diffの全変更範囲も確認した。残る1入力は固定beforeがmerge-baseと一致せず不成立。機械出力は固定バイナリの4mode各二回で終了コード/stdout/stderrの全bytesが一致。全3pairsの独立A/Bと結果点検、最終Actions/実Bot/10成果物までPR #104で完了。stage1の資料は原planと異なり非対称だったため、純増効果は評価できない。候補数や既知copy先例への到達を有用性の成功にしない。
 
 - `plan.md`: source/diff/機械出力を見る前の原選択条件。PR #103のActions待ちだった時点の凍結文書で、現在の進捗ではない。
 - `selection.json`: metadata/filename/status/countだけの監査、採用/除外理由と前後ref。cutoffは2026-10-04末（UTC）。大きさや候補の有無による差し替えはしない。

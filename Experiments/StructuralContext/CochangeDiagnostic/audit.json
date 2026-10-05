@@ -1,0 +1,22 @@
+{
+  "source": "8373ace",
+  "codeFindingsFixed": 5,
+  "unresolvedCodeFindings": 0,
+  "resultFindings": 0,
+  "rawReviewSHA256": {
+    "code-final.md": "6abcf9d8d6212233851a6c4d66844f82114649ca528297fb758a7b32bad6a769",
+    "code-followup.md": "0e38b571e1bc16b8d1fbec13c59056e3f7899b83c57acff74d3335f0489f73ae",
+    "code-initial.md": "67f4611f60c20558cea246e73da23a86fbc0696d1919565c3db534a95dbd3fee",
+    "result-docs.md": "963da7a0a81c19fbfd132d8a8963d33905531153179ee665fa494a53193b94f1",
+    "result-initial.md": "ee0ca7c44395c1a63c295c533da3c3366bb0e5014e15a6df81d746b82c22c206"
+  },
+  "resultsSHA256": "2329a94d7df81f5e48d0431f6000dace02f27e494217efdcadd461e61a2a178b",
+  "selfReviewBase": "fe3c1eb",
+  "selfReviewHead": "8373ace",
+  "selfReviewComplete": true,
+  "scope": "Known-source fact/code audit; neither unseen utility nor runtime behavior. Raw reviews are summarized privately, no source published.",
+  "pending": [
+    "final Actions",
+    "exact Bot and artifacts"
+  ]
+}

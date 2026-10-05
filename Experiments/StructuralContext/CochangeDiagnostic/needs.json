@@ -1,0 +1,21 @@
+{
+  "issue": 105,
+  "origin": "Frozen independent source review in #102; known and disputed, not unseen benefit",
+  "inputs": "../BothSideHoldout/inputs.json",
+  "case": "GRDB-swift-1885",
+  "regions": [
+    {"role": "scalar-initializer", "file": "GRDB/Core/DatabaseFunction.swift", "before": {"line": 90, "endLine": 117}, "after": {"line": 90, "endLine": 119}},
+    {"role": "existing-changed-report", "file": "GRDB/Core/DatabaseFunction.swift", "before": {"line": 442, "endLine": 457}, "after": {"line": 444, "endLine": 461}},
+    {"role": "existing-aggregate-user", "file": "GRDB/Core/DatabaseFunction.swift", "before": {"line": 379, "endLine": 400}, "after": {"line": 381, "endLine": 402}},
+    {"role": "already-shared-main-rule", "file": "GRDB/Core/Support/StandardLibrary/StandardLibrary.swift", "after": {"line": 661, "endLine": 685}}
+  ],
+  "questionConditions": [
+    "Two result dispatch switches and an existing helper/user provide specific positions and a relation to check",
+    "The same String result transfer policy required edits in both locations",
+    "Delegation to the existing helper is a possible arrangement, subject to result/error/lifetime preservation",
+    "The main byte/NUL policy is already shared; direct readability and unknown performance/history support the present arrangement"
+  ],
+  "disagreement": {"A": "No established need for additional rearrangement after sharing the main rule", "B": "Limited question to reconsider arrangement, not a required refactor or defect"},
+  "runtimeGatesToDiagnose": ["initializer is not indexed as a function", "existing helper body changed, so whole-declaration-stable target gate excludes it", "remaining written relations and correspondence may be insufficient"],
+  "successBoundary": "Positions and syntax facts can support reading this known question; no equivalence, resolved dependency, required refactor or utility verdict"
+}

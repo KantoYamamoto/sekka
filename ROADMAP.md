@@ -6,7 +6,9 @@
 
 **通常diffを補い、変更を既存構造へどう組み込むか考えるための差分外の実装・既存窓口を、関連根拠付きで示す。** 構文上の候補と不明を区別し、設計の良否・実calleeを推測で確定しない。Swift 6以降、CLI/Actions、LLMなしの決定論性を維持する。
 
-現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#102 / PR #104は別入力の素材・全3pairs・独立結果点検まで完了、最終PR確認待ち。** 選択4件中3素材1,891 entries/全diff/4mode各二回一致、1件は固定base不成立で差し替えなし。新入口1件は確認に使われたが構造再検討の機械寄与は0。stage1が原planと異なり非対称だったため純増効果は未判定。[結果と限界](docs/validation/both-side-call-holdout.md)。本番/M3は保留。次は#105で、通常sourceから問いが立った「変更された既存窓口」も含む観測単位を診断する。必要性のA/B判断差を残し、未変更宣言への到達だけを成功にしない。[方針0048](docs/decisions/0048-changed-existing-context.md)。人間判断待ちなし。
+現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#102 / PR #104は完了、#105で観測単位を診断中。** 前比較は構造再検討の機械寄与0、stage1資料の非対称による純増効果未判定を保持する。[結果と限界](docs/validation/both-side-call-holdout.md)。
+
+#105では未変更宣言という枠を外し、同じswitch構文形の変更が入る実行領域を試した。既読GRDBのinitializer/変更された既存helper/未変更property利用表記へ到達、他2件0。26対照・code/fact/文書独立点検・自己利用は完了、最終PR点検を進めている。[診断](docs/validation/cochange-diagnostic.md) / [方針0048](docs/decisions/0048-changed-existing-context.md)。未読利益は未確立で、本番/M3は保留。必要性のA/B判断差を残し、到達だけを成功にしない。人間判断待ちなし。
 
 ## Issueの階層と判断の節目
 
@@ -19,6 +21,13 @@
 | [M3 #72](https://github.com/KantoYamamoto/sekka/issues/72) 有効な用途を統合 | 本番CLI/JSON/text/Actionsの入力・範囲・利用方法を整え、実出力を確認 | M2が支持した用途だけ統合。必要なら配布を再評価 |
 
 ## 直近だけをPR単位に分解する
+
+| 順序 | Issue | 完了条件 / 状態 |
+| --- | --- | --- |
+| 現在 | [#105 変更された既存窓口の診断](https://github.com/KantoYamamoto/sekka/issues/105) | 先に必要位置と撤去条件を固定。関数の未索引/変更targetの除外を分離し、switch同形変更と既存利用側を試作。26対照・code/fact/文書点検・自己利用済み、最終PR点検中 |
+| 次 | 診断結果後に分解 | 事実性と必要関係への到達が支持されれば最小の実験CLI契約、その後は同じ通常diffを両stage1へ渡す未読比較。範囲拡大だけなら撤去/用途限定 |
+
+<details><summary>完了したM1/M2の作業と根拠</summary>
 
 M1の#73（構文索引/PR #75）と#74（検索と表示/PR #76）は完了。M2は直近の単位だけを具体化する。
 
@@ -37,10 +46,11 @@ M1の#73（構文索引/PR #75）と#74（検索と表示/PR #76）は完了。M
 | 11 | [#96 減った利用と残る窓口の診断](https://github.com/KantoYamamoto/sekka/issues/96) | 58必要位置を先に固定、4caseの全42減少selector/4不変候補を照合。copy先例と挙動helperに交差、同名/必要集合外も記録。37対照・修正後全bytes一致・独立点検/指摘修正完了。PR #99でActions/実コメント/10成果物まで確認して完了 |
 | 12 | [#98 実験CLIの失敗表示](https://github.com/KantoYamamoto/sekka/issues/98) | reader/formatterを共有し、path欠落の独立指摘も修正。85テスト/14 CLI/37診断対照と失敗全bytes一致を確認。PR #101で通常Actions/実コメント/10成果物まで確認して完了 |
 | 13 | [#100 両側のcall入口](https://github.com/KantoYamamoto/sekka/issues/100) | 前後call索引と不変判定を共有、member経路をintroduced/decreasedへ置換。100テスト/17 CLI/診断37と既知4caseを確認、全81出現/13targetを独立点検。詳細外も全位置を残す。PR #103でActions/実Bot/10成果物まで完了 |
-| 14 | [#102 両側入口の別入力比較](https://github.com/KantoYamamoto/sekka/issues/102) | 3素材/全bytes/diff、全3pairs・結果独立点検済み、1入力不成立。stage1非対称を解釈制限として保持、露出誤分類を訂正。最終PR確認待ち、M3保留。次は#105の観測単位診断 |
-| 15 | [#105 変更された既存窓口の診断](https://github.com/KantoYamamoto/sekka/issues/105) | #102完了後。必要位置を固定し、initializer等の領域・変更target・記載関係/対応の不足を分離。最小diagnosticと反対例から組み直し/撤去/用途限定を選ぶ |
+| 14 | [#102 両側入口の別入力比較](https://github.com/KantoYamamoto/sekka/issues/102) | 3素材/全bytes/diff、全3pairs・結果独立点検済み、1入力不成立。stage1非対称を解釈制限として保持、露出誤分類を訂正。PR #104の最終Actions/実Bot/10成果物まで完了、M3保留。次は#105の観測単位診断 |
 
-必要な確認先へ届いた例はA/B比較を始める根拠とし、有用性の合格とはしない。範囲内の必要箇所へ届かなければ検索方式へ戻す。確認先を特定できない例だけなら今回の標本では判断保留。出力に合う入力への差し替え、同じ入力の未見扱いはしない。M2の続きとM3は結果が出てから分解する。
+</details>
+
+必要な確認先へ届いた例はA/B比較を始める根拠とし、有用性の合格とはしない。範囲内の必要箇所へ届かなければ検索方式へ戻す。確認先を特定できない例だけなら今回の標本では判断保留。出力に合う入力への差し替え、同じ入力の未見扱いはしない。M2の続きとM3は結果が出てから分解する。独立比較でも配置再考へ寄与せず、別の決定論的根拠もなくなった場合は、用途限定/プロジェクト撤退を人間へ判断事項として通知する。
 
 ## 既存の保留課題
 

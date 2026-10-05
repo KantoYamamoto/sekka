@@ -1,6 +1,6 @@
 # 両側call入口の独立比較（#102）
 
-**既知先例への到達を有用性とせず、別入力で通常diff+検索と比較する。利益が支持されなければ本番へ統合しない。** [Issue #102](https://github.com/KantoYamamoto/sekka/issues/102) / [PR #104](https://github.com/KantoYamamoto/sekka/pull/104)。2026-10-05。結果の独立点検まで完了。最終PR Actions/実コメント/成果物は確認待ち。
+**既知先例への到達を有用性とせず、別入力で通常diff+検索と比較する。利益が支持されなければ本番へ統合しない。** [Issue #102](https://github.com/KantoYamamoto/sekka/issues/102) / [PR #104](https://github.com/KantoYamamoto/sekka/pull/104)。2026-10-05。結果の独立点検、最終Actions/実コメント/成果物まで完了。
 
 ## 固定と検証の範囲
 
@@ -45,3 +45,4 @@ GRDB #1885では、scalar initializer（after `GRDB/Core/DatabaseFunction.swift:
 - [stage1 freeze](../../Experiments/StructuralContext/BothSideHoldout/review-material.json)、[結果metadata](../../Experiments/StructuralContext/BothSideHoldout/results.json)：target/entryの位置と分類、初期/final/release hash。raw source/body/diff/レビューはignored `.build/both-side-comparison` に保持。
 - 素材protocolの独立点検は、release前のfreeze検査不足P2を修正後、コピー上で正常1/拒否19、747実releaseの全1,211fileと両checkpoint一致まで確認。初期指摘はraw記録へ残した。
 - commit `8508750` のActions `37255787147` は成功、実Bot `5987019929` とsummaryが一致、10成果物・base/head/diff hashを点検。これは素材固定段階の確認で、結果確定後の最終PR確認とは分ける。
+- 最終head `ff0e4b5` の[Actions `37281008235`](https://github.com/KantoYamamoto/sekka/actions/runs/37281008235)成功。同じBotの更新後全文とsummary一致、10成果物・base/head/diff SHAを確認。21変更パス/Swift変更0も表示された。[完了記録](https://github.com/KantoYamamoto/sekka/pull/104#issuecomment-5993221290)。`fe3c1eb`でマージ、#102完了。これは検証作業の完了であり、目的達成や純増効果の証明ではない。
