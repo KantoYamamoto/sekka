@@ -33,7 +33,13 @@ func sources(at path: String) throws -> [(String, String)] {
     }
     let relative = components.dropFirst(root.pathComponents.count).joined(separator: "/")
     do {
-      files.append((relative, try String(contentsOf: url, encoding: .utf8)))
+      let data = try Data(contentsOf: url)
+      let source = String(decoding: data, as: UTF8.self)
+      guard Data(source.utf8) == data else {
+        throw CocoaError(.fileReadInapplicableStringEncoding)
+      }
+      // Preserve BOM and every source byte for physical offsets and input fingerprints.
+      files.append((relative, source))
     } catch {
       throw SourceReadFailure(path: root.appendingPathComponent(relative).path, cause: error)
     }

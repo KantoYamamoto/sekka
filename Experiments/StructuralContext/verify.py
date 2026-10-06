@@ -138,6 +138,29 @@ def main():
             checks.append({'case': name, 'exit': 0, 'fullProcessBytesEqual': True,
                            'relationships': len(report['relationships']), 'unknown': len(report['unknown']),
                            'jsonTextAllChecked': True})
+        # Foundation's URL String reader strips BOM; raw-byte decoding must retain it.
+        old = next(fixtures())[1]; new = next(fixtures())[2]
+        (before / 'Fixture.swift').write_text(old)
+        (after / 'Fixture.swift').write_text(old)
+        plain = json.loads(run_twice(command).stdout)
+        raw = b'\xef\xbb\xbf' + old.encode()
+        (after / 'Fixture.swift').write_bytes(raw)
+        result = run_twice(command)
+        bom = json.loads(result.stdout)
+        if result.returncode or bom['after']['sha256'] == plain['after']['sha256']:
+            raise ValueError('BOM was removed from fingerprint')
+        checks.append({'case': 'bom-fingerprint-preserved', 'exit': 0, 'fullProcessBytesEqual': True})
+        raw = b'\xef\xbb\xbf' + new.encode()
+        (after / 'Fixture.swift').write_bytes(raw)
+        result = run_twice(command)
+        report = json.loads(result.stdout)
+        if result.returncode or len(report['relationships']) != 1:
+            raise ValueError('BOM source did not produce relation')
+        for m in report['relationships'][0]['members']:
+            offset = m['after']['site']['offset']
+            if raw[offset:offset+6] != b'switch':
+                raise ValueError('BOM physical byte offset wrong')
+        checks.append({'case': 'bom-physical-offset-preserved', 'exit': 0, 'fullProcessBytesEqual': True})
         # Trivia is not syntax change. Input hash still identifies the exact source bytes.
         source = next(fixtures())[1]
         (before / 'Fixture.swift').write_text(source)

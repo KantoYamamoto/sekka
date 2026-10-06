@@ -6,7 +6,7 @@
 
 旧索引/4検索経路/テストを現行packageから撤去し、#105で点検した領域readerを再利用。Swift内部で関係を作り、JSON/罫線textへ必要な形と全位置を直接出す。parser/read error境界を維持する。旧runtimeの再現は固定commit `5177d21c476728e7fd4f3bbadba53cce9c181cfc`へ残し、常設CIは現行契約の対照へ整理。
 
-初稿は13 Swiftテスト/29 CLI対照を通過。条件/header変更、曖昧owner/switch、追加/削除、共有済み規則、異なる引数/closureラベル、Unicode bytes、コメント/空白、形詳細省略と全位置、parse/read失敗と正常0を分ける。CLIはJSON/text/allの終了コード/stdout/stderr全bytesを二回照合する。独立code/factレビューは進行中。
+初稿は13 Swiftテスト/31 CLI対照（BOMの識別/物理offsetを含む）を通過。条件/header変更、曖昧owner/switch、追加/削除、共有済み規則、異なる引数/closureラベル、Unicode bytes、コメント/空白、形詳細省略と全位置、parse/read失敗と正常0を分ける。CLIはJSON/text/allの終了コード/stdout/stderr全bytesを二回照合する。独立code/factレビューは進行中。
 
 同じ既読3入力の初回再生は全1,891 entriesのinventory/size/blob/SHAを照合し、JSON/textを各二回実行。#105との関係・owner・users・unknown全位置と差異flagが一致。新しい共通call表記の位置とsame-basename宣言候補は実calleeへ解決せず反対材料へ進む入口として出す。
 
@@ -14,7 +14,7 @@
 | --- | --- | --- |
 | swift-collections #747 | 0 / 0 / 23 | 8,120 / 4,102 |
 | GRDB #1885 | 1 / 2 / 4 | 14,322 / 5,405 |
-| GRDB #1884 | 0 / 0 / 4 | 最終再生で記録 |
+| GRDB #1884 | 0 / 0 / 4 | 3,564 / 2,141 |
 
 これらは同じ素材の再検証で、未読PRの利益ではない。59MB等の診断dumpを常設要約pipelineへ持ち込まず直接出力できたことと、配置を考え直す判断へ寄与することは分ける。
 
@@ -31,6 +31,6 @@ python3 Experiments/StructuralContext/DirectRelations/replay.py \
   --output .build/direct-relations/replay-new
 ```
 
-第三者source/diff/形の生出力はignored。公開記録は位置/count/hashとown code。現在は独立レビュー・最終評価器固定/再生・自己利用・Actions/実Bot/成果物が未完了。ローカルの再buildでは生成test bundleのFinder metadataによる署名エラーが出たため、own `/tmp` scratchで検証中。解析対象の問題と混同しない。未完了を正常成功としない。
+第三者source/diff/形の生出力はignored。公開記録は位置/count/hashとown code。現在は独立レビュー・最終評価器固定/再生・自己利用・Actions/実Bot/成果物が未完了。ローカルの再buildでは生成test bundleのFinder metadataによる署名エラーが出たため、own `/tmp` scratch/native buildで13テストを通過。解析対象の問題と混同しない。未完了を正常成功としない。
 
 次は固定評価器を使った未読比較。両stage1に同じPR説明/通常diffを先渡しし、commonsource前のcheckpointを保存する。既読到達/圧縮率は合格条件にしない。配置再考へ寄与せず別の決定論的根拠もなくなれば、用途限定/撤退の判断を人間へ通知する。
