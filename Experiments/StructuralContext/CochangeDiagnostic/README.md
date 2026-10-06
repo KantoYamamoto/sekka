@@ -1,5 +1,7 @@
 # 変更された既存窓口を含む観測単位の診断
 
+この文書は旧方式の検証記録。runtime/runnerの再現は固定commit `5177d21c476728e7fd4f3bbadba53cce9c181cfc`を別ディレクトリへarchiveして行う。現行CLIの契約・実行は[実験の入口](../README.md)を参照。
+
 **同じswitch構文形の変更が複数領域へ入る場合は、処理全体・所属宣言・記載上の利用候補を位置付きで示し、配置を再考する判断と分ける。** #105 / [判断0048](../../../docs/decisions/0048-changed-existing-context.md)。通常CLI/libraryの検索契約は変更していない。
 
 `plan.md` / `needs.json`は実装前の`574da73`で固定。#102の通常sourceレビューで必要だった関係を診断する既読実験であり、未見の利益ではない。必要性についてA/Bは異なる。引用windowの末尾はAST範囲より1〜8行広い箇所があり、原freezeを保持して`results.json`へ実AST位置を別記した。
@@ -30,4 +32,4 @@ python3 Experiments/StructuralContext/CochangeDiagnostic/replay.py \
 
 raw dumpはsource tokenを含む大きな診断データで、製品出力の候補ではない。publicは`results.json`の位置/count/hashとown codeだけ。対応不明の位置も全件残し、fact上限による位置省略はない。外部OSSのbuild/test/script/checkoutや先方への投稿は行わない。
 
-[結果と限界](../../../docs/validation/cochange-diagnostic.md)。独立code/fact/文書点検と自己利用は完了、最終PR検証は進行中。本番/M3は保留。次の実験CLIと未読比較は、結果点検後にだけ分解する。
+[結果と限界](../../../docs/validation/cochange-diagnostic.md)。独立code/fact/文書点検と自己利用は完了、PR #106の最終Actions/実Bot/10成果物まで確認して完了。本番/M3は保留。次の実験CLIと未読比較は、結果点検後にだけ分解する。

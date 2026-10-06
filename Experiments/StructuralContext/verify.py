@@ -1,374 +1,179 @@
-"""Check experimental input boundaries and fixed source locations, not design quality."""
+"""Own direct-relation CLI controls; not unseen utility or independent review."""
 import argparse
 import hashlib
 import json
-import os
 from pathlib import Path
-import stat
 import subprocess
 import tempfile
 
-parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--binary', type=Path, required=True)
-parser.add_argument('--output', type=Path, required=True)
-parser.add_argument('--oss-input', type=Path)
-parser.add_argument('--text-output', type=Path)
-args = parser.parse_args()
-binary = str(args.binary.resolve())
-results = []
 
-
-def successful_twice(command):
-    first = subprocess.run(command, capture_output=True)
-    second = subprocess.run(command, capture_output=True)
-    assert (first.returncode, first.stdout, first.stderr) == (second.returncode, second.stdout, second.stderr), 'Unstable complete output'
-    assert first.returncode == 0 and not first.stderr, 'Failed input is not a zero result'
-    return first.stdout
-
-
-def run(before, after, all_evidence=False):
-    command = [binary, str(before), str(after)] + (['--all'] if all_evidence else [])
-    return json.loads(successful_twice(command))
-
-
-def failed_twice(command):
-    first = subprocess.run(command, capture_output=True)
-    second = subprocess.run(command, capture_output=True)
-    assert (first.returncode, first.stdout, first.stderr) == (second.returncode, second.stdout, second.stderr), 'Unstable failure output'
-    assert first.returncode == 2 and not first.stdout and first.stderr, 'Failure produced partial success'
-    return first.stderr.decode()
-
-
-with tempfile.TemporaryDirectory(prefix='sekka-input-errors-') as directory:
-    root=Path(directory);before=root/'before';after=root/'after';before.mkdir();after.mkdir()
-    (before/'Good.swift').write_text('struct Model {}')
-    missing=root/'missing';file_input=root/'not-a-directory';file_input.write_text('struct Model {}')
-    for path in [missing,file_input]:
-        message=failed_twice([binary,str(before),str(path)])
-        assert 'Input unavailable [NSCocoaErrorDomain:' in message
-        assert 'NSUnderlyingError=' not in message
-    (after/'Bad.swift').write_bytes(b'\xff')
-    message=failed_twice([binary,str(before),str(after)])
-    assert 'Unable to read Swift source as UTF-8' in message and '[NSCocoaErrorDomain:' in message and 'Bad.swift' in message
-    (after/'Bad.swift').unlink();(after/'Bad.swift').write_text('func {')
-    message=failed_twice([binary,str(before),str(after)])
-    assert 'Bad.swift' in message
-    (after/'Bad.swift').unlink();(after/'link.swift').symlink_to(before/'Good.swift')
-    assert 'Unsupported input [NSCocoaErrorDomain:' in failed_twice([binary,str(before),str(after)])
-    link=root/'root-link';link.symlink_to(after,target_is_directory=True)
-    assert 'Unsupported input [NSCocoaErrorDomain:' in failed_twice([binary,str(before),str(link)])
-    assert 'Usage: context-probe' in failed_twice([binary])
-    results.append({'case':'stable-input-failures','checks':['missing directory','non-directory','invalid UTF-8 retains path','parse retains file','symlink file','symlink root','usage'],'exitStdoutStderrTwiceBytesEqual':True})
-
-
-with tempfile.TemporaryDirectory(prefix='sekka-context-') as directory:
-    root = Path(directory) / '.parent'
-    before, after = root / 'before', root / '.after'
-    before.mkdir(parents=True); after.mkdir()
-    existing = 'struct Logger { func record(_ event: String) { send(event) } }\nstruct Screen { let logger: Logger; func open(_ event: String) { logger.record(event) } }'
-    for side in [before, after]:
-        (side / 'Old.swift').write_text(existing)
-        (side / '.ignored').mkdir()
-        (side / '.ignored' / 'broken.swift').write_text('struct {')
-        if hasattr(os, 'chflags') and hasattr(stat, 'UF_HIDDEN'):
-            os.chflags(side / 'Old.swift', stat.UF_HIDDEN)
-    (after / 'Old.swift').write_text(existing.replace('logger.record(event) }', 'logger.record(event); analytics.record(event) }'))
-    report = run(before, after)
-    assert report['beforeFileCount'] == 1 and report['afterFileCount'] == 1
-    context = report['contexts'][0]
-    assert len(report['contexts']) == 1
-    assert context['after']['declaration'] == 'Logger.record(_:)'
-    assert context['fileUnchanged'] is False
-    assert context['entries'][0]['existingCall']['evidence']['writtenType'] == 'Logger'
-    assert context['entries'][0]['existingCall']['evidence']['sharedArgumentSpellings'] == ['event']
-    results.append({'case': 'unchanged-context-hidden-metadata', 'report': report})
-    assert run(after, after)['contexts'] == []
-    text = subprocess.check_output([binary, str(before), str(after), '--text']).decode()
-    assert '┌ 未変更の宣言候補 [function]: Old.swift:1' in text and 'before Old.swift:1' in text
-    assert '呼び出し先は未解決' in text
-    text_samples = ['Case: unchanged-context-hidden-metadata\n' + text]
-    (after / 'Broken.swift').write_text('struct {')
-    failed = subprocess.run([binary, str(before), str(after)], capture_output=True)
-    assert failed.returncode == 2 and failed.stdout == b''
-    (after / 'Broken.swift').unlink()
-    (after / 'link.swift').symlink_to(root / 'missing.swift')
-    failed = subprocess.run([binary, str(before), str(after)], capture_output=True)
-    assert failed.returncode == 2 and failed.stdout == b''
-    (after / 'link.swift').unlink()
-    link = root / 'linked'; link.symlink_to(after, target_is_directory=True)
-    failed = subprocess.run([binary, str(before), str(link)], capture_output=True)
-    assert failed.returncode == 2 and failed.stdout == b''
-
-# Parse both conditional accessor spellings; do not compile the target or select a branch.
-with tempfile.TemporaryDirectory(prefix='sekka-accessors-') as directory:
-    root = Path(directory)
-    source = """struct Buffer {
-  var value: Int
-  subscript(i: Int) -> Int {
-#if compiler(>=6.4)
-    borrow { value }
-    mutate { &value }
-#else
-    get { value }
-    set { value = newValue }
+def fixtures():
+    dispatch = '''switch value {
+case .a: sinkOld(input)
+case .b: buffer.withOld { p in sink(p) }
+}'''
+    wrapped = '''struct Box {
+init(_ value: Value, input: Int) { callback { BODY } }
+static func report(_ value: Value, input: Int) { BODY }
+var finalize: () -> Void { { Box.report(value, input: input) } }
+}'''.replace('BODY', dispatch)
+    changed = wrapped.replace('withOld', 'withNew')
+    yield 'initializer-changed-helper-property-user', wrapped, changed
+    yield 'unchanged', wrapped, wrapped
+    yield 'already-shared-primary-rule', wrapped, changed + '\nfunc withNew() { primaryRule() }'
+    yield 'different-arguments-or-purpose', wrapped.replace('buffer.withOld', 'buffer.withOld'), changed.replace('func report(_ value: Value, input: Int) { switch value', 'func report(_ value: Value, input: Int) { switch value').replace('sinkOld(input)', 'sinkOld(anotherPurpose)', 1)
+    guarded = '#if FLAG\nfunc first() { BODY }\n#else\nfunc second() { BODY }\n#endif'.replace('BODY', dispatch)
+    yield 'inactive-conditions-remain-unknown', guarded, guarded.replace('withOld', 'withNew')
+    yield 'changed-owner-header-unpaired', wrapped, changed.replace('func report(_ value: Value, input: Int)', 'func reportRenamed(_ value: Value, input: Int)')
+    yield 'added-deleted-regions', 'func alone() { ' + dispatch + ' }', changed
+    duplicate = 'func first() { BODY\nBODY }\nfunc second() { BODY }'.replace('BODY', dispatch)
+    yield 'duplicate-switch-not-paired-by-order', duplicate, duplicate.replace('withOld', 'withNew')
+    yield 'ambiguous-declaration-header', 'func same() { BODY }\nfunc same() { BODY }'.replace('BODY', dispatch), 'func same() { BODY }\nfunc same() { BODY }'.replace('BODY', dispatch.replace('withOld', 'withNew'))
+    conditional = '''func first() { switch value {
+#if FLAG
+case .a: old()
 #endif
-  }
-}
-"""
-    for side, annotation in [('before', 'Int'), ('after', 'Buffer')]:
-        folder = root / side
-        folder.mkdir()
-        (folder / 'Buffer.swift').write_text(source)
-        (folder / 'Store.swift').write_text('struct Store { var value: ' + annotation + ' }\n')
-    report = run(root / 'before', root / 'after')
-    assert len(report['contexts']) == 1
-    target = report['contexts'][0]
-    assert target['after']['file'] == 'Buffer.swift' and target['after']['line'] == 1
-    assert target['after']['endLine'] == 12 and target['fileUnchanged']
-    results.append({'case': 'conditional-borrow-mutate-accessors', 'report': report})
-    text_samples.append('Case: conditional-borrow-mutate-accessors\n' + subprocess.check_output(
-        [binary, str(root / 'before'), str(root / 'after'), '--text']).decode())
-    (root / 'after' / 'Broken.swift').write_text('struct {')
-    failed = subprocess.run([binary, str(root / 'before'), str(root / 'after')], capture_output=True)
-    assert failed.returncode == 2 and failed.stdout == b''
-
-# A type-annotation entry shares the same declaration list and text renderer.
-with tempfile.TemporaryDirectory(prefix='sekka-type-context-') as directory:
-    root = Path(directory)
-    for side, annotation in [('before', 'Int'), ('after', 'Buffer<Int>')]:
-        folder = root / side
-        folder.mkdir()
-        (folder / 'Buffer.swift').write_text('struct Buffer<Element>: Sendable {}\n')
-        (folder / 'Store.swift').write_text('struct Store { var value: ' + annotation + ' }\n')
-    report = run(root / 'before', root / 'after')
-    target = report['contexts'][0]
-    assert len(report['contexts']) == 1 and target['kind'] == 'struct'
-    assert target['after']['file'] == 'Buffer.swift' and target['fileUnchanged']
-    entry = target['entries'][0]['changedType']['evidence']
-    assert entry['reference']['written'] == 'Buffer' and entry['matchingDeclarations'] == 1
-    text = subprocess.check_output([binary, str(root / 'before'), str(root / 'after'), '--text']).decode()
-    assert '型注釈の入口' in text and '照合した末尾名: Buffer' in text
-    results.append({'case': 'type-annotation-context', 'report': report})
-    text_samples.append('Case: type-annotation-context\n' + text)
-
-# Signature changes cannot establish an old caller identity; show a written-label search instead.
-with tempfile.TemporaryDirectory(prefix='sekka-member-spelling-') as directory:
-    root = Path(directory)
-    helper = 'extension Buffer where Element: P { func prune(from index: Int, where test: (Int) -> Bool) {} }\nextension Buffer where Element: P { func other() {} }'
-    for side, result_type, result in [('before', 'Bool', 'true'), ('after', 'Int', '0')]:
-        folder = root / side; folder.mkdir()
-        (folder / 'Helper.swift').write_text(helper)
-        (folder / 'Caller.swift').write_text('extension Worker { func generate() -> ' + result_type + ' { defer { target.prune(from: 0, where: { $0 == 0 }) }; return ' + result + ' } }')
-    report = run(root / 'before', root / 'after')
-    assert len(report['contexts']) == 1
-    target = report['contexts'][0]
-    assert target['after']['declaration'] == 'extension Buffer.prune(from:where:)' and target['fileUnchanged']
-    entry = target['entries'][0]['callSpelling']['evidence']['introduced']['evidence']
-    assert entry['callerEvidence'] == 'no-unique-old-indexed-correspondence' and 'beforeCaller' not in entry
-    assert entry['call']['selector'] == 'prune(from:where:)' and entry['call']['receiverSpelling'] == 'target'
-    assert entry['matchingIndexedDeclarations'] == entry['eligibleOccurrences'] == 1
-    text = subprocess.check_output([binary, str(root / 'before'), str(root / 'after'), '--text']).decode()
-    assert '一意な旧索引対応は未確認' in text and '同一記載ラベル列の索引内宣言 1件' in text
-    results.append({'case': 'member-spelling-unknown-caller', 'report': report})
-    text_samples.append('Case: member-spelling-unknown-caller\n' + text)
-
-# Conditional paths must remain beside the written relation, without evaluating activation.
-with tempfile.TemporaryDirectory(prefix='sekka-written-conditions-') as directory:
-    root = Path(directory)
-    for side in ['before', 'after']:
-        folder = root / side; folder.mkdir()
-        (folder / 'Helper.swift').write_text('extension Helper { func clean(_ value: Int) {} }')
-        (folder / 'Caller.swift').write_text('' if side == 'before' else '''#if OUTER
-func run() {
-#if false
-  helper.clean(0)
-#else
-  helper.clean(0)
+default: fallback()
+} }
+func second() { switch value {
+#if FLAG
+case .a: old()
 #endif
-  helper.clean(0)
-}
-#endif
-''')
-    report = run(root / 'before', root / 'after')
-    assert len(report['contexts']) == 1
-    entries = [e['callSpelling']['evidence']['introduced']['evidence'] for e in report['contexts'][0]['entries']]
-    assert len(entries) == 3 and all(e['eligibleOccurrences'] == 1 for e in entries)
-    paths = [e['call']['writtenConditions'] for e in entries]
-    assert [len(p) for p in paths] == [2, 2, 1]
-    assert paths[0][1]['selected']['condition'] == 'false'
-    assert paths[1][1]['selected']['keyword'] == '#else'
-    assert paths[1][1]['preceding'][0]['condition'] == 'false'
-    assert paths[0][1]['selected']['site']['line'] == 3
-    text = subprocess.check_output([binary, str(root / 'before'), str(root / 'after'), '--text']).decode()
-    assert '#if false [Caller.swift:3]' in text and '有効節未判定' in text
-    results.append({'case': 'written-conditional-context', 'report': report})
-    text_samples.append('Case: written-conditional-context\n' + text)
+default: fallback()
+} }'''
+    yield 'conditional-case-lists-unexpanded', conditional, conditional.replace('old()', 'new()')
+    accessors = 'struct Box { var first: Int { get { BODY } }\nvar second: Int { BODY } }'.replace('BODY', dispatch)
+    yield 'explicit-and-implicit-getters', accessors, accessors.replace('withOld', 'withNew')
+    yield 'function-header-and-local-type-boundaries', '''func caller(_ value: Int = source()) {
+let stored = source()
+struct Local { var closure = { source() } }
+source()
+}''', '''func caller(_ value: Int = source()) {
+let stored = source()
+struct Local { var closure = { source() } }
+source()
+}'''
+    yield 'normal-zero-no-switch', 'struct A {}', 'struct B {}'
+    trailing = '''func first() { switch value {
+case .a: old {} success: {}
+case .b: fallback()
+} }
+func second() { switch value {
+case .a: old {} LABEL: {}
+case .b: fallback()
+} }'''
+    yield 'different-additional-trailing-labels', trailing.replace('LABEL', 'failure'), trailing.replace('LABEL', 'failure').replace('old', 'new')
+    yield 'same-additional-label-transition', trailing.replace('LABEL', 'success'), trailing.replace('LABEL', 'success').replace('success', 'failure')
+    closures = 'func first() { switch value { case .a: old { 1 }; case .b: fallback() } }\nfunc second() { switch value { case .a: old { 2 }; case .b: fallback() } }'
+    yield 'different-trailing-closure-arguments', closures, closures.replace('old', 'new')
+    for name, wrapper, changed_header in [
+        ('else-if-condition-change', 'if outerA {} else if inner { BODY }', ('outerA', 'outerB')),
+        ('while-condition-change', 'while outerA { BODY }', ('outerA', 'outerB')),
+        ('repeat-condition-change', 'repeat { BODY } while outerA', ('outerA', 'outerB')),
+        ('for-sequence-change', 'for item in outerA { BODY }', ('outerA', 'outerB')),
+        ('guard-else-condition-change', 'guard outerA else { BODY; return }', ('outerA', 'outerB')),
+        ('catch-condition-change', 'do { work() } catch where outerA { BODY }', ('outerA', 'outerB')),
+    ]:
+        old = 'func first() { ' + wrapper.replace('BODY', dispatch) + ' }\nfunc second() { ' + dispatch + ' }'
+        new = old.replace('withOld', 'withNew').replace(*changed_header)
+        yield name, old, new
+    subscripts = 'struct Box { subscript(index: Int) -> Int { get { BODY } }\nvar other: Int { BODY } }'.replace('BODY', dispatch)
+    yield 'subscript-header-change', subscripts, subscripts.replace('withOld', 'withNew').replace('index: Int', 'index: String')
 
-# Old use positions are not new calls or a proof of semantic migration.
-with tempfile.TemporaryDirectory(prefix='sekka-decreased-selector-') as directory:
-    root=Path(directory);before=root/'before';after=root/'after';before.mkdir();after.mkdir()
-    helper='extension Helper { func clean(_ value: Int) {} }'
-    for side in [before,after]:
-        (side/'Helper.swift').write_text(helper)
-    (before/'Caller.swift').write_text('''func old() {
-#if false
-  helper.clean(0)
-#else
-  clean(1)
-#endif
-}''')
-    (after/'Caller.swift').write_text('')
-    report=run(before,after)
-    assert len(report['contexts'])==1
-    target=report['contexts'][0]
-    entry=target['entries'][0]['callSpelling']['evidence']['decreased']['evidence']
-    assert target['fileUnchanged'] and target['after']['file']=='Helper.swift'
-    old=entry['beforeOccurrences'];new=entry['afterOccurrences']
-    assert len(old)==2 and not new and all(x['side']=='before' for x in old)
-    assert [x['call']['site']['line'] for x in old]==[3,5]
-    assert all('counterpartCaller' not in x for x in old)
-    assert old[1]['call']['writtenConditions'][0]['preceding'][0]['condition']=='false'
-    command=[binary,str(before),str(after),'--text']
-    first=subprocess.run(command,capture_output=True);second=subprocess.run(command,capture_output=True)
-    assert (first.returncode,first.stdout,first.stderr)==(second.returncode,second.stdout,second.stderr)
-    assert first.returncode==0 and not first.stderr
-    text=first.stdout.decode()
-    assert 'before 2 → after 0件' in text and '削除とは断定しない' in text and '改修必要性は未判定' in text
-    assert 'before call Caller.swift:3' in text and '有効節未判定' in text
-    results.append({'case':'decreased-selector-old-position','report':report,'exitStdoutStderrTwiceBytesEqual':True})
-    text_samples.append('Case: decreased-selector-old-position\n'+text)
-    (after/'Caller.swift').write_text('func renamed() { foreign.clean(2) }')
-    report=run(before,after)
-    entries=[e['callSpelling']['evidence']['decreased']['evidence'] for t in report['contexts'] for e in t['entries'] if 'decreased' in e.get('callSpelling',{}).get('evidence',{})]
-    assert len(entries)==1 and len(entries[0]['beforeOccurrences'])==2 and len(entries[0]['afterOccurrences'])==1
-    assert entries[0]['afterOccurrences'][0]['side']=='after'
-    assert all('counterpartCaller' not in x for x in entries[0]['beforeOccurrences']+entries[0]['afterOccurrences'])
-    results.append({'case':'decreased-selector-unknown-correspondence','report':report})
-    (after/'Caller.swift').write_text('func renamed() { foreign.clean(2); foreign.clean(3) }')
-    report=run(before,after)
-    assert not any('decreased' in e.get('callSpelling',{}).get('evidence',{}) for t in report['contexts'] for e in t['entries'])
 
-# A detail limit cannot silently remove navigation to retained implementations.
-with tempfile.TemporaryDirectory(prefix='sekka-context-details-') as directory:
-    root=Path(directory);before=root/'before';after=root/'after';before.mkdir();after.mkdir()
-    helpers='\n'.join('func method%d() {}'%i for i in range(9))
-    for side in [before,after]: (side/'Helper.swift').write_text(helpers)
-    (before/'Caller.swift').write_text('func old() { '+';'.join('helper.method%d()'%i for i in range(9))+' }')
-    compact=run(before,after);full=run(before,after,all_evidence=True)
-    assert len(compact['contexts'])==8 and compact['omittedTargets']==1
-    assert len(compact['omittedContextIndex'])==1 and compact['omittedContextIndex'][0]['entryCount']==1
-    assert len(full['contexts'])==9 and full['omittedTargets']==0 and not full['omittedContextIndex']
-    assert compact['skipped']==full['skipped']
-    compact_text=successful_twice([binary,str(before),str(after),'--text']).decode()
-    full_text=successful_twice([binary,str(before),str(after),'--text','--all']).decode()
-    omitted=compact['omittedContextIndex'][0]['after']['declaration']
-    assert omitted in compact_text and '詳細を省略した確認先 1件' in compact_text
-    assert omitted in full_text and '詳細を省略した確認先' not in full_text
-    results.append({'case':'complete-navigation-and-all-evidence','report':compact,'fullTargetCount':len(full['contexts']),'exitStdoutStderrTwiceBytesEqual':True})
-    text_samples.append('Case: complete-navigation-and-all-evidence\n'+compact_text)
 
-# Written result names relate existing producers, not resolved constructors/callees.
-with tempfile.TemporaryDirectory(prefix='sekka-result-spelling-') as directory:
-    root = Path(directory)
-    helper = '''struct Receipt {}
-func prior() -> Receipt {
-#if OLD
-  return Receipt(value: 1)
-#else
-  return Receipt(value: 9)
-#endif
-}
-'''
-    for side in ['before', 'after']:
-        folder = root / side; folder.mkdir()
-        (folder / 'Helper.swift').write_text(helper)
-        (folder / 'Caller.swift').write_text('' if side == 'before' else '''func fresh() -> (Receipt, Int) {
-#if false
-  return (Receipt(value: 2), 0)
-#else
-  return (Receipt(value: 3), 0)
-#endif
-}
-''')
-    report = run(root / 'before', root / 'after')
-    assert len(report['contexts']) == 1 and report['contexts'][0]['after']['declaration'] == 'prior()'
-    entries = [e['resultSpelling']['evidence'] for e in report['contexts'][0]['entries']]
-    assert len(entries) == 4
-    assert all(e['callerEvidence'] == 'no-unique-old-indexed-correspondence' for e in entries)
-    assert all(e['anchorCall']['form'] == 'unqualified' and e['matchingNominal']['line'] == 1 for e in entries)
-    assert [e['anchorCall']['site']['line'] for e in entries] == [3, 3, 5, 5]
-    assert [e['targetCall']['site']['line'] for e in entries] == [4, 6, 4, 6]
-    text = subprocess.check_output([binary, str(root / 'before'), str(root / 'after'), '--text']).decode()
-    assert '\u65e2\u5b58\u6761\u4ef6' in text and 'callee\u3067\u306f\u306a\u3044' in text
-    results.append({'case': 'result-spelling-existing-producer', 'report': report})
-    text_samples.append('Case: result-spelling-existing-producer\n' + text)
+def run_twice(command):
+    a = subprocess.run(command, capture_output=True)
+    b = subprocess.run(command, capture_output=True)
+    if (a.returncode, a.stdout, a.stderr) != (b.returncode, b.stdout, b.stderr):
+        raise ValueError('Unstable complete process bytes')
+    return a
 
-# Already-known fact controls; these do not measure review benefit.
-fixture_path = Path(__file__).resolve().parents[2] / 'Fixtures/structural-reconsideration/cases.json'
-expected_entries = {'dispatch-spread': 3, 'dispatch-growth': 2, 'single-site': 1,
-                    'dispatch-separate-policy': 3, 'dispatch-contained': 0,
-                    'consent-separated': 0, 'natural-model': 0}
-fixture_reports = {}
-for case in json.loads(fixture_path.read_text()):
-    with tempfile.TemporaryDirectory(prefix='sekka-known-context-') as directory:
-        root = Path(directory)
-        for side in ['before', 'after']:
-            (root / side).mkdir()
-            for name, source in case[side].items():
-                path = root / side / name
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text(source)
-        report = run(root / 'before', root / 'after')
-        fixture_reports[case['name']] = report
-        expected = expected_entries[case['name']]
-        assert len(report['contexts']) == (2 if case['name'] == 'dispatch-growth' else 1 if expected else 0), case['name']
-        if expected:
-            target = next(t for t in report['contexts'] if t['kind'] == 'function')
-            assert target['after']['file'] == 'Logger.swift'
-            assert target['after']['line'] == 2
-            assert target['after']['declaration'] == 'Logger.record(_:)'
-            assert target['fileUnchanged'] is True
-            assert len(target['entries']) == expected
-            for path in target['entries']:
-                entry = path['existingCall']['evidence']
-                assert entry['beforeExistingCall']['line'] == 4
-                assert entry['afterExistingCall']['line'] == 5
-                assert entry['newOrChangedCall']['line'] == 6
-                assert entry['beforeReceiver']['line'] == entry['afterReceiver']['line'] == 2
-                assert entry['sharedArgumentSpellings'] == ['event']
-        if case['name'] == 'dispatch-growth':
-            typed = next(t for t in report['contexts'] if t['kind'] == 'struct')
-            assert typed['after']['file'] == 'Analytics.swift' and typed['fileUnchanged']
-            assert len(typed['entries']) == 2
-            assert all(e['changedType']['evidence']['reference']['written'] == 'Analytics' for e in typed['entries'])
-        results.append({'case': case['name'], 'report': report})
-        text_samples.append('Case: ' + case['name'] + '\n' + subprocess.check_output(
-            [binary, str(root / 'before'), str(root / 'after'), '--text']).decode())
-assert fixture_reports['dispatch-spread'] == fixture_reports['dispatch-separate-policy']
 
-if args.oss_input:
-    manifest = json.loads(Path(__file__).with_name('retrieval-inputs.json').read_text())
-    for case in manifest:
-        root = args.oss_input / case['id']
-        for side in ['before', 'after']:
-            entries = [f for f in case['files'] if f['side'] == side]
-            assert sorted(str(p.relative_to(root / side)) for p in (root / side).rglob('*') if p.is_file()) == sorted(f['path'] for f in entries)
-            for entry in entries:
-                assert hashlib.sha256((root / side / entry['path']).read_bytes()).hexdigest() == entry['sha256']
-        report = run(root / 'before', root / 'after')
-        for side in ['before', 'after']:
-            assert report[side + 'FileCount'] == sum(f['side'] == side and f['path'].endswith('.swift') for f in case['files'])
-        # These previously read OSS changes had no eligible adjacent-call/type path.
-        # Record any new member-spelling route separately; this is a known replay.
-        # Record rejection reasons; zero is not evidence about their design.
-        assert all('existingCall' not in e and 'changedType' not in e for t in report['contexts'] for e in t['entries']), case['id']
-        results.append({'case': case['id'], 'report': report})
-        if args.text_output:
-            text_samples.append('Case: ' + case['id'] + '\n' + subprocess.check_output([binary, str(root / 'before'), str(root / 'after'), '--text']).decode())
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--binary', type=Path, required=True)
+    p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--text-output', type=Path, required=True)
+    args = p.parse_args()
+    binary = args.binary.resolve()
+    binary_sha = hashlib.sha256(binary.read_bytes()).hexdigest()
+    checks = []
+    expected = {'initializer-changed-helper-property-user', 'already-shared-primary-rule',
+                'different-arguments-or-purpose', 'inactive-conditions-remain-unknown',
+                'explicit-and-implicit-getters', 'same-additional-label-transition',
+                'different-trailing-closure-arguments'}
+    with tempfile.TemporaryDirectory(prefix='sekka-relations-') as folder:
+        root = Path(folder); before = root / 'before'; after = root / 'after'
+        before.mkdir(); after.mkdir()
+        command = [str(binary), str(before), str(after)]
+        for name, old, new in fixtures():
+            (before / 'Fixture.swift').write_text(old)
+            (after / 'Fixture.swift').write_text(new)
+            output = run_twice(command)
+            text = run_twice(command + ['--text'])
+            full = run_twice(command + ['--all'])
+            if output.returncode != 0 or output.stderr or text.returncode != 0 or text.stderr or full.returncode != 0 or full.stderr:
+                raise ValueError('Failed input: ' + name)
+            report = json.loads(output.stdout)
+            if bool(report['relationships']) != (name in expected):
+                raise ValueError('Wrong relationship: ' + name)
+            if json.loads(full.stdout) != report:
+                raise ValueError('Full mode changed facts for small fixture: ' + name)
+            if name in expected and (len(report['relationships']) != 1 or len(report['relationships'][0]['members']) != 2):
+                raise ValueError('Incomplete relationship: ' + name)
+            if name == 'initializer-changed-helper-property-user':
+                r = report['relationships'][0]
+                if {m['after']['owner']['kind'] for m in r['members']} != {'initializer', 'function'}:
+                    raise ValueError('Owner lost')
+                if not any(u['ownerState'] == 'token-identical' and u['owner']['kind'] == 'property-body' for u in r['users']):
+                    raise ValueError('Existing property user lost')
+                # Own synthetic text is safe in CI artifacts; third-party body never published.
+                args.text_output.parent.mkdir(parents=True, exist_ok=True)
+                args.text_output.write_bytes(text.stdout)
+            if name in {'different-arguments-or-purpose', 'different-trailing-closure-arguments'} and not report['relationships'][0]['argumentSpellingsDiffer']:
+                raise ValueError('Argument difference hidden')
+            if name == 'already-shared-primary-rule' and not any(c['sameBasenameDeclarations'] for c in report['relationships'][0]['introducedCommonCallSpellings']):
+                raise ValueError('Counter-evidence lost')
+            checks.append({'case': name, 'exit': 0, 'fullProcessBytesEqual': True,
+                           'relationships': len(report['relationships']), 'unknown': len(report['unknown']),
+                           'jsonTextAllChecked': True})
+        # Trivia is not syntax change. Input hash still identifies the exact source bytes.
+        source = next(fixtures())[1]
+        (before / 'Fixture.swift').write_text(source)
+        (after / 'Fixture.swift').write_text('// extra comment\n' + source.replace('switch value', 'switch  value'))
+        result = run_twice(command)
+        if result.returncode or json.loads(result.stdout)['relationships']:
+            raise ValueError('Trivia became structural relation')
+        checks.append({'case': 'trivia-only', 'exit': 0, 'fullProcessBytesEqual': True})
+        for name, bad in [('malformed', b'func {'), ('invalid-utf8', b'\xff')]:
+            (after / 'Bad.swift').write_bytes(bad)
+            for flags in [[], ['--text'], ['--all']]:
+                result = run_twice(command + flags)
+                if result.returncode != 2 or result.stdout or not result.stderr:
+                    raise ValueError('Partial output or false zero: ' + name)
+            checks.append({'case': name, 'exit': 2, 'fullProcessBytesEqual': True, 'noPartialOutput': True})
+            (after / 'Bad.swift').unlink()
+        link = after / 'Link.swift'; link.symlink_to(before / 'Fixture.swift')
+        result = run_twice(command)
+        if result.returncode != 2 or result.stdout:
+            raise ValueError('Symlink produced success')
+        checks.append({'case': 'symlink', 'exit': 2, 'fullProcessBytesEqual': True, 'noPartialOutput': True})
+        link.unlink()
+        for name, invalid in [('missing-directory', [str(binary), str(root / 'absent'), str(after)]),
+                              ('bad-flag', command + ['--unknown'])]:
+            result = run_twice(invalid)
+            if result.returncode != 2 or result.stdout or not result.stderr:
+                raise ValueError('Invalid input produced success: ' + name)
+            checks.append({'case': name, 'exit': 2, 'fullProcessBytesEqual': True, 'noPartialOutput': True})
+    if hashlib.sha256(binary.read_bytes()).hexdigest() != binary_sha:
+        raise ValueError('Binary changed during controls')
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps({'binarySHA256': binary_sha,
+        'runnerSHA256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        'checks': checks, 'meaning': __doc__}, indent=2) + '\n')
+    print('PASS:', len(checks), 'direct-relation CLI controls; JSON/text/all, complete process bytes twice')
 
-args.output.parent.mkdir(parents=True, exist_ok=True)
-args.output.write_text(json.dumps({'meaning': 'Syntax candidates, not design judgement or review benefit.', 'results': results}, indent=2) + '\n')
-if args.text_output:
-    args.text_output.parent.mkdir(parents=True, exist_ok=True)
-    args.text_output.write_text('\n'.join(text_samples))
-print('PASS: deterministic context, file counts/locations, hidden metadata, malformed input and symlink rejection')
+
+if __name__ == '__main__':
+    main()

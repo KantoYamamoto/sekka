@@ -1,5 +1,7 @@
 # 固定実PRへの到達範囲
 
+この文書は旧方式の検証記録。runtime/runnerの再現は固定commit `5177d21c476728e7fd4f3bbadba53cce9c181cfc`を別ディレクトリへarchiveして行う。現行CLIの契約・実行は[実験の入口](../README.md)を参照。
+
 M2 #77の小標本。出力に合わせて選び直さず、選定条件と候補順を`selection.json`に保存した。Swift CollectionsのSources、GRDBのGRDB配下でSwiftが変わったPRを、各repoで作成日降順・2026-09-21までにmerge済み・最大40件から最初の2件選んだ。コメントだけの変更も除外しない。
 
 `inputs.json`はPR/前後commitと取得したファイルのGit blob ID・SHA-256・サイズ。前版はPRのbase/headのmerge-baseを使う。productionの指定配下のSwift全件に加え、通常読解用の変更ファイルとlicenseを含む。機械検索はproduction prefix内に限り、出力のpathはそのprefixからの相対位置。生成物・SDK・範囲外の宣言は対象に含まない。
