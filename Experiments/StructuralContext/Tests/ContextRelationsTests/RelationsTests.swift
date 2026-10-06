@@ -13,6 +13,7 @@ private func compare(_ old: String, _ new: String, all: Bool = false) throws -> 
   let old = pair(), new = old.replacingOccurrences(of: "withOld", with: "withNew")
   let report = try compare(old, new)
   #expect(report.relationships.count == 1)
+  #expect(report.text().contains("[owner changed]"))
   let r = try #require(report.relationships.first)
   #expect(Set(r.members.map { $0.after.owner.kind }) == ["initializer", "function"])
   #expect(r.enclosingConditionsDiffer)

@@ -22,7 +22,7 @@ extension RelationReport {
       lines += ["\nRelation \(i + 1) [\(relation.id.prefix(12))] — same written switch-shape transition",
                 "├─ Argument spellings differ: \(relation.argumentSpellingsDiffer); enclosing conditions differ: \(relation.enclosingConditionsDiffer)"]
       for member in relation.members {
-        lines += ["├─ \(member.after.owner.kind) \(display(member.after.owner.selector ?? ""))",
+        lines += ["├─ \(member.after.owner.kind) \(display(member.after.owner.selector ?? "")) [owner \(member.ownerState)]",
                   "│  ├─ before switch \(location(member.before.site)); owner \(location(member.before.owner.site))",
                   "│  ├─ after  switch \(location(member.after.site)); owner \(location(member.after.owner.site))",
                   "│  └─ lexical conditions: \(display(member.after.conditions.map { $0.joined(separator: " | ") }.joined(separator: " → "))) (active branches unresolved)"]
