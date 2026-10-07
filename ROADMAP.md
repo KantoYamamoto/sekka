@@ -6,7 +6,7 @@
 
 **通常diffを補い、変更を既存構造へどう組み込むか考えるための差分外の実装・既存窓口を、関連根拠付きで示す。** 構文上の候補と不明を区別し、設計の良否・実calleeを推測で確定しない。Swift 6以降、CLI/Actions、LLMなしの決定論性を維持する。
 
-現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#105 / PR #106は完了、#107 / PR #108は実験CLIの組み直し・独立点検まで完了し、最終PRを確認している。** 前比較は構造再検討の機械寄与0、stage1資料の非対称による純増効果未判定を保持する。[結果と限界](docs/validation/both-side-call-holdout.md)。
+現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#107 / PR #108の実験CLI置換は完了、#109で未見比較へ進む。** 前比較は構造再検討の機械寄与0、stage1資料の非対称による純増効果未判定を保持する。[結果と限界](docs/validation/both-side-call-holdout.md)。
 
 #105では未変更宣言という枠を外し、同じswitch構文形の変更が入る実行領域を試した。既読GRDBのinitializer/変更された既存helper/未変更property利用表記へ到達、他2件0。26対照・code/fact/文書独立点検・自己利用は完了、最終PRのActions/実Bot/10成果物まで確認して完了。[診断](docs/validation/cochange-diagnostic.md) / [方針0048](docs/decisions/0048-changed-existing-context.md)。未読利益は未確立で、本番/M3は保留。必要性のA/B判断差を残し、到達だけを成功にしない。人間判断待ちなし。
 
@@ -24,8 +24,8 @@
 
 | 順序 | Issue | 完了条件 / 状態 |
 | --- | --- | --- |
-| 現在 | [#107 関係を直接出す実験CLI](https://github.com/KantoYamamoto/sekka/issues/107) | 旧検索runtimeを撤去し、関係・全位置・差異・反対材料・不明を直接JSON/罫線textへ返す。合成対照/既読3入力/独立点検/自己利用/実CIを確認 |
-| 次 | CLI固定後に分解 | 同じPR説明/通常diffを両stage1へ渡す未読比較。範囲拡大だけなら撤去/用途限定 |
+| 現在 | [#109 直接関係の未見比較](https://github.com/KantoYamamoto/sekka/issues/109) | 固定評価器/選択規則で新しいPRを選び、両stage1へ同じ通常diff、Bだけ直接関係出力を渡す。source前checkpoint・必要先/実使用/反対理由を独立点検する |
+| 次 | 比較後に分解 | 配置再考への寄与が支持される用途だけ統合を検討。未到達なら別の決定論的根拠を検討し、無ければ用途限定/撤退を人間へ通知 |
 
 <details><summary>完了したM1/M2の作業と根拠</summary>
 
@@ -46,9 +46,9 @@ M1の#73（構文索引/PR #75）と#74（検索と表示/PR #76）は完了。M
 | 11 | [#96 減った利用と残る窓口の診断](https://github.com/KantoYamamoto/sekka/issues/96) | 58必要位置を先に固定、4caseの全42減少selector/4不変候補を照合。copy先例と挙動helperに交差、同名/必要集合外も記録。37対照・修正後全bytes一致・独立点検/指摘修正完了。PR #99でActions/実コメント/10成果物まで確認して完了 |
 | 12 | [#98 実験CLIの失敗表示](https://github.com/KantoYamamoto/sekka/issues/98) | reader/formatterを共有し、path欠落の独立指摘も修正。85テスト/14 CLI/37診断対照と失敗全bytes一致を確認。PR #101で通常Actions/実コメント/10成果物まで確認して完了 |
 | 13 | [#100 両側のcall入口](https://github.com/KantoYamamoto/sekka/issues/100) | 前後call索引と不変判定を共有、member経路をintroduced/decreasedへ置換。100テスト/17 CLI/診断37と既知4caseを確認、全81出現/13targetを独立点検。詳細外も全位置を残す。PR #103でActions/実Bot/10成果物まで完了 |
-| 14 | [#102 両側入口の別入力比較](https://github.com/KantoYamamoto/sekka/issues/102) | 3素材/全bytes/diff、全3pairs・結果独立点検済み、1入力不成立。stage1非対称を解釈制限として保持、露出誤分類を訂正。PR #104の最終Actions/実Bot/10成果物まで完了、M3保留。次は#105の観測単位診断 |
-
+| 14 | [#102 両側入口の別入力比較](https://github.com/KantoYamamoto/sekka/issues/102) | 3素材/全bytes/diff、全3pairs・結果独立点検済み、1入力不成立。stage1非対称を解釈制限として保持、露出誤分類を訂正。PR #104の最終Actions/実Bot/10成果物まで完了、M3保留 |
 | 15 | [#105 観測単位の診断](https://github.com/KantoYamamoto/sekka/issues/105) | 26対照・全1,891入力entries・独立code/fact/文書点検・自己利用、PR #106の最終Actions/実Bot/10成果物まで完了。既読1関係・他2件0、未読利益は未確立 |
+| 16 | [#107 直接関係CLI](https://github.com/KantoYamamoto/sekka/issues/107) | 旧検索runtime撤去、13Swift/31CLI対照・既読全1,891entries/全位置parity・独立指摘修正・自己利用・最終Actions/実Bot/10成果物を確認しPR #108で完了。本番/M3保留 |
 
 </details>
 

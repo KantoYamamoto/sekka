@@ -1,0 +1,26 @@
+{
+  "selectorSHA256": "9377e1712ec308baec606b39ec40b6d057d985f4aaa9974bfb4e70c9b5b819df",
+  "controls": [
+    {
+      "case": "rename-out-remains-eligible",
+      "passed": true
+    },
+    {
+      "case": "removed-production-remains-eligible",
+      "passed": true
+    },
+    {
+      "case": "incomplete-file-count-stops",
+      "passed": true
+    },
+    {
+      "case": "duplicate-file-inventory-stops",
+      "passed": true
+    },
+    {
+      "case": "changed-metadata-stops",
+      "passed": true
+    }
+  ],
+  "meaning": "Own fake metadata, no API/source/selection execution"
+}
