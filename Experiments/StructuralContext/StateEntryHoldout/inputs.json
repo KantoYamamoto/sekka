@@ -1,0 +1,2139 @@
+[
+  {
+    "repository": "jordanbaird/Ice",
+    "number": 528,
+    "url": "https://github.com/jordanbaird/Ice/pull/528",
+    "before": "16222b344f7fe31c6b61cfeb5aae5978d4fe6874",
+    "after": "eb41f1a4846ecd501a783031b21c4fbe4a50ee80",
+    "prefix": "Ice/",
+    "id": "Ice-528",
+    "files": [
+      {
+        "side": "after",
+        "path": "Ice/Bridging/Bridging.swift",
+        "blob": "d35d7a796b206ac31af009875ed6728fdd1f92c9",
+        "bytes": 9475,
+        "sha256": "8bfd3f2935b68cb6a235f1a18053ac080dad6a868ecee77a6270e5fe252cb78f",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Bridging/Shims/Deprecated.swift",
+        "blob": "aaac42ea839837abd21f3762205720321e00f9a5",
+        "bytes": 225,
+        "sha256": "0fd9a8876f50f4db1afef60ce4503195a7774af7986ce868d3825e9bac298e05",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Bridging/Shims/Private.swift",
+        "blob": "e03528adb94a9b59acbdbab5e7af31be971e26b0",
+        "bytes": 3288,
+        "sha256": "358105771423c419ba7f507e2cf12029adfa53a6eb344f939c9ff1f3662e7a69",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Events/EventManager.swift",
+        "blob": "b1c154c8c8643bdecd94c1acabdde39d98a32311",
+        "bytes": 18008,
+        "sha256": "9cb62e2dd82ec9fa74034a5203ee6e092d21cc2637552f1908a7b089fe00c5a4",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Events/EventMonitors/GlobalEventMonitor.swift",
+        "blob": "81fe9362835d102a1d6e5078818a0aec83636e91",
+        "bytes": 2686,
+        "sha256": "5026f4d6977c372c5909500ae27aa7c9e4b67f142baf734fb53fc926d14d1697",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Events/EventMonitors/LocalEventMonitor.swift",
+        "blob": "814c0488a7c4d50f16e73876fcb4d61905caa4b8",
+        "bytes": 2707,
+        "sha256": "c63de2bb31c5f549d1711755ab56a72946ee6bcf88fe79d6805d573d86ddff68",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Events/EventMonitors/RunLoopLocalEventMonitor.swift",
+        "blob": "57ecd519fc0018c41fe37792434be6234f35b81c",
+        "bytes": 3741,
+        "sha256": "e92c847b0b3c58e3bc8d84b0fcaf69eefd50bc09f67162e80d018d9289943f9e",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Events/EventMonitors/UniversalEventMonitor.swift",
+        "blob": "98d0e80677d324187f24dab4ec41e691ef7da823",
+        "bytes": 2597,
+        "sha256": "1e91f0934e3fb159a8e32493eaf1a56f6be40d8393b52752b6c9b72a29a2af51",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Events/EventTap.swift",
+        "blob": "6f00ee30825d0b5a8d42c1a6f43314b110ff876b",
+        "bytes": 8335,
+        "sha256": "7817b7c85fe4c4a5b71ec50761fb402471ecad60b940d43935edcd9d3ef98bb1",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Hotkeys/Hotkey.swift",
+        "blob": "2f3b6db74bc90f9153f1ac5f859f2a105a2ef2c6",
+        "bytes": 3665,
+        "sha256": "019d09714b5181fc4563f77f48de220cb773642b7b5c840a6340d962c96089bf",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Hotkeys/HotkeyAction.swift",
+        "blob": "51a717984fc300b076f1c462a6a0072492e8c825",
+        "bytes": 1754,
+        "sha256": "12b81e322360c254a68a4d5f5a115529c8bfe1dc0b27021de01e24dc3bde4a41",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Hotkeys/HotkeyRegistry.swift",
+        "blob": "e731c5cebe61fe86490bf9c51369cf0cdcf13014",
+        "bytes": 9301,
+        "sha256": "cb2d18ee32b9083adee3bd7f094107cf107b61bf428a37bf8f8eca72e56dde35",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Hotkeys/KeyCode.swift",
+        "blob": "0c82e822222a59b994a962811d2253b9f16481d4",
+        "bytes": 10152,
+        "sha256": "75c0ebdbebac6efc584369cf34f13459f2a9ddb9a87f6eadb5bc252cb26b2e37",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Hotkeys/KeyCombination.swift",
+        "blob": "ba16f50f4c5ba0d06891c64ec1b2b6fe352da4d1",
+        "bytes": 2720,
+        "sha256": "2d26d4c857626dc7d6d559dabcdca70c9b8aa79862ca176121dc02de1983ad17",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Hotkeys/Modifiers.swift",
+        "blob": "b7116a5e7d841593f26258ce5211845890f49f17",
+        "bytes": 4273,
+        "sha256": "761afdf6c6520648c7936acb4e131e8ec0da69cb6102c9882cb692d2b1195051",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Main/AppDelegate.swift",
+        "blob": "ee237727710773956dd02a550e5cd6ef4ea92a68",
+        "bytes": 3192,
+        "sha256": "ab2c7610463e9ede6a1d996848bff5b37d0145de5a9e8668c0ad55fc7027bc82",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Main/AppState.swift",
+        "blob": "d06d8efa3cd3c93ff7f7fd1a5bc29fb2570b09dc",
+        "bytes": 10797,
+        "sha256": "19e998f1df4c65e79ee87ed6991641bbb13b26a07a7b600c5743d5ab52942bc9",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Main/IceApp.swift",
+        "blob": "c0a4457f42bf4d68f736ad4e85b1ee15b6809b6b",
+        "bytes": 464,
+        "sha256": "1e6d2524bd58256139ffd4e01d11fb4a46501796ad835da50c15998be462a3f7",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Main/Navigation/AppNavigationState.swift",
+        "blob": "e06a6f4219aceff0e58319d3e6da38b5c42e77ab",
+        "bytes": 431,
+        "sha256": "5585b7e2140cc3404ffb510614c4a2d604175bf0699c97822f6059ab2bf30c23",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Main/Navigation/NavigationIdentifiers/NavigationIdentifier.swift",
+        "blob": "3d8f87ff4023de47b19feea9573250add617d51b",
+        "bytes": 579,
+        "sha256": "2900fee269418773e2278f87331a9964d407544266e3a4a4a997e2c76917693c",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Main/Navigation/NavigationIdentifiers/SettingsNavigationIdentifier.swift",
+        "blob": "31530d7a686d218f57e729e45762c652323d978f",
+        "bytes": 424,
+        "sha256": "4725f18668bda56e8414d18c559f599b61e411e5f6acf4f0fa1e9184c6ede5c2",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/Appearance/Configurations/MenuBarAppearanceConfigurationV1.swift",
+        "blob": "1d0fa049d70886e7950073d964df03af05234161",
+        "bytes": 7305,
+        "sha256": "c69e272ca66b3f35a5265b402535a2ddf0a0115bb761b71d1b00c2224b84ac08",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/Appearance/Configurations/MenuBarAppearanceConfigurationV2.swift",
+        "blob": "9daaeeac6122c2504fdf49eff68e217e18658fac",
+        "bytes": 6660,
+        "sha256": "4bccf000e18ab2657422cae5127807d512b22c94a463cf8ded25c28f53f8aa0b",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/Appearance/MenuBarAppearanceEditor/MenuBarAppearanceEditor.swift",
+        "blob": "d590afc7cd749a5c6eb110399a866b2b1ef0d530",
+        "bytes": 9765,
+        "sha256": "e6a36a6fc0df56cc5a0ff3c90323b93948e7c208ef8f0c0f0e47cea2ab00a9b7",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/Appearance/MenuBarAppearanceEditor/MenuBarAppearanceEditorPanel.swift",
+        "blob": "832a5e57792ccfc1c21820f0b2a466e691e066b1",
+        "bytes": 3703,
+        "sha256": "71cdf30a2b1c0f46694835e2af126560e03268362aea9a67e87066e8417dfac5",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/Appearance/MenuBarAppearanceEditor/MenuBarShapePicker.swift",
+        "blob": "be73afc984c2ce548173fc80e6ee7dd539893280",
+        "bytes": 6074,
+        "sha256": "15f636401e3c3a970b4e4dc969184f4f0e78f0e715754b48a3df4b40c3024ea8",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/Appearance/MenuBarAppearanceManager.swift",
+        "blob": "74cda2f4dff76f5cee215bf5496790e8a7f306ad",
+        "bytes": 5495,
+        "sha256": "c67e1b273189ae915e98fa03b766796ce4dcdc9c6bcc5e683598b0deb2512e60",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/Appearance/MenuBarOverlayPanel.swift",
+        "blob": "5b1776c28effcfbcf15d3882c10ca2e1aad7e7a9",
+        "bytes": 29649,
+        "sha256": "137b32f65d30d7a1d519f49dc3bde4a1f598a102248117a7994a9dc09cfd0364",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/Appearance/MenuBarShape.swift",
+        "blob": "b80355149b6ada3c9b85687a0e2b9c80c1a5ce2b",
+        "bytes": 1773,
+        "sha256": "714f51529245ff0d1fd08c27197d0eba6ef347ce95909975aad8c5464d4991fa",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/Appearance/MenuBarTintKind.swift",
+        "blob": "9d665f63d4c657b80c82239f9089b45d21549648",
+        "bytes": 617,
+        "sha256": "b7b9c9a762bcc65b7fc8524929a1268b908156c5d20511792a56f3f5402f6474",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/ControlItem/ControlItem.swift",
+        "blob": "d35f356c9f6e25124780b3e17b0bebcf05183786",
+        "bytes": 20394,
+        "sha256": "1f95563c0d9a163070f8dd9bfe29ebaa737104b4b0c0534104c162f3a3b16705",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/ControlItem/ControlItemImage.swift",
+        "blob": "af5dcdd10017c607204ce670ae18a6b69dfc3799",
+        "bytes": 3617,
+        "sha256": "6e647411e99dae94f02f51b1916b8e04be5ba929207c71729f40800d66a28c2f",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/ControlItem/ControlItemImageSet.swift",
+        "blob": "292153dbc4020cf485c79cc06589a7e6ebe07aeb",
+        "bytes": 2465,
+        "sha256": "3dd46335268cf89dc0ab2f95c89ff74f04eaa206793fa763be6d672411bc722e",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/MenuBarItems/MenuBarItem.swift",
+        "blob": "4d68bd44b817d342eb9ac7d1f11a4412e85d76c2",
+        "bytes": 8015,
+        "sha256": "7cfa5fd97a53d669bee1c077f73b02c0b1bbf492f0a3196a4a58c9a37abe8aba",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/MenuBarItems/MenuBarItemImageCache.swift",
+        "blob": "8b13e895ea648095901153f2c6084e4895cdbd63",
+        "bytes": 10080,
+        "sha256": "60cca34ff026325b8c579eef1cd2f4a0d25e8a6a12faee9bc7455c0bf7693cfb",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/MenuBarItems/MenuBarItemInfo.swift",
+        "blob": "405a35cae3e66d34b716755c7e7e7003cbbf5430",
+        "bytes": 6884,
+        "sha256": "2d0d2a9cc5b3c4f934c692607b5587090b8daab7927d640f248570fd7af5025e",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/MenuBarItems/MenuBarItemManager.swift",
+        "blob": "68694d0dcda9f30099728ba14ade04a0f71e211a",
+        "bytes": 62421,
+        "sha256": "818119620fa1ce0f3bf8dd135489562ed83064a80b6a223bd544a97bab92cc01",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/MenuBarManager.swift",
+        "blob": "5feed0ac51e822be804f5e0e2fe6a0f41c8f0083",
+        "bytes": 15321,
+        "sha256": "d7aec2a94debe379102cca3f5d2fb862049b141a48047d7023b8dffb4ba8ebe1",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/MenuBarSection.swift",
+        "blob": "b1157d37781c463c2c9932c82b8966e768fe65b7",
+        "bytes": 9928,
+        "sha256": "9ad75d7aaf8a508593307172b939cf1d81ad6e0b43a38da5e1b654ed260673ce",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/Search/MenuBarSearchPanel.swift",
+        "blob": "1730cd8c3d969d31d7338fdc99ef38da661d06ab",
+        "bytes": 14540,
+        "sha256": "777eb639405ad7792780dfd63a0b7ab85ec1bb81d7ec60535537f6e876bcb368",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/MenuBar/Spacing/MenuBarItemSpacingManager.swift",
+        "blob": "4eb0fae395546699bc5fa8a3391c093c7b8aca9a",
+        "bytes": 7905,
+        "sha256": "f35442c6af46029e87c827936b7b52e2514da0ed176d43f62f2e196379d9a527",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Permissions/Permission.swift",
+        "blob": "dd82abd186724e67a9668eb13274e80964e8118a",
+        "bytes": 4807,
+        "sha256": "aa7d92d0a092c5535394bff937a188995dcaf64a85dbd7f9e1ac42aa6f83f746",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Permissions/PermissionsManager.swift",
+        "blob": "c991d0474159cb0573f943190e47ea141a7a88ff",
+        "bytes": 2200,
+        "sha256": "c2c96a7010d233a57c1b42e749af7d54b692f97b4a5f5e4d1f8fcc04997d01b0",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Permissions/PermissionsView.swift",
+        "blob": "8b74300953267cab16cf520c1b10c7a9035d32cb",
+        "bytes": 5976,
+        "sha256": "ca68bef309bd0f363911b379dabdd1357f2d72108f7d5ca420d552f304d2b08e",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Permissions/PermissionsWindow.swift",
+        "blob": "afdafe7f172057da248cc244d945907b93b21556",
+        "bytes": 650,
+        "sha256": "c939e88523c5cb5c8e7e7d10054f1daef0cd48804ce3aaf4924a2cc3bf497e29",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Settings/SettingsManagers/AdvancedSettingsManager.swift",
+        "blob": "9585b31abad668820cb2e97f3446faac67bd9189",
+        "bytes": 4355,
+        "sha256": "73d81945fa779c1baef76f2172dd2759f316ece3be6c529104724714a15480ec",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Settings/SettingsManagers/GeneralSettingsManager.swift",
+        "blob": "d4d0cd5834c799d0ff85d922b54c96e506c773a0",
+        "bytes": 7445,
+        "sha256": "4185ca9f94f20e51be134b6bf36ebabb25dc536efe8cc89a12cad856ab85cce8",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Settings/SettingsManagers/HotkeySettingsManager.swift",
+        "blob": "ea8c2cbebf5b6c2227876f0bd5c0e3ec3437ee9c",
+        "bytes": 2531,
+        "sha256": "1c79373bd8ae45d1d76418a2f150eed56a63165d5277fce36dbac3e7f4965b8e",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Settings/SettingsManagers/SettingsManager.swift",
+        "blob": "fca81bd954544bd3fb15fd0a126c112b3181c0f0",
+        "bytes": 1816,
+        "sha256": "05f664eeb41ae705712af8461a9f4b5e3df4a5f6fda2553b9e546d6b91d47d82",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Settings/SettingsPanes/AboutSettingsPane.swift",
+        "blob": "f05b152b09442997ab23829510ad6a054ab79bc0",
+        "bytes": 2746,
+        "sha256": "e356a7f8d9f32de1b9038ea8c68a48e3bf40c13dcd444be10df4ccfe8bfac308",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Settings/SettingsPanes/AdvancedSettingsPane.swift",
+        "blob": "47d19e5a3b4d466f4c775e717fa7670cb59d2669",
+        "bytes": 6023,
+        "sha256": "c971fb6fc79a3c4dbaaee04df95060abca7f8db2c73b63dd5f02e5bd399520f5",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Settings/SettingsPanes/GeneralSettingsPane.swift",
+        "blob": "02bbe92d43dfe07d85bf344886a208b32cbe972c",
+        "bytes": 11224,
+        "sha256": "b0f85a4a9c561fad39fbd8d45ae150f2d2c86d1f974cab95e8f65d536e9ca38a",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Settings/SettingsPanes/HotkeysSettingsPane.swift",
+        "blob": "b05cd89e912646b697c92ceea27b2e78b1abb1bf",
+        "bytes": 2161,
+        "sha256": "213ce74d95a68136032621597d843ecf8885781c8e797685009413cb3f5a67b5",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Settings/SettingsPanes/MenuBarAppearanceSettingsPane.swift",
+        "blob": "ca28b13c0878335f14cca641abcdf0aad92af164",
+        "bytes": 398,
+        "sha256": "db4b352d58352e879838b1ba81b5bfd119514a786ee210b059aa7c7a7415aae1",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Settings/SettingsPanes/MenuBarLayoutSettingsPane.swift",
+        "blob": "b103824882b2755e897f0ba0ad3880f3985d37eb",
+        "bytes": 2568,
+        "sha256": "fcd6cfb5127a324e31b117c7ce10c2e59799b0f981166500aa8d94b8c41fa3be",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Settings/SettingsPanes/UpdatesSettingsPane.swift",
+        "blob": "2608661f8f303f418e45fca6ae8cbce184147c67",
+        "bytes": 1691,
+        "sha256": "3fc3745ca5ae255126e1047ecec978379d2874c2e745d1d7874779c66cdb3488",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Settings/SettingsView.swift",
+        "blob": "2f5fda4130975f66f294414d5d282d62ac16c886",
+        "bytes": 3186,
+        "sha256": "921af42cf7b102915466fdcbc86d01a6ef542134d970c1de2f4c3b47b0345051",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Settings/SettingsWindow.swift",
+        "blob": "b8bc94b08d8bf748b023f190dea3f7cac9bd6eec",
+        "bytes": 755,
+        "sha256": "09a347d16d902dce225a7399ba4a137ac97fa641956215de354d7d0313a1df44",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Swizzling/NSSplitViewItem+swizzledCanCollapse.swift",
+        "blob": "b0409a71f5c009c0b2695eea78ee928796947c9f",
+        "bytes": 1020,
+        "sha256": "29a0975df2cd1f878dbca25b86490bfc0cc9c24e47155d33de281b22c1bd7e70",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/HotkeyRecorder/HotkeyRecorder.swift",
+        "blob": "d382b3646ffb614cab0d9a822ab3ed6d4a569db2",
+        "bytes": 4588,
+        "sha256": "f4e962d8d623d806f2287f2c11a68c5ac2b8d07656befcaf90962fa69939072f",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/HotkeyRecorder/HotkeyRecorderModel.swift",
+        "blob": "0617f97b0b6a4f0eea216776f44000dd397e6123",
+        "bytes": 1974,
+        "sha256": "e3cf0a4b72375dfdf6ecb6cd75b38a5da2b8110e24de697b3e4cdbfc65fca4b6",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/IceBar/IceBar.swift",
+        "blob": "40c6898298f9f6504f3345d6bff8ec42028ec1fd",
+        "bytes": 16864,
+        "sha256": "8469b8c6b60cbed28ca5625f1ccc186f71cff001b721b07b3dea0fdbf7709847",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/IceBar/IceBarColorManager.swift",
+        "blob": "da77cd19ae3c59808257a42f98f3ae223e8b2ca9",
+        "bytes": 4426,
+        "sha256": "fec4e8d69b26f9b4054809eab17fac93aca5381bb61e2be305e3b89437d534f4",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/IceBar/IceBarLocation.swift",
+        "blob": "3d2cc067c8d9984b4a02665a05b2bdad98c3ae5e",
+        "bytes": 692,
+        "sha256": "995ced860c9056598e2fd1a8a36dbc988b64ea7277baa648a6f8727e0153f6ed",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/IceUI/IceForm.swift",
+        "blob": "32a42b597f97f990c08f42aa9a477f66dab277cf",
+        "bytes": 2018,
+        "sha256": "f2245cb297a816d48e7894ee6ca110b1d8205f31f68fb0681bd295dccd2ef8aa",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/IceUI/IceGroupBox.swift",
+        "blob": "ebfeb9aef11dfed0ed1ae8bd46896d39a6b1656c",
+        "bytes": 2436,
+        "sha256": "281ed2d52375810ee4f698fa6143cb7ad06825633538eb96b493f0aa59538a91",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/IceUI/IceLabeledContent.swift",
+        "blob": "63740c13b6f0680832b3a9b7aa4a74220c54cff4",
+        "bytes": 843,
+        "sha256": "2bf40c0982d63f6e85132ee419c356ea71783de447b9aaab6aeb36ff630432b5",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/IceUI/IceMenu.swift",
+        "blob": "5e7a8388d93a05eee3a509845bfd191f8e3d89b8",
+        "bytes": 4465,
+        "sha256": "000d76e6a8e6634fa5b80fd60b9de79a0c6cb80808f3c9c4f80bcd22aade3cb4",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/IceUI/IcePicker.swift",
+        "blob": "1633bf2fcdfdf457c73f5b5dc48b2d512608762f",
+        "bytes": 2938,
+        "sha256": "becb6a32c18fd2dbf94d41e9c8358c6ebc8a6e673985a44dbdfb6ecdce19c560",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/IceUI/IcePopUpIndicator.swift",
+        "blob": "0e538c8477b74066f180e1c02f0ab5593e985007",
+        "bytes": 1149,
+        "sha256": "7d0638c60dce7c123bc6818f9dd5b39f838b77ad14a15451ed1db662657994c1",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/IceUI/IceSection.swift",
+        "blob": "286d9e01ce612fa0de38161b59648bedb5e0bece",
+        "bytes": 3170,
+        "sha256": "21446385d20dfb88a6ae02c274c260af33381a217c90940bc0cefba6f99e1383",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/IceUI/IceSlider.swift",
+        "blob": "4d2f911ea937d0f3b40ad8084e9303192aaefa7b",
+        "bytes": 1640,
+        "sha256": "bca4c8a481a4cd2dc7de60085575c5be982c18631755f580029205fb8d9f7df5",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/LayoutBar/LayoutBar.swift",
+        "blob": "be9e1ce687faf55c4caba1d5e9435d9d608d4640",
+        "bytes": 1821,
+        "sha256": "15afc4f2be00011675ddfbf5967226cb7c0af1dcb482ef7139e73959102ad7dd",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/LayoutBar/LayoutBarContainer.swift",
+        "blob": "aa172beaf2706563c5df2cd7c025ec2f49217f45",
+        "bytes": 11252,
+        "sha256": "ef79ca1e2e91c9e6551a726ea8418c42474d90e1f929a8290436c3beba254409",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/LayoutBar/LayoutBarItemView.swift",
+        "blob": "74cb6f81925719d069b2c5040a919de4ea2df44b",
+        "bytes": 8387,
+        "sha256": "80bf556554fcc7785d1705cc76a5c9efc10a56770b280fc2e34ec42388c3125d",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/LayoutBar/LayoutBarPaddingView.swift",
+        "blob": "beab4f7663791b8a0ad48f87531bd8f488aa32a8",
+        "bytes": 5696,
+        "sha256": "9bc76a55a3eb65a89987b2bd5369df499eb2c6a504dcb0279b0b295435f6239a",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/LayoutBar/LayoutBarScrollView.swift",
+        "blob": "6d5e0e6d8628162dd4a470ce96656277e153fbed",
+        "bytes": 3160,
+        "sha256": "f9b4f38a25d5bd17278a51d63459562c31d0b3ac92fd75b4a107dbb18c8f57e5",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/Pickers/CustomColorPicker/CustomColorPicker.swift",
+        "blob": "a0a82451bcc2766d7117e450c9f466aee3b9eb4c",
+        "bytes": 3684,
+        "sha256": "7c8e0be2d333ab63f4a005bdf636915ee2253e88f58cd89e1e3c5f3e09969b81",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/Pickers/CustomGradientPicker/ColorStop.swift",
+        "blob": "709fe89d6c0ae7a164e09ced8ed0ff6d074d4d2a",
+        "bytes": 1211,
+        "sha256": "675c3096d4a83f00ae7193467b138df4081cb8003890da566e99771e8b2e1b3b",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/Pickers/CustomGradientPicker/CustomGradient.swift",
+        "blob": "aecf28e4a20f4ea27127efc6d496927ff1ab1eb1",
+        "bytes": 3321,
+        "sha256": "2f9830c9a31bb942a3999797d966a461bd98cafab600b69de5da8f0007dddcfe",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/Pickers/CustomGradientPicker/CustomGradientPicker.swift",
+        "blob": "ec23585f1e6016138599f071692e08b9c6daee35",
+        "bytes": 14022,
+        "sha256": "41580aa112da429fd8fff6e8801f72160ca3bdf74b7c534094fa6e4e4b8e428a",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/Shapes/AnyInsettableShape.swift",
+        "blob": "970fe3e16b7ee2c2db0b30e9f115410528f460ec",
+        "bytes": 547,
+        "sha256": "9d9e3ef044f9f4651bde2c1fd64f913ea763e831e3e670efedcbaf3223939dd5",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/ViewModifiers/BottomBar.swift",
+        "blob": "c742cb83c82c8c74312881f479275b9b7abd697b",
+        "bytes": 580,
+        "sha256": "48738ba748438d713e22c309f6ebfce1a6ea00cfee8da83e3751e4de4bcd95ae",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/ViewModifiers/ErasedToAnyView.swift",
+        "blob": "f8d703f474bf0eaab0b219d8f2e5f8aaddf292bf",
+        "bytes": 220,
+        "sha256": "ece7aeca82fc775265af48160487189212869ea41ad1cab023d78fa5e95d6b42",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/ViewModifiers/LayoutBarStyle.swift",
+        "blob": "67c3783c97723c2b49d7665b25bc9439ede63889",
+        "bytes": 1961,
+        "sha256": "4de33151f36e7c2d42514eb3fc78fe9dba53245d5adc3ecda5d36356acc427fd",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/ViewModifiers/LocalEventMonitorModifier.swift",
+        "blob": "a6ca6ce6181112b82d5bc3d7be329c11951a09ef",
+        "bytes": 1413,
+        "sha256": "b2645e958a87b5e2a92b3bf6267b0e1dedc4d8dbe40cb0e608da8fe8106e3f49",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/ViewModifiers/OnFrameChange.swift",
+        "blob": "1a1924f1abc6bbcddbd9df710c0732d30e9fb8f1",
+        "bytes": 1889,
+        "sha256": "e0ae2a019e4f5f026010d91e34d76f31072541bd9987a55bd0e6efefdfb9f0bd",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/ViewModifiers/OnKeyDown.swift",
+        "blob": "a28759180539fd126fc48daffff55af7eac578a3",
+        "bytes": 452,
+        "sha256": "38fa491b1b9ff060be9ee6a22399af75ab404b5151ef71b2f1a5465fbbdc01e0",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/ViewModifiers/Once.swift",
+        "blob": "d7d116e9fc4452125cacdcc9661b7b6580bdebba",
+        "bytes": 659,
+        "sha256": "81fa932c20b18055c1f9a0b4a2f45e3f946f09b7e6558b49eab29b1c561e4f93",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/ViewModifiers/ReadWindow.swift",
+        "blob": "178e01569d842f0b350900a98f7aef2f0fca9a80",
+        "bytes": 1586,
+        "sha256": "14047f1214215399558a7d7a53b817980f6020c1ec745cdbd4454aa2eb79ae60",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/ViewModifiers/RemoveSidebarToggle.swift",
+        "blob": "59fc29303ee5727b1bea6ac7c2c03aee755ea5c5",
+        "bytes": 299,
+        "sha256": "8a0131f1498b45e5f592d7b19db84389902691b49def4096dfb7612b210ca210",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/Views/AnnotationView.swift",
+        "blob": "54aaeae26d299f107112fd7fe356d3bd58c1539f",
+        "bytes": 6945,
+        "sha256": "8c8abcbd801ffe0bc24eafe8af8001e4662110613bbf702f5711ee188dd46f93",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/Views/BetaBadge.swift",
+        "blob": "26d8b67cb4b59afd43a9aaa94f63f218fea4b707",
+        "bytes": 412,
+        "sha256": "1196c5e0d6c66205ee80953798b415a19b29b63d3dfe2f582bf731c2a767bf87",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/Views/SectionedList.swift",
+        "blob": "ba7dfae985091c090ce09d4935a14254b5a95a7d",
+        "bytes": 6823,
+        "sha256": "0227769454f37c96c3ed2245294239d8ebd9d0ea7379a7907959019bfc3de07c",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UI/Views/VisualEffectView.swift",
+        "blob": "d2245230bd7c31559a7f995fbf38b09206db7fd3",
+        "bytes": 786,
+        "sha256": "7453cea0abaf3fd35200c24601ec744826b1eb09ea2da4d8c7ad05d9f1d1a1bd",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Updates/UpdatesManager.swift",
+        "blob": "ee5f80d7239ba2fc9c9723858a0bfcb71eb4ee45",
+        "bytes": 4275,
+        "sha256": "408f3c0ce0d198aa33b92cc71681ed76610b4d1f4ba01884d288fec1c8699db6",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UserNotifications/UserNotificationIdentifier.swift",
+        "blob": "db42cc6d15f4b797c71cde0abf4996ad7973c195",
+        "bytes": 176,
+        "sha256": "86626ba8224f2aa1b7396de57b34ecec7b11a6988e2e7e561176468536bfaef4",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/UserNotifications/UserNotificationManager.swift",
+        "blob": "8aa9bbab6b714773e284f1acd87a1819cdedc5e7",
+        "bytes": 2753,
+        "sha256": "c3dd3903a743a2f6f4c8f014ce5c12279d890c2f523eb2930488c348c88344c4",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/BindingExposable.swift",
+        "blob": "bb3712bb64f693c72a356f8327da34547896f06c",
+        "bytes": 1350,
+        "sha256": "1556055bd89a2facc3ec54b263aa89c03304be10f9c29533baf3cad83518a827",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/CodableColor.swift",
+        "blob": "8f50ed8cb24bcc00e2f3265aae7067351b0247d3",
+        "bytes": 2547,
+        "sha256": "26e80f82a0457645697f5f6c7de069ad0eb8e6650522ab97c52fede23f411931",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/Constants.swift",
+        "blob": "f964dea7408bf5d540ae8d4bcc13be07c3eea5d2",
+        "bytes": 884,
+        "sha256": "78c01ad5cb7934bca66c63e118a26b5bbbe639920229ca2e021678527358aedf",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/Defaults.swift",
+        "blob": "8349b99e659fd447012fb5e84b4976f1ba1ba90c",
+        "bytes": 6968,
+        "sha256": "48fc4a08308cc869f8205e5e94e1fc61e06e638627a3b0f5b2e3a9b74d59a672",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/Extensions.swift",
+        "blob": "12ddba27ed7413e971b358226fb4510ae9669c35",
+        "bytes": 16952,
+        "sha256": "aa28c42ddf925611f3b088e809489ee101fbecfde72ba6b234e8943c1ec1d517",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/IconResource.swift",
+        "blob": "0668c8faa29290ba4eb80d1ee5594122d52671f1",
+        "bytes": 761,
+        "sha256": "fbb3e4a8b165bca082e40e4d565649ba4405e0abd8806d759578f113f74f39f6",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/Injection.swift",
+        "blob": "87a95abc0941512364b0b2bbfaace22924a164fb",
+        "bytes": 1106,
+        "sha256": "331ed465a2f25a70e708f71b53709bec53c00939358c46134fa86ac664289e79",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/LocalizedErrorWrapper.swift",
+        "blob": "38664c85b9bd591f11fde2c74f76f005048bf5af",
+        "bytes": 1081,
+        "sha256": "0a4bed375db490b24211c4871fe1b7c3689771acc37aacd9960a70b24d15b366",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/Logging.swift",
+        "blob": "e0dfcf303cae5a2ed67848c7a003736a15b716e1",
+        "bytes": 989,
+        "sha256": "1641fe3f3ccb59154503a19109abb3976e7639f925ef99b989e883028e1364a5",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/MigrationManager.swift",
+        "blob": "0141e0bf20d6290a69e2e03ffa9dbdfb512ed3c1",
+        "bytes": 14666,
+        "sha256": "68e4c814c2e33690568040203fb3c4f511a172e1d30b9a81df3099e404419b65",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/MouseCursor.swift",
+        "blob": "e10886fbbe65f8d0c36ecc18de069c311dd8c7d3",
+        "bytes": 1798,
+        "sha256": "e203706bd9c8e12b08d68a6a83559735dd822bb5f4a31d3b773108c9bfb39345",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/Notifications.swift",
+        "blob": "4f81f7dbafe3b1a40e764faceffc17aaefc69c40",
+        "bytes": 293,
+        "sha256": "b1bac7512a599233d949f06dcf99cbfbb85afc7f57a06032c43e7cea18bed7e2",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/ObjectStorage.swift",
+        "blob": "295f7b5788a7872199e9d5cda102f5034fc7b5a7",
+        "bytes": 2326,
+        "sha256": "7c489ae536763cff6c784474deac2494c9605c9ec401487afe979d47155fbe46",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/Predicates.swift",
+        "blob": "64c4c9f9a680ac7854eba9f5cca3ed9b239ea2cb",
+        "bytes": 5107,
+        "sha256": "3b52200c54608529074e8357a65a8c4b9e3f654e0caa736f7f1a052e3ec074e8",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/RehideStrategy.swift",
+        "blob": "89620acfbf1ba537fbcbac29bce9ac4ec7493e23",
+        "bytes": 681,
+        "sha256": "e163c319c2e7dd060086ba4007e45924d49d5339b534a2c25708c82c3a16f365",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/ScreenCapture.swift",
+        "blob": "efa69aab4b13d0e9d344903be33fb1eae1357762",
+        "bytes": 4243,
+        "sha256": "682dcde72d30c1b99604a4d06a3827588bceb36597973779d8bc37838f0ef6c0",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/StatusItemDefaults.swift",
+        "blob": "1e2b1e6b8e09d02f62a76ce7f1f90ff40957a0c6",
+        "bytes": 1864,
+        "sha256": "9c784023565410cececea458a6f4852638d3f44f535fcb8a9e1202d5adbd3eab",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/SystemAppearance.swift",
+        "blob": "b53005fa9a7817917002d9a712f472c25e19b13d",
+        "bytes": 2610,
+        "sha256": "360e49befcf7c36509e8d655a64e657dd32fe51f5c11c23ee2943ac966508010",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/TaskTimeout.swift",
+        "blob": "93d0b77a1281674017d45521cd381482bd881a45",
+        "bytes": 3023,
+        "sha256": "ead392ff482ca3172f359a697255c73e3d5f9b9b66aadde3e4109669bee59cd7",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Ice/Utilities/WindowInfo.swift",
+        "blob": "224bcfbbc7c7adf4c605a4188c12d3649520574c",
+        "bytes": 12119,
+        "sha256": "de221efab47e6ea58a26137f95dfa724e7c9c7755e4d18d62d325972db83236c",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "LICENSE",
+        "blob": "da2a18cf77281fdf2f2f4bba6386f61b85645b1b",
+        "bytes": 35100,
+        "sha256": "a22c5d2fd0877cf9b7069bb011c50e496732c03c93ec62f4b66620e13966b264",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Bridging/Bridging.swift",
+        "blob": "d35d7a796b206ac31af009875ed6728fdd1f92c9",
+        "bytes": 9475,
+        "sha256": "8bfd3f2935b68cb6a235f1a18053ac080dad6a868ecee77a6270e5fe252cb78f",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Bridging/Shims/Deprecated.swift",
+        "blob": "aaac42ea839837abd21f3762205720321e00f9a5",
+        "bytes": 225,
+        "sha256": "0fd9a8876f50f4db1afef60ce4503195a7774af7986ce868d3825e9bac298e05",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Bridging/Shims/Private.swift",
+        "blob": "e03528adb94a9b59acbdbab5e7af31be971e26b0",
+        "bytes": 3288,
+        "sha256": "358105771423c419ba7f507e2cf12029adfa53a6eb344f939c9ff1f3662e7a69",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Events/EventManager.swift",
+        "blob": "9471f419a43e507e5ccf129d361ab9700d29d14b",
+        "bytes": 17918,
+        "sha256": "0161fb4ed0be01c7d462d362fcf99c903ecacda76c0841c6d0f2cd7b8d03640e",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Events/EventMonitors/GlobalEventMonitor.swift",
+        "blob": "81fe9362835d102a1d6e5078818a0aec83636e91",
+        "bytes": 2686,
+        "sha256": "5026f4d6977c372c5909500ae27aa7c9e4b67f142baf734fb53fc926d14d1697",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Events/EventMonitors/LocalEventMonitor.swift",
+        "blob": "814c0488a7c4d50f16e73876fcb4d61905caa4b8",
+        "bytes": 2707,
+        "sha256": "c63de2bb31c5f549d1711755ab56a72946ee6bcf88fe79d6805d573d86ddff68",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Events/EventMonitors/RunLoopLocalEventMonitor.swift",
+        "blob": "57ecd519fc0018c41fe37792434be6234f35b81c",
+        "bytes": 3741,
+        "sha256": "e92c847b0b3c58e3bc8d84b0fcaf69eefd50bc09f67162e80d018d9289943f9e",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Events/EventMonitors/UniversalEventMonitor.swift",
+        "blob": "98d0e80677d324187f24dab4ec41e691ef7da823",
+        "bytes": 2597,
+        "sha256": "1e91f0934e3fb159a8e32493eaf1a56f6be40d8393b52752b6c9b72a29a2af51",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Events/EventTap.swift",
+        "blob": "6f00ee30825d0b5a8d42c1a6f43314b110ff876b",
+        "bytes": 8335,
+        "sha256": "7817b7c85fe4c4a5b71ec50761fb402471ecad60b940d43935edcd9d3ef98bb1",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Hotkeys/Hotkey.swift",
+        "blob": "2f3b6db74bc90f9153f1ac5f859f2a105a2ef2c6",
+        "bytes": 3665,
+        "sha256": "019d09714b5181fc4563f77f48de220cb773642b7b5c840a6340d962c96089bf",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Hotkeys/HotkeyAction.swift",
+        "blob": "51a717984fc300b076f1c462a6a0072492e8c825",
+        "bytes": 1754,
+        "sha256": "12b81e322360c254a68a4d5f5a115529c8bfe1dc0b27021de01e24dc3bde4a41",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Hotkeys/HotkeyRegistry.swift",
+        "blob": "e731c5cebe61fe86490bf9c51369cf0cdcf13014",
+        "bytes": 9301,
+        "sha256": "cb2d18ee32b9083adee3bd7f094107cf107b61bf428a37bf8f8eca72e56dde35",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Hotkeys/KeyCode.swift",
+        "blob": "0c82e822222a59b994a962811d2253b9f16481d4",
+        "bytes": 10152,
+        "sha256": "75c0ebdbebac6efc584369cf34f13459f2a9ddb9a87f6eadb5bc252cb26b2e37",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Hotkeys/KeyCombination.swift",
+        "blob": "ba16f50f4c5ba0d06891c64ec1b2b6fe352da4d1",
+        "bytes": 2720,
+        "sha256": "2d26d4c857626dc7d6d559dabcdca70c9b8aa79862ca176121dc02de1983ad17",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Hotkeys/Modifiers.swift",
+        "blob": "b7116a5e7d841593f26258ce5211845890f49f17",
+        "bytes": 4273,
+        "sha256": "761afdf6c6520648c7936acb4e131e8ec0da69cb6102c9882cb692d2b1195051",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Main/AppDelegate.swift",
+        "blob": "ee237727710773956dd02a550e5cd6ef4ea92a68",
+        "bytes": 3192,
+        "sha256": "ab2c7610463e9ede6a1d996848bff5b37d0145de5a9e8668c0ad55fc7027bc82",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Main/AppState.swift",
+        "blob": "d06d8efa3cd3c93ff7f7fd1a5bc29fb2570b09dc",
+        "bytes": 10797,
+        "sha256": "19e998f1df4c65e79ee87ed6991641bbb13b26a07a7b600c5743d5ab52942bc9",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Main/IceApp.swift",
+        "blob": "c0a4457f42bf4d68f736ad4e85b1ee15b6809b6b",
+        "bytes": 464,
+        "sha256": "1e6d2524bd58256139ffd4e01d11fb4a46501796ad835da50c15998be462a3f7",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Main/Navigation/AppNavigationState.swift",
+        "blob": "e06a6f4219aceff0e58319d3e6da38b5c42e77ab",
+        "bytes": 431,
+        "sha256": "5585b7e2140cc3404ffb510614c4a2d604175bf0699c97822f6059ab2bf30c23",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Main/Navigation/NavigationIdentifiers/NavigationIdentifier.swift",
+        "blob": "3d8f87ff4023de47b19feea9573250add617d51b",
+        "bytes": 579,
+        "sha256": "2900fee269418773e2278f87331a9964d407544266e3a4a4a997e2c76917693c",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Main/Navigation/NavigationIdentifiers/SettingsNavigationIdentifier.swift",
+        "blob": "31530d7a686d218f57e729e45762c652323d978f",
+        "bytes": 424,
+        "sha256": "4725f18668bda56e8414d18c559f599b61e411e5f6acf4f0fa1e9184c6ede5c2",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/Appearance/Configurations/MenuBarAppearanceConfigurationV1.swift",
+        "blob": "1d0fa049d70886e7950073d964df03af05234161",
+        "bytes": 7305,
+        "sha256": "c69e272ca66b3f35a5265b402535a2ddf0a0115bb761b71d1b00c2224b84ac08",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/Appearance/Configurations/MenuBarAppearanceConfigurationV2.swift",
+        "blob": "9daaeeac6122c2504fdf49eff68e217e18658fac",
+        "bytes": 6660,
+        "sha256": "4bccf000e18ab2657422cae5127807d512b22c94a463cf8ded25c28f53f8aa0b",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/Appearance/MenuBarAppearanceEditor/MenuBarAppearanceEditor.swift",
+        "blob": "d590afc7cd749a5c6eb110399a866b2b1ef0d530",
+        "bytes": 9765,
+        "sha256": "e6a36a6fc0df56cc5a0ff3c90323b93948e7c208ef8f0c0f0e47cea2ab00a9b7",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/Appearance/MenuBarAppearanceEditor/MenuBarAppearanceEditorPanel.swift",
+        "blob": "832a5e57792ccfc1c21820f0b2a466e691e066b1",
+        "bytes": 3703,
+        "sha256": "71cdf30a2b1c0f46694835e2af126560e03268362aea9a67e87066e8417dfac5",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/Appearance/MenuBarAppearanceEditor/MenuBarShapePicker.swift",
+        "blob": "be73afc984c2ce548173fc80e6ee7dd539893280",
+        "bytes": 6074,
+        "sha256": "15f636401e3c3a970b4e4dc969184f4f0e78f0e715754b48a3df4b40c3024ea8",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/Appearance/MenuBarAppearanceManager.swift",
+        "blob": "74cda2f4dff76f5cee215bf5496790e8a7f306ad",
+        "bytes": 5495,
+        "sha256": "c67e1b273189ae915e98fa03b766796ce4dcdc9c6bcc5e683598b0deb2512e60",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/Appearance/MenuBarOverlayPanel.swift",
+        "blob": "5b1776c28effcfbcf15d3882c10ca2e1aad7e7a9",
+        "bytes": 29649,
+        "sha256": "137b32f65d30d7a1d519f49dc3bde4a1f598a102248117a7994a9dc09cfd0364",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/Appearance/MenuBarShape.swift",
+        "blob": "b80355149b6ada3c9b85687a0e2b9c80c1a5ce2b",
+        "bytes": 1773,
+        "sha256": "714f51529245ff0d1fd08c27197d0eba6ef347ce95909975aad8c5464d4991fa",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/Appearance/MenuBarTintKind.swift",
+        "blob": "9d665f63d4c657b80c82239f9089b45d21549648",
+        "bytes": 617,
+        "sha256": "b7b9c9a762bcc65b7fc8524929a1268b908156c5d20511792a56f3f5402f6474",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/ControlItem/ControlItem.swift",
+        "blob": "d35f356c9f6e25124780b3e17b0bebcf05183786",
+        "bytes": 20394,
+        "sha256": "1f95563c0d9a163070f8dd9bfe29ebaa737104b4b0c0534104c162f3a3b16705",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/ControlItem/ControlItemImage.swift",
+        "blob": "af5dcdd10017c607204ce670ae18a6b69dfc3799",
+        "bytes": 3617,
+        "sha256": "6e647411e99dae94f02f51b1916b8e04be5ba929207c71729f40800d66a28c2f",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/ControlItem/ControlItemImageSet.swift",
+        "blob": "292153dbc4020cf485c79cc06589a7e6ebe07aeb",
+        "bytes": 2465,
+        "sha256": "3dd46335268cf89dc0ab2f95c89ff74f04eaa206793fa763be6d672411bc722e",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/MenuBarItems/MenuBarItem.swift",
+        "blob": "4d68bd44b817d342eb9ac7d1f11a4412e85d76c2",
+        "bytes": 8015,
+        "sha256": "7cfa5fd97a53d669bee1c077f73b02c0b1bbf492f0a3196a4a58c9a37abe8aba",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/MenuBarItems/MenuBarItemImageCache.swift",
+        "blob": "8b13e895ea648095901153f2c6084e4895cdbd63",
+        "bytes": 10080,
+        "sha256": "60cca34ff026325b8c579eef1cd2f4a0d25e8a6a12faee9bc7455c0bf7693cfb",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/MenuBarItems/MenuBarItemInfo.swift",
+        "blob": "405a35cae3e66d34b716755c7e7e7003cbbf5430",
+        "bytes": 6884,
+        "sha256": "2d0d2a9cc5b3c4f934c692607b5587090b8daab7927d640f248570fd7af5025e",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/MenuBarItems/MenuBarItemManager.swift",
+        "blob": "68694d0dcda9f30099728ba14ade04a0f71e211a",
+        "bytes": 62421,
+        "sha256": "818119620fa1ce0f3bf8dd135489562ed83064a80b6a223bd544a97bab92cc01",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/MenuBarManager.swift",
+        "blob": "5feed0ac51e822be804f5e0e2fe6a0f41c8f0083",
+        "bytes": 15321,
+        "sha256": "d7aec2a94debe379102cca3f5d2fb862049b141a48047d7023b8dffb4ba8ebe1",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/MenuBarSection.swift",
+        "blob": "b1157d37781c463c2c9932c82b8966e768fe65b7",
+        "bytes": 9928,
+        "sha256": "9ad75d7aaf8a508593307172b939cf1d81ad6e0b43a38da5e1b654ed260673ce",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/Search/MenuBarSearchPanel.swift",
+        "blob": "1730cd8c3d969d31d7338fdc99ef38da661d06ab",
+        "bytes": 14540,
+        "sha256": "777eb639405ad7792780dfd63a0b7ab85ec1bb81d7ec60535537f6e876bcb368",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/MenuBar/Spacing/MenuBarItemSpacingManager.swift",
+        "blob": "4eb0fae395546699bc5fa8a3391c093c7b8aca9a",
+        "bytes": 7905,
+        "sha256": "f35442c6af46029e87c827936b7b52e2514da0ed176d43f62f2e196379d9a527",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Permissions/Permission.swift",
+        "blob": "dd82abd186724e67a9668eb13274e80964e8118a",
+        "bytes": 4807,
+        "sha256": "aa7d92d0a092c5535394bff937a188995dcaf64a85dbd7f9e1ac42aa6f83f746",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Permissions/PermissionsManager.swift",
+        "blob": "c991d0474159cb0573f943190e47ea141a7a88ff",
+        "bytes": 2200,
+        "sha256": "c2c96a7010d233a57c1b42e749af7d54b692f97b4a5f5e4d1f8fcc04997d01b0",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Permissions/PermissionsView.swift",
+        "blob": "8b74300953267cab16cf520c1b10c7a9035d32cb",
+        "bytes": 5976,
+        "sha256": "ca68bef309bd0f363911b379dabdd1357f2d72108f7d5ca420d552f304d2b08e",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Permissions/PermissionsWindow.swift",
+        "blob": "afdafe7f172057da248cc244d945907b93b21556",
+        "bytes": 650,
+        "sha256": "c939e88523c5cb5c8e7e7d10054f1daef0cd48804ce3aaf4924a2cc3bf497e29",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Settings/SettingsManagers/AdvancedSettingsManager.swift",
+        "blob": "d1fed6a64e52ab8eac373dc6df1ac1a902ebe0f1",
+        "bytes": 3969,
+        "sha256": "8a573a9e20a968e1328321b3024e90d734e3f042692869b1c3be5921130b8a31",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Settings/SettingsManagers/GeneralSettingsManager.swift",
+        "blob": "d4d0cd5834c799d0ff85d922b54c96e506c773a0",
+        "bytes": 7445,
+        "sha256": "4185ca9f94f20e51be134b6bf36ebabb25dc536efe8cc89a12cad856ab85cce8",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Settings/SettingsManagers/HotkeySettingsManager.swift",
+        "blob": "ea8c2cbebf5b6c2227876f0bd5c0e3ec3437ee9c",
+        "bytes": 2531,
+        "sha256": "1c79373bd8ae45d1d76418a2f150eed56a63165d5277fce36dbac3e7f4965b8e",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Settings/SettingsManagers/SettingsManager.swift",
+        "blob": "fca81bd954544bd3fb15fd0a126c112b3181c0f0",
+        "bytes": 1816,
+        "sha256": "05f664eeb41ae705712af8461a9f4b5e3df4a5f6fda2553b9e546d6b91d47d82",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Settings/SettingsPanes/AboutSettingsPane.swift",
+        "blob": "f05b152b09442997ab23829510ad6a054ab79bc0",
+        "bytes": 2746,
+        "sha256": "e356a7f8d9f32de1b9038ea8c68a48e3bf40c13dcd444be10df4ccfe8bfac308",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Settings/SettingsPanes/AdvancedSettingsPane.swift",
+        "blob": "eeb0f4360fb715c8ffe7aa9bc2eff3a60fa0b09b",
+        "bytes": 5795,
+        "sha256": "eaa7801e45c481facdddfc9796c38e8533768d209be6b7ff848e6dca6837bef1",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Settings/SettingsPanes/GeneralSettingsPane.swift",
+        "blob": "02bbe92d43dfe07d85bf344886a208b32cbe972c",
+        "bytes": 11224,
+        "sha256": "b0f85a4a9c561fad39fbd8d45ae150f2d2c86d1f974cab95e8f65d536e9ca38a",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Settings/SettingsPanes/HotkeysSettingsPane.swift",
+        "blob": "b05cd89e912646b697c92ceea27b2e78b1abb1bf",
+        "bytes": 2161,
+        "sha256": "213ce74d95a68136032621597d843ecf8885781c8e797685009413cb3f5a67b5",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Settings/SettingsPanes/MenuBarAppearanceSettingsPane.swift",
+        "blob": "ca28b13c0878335f14cca641abcdf0aad92af164",
+        "bytes": 398,
+        "sha256": "db4b352d58352e879838b1ba81b5bfd119514a786ee210b059aa7c7a7415aae1",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Settings/SettingsPanes/MenuBarLayoutSettingsPane.swift",
+        "blob": "b103824882b2755e897f0ba0ad3880f3985d37eb",
+        "bytes": 2568,
+        "sha256": "fcd6cfb5127a324e31b117c7ce10c2e59799b0f981166500aa8d94b8c41fa3be",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Settings/SettingsPanes/UpdatesSettingsPane.swift",
+        "blob": "2608661f8f303f418e45fca6ae8cbce184147c67",
+        "bytes": 1691,
+        "sha256": "3fc3745ca5ae255126e1047ecec978379d2874c2e745d1d7874779c66cdb3488",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Settings/SettingsView.swift",
+        "blob": "2f5fda4130975f66f294414d5d282d62ac16c886",
+        "bytes": 3186,
+        "sha256": "921af42cf7b102915466fdcbc86d01a6ef542134d970c1de2f4c3b47b0345051",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Settings/SettingsWindow.swift",
+        "blob": "b8bc94b08d8bf748b023f190dea3f7cac9bd6eec",
+        "bytes": 755,
+        "sha256": "09a347d16d902dce225a7399ba4a137ac97fa641956215de354d7d0313a1df44",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Swizzling/NSSplitViewItem+swizzledCanCollapse.swift",
+        "blob": "b0409a71f5c009c0b2695eea78ee928796947c9f",
+        "bytes": 1020,
+        "sha256": "29a0975df2cd1f878dbca25b86490bfc0cc9c24e47155d33de281b22c1bd7e70",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/HotkeyRecorder/HotkeyRecorder.swift",
+        "blob": "d382b3646ffb614cab0d9a822ab3ed6d4a569db2",
+        "bytes": 4588,
+        "sha256": "f4e962d8d623d806f2287f2c11a68c5ac2b8d07656befcaf90962fa69939072f",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/HotkeyRecorder/HotkeyRecorderModel.swift",
+        "blob": "0617f97b0b6a4f0eea216776f44000dd397e6123",
+        "bytes": 1974,
+        "sha256": "e3cf0a4b72375dfdf6ecb6cd75b38a5da2b8110e24de697b3e4cdbfc65fca4b6",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/IceBar/IceBar.swift",
+        "blob": "40c6898298f9f6504f3345d6bff8ec42028ec1fd",
+        "bytes": 16864,
+        "sha256": "8469b8c6b60cbed28ca5625f1ccc186f71cff001b721b07b3dea0fdbf7709847",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/IceBar/IceBarColorManager.swift",
+        "blob": "da77cd19ae3c59808257a42f98f3ae223e8b2ca9",
+        "bytes": 4426,
+        "sha256": "fec4e8d69b26f9b4054809eab17fac93aca5381bb61e2be305e3b89437d534f4",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/IceBar/IceBarLocation.swift",
+        "blob": "3d2cc067c8d9984b4a02665a05b2bdad98c3ae5e",
+        "bytes": 692,
+        "sha256": "995ced860c9056598e2fd1a8a36dbc988b64ea7277baa648a6f8727e0153f6ed",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/IceUI/IceForm.swift",
+        "blob": "32a42b597f97f990c08f42aa9a477f66dab277cf",
+        "bytes": 2018,
+        "sha256": "f2245cb297a816d48e7894ee6ca110b1d8205f31f68fb0681bd295dccd2ef8aa",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/IceUI/IceGroupBox.swift",
+        "blob": "ebfeb9aef11dfed0ed1ae8bd46896d39a6b1656c",
+        "bytes": 2436,
+        "sha256": "281ed2d52375810ee4f698fa6143cb7ad06825633538eb96b493f0aa59538a91",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/IceUI/IceLabeledContent.swift",
+        "blob": "63740c13b6f0680832b3a9b7aa4a74220c54cff4",
+        "bytes": 843,
+        "sha256": "2bf40c0982d63f6e85132ee419c356ea71783de447b9aaab6aeb36ff630432b5",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/IceUI/IceMenu.swift",
+        "blob": "5e7a8388d93a05eee3a509845bfd191f8e3d89b8",
+        "bytes": 4465,
+        "sha256": "000d76e6a8e6634fa5b80fd60b9de79a0c6cb80808f3c9c4f80bcd22aade3cb4",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/IceUI/IcePicker.swift",
+        "blob": "1633bf2fcdfdf457c73f5b5dc48b2d512608762f",
+        "bytes": 2938,
+        "sha256": "becb6a32c18fd2dbf94d41e9c8358c6ebc8a6e673985a44dbdfb6ecdce19c560",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/IceUI/IcePopUpIndicator.swift",
+        "blob": "0e538c8477b74066f180e1c02f0ab5593e985007",
+        "bytes": 1149,
+        "sha256": "7d0638c60dce7c123bc6818f9dd5b39f838b77ad14a15451ed1db662657994c1",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/IceUI/IceSection.swift",
+        "blob": "286d9e01ce612fa0de38161b59648bedb5e0bece",
+        "bytes": 3170,
+        "sha256": "21446385d20dfb88a6ae02c274c260af33381a217c90940bc0cefba6f99e1383",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/IceUI/IceSlider.swift",
+        "blob": "4d2f911ea937d0f3b40ad8084e9303192aaefa7b",
+        "bytes": 1640,
+        "sha256": "bca4c8a481a4cd2dc7de60085575c5be982c18631755f580029205fb8d9f7df5",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/LayoutBar/LayoutBar.swift",
+        "blob": "be9e1ce687faf55c4caba1d5e9435d9d608d4640",
+        "bytes": 1821,
+        "sha256": "15afc4f2be00011675ddfbf5967226cb7c0af1dcb482ef7139e73959102ad7dd",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/LayoutBar/LayoutBarContainer.swift",
+        "blob": "aa172beaf2706563c5df2cd7c025ec2f49217f45",
+        "bytes": 11252,
+        "sha256": "ef79ca1e2e91c9e6551a726ea8418c42474d90e1f929a8290436c3beba254409",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/LayoutBar/LayoutBarItemView.swift",
+        "blob": "74cb6f81925719d069b2c5040a919de4ea2df44b",
+        "bytes": 8387,
+        "sha256": "80bf556554fcc7785d1705cc76a5c9efc10a56770b280fc2e34ec42388c3125d",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/LayoutBar/LayoutBarPaddingView.swift",
+        "blob": "beab4f7663791b8a0ad48f87531bd8f488aa32a8",
+        "bytes": 5696,
+        "sha256": "9bc76a55a3eb65a89987b2bd5369df499eb2c6a504dcb0279b0b295435f6239a",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/LayoutBar/LayoutBarScrollView.swift",
+        "blob": "6d5e0e6d8628162dd4a470ce96656277e153fbed",
+        "bytes": 3160,
+        "sha256": "f9b4f38a25d5bd17278a51d63459562c31d0b3ac92fd75b4a107dbb18c8f57e5",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/Pickers/CustomColorPicker/CustomColorPicker.swift",
+        "blob": "a0a82451bcc2766d7117e450c9f466aee3b9eb4c",
+        "bytes": 3684,
+        "sha256": "7c8e0be2d333ab63f4a005bdf636915ee2253e88f58cd89e1e3c5f3e09969b81",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/Pickers/CustomGradientPicker/ColorStop.swift",
+        "blob": "709fe89d6c0ae7a164e09ced8ed0ff6d074d4d2a",
+        "bytes": 1211,
+        "sha256": "675c3096d4a83f00ae7193467b138df4081cb8003890da566e99771e8b2e1b3b",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/Pickers/CustomGradientPicker/CustomGradient.swift",
+        "blob": "aecf28e4a20f4ea27127efc6d496927ff1ab1eb1",
+        "bytes": 3321,
+        "sha256": "2f9830c9a31bb942a3999797d966a461bd98cafab600b69de5da8f0007dddcfe",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/Pickers/CustomGradientPicker/CustomGradientPicker.swift",
+        "blob": "ec23585f1e6016138599f071692e08b9c6daee35",
+        "bytes": 14022,
+        "sha256": "41580aa112da429fd8fff6e8801f72160ca3bdf74b7c534094fa6e4e4b8e428a",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/Shapes/AnyInsettableShape.swift",
+        "blob": "970fe3e16b7ee2c2db0b30e9f115410528f460ec",
+        "bytes": 547,
+        "sha256": "9d9e3ef044f9f4651bde2c1fd64f913ea763e831e3e670efedcbaf3223939dd5",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/ViewModifiers/BottomBar.swift",
+        "blob": "c742cb83c82c8c74312881f479275b9b7abd697b",
+        "bytes": 580,
+        "sha256": "48738ba748438d713e22c309f6ebfce1a6ea00cfee8da83e3751e4de4bcd95ae",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/ViewModifiers/ErasedToAnyView.swift",
+        "blob": "f8d703f474bf0eaab0b219d8f2e5f8aaddf292bf",
+        "bytes": 220,
+        "sha256": "ece7aeca82fc775265af48160487189212869ea41ad1cab023d78fa5e95d6b42",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/ViewModifiers/LayoutBarStyle.swift",
+        "blob": "67c3783c97723c2b49d7665b25bc9439ede63889",
+        "bytes": 1961,
+        "sha256": "4de33151f36e7c2d42514eb3fc78fe9dba53245d5adc3ecda5d36356acc427fd",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/ViewModifiers/LocalEventMonitorModifier.swift",
+        "blob": "a6ca6ce6181112b82d5bc3d7be329c11951a09ef",
+        "bytes": 1413,
+        "sha256": "b2645e958a87b5e2a92b3bf6267b0e1dedc4d8dbe40cb0e608da8fe8106e3f49",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/ViewModifiers/OnFrameChange.swift",
+        "blob": "1a1924f1abc6bbcddbd9df710c0732d30e9fb8f1",
+        "bytes": 1889,
+        "sha256": "e0ae2a019e4f5f026010d91e34d76f31072541bd9987a55bd0e6efefdfb9f0bd",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/ViewModifiers/OnKeyDown.swift",
+        "blob": "a28759180539fd126fc48daffff55af7eac578a3",
+        "bytes": 452,
+        "sha256": "38fa491b1b9ff060be9ee6a22399af75ab404b5151ef71b2f1a5465fbbdc01e0",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/ViewModifiers/Once.swift",
+        "blob": "d7d116e9fc4452125cacdcc9661b7b6580bdebba",
+        "bytes": 659,
+        "sha256": "81fa932c20b18055c1f9a0b4a2f45e3f946f09b7e6558b49eab29b1c561e4f93",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/ViewModifiers/ReadWindow.swift",
+        "blob": "178e01569d842f0b350900a98f7aef2f0fca9a80",
+        "bytes": 1586,
+        "sha256": "14047f1214215399558a7d7a53b817980f6020c1ec745cdbd4454aa2eb79ae60",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/ViewModifiers/RemoveSidebarToggle.swift",
+        "blob": "59fc29303ee5727b1bea6ac7c2c03aee755ea5c5",
+        "bytes": 299,
+        "sha256": "8a0131f1498b45e5f592d7b19db84389902691b49def4096dfb7612b210ca210",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/Views/AnnotationView.swift",
+        "blob": "54aaeae26d299f107112fd7fe356d3bd58c1539f",
+        "bytes": 6945,
+        "sha256": "8c8abcbd801ffe0bc24eafe8af8001e4662110613bbf702f5711ee188dd46f93",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/Views/BetaBadge.swift",
+        "blob": "26d8b67cb4b59afd43a9aaa94f63f218fea4b707",
+        "bytes": 412,
+        "sha256": "1196c5e0d6c66205ee80953798b415a19b29b63d3dfe2f582bf731c2a767bf87",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/Views/SectionedList.swift",
+        "blob": "ba7dfae985091c090ce09d4935a14254b5a95a7d",
+        "bytes": 6823,
+        "sha256": "0227769454f37c96c3ed2245294239d8ebd9d0ea7379a7907959019bfc3de07c",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UI/Views/VisualEffectView.swift",
+        "blob": "d2245230bd7c31559a7f995fbf38b09206db7fd3",
+        "bytes": 786,
+        "sha256": "7453cea0abaf3fd35200c24601ec744826b1eb09ea2da4d8c7ad05d9f1d1a1bd",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Updates/UpdatesManager.swift",
+        "blob": "ee5f80d7239ba2fc9c9723858a0bfcb71eb4ee45",
+        "bytes": 4275,
+        "sha256": "408f3c0ce0d198aa33b92cc71681ed76610b4d1f4ba01884d288fec1c8699db6",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UserNotifications/UserNotificationIdentifier.swift",
+        "blob": "db42cc6d15f4b797c71cde0abf4996ad7973c195",
+        "bytes": 176,
+        "sha256": "86626ba8224f2aa1b7396de57b34ecec7b11a6988e2e7e561176468536bfaef4",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/UserNotifications/UserNotificationManager.swift",
+        "blob": "8aa9bbab6b714773e284f1acd87a1819cdedc5e7",
+        "bytes": 2753,
+        "sha256": "c3dd3903a743a2f6f4c8f014ce5c12279d890c2f523eb2930488c348c88344c4",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/BindingExposable.swift",
+        "blob": "bb3712bb64f693c72a356f8327da34547896f06c",
+        "bytes": 1350,
+        "sha256": "1556055bd89a2facc3ec54b263aa89c03304be10f9c29533baf3cad83518a827",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/CodableColor.swift",
+        "blob": "8f50ed8cb24bcc00e2f3265aae7067351b0247d3",
+        "bytes": 2547,
+        "sha256": "26e80f82a0457645697f5f6c7de069ad0eb8e6650522ab97c52fede23f411931",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/Constants.swift",
+        "blob": "f964dea7408bf5d540ae8d4bcc13be07c3eea5d2",
+        "bytes": 884,
+        "sha256": "78c01ad5cb7934bca66c63e118a26b5bbbe639920229ca2e021678527358aedf",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/Defaults.swift",
+        "blob": "f8eacb7c4c713df6bcb38f3f66feb1d548ac9fea",
+        "bytes": 6895,
+        "sha256": "d20d6617b98ae60da32a3b68e954ecc5e6dd14a6a4650b18fd292b69f384d682",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/Extensions.swift",
+        "blob": "12ddba27ed7413e971b358226fb4510ae9669c35",
+        "bytes": 16952,
+        "sha256": "aa28c42ddf925611f3b088e809489ee101fbecfde72ba6b234e8943c1ec1d517",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/IconResource.swift",
+        "blob": "0668c8faa29290ba4eb80d1ee5594122d52671f1",
+        "bytes": 761,
+        "sha256": "fbb3e4a8b165bca082e40e4d565649ba4405e0abd8806d759578f113f74f39f6",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/Injection.swift",
+        "blob": "87a95abc0941512364b0b2bbfaace22924a164fb",
+        "bytes": 1106,
+        "sha256": "331ed465a2f25a70e708f71b53709bec53c00939358c46134fa86ac664289e79",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/LocalizedErrorWrapper.swift",
+        "blob": "38664c85b9bd591f11fde2c74f76f005048bf5af",
+        "bytes": 1081,
+        "sha256": "0a4bed375db490b24211c4871fe1b7c3689771acc37aacd9960a70b24d15b366",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/Logging.swift",
+        "blob": "e0dfcf303cae5a2ed67848c7a003736a15b716e1",
+        "bytes": 989,
+        "sha256": "1641fe3f3ccb59154503a19109abb3976e7639f925ef99b989e883028e1364a5",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/MigrationManager.swift",
+        "blob": "0141e0bf20d6290a69e2e03ffa9dbdfb512ed3c1",
+        "bytes": 14666,
+        "sha256": "68e4c814c2e33690568040203fb3c4f511a172e1d30b9a81df3099e404419b65",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/MouseCursor.swift",
+        "blob": "e10886fbbe65f8d0c36ecc18de069c311dd8c7d3",
+        "bytes": 1798,
+        "sha256": "e203706bd9c8e12b08d68a6a83559735dd822bb5f4a31d3b773108c9bfb39345",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/Notifications.swift",
+        "blob": "4f81f7dbafe3b1a40e764faceffc17aaefc69c40",
+        "bytes": 293,
+        "sha256": "b1bac7512a599233d949f06dcf99cbfbb85afc7f57a06032c43e7cea18bed7e2",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/ObjectStorage.swift",
+        "blob": "295f7b5788a7872199e9d5cda102f5034fc7b5a7",
+        "bytes": 2326,
+        "sha256": "7c489ae536763cff6c784474deac2494c9605c9ec401487afe979d47155fbe46",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/Predicates.swift",
+        "blob": "64c4c9f9a680ac7854eba9f5cca3ed9b239ea2cb",
+        "bytes": 5107,
+        "sha256": "3b52200c54608529074e8357a65a8c4b9e3f654e0caa736f7f1a052e3ec074e8",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/RehideStrategy.swift",
+        "blob": "89620acfbf1ba537fbcbac29bce9ac4ec7493e23",
+        "bytes": 681,
+        "sha256": "e163c319c2e7dd060086ba4007e45924d49d5339b534a2c25708c82c3a16f365",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/ScreenCapture.swift",
+        "blob": "efa69aab4b13d0e9d344903be33fb1eae1357762",
+        "bytes": 4243,
+        "sha256": "682dcde72d30c1b99604a4d06a3827588bceb36597973779d8bc37838f0ef6c0",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/StatusItemDefaults.swift",
+        "blob": "1e2b1e6b8e09d02f62a76ce7f1f90ff40957a0c6",
+        "bytes": 1864,
+        "sha256": "9c784023565410cececea458a6f4852638d3f44f535fcb8a9e1202d5adbd3eab",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/SystemAppearance.swift",
+        "blob": "b53005fa9a7817917002d9a712f472c25e19b13d",
+        "bytes": 2610,
+        "sha256": "360e49befcf7c36509e8d655a64e657dd32fe51f5c11c23ee2943ac966508010",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/TaskTimeout.swift",
+        "blob": "93d0b77a1281674017d45521cd381482bd881a45",
+        "bytes": 3023,
+        "sha256": "ead392ff482ca3172f359a697255c73e3d5f9b9b66aadde3e4109669bee59cd7",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Ice/Utilities/WindowInfo.swift",
+        "blob": "224bcfbbc7c7adf4c605a4188c12d3649520574c",
+        "bytes": 12119,
+        "sha256": "de221efab47e6ea58a26137f95dfa724e7c9c7755e4d18d62d325972db83236c",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "LICENSE",
+        "blob": "da2a18cf77281fdf2f2f4bba6386f61b85645b1b",
+        "bytes": 35100,
+        "sha256": "a22c5d2fd0877cf9b7069bb011c50e496732c03c93ec62f4b66620e13966b264",
+        "mode": "100644"
+      }
+    ],
+    "comparison": {
+      "mergeBase": "16222b344f7fe31c6b61cfeb5aae5978d4fe6874",
+      "status": "ahead"
+    },
+    "changes": [
+      {
+        "additions": 1,
+        "changes": 1,
+        "deletions": 0,
+        "filename": "Ice/Events/EventManager.swift",
+        "status": "modified"
+      },
+      {
+        "additions": 10,
+        "changes": 10,
+        "deletions": 0,
+        "filename": "Ice/Settings/SettingsManagers/AdvancedSettingsManager.swift",
+        "status": "modified"
+      },
+      {
+        "additions": 6,
+        "changes": 6,
+        "deletions": 0,
+        "filename": "Ice/Settings/SettingsPanes/AdvancedSettingsPane.swift",
+        "status": "modified"
+      },
+      {
+        "additions": 1,
+        "changes": 1,
+        "deletions": 0,
+        "filename": "Ice/Utilities/Defaults.swift",
+        "status": "modified"
+      }
+    ],
+    "diffSHA256": "0b9902213f2c6418ab65f5d2e9f34d10f9414c4c2fd4182dff9cdcfbb811bf18",
+    "prContextSHA256": "2d0b41c98826ffd081c6c45a5a97e2c876450825d6c128d03dc185f5fe0bd85d"
+  },
+  {
+    "repository": "sindresorhus/KeyboardShortcuts",
+    "number": 216,
+    "url": "https://github.com/sindresorhus/KeyboardShortcuts/pull/216",
+    "before": "045cf174010beb335fa1d2567d18c057b8787165",
+    "after": "558ec6efbf27a2676ed6639cf7910b467b564626",
+    "prefix": "Sources/",
+    "id": "KeyboardShortcuts-216",
+    "files": [
+      {
+        "side": "after",
+        "path": "Sources/KeyboardShortcuts/CarbonKeyboardShortcuts.swift",
+        "blob": "ee9c14336455be298603bec2cbf2e31a026b25f4",
+        "bytes": 8669,
+        "sha256": "6dccbb5eefea5374717c61b98a083c1baa195efcee170fa03cad1ac46e6e11d6",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Sources/KeyboardShortcuts/Key.swift",
+        "blob": "91ef3b40aa831a89d841a7da99e47c6545ccb39a",
+        "bytes": 6345,
+        "sha256": "ef0d98003a62c549a862f410cbba45b8c3acb563bf003758e34ac25ee8ab5331",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Sources/KeyboardShortcuts/KeyboardShortcuts.swift",
+        "blob": "04c5fd8433a169df32d7713c1155bf4a3089385e",
+        "bytes": 14843,
+        "sha256": "c05752e9906b8f133853ccb20d659e752790e7ba101ab6f45c2a02e395c87bb2",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Sources/KeyboardShortcuts/NSMenuItem++.swift",
+        "blob": "a33618d4c0fecd9e4af54239a3d6fe6902958afe",
+        "bytes": 3727,
+        "sha256": "d1451051d56817bfb9662d05ddc142d5100e1eeed79512d84e7baa1ea6b9d78a",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Sources/KeyboardShortcuts/Name.swift",
+        "blob": "9cd90e8a28673862c086484648e3029e59d50a9d",
+        "bytes": 1636,
+        "sha256": "75e838d1cc4360bf65b90ef438d5dfdab1a5d12fd7bb6a2888230332de7cc755",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Sources/KeyboardShortcuts/Recorder.swift",
+        "blob": "8575db038302593fbcb9a9f97780954518ce700c",
+        "bytes": 5901,
+        "sha256": "12b7459a955f5566c3f8213ba0634e03e02affa76ae1195452d54261958d0c8e",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Sources/KeyboardShortcuts/RecorderCocoa.swift",
+        "blob": "0f3e01761a4563b067bde34f78929cb922a07a95",
+        "bytes": 9940,
+        "sha256": "2693725c38919170b47ad2e9203369ade87f5b305eddaecd3a81f790de838dc0",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Sources/KeyboardShortcuts/Shortcut.swift",
+        "blob": "cdcd8fdfff6460038f4fa21bfa251b9c34fd7fcb",
+        "bytes": 17287,
+        "sha256": "0fb8e438e86eb4f7928fbc9621b6c6b6a10c3d59b8aa5b9391a3bf23178fb094",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Sources/KeyboardShortcuts/Utilities.swift",
+        "blob": "bda45c8780d467253cf7b7fa95045a6fc8e809a0",
+        "bytes": 11111,
+        "sha256": "4037c64b4f9aa1abaa0aa93ad3ee23cd34649b3e5e5c3fed623e5eabc2e3163e",
+        "mode": "100644"
+      },
+      {
+        "side": "after",
+        "path": "Sources/KeyboardShortcuts/ViewModifiers.swift",
+        "blob": "5e3a5e2c3312a14f3f39d41bd68254981f27dd58",
+        "bytes": 3494,
+        "sha256": "b30e63e12d57eedd3bca958796d01dd131e10b595f0c92bd67f835bdfea87c1d",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Sources/KeyboardShortcuts/CarbonKeyboardShortcuts.swift",
+        "blob": "ee9c14336455be298603bec2cbf2e31a026b25f4",
+        "bytes": 8669,
+        "sha256": "6dccbb5eefea5374717c61b98a083c1baa195efcee170fa03cad1ac46e6e11d6",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Sources/KeyboardShortcuts/Key.swift",
+        "blob": "91ef3b40aa831a89d841a7da99e47c6545ccb39a",
+        "bytes": 6345,
+        "sha256": "ef0d98003a62c549a862f410cbba45b8c3acb563bf003758e34ac25ee8ab5331",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Sources/KeyboardShortcuts/KeyboardShortcuts.swift",
+        "blob": "105c465a5571bec83e23cfb051e1361b7acd109c",
+        "bytes": 14192,
+        "sha256": "6b1514fc55fe40517d96f4540ac88d69d7345bb51612a61edf9f7c4c6977e854",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Sources/KeyboardShortcuts/NSMenuItem++.swift",
+        "blob": "a33618d4c0fecd9e4af54239a3d6fe6902958afe",
+        "bytes": 3727,
+        "sha256": "d1451051d56817bfb9662d05ddc142d5100e1eeed79512d84e7baa1ea6b9d78a",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Sources/KeyboardShortcuts/Name.swift",
+        "blob": "9cd90e8a28673862c086484648e3029e59d50a9d",
+        "bytes": 1636,
+        "sha256": "75e838d1cc4360bf65b90ef438d5dfdab1a5d12fd7bb6a2888230332de7cc755",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Sources/KeyboardShortcuts/Recorder.swift",
+        "blob": "8575db038302593fbcb9a9f97780954518ce700c",
+        "bytes": 5901,
+        "sha256": "12b7459a955f5566c3f8213ba0634e03e02affa76ae1195452d54261958d0c8e",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Sources/KeyboardShortcuts/RecorderCocoa.swift",
+        "blob": "0f3e01761a4563b067bde34f78929cb922a07a95",
+        "bytes": 9940,
+        "sha256": "2693725c38919170b47ad2e9203369ade87f5b305eddaecd3a81f790de838dc0",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Sources/KeyboardShortcuts/Shortcut.swift",
+        "blob": "cdcd8fdfff6460038f4fa21bfa251b9c34fd7fcb",
+        "bytes": 17287,
+        "sha256": "0fb8e438e86eb4f7928fbc9621b6c6b6a10c3d59b8aa5b9391a3bf23178fb094",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Sources/KeyboardShortcuts/Utilities.swift",
+        "blob": "bda45c8780d467253cf7b7fa95045a6fc8e809a0",
+        "bytes": 11111,
+        "sha256": "4037c64b4f9aa1abaa0aa93ad3ee23cd34649b3e5e5c3fed623e5eabc2e3163e",
+        "mode": "100644"
+      },
+      {
+        "side": "before",
+        "path": "Sources/KeyboardShortcuts/ViewModifiers.swift",
+        "blob": "5e3a5e2c3312a14f3f39d41bd68254981f27dd58",
+        "bytes": 3494,
+        "sha256": "b30e63e12d57eedd3bca958796d01dd131e10b595f0c92bd67f835bdfea87c1d",
+        "mode": "100644"
+      }
+    ],
+    "comparison": {
+      "mergeBase": "045cf174010beb335fa1d2567d18c057b8787165",
+      "status": "ahead"
+    },
+    "changes": [
+      {
+        "additions": 24,
+        "changes": 24,
+        "deletions": 0,
+        "filename": "Sources/KeyboardShortcuts/KeyboardShortcuts.swift",
+        "status": "modified"
+      }
+    ],
+    "diffSHA256": "2e92391be15dc87df70181724b0fcf0758a2e41cf8df0df88bcfb2f88b934788",
+    "prContextSHA256": "7e8c8e153251046dc18a6682544c98a87b1f5d91ed5833870cfec668890c4090"
+  }
+]

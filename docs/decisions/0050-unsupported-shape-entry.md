@@ -3,7 +3,7 @@
 **方針：正常に動く入口でも未見の配置判断へ寄与しない場合は、その統合・高速化を止め、実際に必要だった関係の表現可能性を一単位で診断する。**
 
 - 記録日：2026-10-07
-- 状態：#109 / PR #110完了、#111の新入口診断中。本番/M3保留
+- 状態：#109 / PR #110、#111 / PR #112完了。新入口の#113限定比較と次の境界は[0051](0051-state-context-investment.md)。本番/M3保留
 - 根拠：[未見比較](../validation/direct-relations-holdout.md)、[旧減少call診断](../validation/withdrawn-entry-diagnostic.md)、[両側入口比較](../validation/both-side-call-holdout.md)
 
 ## What / 目的

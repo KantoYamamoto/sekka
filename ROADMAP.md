@@ -8,7 +8,9 @@
 
 現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#109 / PR #110は最終Actions・実Bot・成果物まで完了。4件とも機械関係0、配置判断への寄与を支持しない。** [今回の結果](docs/validation/direct-relations-holdout.md)。前比較の機械寄与0とstage1非対称による純増未判定も保持する。[前結果](docs/validation/both-side-call-holdout.md)。
 
-同形switchの入口は凍結し、本番/M3へ進めない。#111では新しく記載状態→操作→既存利用を入口にし、既読GRDB1881の差分外の汎用処理/extension利用へ候補到達した。[診断結果](docs/validation/state-operation-entry.md)。同名の別callee/余分な候補もあり、未見利益は未検査。[理由0050](docs/decisions/0050-unsupported-shape-entry.md)。現在の方式への利益未支持と目的全体の不可能を混ぜない。利益のない入口の拡張/高速化を先に行わず、別の根拠も尽きた場合は用途限定/撤退を人間へ通知する。人間判断待ちなし。
+同形switchの入口は凍結し、本番/M3へ進めない。#111 / PR #112で状態→操作→既存利用の試作を完了し、#113 / PR #114で未見2変更を比較した。[結果](docs/validation/state-entry-holdout.md)。既存UIとの整合、既存集合/bulk規則の比較にtextが使われた限定的な寄与はある。ただし核心helperは案内に出ず、両担当が普通のsourceから同じ問いへ到達した。独自発見や時間短縮、一般的な実用性は未確立。PR #114の最終Actions/実Bot/12成果物確認中。人間判断待ちなし。
+
+この固定2件の比較は終了し、細部調整/入力追加で延命しない。次は[#115](https://github.com/KantoYamamoto/sekka/issues/115)で、一覧の代わりに「状態集約→既存判断→利用」の核心関係を表せるか一単位の既読診断。[理由0051](docs/decisions/0051-state-context-investment.md)。必要位置/反対材料を先に固定し、候補到達と未見利益を分ける。別の具体的根拠も尽きた場合は用途限定/撤退を人間へ通知する。
 
 ## Issueの階層と判断の節目
 
@@ -24,8 +26,8 @@
 
 | 順序 | Issue | 完了条件 / 状態 |
 | --- | --- | --- |
-| 現在 | [#111 状態/操作の新入口](https://github.com/KantoYamamoto/sekka/issues/111) | 固定11位置への候補到達、41対照と二回一致。独立最終点検/自己利用/PR/Actionsを確認。旧方式へruleを追加しない |
-| 次の判断 | 新入口の小さな未見比較 | 同じ既読例を使わず、案内が配置/代替案/反対理由の検討に実使用されたかと候補負担を比較。利益未支持なら同じ入口の細部調整を続けず用途限定/撤退を通知 |
+| 完了確認中 | [#113 状態/操作入口の限定比較](https://github.com/KantoYamamoto/sekka/issues/113) | 全258entries/二回一致/全4checkpoint/独立比較を照合。限定寄与と核心未提示を記録。PR #114の独立最終点検/Actions/実Bot/成果物を確認 |
+| 次 | [#115 状態集約と既存判断の関係](https://github.com/KantoYamamoto/sekka/issues/115) | 必要位置/露出/反対理由を実装前に固定し、関係の経路を一単位の既読診断。届かなければ一覧の細部調整へ戻らず投資判断 |
 
 <details><summary>完了したM1/M2の作業と根拠</summary>
 
@@ -50,6 +52,7 @@ M1の#73（構文索引/PR #75）と#74（検索と表示/PR #76）は完了。M
 | 15 | [#105 観測単位の診断](https://github.com/KantoYamamoto/sekka/issues/105) | 26対照・全1,891入力entries・独立code/fact/文書点検・自己利用、PR #106の最終Actions/実Bot/10成果物まで完了。既読1関係・他2件0、未読利益は未確立 |
 | 16 | [#107 直接関係CLI](https://github.com/KantoYamamoto/sekka/issues/107) | 旧検索runtime撤去、13Swift/31CLI対照・既読全1,891entries/全位置parity・独立指摘修正・自己利用・最終Actions/実Bot/10成果物を確認しPR #108で完了。本番/M3保留 |
 | 17 | [#109 直接関係の未見比較](https://github.com/KantoYamamoto/sekka/issues/109) | 新4入力/全3,054 entries/全mode二回一致/同じstage1資料/4pairsを確認。機械関係0、配置への寄与未支持。独立指摘修正・最終Actions/実Bot/10成果物までPR #110で完了 |
+| 18 | [#111 状態/操作の新入口](https://github.com/KantoYamamoto/sekka/issues/111) | 既読11固定位置への候補到達、41対照・独立指摘修正・自己利用・最終Actions/実Bot/12成果物を確認しPR #112で完了。未見利益の証明とはしない |
 
 </details>
 

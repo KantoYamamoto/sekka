@@ -1,0 +1,81 @@
+{
+  "binarySHA256": "ea561b2b09c37df45cd30b03c314f9170437ca331611e8f6f3da3d36ff6a90f0",
+  "sourceSHA256": "ba3301053ba9567fd4a096f1e70c26e8aa435a9c0881ea857dbd9d1458ee5253",
+  "inputsManifestSHA256": "39f3a6ddb63418a16ce2b26d3a3540b8aa2f99a2d1198d2a893468127015d8a1",
+  "runnerSHA256": "5e96561813cf95d70c9380dc295c51bb9efb7b69bfdc12a1665902373f30aa16",
+  "scope": "New frozen inputs; process bytes are not utility evidence",
+  "results": [
+    {
+      "case": "Ice-528",
+      "formats": {
+        "json": {
+          "exit": 0,
+          "stdoutSHA256": "a2face0094e7071c8978c87dfa1611f809ec00cebd789d986bc848d2aa3bbe0b",
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "fullProcessBytesEqual": true,
+          "bytes": 10221,
+          "lines": 320,
+          "seconds": [
+            6.244604917,
+            5.901802208
+          ]
+        },
+        "text": {
+          "exit": 0,
+          "stdoutSHA256": "b70e285f42c121d962d1bce497c4e380c72d06a4e79352951a50541bb49c4d97",
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "fullProcessBytesEqual": true,
+          "bytes": 2089,
+          "lines": 15,
+          "seconds": [
+            5.914386542000001,
+            5.949499875000001
+          ]
+        }
+      },
+      "relationships": 1,
+      "files": [
+        118,
+        118
+      ],
+      "beforeInputSHA256": "b2982a35334d15ea45fee3c37c76a3fbf536812778c9b5e2a47c68958c614c5c",
+      "afterInputSHA256": "52f9618aa6a8b8b609fb272d4460b9e85c1fec577dd84cbdc3e9c72a295ef76b"
+    },
+    {
+      "case": "KeyboardShortcuts-216",
+      "formats": {
+        "json": {
+          "exit": 0,
+          "stdoutSHA256": "efc1955bf82aeabda8fcfacd7609fcecc792c43dfa9e92e95692ff8ff195549b",
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "fullProcessBytesEqual": true,
+          "bytes": 16329,
+          "lines": 501,
+          "seconds": [
+            0.743444041,
+            0.7574071250000003
+          ]
+        },
+        "text": {
+          "exit": 0,
+          "stdoutSHA256": "0f98ae69b3b79b9b22da60760ad1166bb3475f03d5d09d51de13c07ac9836edc",
+          "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "fullProcessBytesEqual": true,
+          "bytes": 4640,
+          "lines": 40,
+          "seconds": [
+            0.7452044579999999,
+            0.7516542920000013
+          ]
+        }
+      },
+      "relationships": 3,
+      "files": [
+        10,
+        10
+      ],
+      "beforeInputSHA256": "3214fa127ac7ce93ee8d5a62f212676ea875ead7cec0f1600d68a3ce3da43334",
+      "afterInputSHA256": "8fd24e64a232b7b7fa926ed45ef979cefe8e89e1e640e219932c0df34b9e5a26"
+    }
+  ]
+}

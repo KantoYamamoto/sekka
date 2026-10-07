@@ -1,0 +1,24 @@
+{
+  "binarySHA256": "ea561b2b09c37df45cd30b03c314f9170437ca331611e8f6f3da3d36ff6a90f0",
+  "inputsSHA256": "39f3a6ddb63418a16ce2b26d3a3540b8aa2f99a2d1198d2a893468127015d8a1",
+  "preparerSHA256": "b8b426f71cb905ec227862b3699a25e7a9383112de0da848db9a595afe1d7ba8",
+  "materials": [
+    {
+      "case": "Ice-528",
+      "prContextSHA256": "2d0b41c98826ffd081c6c45a5a97e2c876450825d6c128d03dc185f5fe0bd85d",
+      "ordinarySwiftDiffSHA256": "0b9902213f2c6418ab65f5d2e9f34d10f9414c4c2fd4182dff9cdcfbb811bf18",
+      "ordinarySwiftDiffBytes": 3659,
+      "groups": {
+        "A": {
+          "ordinary-swift.diff": "0b9902213f2c6418ab65f5d2e9f34d10f9414c4c2fd4182dff9cdcfbb811bf18",
+          "pr-context.md": "2d0b41c98826ffd081c6c45a5a97e2c876450825d6c128d03dc185f5fe0bd85d"
+        },
+        "B": {
+          "ordinary-swift.diff": "0b9902213f2c6418ab65f5d2e9f34d10f9414c4c2fd4182dff9cdcfbb811bf18",
+          "pr-context.md": "2d0b41c98826ffd081c6c45a5a97e2c876450825d6c128d03dc185f5fe0bd85d",
+          "relations.text": "b70e285f42c121d962d1bce497c4e380c72d06a4e79352951a50541bb49c4d97"
+        }
+      }
+    }
+  ]
+}
