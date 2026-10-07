@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "f2c65cce306090449d6ad605d510b981f7d747a4",
+  "sourcesTree": "cceb7363de20721183eb1a3fe6bb767654196353",
+  "binarySHA256": "ea561b2b09c37df45cd30b03c314f9170437ca331611e8f6f3da3d36ff6a90f0",
+  "sourceSHA256": "ba3301053ba9567fd4a096f1e70c26e8aa435a9c0881ea857dbd9d1458ee5253",
+  "controlsRunnerSHA256": "d02521fd1ab56883381c81ebbc15ad805a17acbd3b3175e2eb977648386873e4",
+  "controls": 41,
+  "packageSHA256": "262db6600b3ea2322f7239ee74b45bdd3387547421b181b74606b0129388b763",
+  "resolvedSHA256": "b55d7dd5b78bb01f4f9d36d533580c2961290152a190bf3fc3e0888586cc5666",
+  "swift": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+  "syntaxVersion": "604.0.0",
+  "configuration": "debug local",
+  "planSHA256": "8304b8d009ab0ed901c2ee701aa07547e2b4f03c7672a8f36d5a95cc3c474fba",
+  "knownUtilityClaim": false
+}
