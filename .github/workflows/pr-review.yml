@@ -58,6 +58,13 @@ jobs:
           python3 Experiments/StructuralContext/StateOperations/Prototype/controls.py --binary "$SEKKA_STATE_BIN/state-probe" --output .build/pr-review/state-operations.json --text-output .build/pr-review/state-operations.text
       - name: Exercise review boundaries
         run: python3 Scripts/review_probes.py --output .build/pr-review/probes.json
+      - name: Dependency relay prototype controls
+        run: |
+          swift build --package-path Experiments/DependencyRelay --scratch-path .build/dependency-relay-ci
+          SEKKA_RELAY_BIN="$(swift build --package-path Experiments/DependencyRelay --scratch-path .build/dependency-relay-ci --show-bin-path)"
+          python3 Experiments/DependencyRelay/check.py "$SEKKA_RELAY_BIN/relay-probe"
+          "$SEKKA_RELAY_BIN/relay-probe" Experiments/DependencyRelay/Fixtures/before.swift Experiments/DependencyRelay/Fixtures/after.swift > .build/pr-review/dependency-relay.json
+          "$SEKKA_RELAY_BIN/relay-probe" Experiments/DependencyRelay/Fixtures/before.swift Experiments/DependencyRelay/Fixtures/after.swift --text > .build/pr-review/dependency-relay.text
       - name: Exercise structural review questions
         run: python3 Scripts/review_probes.py --cases Fixtures/design-review/cases.json --output .build/pr-review/design-review.json
       - name: Upload review material
@@ -71,6 +78,8 @@ jobs:
           path: |
             .build/pr-review/state-operations.json
             .build/pr-review/state-operations.text
+            .build/pr-review/dependency-relay.json
+            .build/pr-review/dependency-relay.text
             .build/pr-review/structural-context.json
             .build/pr-review/structural-context.text
             .build/pr-review/manifest.json

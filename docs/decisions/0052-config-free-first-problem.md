@@ -3,7 +3,7 @@
 **方針：未知の構造問題への気づきを助ける場合は、設計方針の設定を前提にせず、一つの具体的な負担と別配置を示せるかを実装前に確かめる。**
 
 - 記録日：2026-10-07
-- 状態：設定なしを採用。最初の対象と出力の利用価値は確認前。解析実装は未着手
+- 状態：2026-10-08にユーザーが第一課題と出力の方向を承認。最小試作は自作対照で取得可能性を確認、実用性は未確立
 - 関連：[#115](https://github.com/KantoYamamoto/sekka/issues/115)。[0051](0051-state-context-investment.md)の次実装案は採用しない
 
 ## 問題 / 選ぶ理由
@@ -33,6 +33,7 @@ struct CheckoutModel {
 }
 struct Checkout {
     let repository: Repository
+    init(repository: Repository) { self.repository = repository }
     func buy() { repository.save() }
 }
 ```
@@ -55,6 +56,10 @@ struct CheckoutModel {
 struct Checkout {
     let repository: Repository
     let events: EventSink
+    init(repository: Repository, events: EventSink) {
+        self.repository = repository
+        self.events = events
+    }
     func buy() {
         repository.save()
         events.record("purchase")
@@ -96,7 +101,7 @@ Screen/Modelは既に持っている子オブジェクトを受け取る。こ�
   子の構築を呼出側へ公開しても、既存APIの境界を保てること
 ```
 
-実際の出力には完全なselectorとソース位置を添える。上の`init(events:)`は新引数を説明する略記で、実際の宣言selectorは`init(repository:events:)`。利用価値が合意されるまで、これを実装済みの検出仕様や実測利益にしない。
+実際の出力には完全なselectorとソース位置を添える。上の`init(events:)`は新引数を説明する略記で、実際の宣言selectorは`init(repository:events:)`。ユーザーはこの出力の方向を承認した。これは実変更での利益を確認したことではない。
 
 ## 反例と不明
 
@@ -120,4 +125,20 @@ Screen/Modelは既に持っている子オブジェクトを受け取る。こ�
 
 ## 実装前の独立レビュー
 
-開発履歴なし・この文書だけのレビュー一回で、件数一覧を越えて別配置を比較する形にはなっているが、利用価値は要人間判断とされた。構築時期/所有に加え、アクセス制御/構築を隠す契約/呼出側の知識増加を上の条件と反例へ統合した。機械で「渡すだけ」を取得できた証拠や実用性の合格ではない。ここで解析実装へ進めない。
+開発履歴なし・この文書だけのレビュー一回で、件数一覧を越えて別配置を比較する形にはなっているが、利用価値は要人間判断とされた。構築時期/所有に加え、アクセス制御/構築を隠す契約/呼出側の知識増加を上の条件と反例へ統合した。2026-10-08の承認後に一試作へ進めた。
+
+## 最小試作の判断
+
+**自作例で成立した場合は、実変更の取得範囲を一件で調べ、未解析を成功扱いせず、出力に合う例を探し回らない。**
+
+[DependencyRelay](../../Experiments/DependencyRelay/README.md)に独立した実験CLIを置いた。本番CLIは変更しない。最初は一ファイル内の一意なstruct/class、一つの明示init、直接代入/子の構築だけを扱う。全段で新引数が追加され、少なくとも二つの中間型を経由する形に限定する。暗黙のmemberwise init、別ファイル、overload、属性/継承、optional/closure型などは未対応。一般の名前解決を先行実装する費用を避け、欲しい根拠を出せるかに限って試したためで、製品の対象範囲ではない。
+
+同名引数/メンバーをconstructorへ結ぶこと、ローカル関数/closureの引数を末端fieldの利用に数えることは、独立コードレビューで指摘された。既知の衝突を未解析扱いにし、同名shadowを含むmemberの非修飾参照を利用証拠から外した。実calleeの意味解決は依然行わない。検出結果は構文に記載された候補として表示する。
+
+自作の局所追加では中間API二つの位置、末端の保持/参照、子を受け取る配置と成立条件を出せた。13反例とparse失敗を含むCLI対照が合格し、同一入力の各出力は二回一致。三つの基本fixtureはSwift 6でtypecheckした。これは実装検証でありレビュー短縮の実証ではない。
+
+実変更は[SwiftLog #238](https://github.com/apple/swift-log/pull/238)のMetadataProvider追加を、タイトル/通常diffから選び出力前に固定。`Logging.swift`のbase `dc77805fdcb4ebcc5b5897ff99f98e3e518a431d` / head `561c5aa3951fd2dd9cbffbb97764c696a0b80ed6`をGETだけで取得し解析した。条件コンパイルにより前後ともファイル全体を未解析と明示、候補0。この変更が二つの単純constructor中継に当たることも未確認で、負例や方式全体の失敗率として数えない。歴史的なSwiftソースをv6構文モードで読む試行であり、Swift 6でのビルド互換検証ではない。外部コードの実行・ビルド・checkoutや先方への書込みは行わず、生ソース/生出力は公開Gitへ入れない。
+
+自己利用は本番Sekkaで`1ec1fc1`から試作commitまでの確定Git差分を解析。新しいSnapshot/出力用型/fixtureの入口は示したが、factory誤認や末端shadowは通常コード読解/独立レビューで分かった。本番の索引を新試作の事実性の証明には使わない。
+
+次は実変更の中に今回の具体的負担があるかを通常sourceで先に確かめる。その経路を取るために必要な範囲だけを見積もり、費用が大きい/例が得られない場合はこの第一課題の継続を再判断する。今回の0を理由に#if/overload対応や一般graphを順次継ぎ足さない。

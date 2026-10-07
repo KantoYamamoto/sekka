@@ -1,6 +1,6 @@
 # Sekka: 現在位置と作業順
 
-更新日: 2026-10-07。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
+更新日: 2026-10-08。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
 
 ## ゴールと現在位置
 
@@ -10,9 +10,11 @@
 
 既存の構造索引/関係試作は本番へ統合しない。直近#113の固定2件では既存UIや集合の比較への限定的な寄与はあったが、核心の既存窓口は通常sourceから得た。[保存結果](docs/validation/state-entry-holdout.md)。既存方式を拡張することを次の目標にしない。
 
-**2026-10-07に設定なしを中心にする方針をユーザーと決定。** 現在は[#115](https://github.com/KantoYamamoto/sekka/issues/115)で、欲しい成果から一課題を選び直している。第一候補は「新しい依存を渡すためだけに中間の型まで変更が連鎖する」こと。変更箇所・具体的負担・別配置・成立条件を含む[自作対比例と手書き出力](docs/decisions/0052-config-free-first-problem.md)を用意した。利用価値の認識合わせ前で、解析実装は未着手。関係方式0051は次の実装として採用しない。
+**設定なしを中心にし、2026-10-08に第一課題と出力の方向をユーザーと合意。** [#115](https://github.com/KantoYamamoto/sekka/issues/115)で「新しい依存を渡すためだけに中間の型まで変更が連鎖する」を一試作にした。[判断と結果](docs/decisions/0052-config-free-first-problem.md)。自作例では位置・負担・別配置・成立条件を出し、13反例とparse失敗を区別した。独立レビューの名前衝突/末端shadow指摘を修正。ただし実変更SwiftLog #238は前後ファイル全体が未解析。実用性は未確立、本番統合/M3は保留。
 
-一課題・一仮説・一最小試作の順で進める。件数/入力照合/テスト合格を利用価値に置き換えず、価値と取得可能性を確認するまで追加OSS取得/広い解析整備/配布へ進まない。M3保留。PR #114は比較結果の保存だが最終実Bot/成果物点検・mergeは未完了で、次実装の根拠として自動採用しない。
+次は具体的負担を実変更の通常sourceで先に確認し、その経路を得るための最小範囲と費用を決める。自作例が通る範囲を製品仕様にしない。未解析を理由に一般graphや個別構文対応を継ぎ足さず、例が得られない/費用が大きい場合は第一課題の継続自体を再判断する。
+
+一課題・一仮説・一最小試作の順を維持する。件数/入力照合/テスト合格を利用価値に置き換えない。旧PR #114は最終Actions・実Botと12成果物の点検を終えmerge済み（`ed2b3c7`）。0051の関係方式は次実装として採用しない。
 
 ## Issueの階層と判断の節目
 
@@ -28,8 +30,8 @@
 
 | 順序 | Issue | 完了条件 / 状態 |
 | --- | --- | --- |
-| 現在 | [#115 成功状態から一課題を選ぶ](https://github.com/KantoYamamoto/sekka/issues/115) | 設定なし採用。依存中継の対比例/手書き出力を作成、独立の製品案レビュー一回。利用価値は人間判断待ち、解析実装未着手 |
-| 保存中 | [#113 状態/操作入口の限定比較](https://github.com/KantoYamamoto/sekka/issues/113) / PR #114 | 限定寄与/核心未提示を保存。次方式の実装へ自動継続しない。最終実Bot/成果物点検・mergeは未完了 |
+| 現在 | [#115 成功状態から一課題を選ぶ](https://github.com/KantoYamamoto/sekka/issues/115) | 出力方向はユーザー承認。明示constructor中継を最小試作、自作対照/独立レビュー修正済み。実変更は未解析、本番保留。試作のActions/成果物点検へ |
+| 完了 | [#113 状態/操作入口の限定比較](https://github.com/KantoYamamoto/sekka/issues/113) / PR #114 | 限定寄与/核心未提示を保存。最終Actions/実Bot/12成果物点検とmerge済み。次方式の実装へ自動継続しない |
 
 <details><summary>完了したM1/M2の作業と根拠</summary>
 
