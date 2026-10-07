@@ -1,0 +1,103 @@
+{
+  "scope": "Known-input expression diagnostic, not unseen benefit",
+  "issue": 111,
+  "comparisonPR": "https://github.com/KantoYamamoto/sekka/pull/110",
+  "beforeImplementation": true,
+  "inputsManifestSHA256": "777a0f00f8af829abf263ba223cae33b405dd12f20074d4aba3d9077d56826a4",
+  "case": "GRDB-swift-1881",
+  "origin": "Ordinary diff/source, B conditional question; A judged further rearrangement unnecessary",
+  "sourceReviewSHA256": "7cd2e6c03656e003acd82420caa5b94e30de9fa656681743b1d924d1eb2ac150",
+  "positions": [
+    {
+      "side": "after",
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "line": 174,
+      "purpose": "new dedicated operation",
+      "exposure": "changed hunk"
+    },
+    {
+      "side": "after",
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "line": 181,
+      "purpose": "new dedicated operation",
+      "exposure": "changed hunk"
+    },
+    {
+      "side": "after",
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "line": 397,
+      "purpose": "new private operation",
+      "exposure": "changed hunk"
+    },
+    {
+      "side": "after",
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "line": 402,
+      "purpose": "new private operation",
+      "exposure": "changed hunk"
+    },
+    {
+      "side": "after",
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "line": 144,
+      "purpose": "existing general union",
+      "exposure": "outside hunk"
+    },
+    {
+      "side": "after",
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "line": 169,
+      "purpose": "existing wrapper; header outside, body visible",
+      "exposure": "body context"
+    },
+    {
+      "side": "after",
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "line": 377,
+      "purpose": "existing TableRegion union",
+      "exposure": "tail context only"
+    },
+    {
+      "side": "after",
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "line": 205,
+      "purpose": "existing accumulation owner",
+      "exposure": "outside hunk"
+    },
+    {
+      "side": "after",
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "line": 211,
+      "purpose": "existing general operation use",
+      "exposure": "outside hunk"
+    },
+    {
+      "side": "after",
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "line": 494,
+      "purpose": "existing sequence accumulation",
+      "exposure": "outside hunk"
+    },
+    {
+      "side": "after",
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "line": 500,
+      "purpose": "existing sequence accumulation",
+      "exposure": "outside hunk"
+    }
+  ],
+  "candidateOnly": [
+    {
+      "side": "after",
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "line": 45,
+      "purpose": "property declaration for new hypothesis; not attributed to prior necessity set"
+    }
+  ],
+  "counterReasons": [
+    "Narrow input avoids intermediate region creation and broad semantic changes",
+    "General optimization needs full DB/nil columns/nil rows/row limits/copy/identifier/performance guarantees",
+    "No current measured dominant cost or required refactor"
+  ],
+  "noDesignVerdict": true
+}

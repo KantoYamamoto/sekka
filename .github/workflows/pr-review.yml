@@ -51,6 +51,11 @@ jobs:
           python3 Experiments/StructuralContext/ResultHoldout/verify_diff_controls.py
           python3 Experiments/StructuralContext/BothSideHoldout/verify_diff_controls.py
           python3 Experiments/StructuralContext/DirectRelationsHoldout/selection_controls.py
+      - name: State operation prototype controls
+        run: |
+          swift build --package-path Experiments/StructuralContext/StateOperations/Prototype --scratch-path .build/state-operations
+          SEKKA_STATE_BIN="$(swift build --package-path Experiments/StructuralContext/StateOperations/Prototype --scratch-path .build/state-operations --show-bin-path)"
+          python3 Experiments/StructuralContext/StateOperations/Prototype/controls.py --binary "$SEKKA_STATE_BIN/state-probe" --output .build/pr-review/state-operations.json --text-output .build/pr-review/state-operations.text
       - name: Exercise review boundaries
         run: python3 Scripts/review_probes.py --output .build/pr-review/probes.json
       - name: Exercise structural review questions
@@ -64,6 +69,8 @@ jobs:
           retention-days: 14
           include-hidden-files: true
           path: |
+            .build/pr-review/state-operations.json
+            .build/pr-review/state-operations.text
             .build/pr-review/structural-context.json
             .build/pr-review/structural-context.text
             .build/pr-review/manifest.json
