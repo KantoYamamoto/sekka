@@ -16,6 +16,12 @@ SwiftSyntaxから直接の字句ownerにあるpropertyと関数/initializer/comp
 
 根拠は記載名/位置/header/条件/前後tokenの対応。unqualified参照、parameter/local/closure shadowing、任意receiver、同名宣言、extensionのowner対応、条件コンパイル、computed propertyは意味解決しない。candidateと反対材料/不明を表示し、「同じstorage」「依存解決済み」「共通化必須」「負債」と呼ばない。実calleeや役割が同じことを警告する試作にしない。
 
+### 既読診断後の範囲変更（2026-10-07、extension試作前）
+
+直接の字句ownerだけの初稿ではunion144/canonicalTables205へ候補到達したが、固定必要先のstatic union494/500は別extensionのため落ちた。これは新たな未見利益ではなく、通常のSwift分割で必要関係を落とす方式上の制約。field/operationの所属は結合せず、incoming call候補の検索範囲だけに「同じfile、トップレベルnominal名が一意、修飾/型引数なしの同じextension型名」を追加する。typealias/protocol/同名nominalがあれば追加しない。extensionのwhere/条件/位置とowner・callee未解決を保持する。任意receiverの同名callも候補なので、呼び出し先の位置・候補数を示し、実依存としない。cross-file/qualified/nested型は今回は追加しない。
+
+この変更前のsource/output/独立所見はignoredに固定済み。必要先集合は変更せず、extension候補の正対照と同名型/alias/protocol/修飾名の負対照を追加する。既知到達だけで未見比較や本番移植へ自動進行しない。
+
 ## 先に置く対照と終了判断
 
 1. 既存fieldを使う追加操作と未変更の既存操作/利用側が離れている入力。
