@@ -22,7 +22,7 @@ JSONの`relationships`と罫線textは次を示す。
 - 前後のswitch・所属宣言の位置、ownerの構文変更状態、記載された外側条件。
 - caseラベル、called expression、明示selector、trailing closure数と追加ラベルの前後形。引数/closure本文の表記差と条件差は別の事実。
 - 所属functionと同じ明示selectorを持つ前後の利用表記、そのownerがtoken-identical/changed/対応不明か。
-- 新しく共通になったcall表記の全位置と、同じbasenameの宣言候補。共有処理がすでに存在する可能性の反対材料であり、trailing closureの引数対応や実calleeの解決ではない。
+- 新しく共通になったcall表記について、選ばれた関係のswitch内の全位置と、同じbasenameの宣言候補。共有処理がすでに存在する可能性の反対材料であり、trailing closureの引数対応や実calleeの解決ではない。
 
 例えば同じ結果転送の変更がinitializerと既存helperへ入った場合、両switch全体と未変更property内の同名利用表記へ進める。これは「既存helperへ揃えるか」と考える入口にすぎない。主処理がすでに共有済み、引数や条件が異なる、別目的である可能性も残る。Logger/SwiftUI一般や任意の重複処理を検出する契約ではない。
 

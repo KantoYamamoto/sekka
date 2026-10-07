@@ -1,12 +1,12 @@
 # Sekka: 現在位置と作業順
 
-更新日: 2026-10-06。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
+更新日: 2026-10-07。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
 
 ## ゴールと現在位置
 
 **通常diffを補い、変更を既存構造へどう組み込むか考えるための差分外の実装・既存窓口を、関連根拠付きで示す。** 構文上の候補と不明を区別し、設計の良否・実calleeを推測で確定しない。Swift 6以降、CLI/Actions、LLMなしの決定論性を維持する。
 
-現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#105 / PR #106は完了、#107で実験CLIを組み直している。** 前比較は構造再検討の機械寄与0、stage1資料の非対称による純増効果未判定を保持する。[結果と限界](docs/validation/both-side-call-holdout.md)。
+現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#105 / PR #106は完了、#107 / PR #108は実験CLIの組み直し・独立点検まで完了し、最終PRを確認している。** 前比較は構造再検討の機械寄与0、stage1資料の非対称による純増効果未判定を保持する。[結果と限界](docs/validation/both-side-call-holdout.md)。
 
 #105では未変更宣言という枠を外し、同じswitch構文形の変更が入る実行領域を試した。既読GRDBのinitializer/変更された既存helper/未変更property利用表記へ到達、他2件0。26対照・code/fact/文書独立点検・自己利用は完了、最終PRのActions/実Bot/10成果物まで確認して完了。[診断](docs/validation/cochange-diagnostic.md) / [方針0048](docs/decisions/0048-changed-existing-context.md)。未読利益は未確立で、本番/M3は保留。必要性のA/B判断差を残し、到達だけを成功にしない。人間判断待ちなし。
 
