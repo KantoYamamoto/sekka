@@ -8,7 +8,7 @@
 
 現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#109 / PR #110は最終Actions・実Bot・成果物まで完了。4件とも機械関係0、配置判断への寄与を支持しない。** [今回の結果](docs/validation/direct-relations-holdout.md)。前比較の機械寄与0とstage1非対称による純増未判定も保持する。[前結果](docs/validation/both-side-call-holdout.md)。
 
-同形switchの入口は凍結し、本番/M3へ進めない。#111では新しく記載状態→操作→既存利用を入口にし、既読GRDB1881の差分外の汎用処理/extension利用へ候補到達した。[診断結果](docs/validation/state-operation-entry.md)。同名の別callee/余分な候補もあり、未見利益は未検査。[理由0050](docs/decisions/0050-unsupported-shape-entry.md)。現在の方式への利益未支持と目的全体の不可能を混ぜない。利益のない入口の拡張/高速化を先に行わず、別の根拠も尽きた場合は用途限定/撤退を人間へ通知する。人間判断待ちなし。
+同形switchの入口は凍結し、本番/M3へ進めない。#111では新しく記載状態→操作→既存利用を入口にし、既読GRDB1881の差分外の汎用処理/extension利用へ候補到達した。[診断結果](docs/validation/state-operation-entry.md)。同名の別callee/余分な候補もあり、PR #112の最終Actions/実Bot/12成果物まで完了。未見利益は#113で比較中。[理由0050](docs/decisions/0050-unsupported-shape-entry.md)。現在の方式への利益未支持と目的全体の不可能を混ぜない。利益のない入口の拡張/高速化を先に行わず、別の根拠も尽きた場合は用途限定/撤退を人間へ通知する。人間判断待ちなし。
 
 ## Issueの階層と判断の節目
 
@@ -24,8 +24,8 @@
 
 | 順序 | Issue | 完了条件 / 状態 |
 | --- | --- | --- |
-| 現在 | [#111 状態/操作の新入口](https://github.com/KantoYamamoto/sekka/issues/111) | 固定11位置への候補到達、41対照と二回一致。独立最終点検/自己利用/PR/Actionsを確認。旧方式へruleを追加しない |
-| 次の判断 | 新入口の小さな未見比較 | 同じ既読例を使わず、案内が配置/代替案/反対理由の検討に実使用されたかと候補負担を比較。利益未支持なら同じ入口の細部調整を続けず用途限定/撤退を通知 |
+| 現在 | [#113 状態/操作入口の限定比較](https://github.com/KantoYamamoto/sekka/issues/113) | 評価器/規則/2入力を閲覧前に固定。Ice528/KeyboardShortcuts216の全素材・二回一致を照合、同じ通常diffを渡す独立A/Bで配置再考への実使用を確認中 |
+| 次の判断 | #113の結果による投資判断 | 機会なしと機会ありで利益なしを分ける。2件で一区切りにし、利益未支持の入口を細部調整/追加caseで延命しない。M3保留 |
 
 <details><summary>完了したM1/M2の作業と根拠</summary>
 
@@ -50,6 +50,7 @@ M1の#73（構文索引/PR #75）と#74（検索と表示/PR #76）は完了。M
 | 15 | [#105 観測単位の診断](https://github.com/KantoYamamoto/sekka/issues/105) | 26対照・全1,891入力entries・独立code/fact/文書点検・自己利用、PR #106の最終Actions/実Bot/10成果物まで完了。既読1関係・他2件0、未読利益は未確立 |
 | 16 | [#107 直接関係CLI](https://github.com/KantoYamamoto/sekka/issues/107) | 旧検索runtime撤去、13Swift/31CLI対照・既読全1,891entries/全位置parity・独立指摘修正・自己利用・最終Actions/実Bot/10成果物を確認しPR #108で完了。本番/M3保留 |
 | 17 | [#109 直接関係の未見比較](https://github.com/KantoYamamoto/sekka/issues/109) | 新4入力/全3,054 entries/全mode二回一致/同じstage1資料/4pairsを確認。機械関係0、配置への寄与未支持。独立指摘修正・最終Actions/実Bot/10成果物までPR #110で完了 |
+| 18 | [#111 状態/操作の新入口](https://github.com/KantoYamamoto/sekka/issues/111) | 既読11固定位置への候補到達、41対照・独立指摘修正・自己利用・最終Actions/実Bot/12成果物を確認しPR #112で完了。未見利益の証明とはしない |
 
 </details>
 

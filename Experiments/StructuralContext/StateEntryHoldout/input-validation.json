@@ -1,0 +1,52 @@
+{
+  "meaning": "Read-only diff/source binding; not behavior or design validation",
+  "cases": [
+    {
+      "case": "Ice-528",
+      "diffSHA256": "0b9902213f2c6418ab65f5d2e9f34d10f9414c4c2fd4182dff9cdcfbb811bf18",
+      "files": [
+        {
+          "before": "Ice/Events/EventManager.swift",
+          "after": "Ice/Events/EventManager.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        },
+        {
+          "before": "Ice/Settings/SettingsManagers/AdvancedSettingsManager.swift",
+          "after": "Ice/Settings/SettingsManagers/AdvancedSettingsManager.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 3
+        },
+        {
+          "before": "Ice/Settings/SettingsPanes/AdvancedSettingsPane.swift",
+          "after": "Ice/Settings/SettingsPanes/AdvancedSettingsPane.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 2
+        },
+        {
+          "before": "Ice/Utilities/Defaults.swift",
+          "after": "Ice/Utilities/Defaults.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        }
+      ]
+    },
+    {
+      "case": "KeyboardShortcuts-216",
+      "diffSHA256": "2e92391be15dc87df70181724b0fcf0758a2e41cf8df0df88bcfb2f88b934788",
+      "files": [
+        {
+          "before": "Sources/KeyboardShortcuts/KeyboardShortcuts.swift",
+          "after": "Sources/KeyboardShortcuts/KeyboardShortcuts.swift",
+          "status": "modified",
+          "verification": "text hunks and unchanged gaps/tail",
+          "hunks": 1
+        }
+      ]
+    }
+  ]
+}

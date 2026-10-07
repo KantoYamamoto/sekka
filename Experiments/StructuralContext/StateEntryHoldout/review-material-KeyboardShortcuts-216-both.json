@@ -1,0 +1,24 @@
+{
+  "binarySHA256": "ea561b2b09c37df45cd30b03c314f9170437ca331611e8f6f3da3d36ff6a90f0",
+  "inputsSHA256": "39f3a6ddb63418a16ce2b26d3a3540b8aa2f99a2d1198d2a893468127015d8a1",
+  "preparerSHA256": "b8b426f71cb905ec227862b3699a25e7a9383112de0da848db9a595afe1d7ba8",
+  "materials": [
+    {
+      "case": "KeyboardShortcuts-216",
+      "prContextSHA256": "7e8c8e153251046dc18a6682544c98a87b1f5d91ed5833870cfec668890c4090",
+      "ordinarySwiftDiffSHA256": "2e92391be15dc87df70181724b0fcf0758a2e41cf8df0df88bcfb2f88b934788",
+      "ordinarySwiftDiffBytes": 1078,
+      "groups": {
+        "A": {
+          "ordinary-swift.diff": "2e92391be15dc87df70181724b0fcf0758a2e41cf8df0df88bcfb2f88b934788",
+          "pr-context.md": "7e8c8e153251046dc18a6682544c98a87b1f5d91ed5833870cfec668890c4090"
+        },
+        "B": {
+          "ordinary-swift.diff": "2e92391be15dc87df70181724b0fcf0758a2e41cf8df0df88bcfb2f88b934788",
+          "pr-context.md": "7e8c8e153251046dc18a6682544c98a87b1f5d91ed5833870cfec668890c4090",
+          "relations.text": "0f98ae69b3b79b9b22da60760ad1166bb3475f03d5d09d51de13c07ac9836edc"
+        }
+      }
+    }
+  ]
+}
