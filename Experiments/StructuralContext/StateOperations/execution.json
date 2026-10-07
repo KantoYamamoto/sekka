@@ -1,6 +1,6 @@
 {
-  "binarySHA256": "af1147494e771b9c7133d438446dff938f4b711e2cff7b5f849c1514f36c4e90",
-  "sourceSHA256": "aa602e358f18bb55d652ba05206dcb433ac9f6f35a26a14290cd5e3d600915c0",
+  "binarySHA256": "ea561b2b09c37df45cd30b03c314f9170437ca331611e8f6f3da3d36ff6a90f0",
+  "sourceSHA256": "ba3301053ba9567fd4a096f1e70c26e8aa435a9c0881ea857dbd9d1458ee5253",
   "runnerSHA256": "5fe1e1ad0c1817f6764e1f93d0553da099b6f59d01ba47e6d2d1c325f42bfdf3",
   "inputsManifestSHA256": "777a0f00f8af829abf263ba223cae33b405dd12f20074d4aba3d9077d56826a4",
   "case": "GRDB-swift-1881",
@@ -20,8 +20,8 @@
       "lines": 1507,
       "fullProcessBytesEqual": true,
       "seconds": [
-        15.898314415999998,
-        16.200553791
+        16.908092125,
+        17.083784833
       ]
     },
     "text": {
@@ -31,14 +31,14 @@
       "lines": 52,
       "fullProcessBytesEqual": true,
       "seconds": [
-        16.372705458,
-        16.414113583000002
+        16.995088249999995,
+        16.998514667000002
       ]
     }
   },
   "controls": {
-    "count": 37,
-    "runnerSHA256": "16fa31c60e769fdb9ec26907da9ac7aaa1cb979bfb725800236c0c5e347a09de",
+    "count": 41,
+    "runnerSHA256": "d02521fd1ab56883381c81ebbc15ad805a17acbd3b3175e2eb977648386873e4",
     "cases": [
       {
         "case": "added-operation-existing-data",
@@ -185,6 +185,18 @@
         "textProcessBytesEqual": true
       },
       {
+        "case": "executable-block-local-property-not-invented",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "closure-local-property-not-invented",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
         "case": "different-conditional-owners-not-joined",
         "exit": 0,
         "fullProcessBytesEqual": true,
@@ -240,6 +252,18 @@
       },
       {
         "case": "extension-conditions-kept-unresolved",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "conditional-operation-whitespace-does-not-anchor",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "conditional-operation-comment-does-not-anchor",
         "exit": 0,
         "fullProcessBytesEqual": true,
         "textProcessBytesEqual": true

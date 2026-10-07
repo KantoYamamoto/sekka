@@ -1,5 +1,5 @@
 """Own source controls; no external target code executes."""
-import argparse,hashlib,json,subprocess,tempfile
+import argparse,hashlib,json,re,subprocess,tempfile
 from pathlib import Path
 p=argparse.ArgumentParser();p.add_argument('--binary',type=Path,required=True)
 p.add_argument('--output',type=Path);p.add_argument('--text-output',type=Path)
@@ -24,7 +24,8 @@ def run(name,before,after,expect):
   if expect is None:assert not ta.stdout
   else:
    assert 'syntax candidates, not design warnings' in ta.stdout.decode() and 'Limits:' in ta.stdout.decode()
-   assert str(len(json.loads(a.stdout)['relationships'])) in ta.stdout.decode().splitlines()[1]
+   groups=re.search(r'; groups: (\d+)$',ta.stdout.decode().splitlines()[1])
+   assert groups and int(groups.group(1))==len(json.loads(a.stdout)['relationships'])
    if name=='added-operation-existing-data':sample_text=ta.stdout
   rows.append(dict(case=name,exit=a.returncode,fullProcessBytesEqual=True,textProcessBytesEqual=True))
 def one(report):assert len(report['relationships'])==1,report
@@ -92,6 +93,10 @@ initializer_local='struct Store {\n var value: Int = { let state = 1; return sta
 run('stored-initializer-closure-local-property-not-invented',initializer_local,initializer_local[:-1]+' func unrelated(state: Int) { print(state) } }',zero)
 subscript_local='struct Store {\n subscript(i: Int) -> Int { let state = i; return state }\n}'
 run('subscript-local-property-not-invented',subscript_local,subscript_local[:-1]+' func unrelated(state: Int) { print(state) } }',zero)
+deinit_local='class Store {\n deinit { let state = 1; print(state) }\n}'
+run('executable-block-local-property-not-invented',deinit_local,deinit_local[:-1]+' func unrelated(state: Int) { print(state) } }',zero)
+enum_default_local='enum Store {\n case value(Int = { let state = 1; return state }())\n}'
+run('closure-local-property-not-invented',enum_default_local,enum_default_local[:-1]+' func unrelated(state: Int) { print(state) } }',zero)
 branch_owners='#if FLAG\n'+base+'\n#else\nstruct Store {\n func value() -> Int { 1 }\n}\n#endif\n'
 run('different-conditional-owners-not-joined',branch_owners,branch_owners.replace('func value() -> Int { 1 }','func value() -> Int { 1 }\n func trace(state: Int) { print(state) }'),zero)
 duplicate_owners=base+'\nstruct Store {\n func value() -> Int { 1 }\n}'
@@ -120,6 +125,9 @@ def extension_conditions(report):
  calls=[c for op in report['relationships'][0]['existingOperations'] for c in op['writtenCallerCandidates'] if 'extension-name-candidate' in c['ownerRelation']]
  assert len(calls)==1 and calls[0]['conditions'] and '#if FLAG' in calls[0]['conditions'][0]
 run('extension-conditions-kept-unresolved',conditional_extension,add_trace(conditional_extension),extension_conditions)
+conditional_operation='struct Store {\n var state = 0\n func read() -> Int { state }\n#if FLAG && OTHER\n func trace() { print(state) }\n#endif\n}'
+run('conditional-operation-whitespace-does-not-anchor',conditional_operation,conditional_operation.replace('FLAG && OTHER','FLAG  && OTHER'),zero)
+run('conditional-operation-comment-does-not-anchor',conditional_operation,conditional_operation.replace('FLAG && OTHER','FLAG /* note */ && OTHER'),zero)
 with tempfile.TemporaryDirectory(prefix='sekka-state-errors-') as directory:
  root=Path(directory);folder=root/'input';folder.mkdir();(folder/'file.swift').write_bytes(b'\xff')
  for name,left,right in [('invalid-utf8',folder,folder),('missing-root',root/'missing',folder)]:

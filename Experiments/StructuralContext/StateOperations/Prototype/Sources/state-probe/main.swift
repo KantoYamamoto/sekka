@@ -42,10 +42,11 @@ func context(_ node: Syntax, includingNode: Bool = false) -> (headers: [[String]
     // Any executable/property declaration between a member and its owner is a boundary,
     // including implicit getters and stored-property initializer closures.
     if p.is(FunctionDeclSyntax.self) || p.is(InitializerDeclSyntax.self) || p.is(AccessorDeclSyntax.self)
-      || p.is(VariableDeclSyntax.self) || p.is(SubscriptDeclSyntax.self) { nested = true }
+      || p.is(VariableDeclSyntax.self) || p.is(SubscriptDeclSyntax.self)
+      || p.is(CodeBlockSyntax.self) || p.is(ClosureExprSyntax.self) { nested = true }
     if let clause = p.as(IfConfigClauseSyntax.self) {
-      let selected = clause.poundKeyword.text + " " + (clause.condition?.trimmedDescription ?? "")
-      let all = clause.parent?.as(IfConfigClauseListSyntax.self)?.map { $0.poundKeyword.text + " " + ($0.condition?.trimmedDescription ?? "") } ?? []
+      let selected = clause.poundKeyword.text + " " + (clause.condition.map { tokens($0).joined(separator: " ") } ?? "")
+      let all = clause.parent?.as(IfConfigClauseListSyntax.self)?.map { $0.poundKeyword.text + " " + ($0.condition.map { tokens($0).joined(separator: " ") } ?? "") } ?? []
       conditions.insert("selected=" + selected + "; branches=" + all.joined(separator: " | "), at: 0)
     }
     parent = p.parent

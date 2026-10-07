@@ -30,4 +30,4 @@ parameter/local/closureと同名の参照も未解決候補。stored、observer�
 
 #109で検証済みのGRDB1881 packetをignoredへ用意し、`Prototype/replay.py --binary BIN --packet PACKET --inputs Experiments/StructuralContext/DirectRelationsHoldout/inputs.json --output NEW_PRIVATE_DIRECTORY`で再実行する。全341 file entriesのinventory/blob/bytes/SHAを照合し、JSON/textそれぞれ2回のexit/stdout/stderrを比較する。外部source/diff/raw出力をGitへ入れない。[execution.json](execution.json)はhash/countのみ。
 
-37合成対照は事実性・曖昧さ・失敗・二回一致の検査。本番への採用やレビュー利益の合格ではない。Actionsも自作対照のみを実行し、receiptと自作例のtextをartifactへ保存する。次の実用性比較は、このcaseを未見として再利用せず、別入力で行う。
+41合成対照は事実性・曖昧さ・失敗・二回一致の検査。本番への採用やレビュー利益の合格ではない。Actionsも自作対照のみを実行し、receiptと自作例のtextをartifactへ保存する。次の実用性比較は、このcaseを未見として再利用せず、別入力で行う。
