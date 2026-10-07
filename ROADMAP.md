@@ -43,7 +43,7 @@ M1の#73（構文索引/PR #75）と#74（検索と表示/PR #76）は完了。M
 | 8 | [#91 必要先への未到達診断](https://github.com/KantoYamamoto/sekka/issues/91) | 既存レビューの23位置を固定し索引/検索条件へ戻す。無条件の逆引き/記載API family/戻り値名の仮説を比較、独立点検・自己利用・Actions/実成果物までPR #92で完了 |
 | 9 | [#93 戻り値名/call表記](https://github.com/KantoYamamoto/sekka/issues/93) | 既存producerとの関係を現索引/一覧へ統合。85テスト/13 CLI・独立指摘修正・既知4PR・自己利用・Actions/実コメント/10成果物までPR #94で完了 |
 | 10 | [#95 別の固定PRで独立比較](https://github.com/KantoYamamoto/sekka/issues/95) | 素材/二回実行/段階別A/Bと6,260検査・source根拠の独立点検まで完了。未解消指摘なし、本番保留。PR #97にActions/実コメント/10成果物の完了記録 |
-| 11 | [#96 減った利用と残る窓口の診断](https://github.com/KantoYamamoto/sekka/issues/96) | 58必要位置を先に固定、4caseの全42減少selector/4不変候補を照合。copy先例と挙動helperに交差、同名/必要集合外も記録。41対照・修正後全bytes一致・独立点検/指摘修正完了。PR #99でActions/実コメント/10成果物まで確認して完了 |
+| 11 | [#96 減った利用と残る窓口の診断](https://github.com/KantoYamamoto/sekka/issues/96) | 58必要位置を先に固定、4caseの全42減少selector/4不変候補を照合。copy先例と挙動helperに交差、同名/必要集合外も記録。37対照・修正後全bytes一致・独立点検/指摘修正完了。PR #99でActions/実コメント/10成果物まで確認して完了 |
 | 12 | [#98 実験CLIの失敗表示](https://github.com/KantoYamamoto/sekka/issues/98) | reader/formatterを共有し、path欠落の独立指摘も修正。85テスト/14 CLI/37診断対照と失敗全bytes一致を確認。PR #101で通常Actions/実コメント/10成果物まで確認して完了 |
 | 13 | [#100 両側のcall入口](https://github.com/KantoYamamoto/sekka/issues/100) | 前後call索引と不変判定を共有、member経路をintroduced/decreasedへ置換。100テスト/17 CLI/診断37と既知4caseを確認、全81出現/13targetを独立点検。詳細外も全位置を残す。PR #103でActions/実Bot/10成果物まで完了 |
 | 14 | [#102 両側入口の別入力比較](https://github.com/KantoYamamoto/sekka/issues/102) | 3素材/全bytes/diff、全3pairs・結果独立点検済み、1入力不成立。stage1非対称を解釈制限として保持、露出誤分類を訂正。PR #104の最終Actions/実Bot/10成果物まで完了、M3保留 |
