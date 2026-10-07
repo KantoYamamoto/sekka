@@ -1,0 +1,327 @@
+{
+  "meaning": "Saved evidence consistency, not signed execution proof or utility",
+  "auditorSHA256": "bacaacf215d9dcb15d0383728411fe97fd12c1735b086080b3bc634d96092d10",
+  "inputsSHA256": "777a0f00f8af829abf263ba223cae33b405dd12f20074d4aba3d9077d56826a4",
+  "binarySHA256": "c71d9882616173e152050efabf41f962ae78d07ccac11963692055b6db094f7a",
+  "validatedEntries": 3054,
+  "cases": [
+    {
+      "case": "swift-collections-744",
+      "validatedEntries": 1210,
+      "transitionCount": 0,
+      "unknown": [
+        {
+          "after": [
+            {
+              "endLine": 138,
+              "file": "RopeModule/BigString/Chunk/BigString+Chunk+UnicodeScalar.swift",
+              "line": 117,
+              "offset": 2594
+            }
+          ],
+          "before": [
+            {
+              "endLine": 138,
+              "file": "RopeModule/BigString/Chunk/BigString+Chunk+UnicodeScalar.swift",
+              "line": 117,
+              "offset": 2594
+            }
+          ],
+          "reason": "no-executable-owner"
+        }
+      ],
+      "checkpointSHA256": "7d202c0a02b54d9bf2baa007c9bce50043e097c34c968a634c5fb71ce4169251",
+      "materials": {
+        "A": {
+          "ordinary-swift.diff": "36df9898f5f6b67e748b21e4be794497ef0852b37205e742450a41c254c720cf",
+          "pr-context.md": "cfe540088633167ca96d89941ab906a69095a033206d9a5c671a7086cd3e4007"
+        },
+        "B": {
+          "relations.json": "f66f3cdf83a004745c31ba99eeab0c32387291735e78305ab40f0480657f7f63",
+          "relations.text": "a2a75e39a8b33dc5a02d2bc0f97be6bf9ec18042d076c45f8b4fc86a9158060c",
+          "ordinary-swift.diff": "36df9898f5f6b67e748b21e4be794497ef0852b37205e742450a41c254c720cf",
+          "pr-context.md": "cfe540088633167ca96d89941ab906a69095a033206d9a5c671a7086cd3e4007"
+        }
+      }
+    },
+    {
+      "case": "swift-collections-739",
+      "validatedEntries": 1161,
+      "transitionCount": 0,
+      "unknown": [
+        {
+          "after": [
+            {
+              "endLine": 138,
+              "file": "RopeModule/BigString/Chunk/BigString+Chunk+UnicodeScalar.swift",
+              "line": 117,
+              "offset": 2594
+            }
+          ],
+          "before": [
+            {
+              "endLine": 138,
+              "file": "RopeModule/BigString/Chunk/BigString+Chunk+UnicodeScalar.swift",
+              "line": 117,
+              "offset": 2594
+            }
+          ],
+          "reason": "no-executable-owner"
+        }
+      ],
+      "checkpointSHA256": "e7c93d60c5ad316e51db75c22c3f12de6cd416b58f768a8165e176f3a7d147c0",
+      "materials": {
+        "A": {
+          "ordinary-swift.diff": "f41eb3d6fbebd56226e58b7e06e39098304070f9aaf9c2cfced309bf465418e0",
+          "pr-context.md": "55fdbf8ba0b785652c64f0cb6b52e9ac23349f77cdb6eb418f48633b145aff0d"
+        },
+        "B": {
+          "relations.json": "3b3527cfe233b99e60a46f6c18338c0d796c826c9aef861aa9f123c4d14ec1a5",
+          "relations.text": "2b0cd113e5ba03599bf04cde74adb884b503cd3c258100e56623fa9c67ecc6ca",
+          "ordinary-swift.diff": "f41eb3d6fbebd56226e58b7e06e39098304070f9aaf9c2cfced309bf465418e0",
+          "pr-context.md": "55fdbf8ba0b785652c64f0cb6b52e9ac23349f77cdb6eb418f48633b145aff0d"
+        }
+      }
+    },
+    {
+      "case": "GRDB-swift-1881",
+      "validatedEntries": 341,
+      "transitionCount": 1,
+      "unknown": [
+        {
+          "after": [
+            {
+              "endLine": 192,
+              "file": "FTS/FTS5TokenizerDescriptor.swift",
+              "line": 180,
+              "offset": 5930
+            }
+          ],
+          "before": [
+            {
+              "endLine": 192,
+              "file": "FTS/FTS5TokenizerDescriptor.swift",
+              "line": 180,
+              "offset": 5930
+            }
+          ],
+          "reason": "conditional-case-list-not-expanded"
+        },
+        {
+          "after": [
+            {
+              "endLine": 105,
+              "file": "FTS/FTS3TokenizerDescriptor.swift",
+              "line": 93,
+              "offset": 2793
+            }
+          ],
+          "before": [
+            {
+              "endLine": 105,
+              "file": "FTS/FTS3TokenizerDescriptor.swift",
+              "line": 93,
+              "offset": 2793
+            }
+          ],
+          "reason": "conditional-case-list-not-expanded"
+        },
+        {
+          "after": [
+            {
+              "endLine": 113,
+              "file": "Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 105,
+              "offset": 3424
+            },
+            {
+              "endLine": 136,
+              "file": "Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 116,
+              "offset": 3814
+            }
+          ],
+          "before": [
+            {
+              "endLine": 113,
+              "file": "Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 105,
+              "offset": 3424
+            },
+            {
+              "endLine": 136,
+              "file": "Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 116,
+              "offset": 3814
+            }
+          ],
+          "reason": "added-deleted-or-ambiguous-switch"
+        },
+        {
+          "after": [
+            {
+              "endLine": 465,
+              "file": "QueryInterface/SQL/SQLRelation.swift",
+              "line": 458,
+              "offset": 17752
+            },
+            {
+              "endLine": 525,
+              "file": "QueryInterface/SQL/SQLRelation.swift",
+              "line": 509,
+              "offset": 19851
+            }
+          ],
+          "before": [
+            {
+              "endLine": 465,
+              "file": "QueryInterface/SQL/SQLRelation.swift",
+              "line": 458,
+              "offset": 17752
+            },
+            {
+              "endLine": 525,
+              "file": "QueryInterface/SQL/SQLRelation.swift",
+              "line": 509,
+              "offset": 19851
+            }
+          ],
+          "reason": "added-deleted-or-ambiguous-switch"
+        }
+      ],
+      "checkpointSHA256": "d722287514baa5fca8c224117c4642eef41207c7f9ece33dadea0707a7b4f9e7",
+      "materials": {
+        "A": {
+          "ordinary-swift.diff": "86ca76a6a1b334ed47daccf999f03c8e522eed531108724b3df26da94e81208b",
+          "pr-context.md": "b24d4e58b53d8e00c20099acadef688691ae6e1b92965ae4bf4ca48f65601383"
+        },
+        "B": {
+          "relations.json": "826efa43c4c3f6defab7be0bbc5bb16d6c3526ca627a3ecc0859fef4dd5a2196",
+          "relations.text": "e3e33dd3de4be6178c796fb3961fee20a3ec14d35da4bd06975004b64f223624",
+          "ordinary-swift.diff": "86ca76a6a1b334ed47daccf999f03c8e522eed531108724b3df26da94e81208b",
+          "pr-context.md": "b24d4e58b53d8e00c20099acadef688691ae6e1b92965ae4bf4ca48f65601383"
+        }
+      }
+    },
+    {
+      "case": "GRDB-swift-1879",
+      "validatedEntries": 342,
+      "transitionCount": 1,
+      "unknown": [
+        {
+          "after": [
+            {
+              "endLine": 192,
+              "file": "FTS/FTS5TokenizerDescriptor.swift",
+              "line": 180,
+              "offset": 5930
+            }
+          ],
+          "before": [
+            {
+              "endLine": 192,
+              "file": "FTS/FTS5TokenizerDescriptor.swift",
+              "line": 180,
+              "offset": 5930
+            }
+          ],
+          "reason": "conditional-case-list-not-expanded"
+        },
+        {
+          "after": [
+            {
+              "endLine": 105,
+              "file": "FTS/FTS3TokenizerDescriptor.swift",
+              "line": 93,
+              "offset": 2793
+            }
+          ],
+          "before": [
+            {
+              "endLine": 105,
+              "file": "FTS/FTS3TokenizerDescriptor.swift",
+              "line": 93,
+              "offset": 2793
+            }
+          ],
+          "reason": "conditional-case-list-not-expanded"
+        },
+        {
+          "after": [
+            {
+              "endLine": 113,
+              "file": "Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 105,
+              "offset": 3424
+            },
+            {
+              "endLine": 136,
+              "file": "Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 116,
+              "offset": 3814
+            }
+          ],
+          "before": [
+            {
+              "endLine": 113,
+              "file": "Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 105,
+              "offset": 3424
+            },
+            {
+              "endLine": 136,
+              "file": "Core/Support/Foundation/DatabaseDateComponents.swift",
+              "line": 116,
+              "offset": 3814
+            }
+          ],
+          "reason": "added-deleted-or-ambiguous-switch"
+        },
+        {
+          "after": [
+            {
+              "endLine": 465,
+              "file": "QueryInterface/SQL/SQLRelation.swift",
+              "line": 458,
+              "offset": 17752
+            },
+            {
+              "endLine": 525,
+              "file": "QueryInterface/SQL/SQLRelation.swift",
+              "line": 509,
+              "offset": 19851
+            }
+          ],
+          "before": [
+            {
+              "endLine": 465,
+              "file": "QueryInterface/SQL/SQLRelation.swift",
+              "line": 458,
+              "offset": 17752
+            },
+            {
+              "endLine": 525,
+              "file": "QueryInterface/SQL/SQLRelation.swift",
+              "line": 509,
+              "offset": 19851
+            }
+          ],
+          "reason": "added-deleted-or-ambiguous-switch"
+        }
+      ],
+      "checkpointSHA256": "2dc6965ff1f70fa5fb66374b66ee4fc89f201accfcb39339487ed4ba9d8a945b",
+      "materials": {
+        "A": {
+          "ordinary-swift.diff": "8c4d53edb981631a77003eb2bd98cdde194a1346d46dd03f67d701283a7b8f68",
+          "pr-context.md": "277ab39697704948aad407db865eb0d613fe860c6dff646656a54cb84928de38"
+        },
+        "B": {
+          "relations.json": "6907fd5d0ff5af181f52a7179d42f81fa587e6441fc5cb39d904f458a34baee2",
+          "relations.text": "e3e33dd3de4be6178c796fb3961fee20a3ec14d35da4bd06975004b64f223624",
+          "ordinary-swift.diff": "8c4d53edb981631a77003eb2bd98cdde194a1346d46dd03f67d701283a7b8f68",
+          "pr-context.md": "277ab39697704948aad407db865eb0d613fe860c6dff646656a54cb84928de38"
+        }
+      }
+    }
+  ]
+}

@@ -45,4 +45,4 @@ P3のtext owner状態欠落と再現commandの旧freeze参照も修正。全3入
 
 自己利用は本番評価器のbaseline/candidate全text/compact/full bytes一致。旧索引撤去と新model一覧は読む順の入口になったが、macro方針整合とmatcher正しさは通常diff/文書/独立対照で判断。BOM不具合はSekka/root自己利用ではなく独立code点検から見つかった。用途価値やレビュー時間の改善と同一視しない。
 
-次は固定評価器を使った未読比較。両stage1に同じPR説明/通常diffを先渡しし、commonsource前のcheckpointを保存する。既読到達/圧縮率は合格条件にしない。配置再考へ寄与せず別の決定論的根拠もなくなれば、用途限定/撤退の判断を人間へ通知する。
+その後の固定評価器による[未読比較 #109](direct-relations-holdout.md)では、新4PRの構造判断への機械寄与を支持できなかった。本番統合を止め、次の診断を[0050](../decisions/0050-unsupported-shape-entry.md)へ分ける。今回の既読到達/圧縮率を合格条件にせず、別の具体的根拠も尽きた場合は用途限定/撤退を人間へ通知する。
