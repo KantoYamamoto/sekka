@@ -8,7 +8,9 @@
 
 現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#109 / PR #110は最終Actions・実Bot・成果物まで完了。4件とも機械関係0、配置判断への寄与を支持しない。** [今回の結果](docs/validation/direct-relations-holdout.md)。前比較の機械寄与0とstage1非対称による純増未判定も保持する。[前結果](docs/validation/both-side-call-holdout.md)。
 
-同形switchの入口は凍結し、本番/M3へ進めない。#111では新しく記載状態→操作→既存利用を入口にし、既読GRDB1881の差分外の汎用処理/extension利用へ候補到達した。[診断結果](docs/validation/state-operation-entry.md)。同名の別callee/余分な候補もあり、PR #112の最終Actions/実Bot/12成果物まで完了。未見利益は#113で比較中。[理由0050](docs/decisions/0050-unsupported-shape-entry.md)。現在の方式への利益未支持と目的全体の不可能を混ぜない。利益のない入口の拡張/高速化を先に行わず、別の根拠も尽きた場合は用途限定/撤退を人間へ通知する。人間判断待ちなし。
+同形switchの入口は凍結し、本番/M3へ進めない。#111 / PR #112で状態→操作→既存利用の試作を完了し、#113 / PR #114で未見2変更を比較した。[結果](docs/validation/state-entry-holdout.md)。既存UIとの整合、既存集合/bulk規則の比較にtextが使われた限定的な寄与はある。ただし核心helperは案内に出ず、両担当が普通のsourceから同じ問いへ到達した。独自発見や時間短縮、一般的な実用性は未確立。PR #114の最終Actions/実Bot/12成果物確認中。人間判断待ちなし。
+
+この固定2件の比較は終了し、細部調整/入力追加で延命しない。次は[#115](https://github.com/KantoYamamoto/sekka/issues/115)で、一覧の代わりに「状態集約→既存判断→利用」の核心関係を表せるか一単位の既読診断。[理由0051](docs/decisions/0051-state-context-investment.md)。必要位置/反対材料を先に固定し、候補到達と未見利益を分ける。別の具体的根拠も尽きた場合は用途限定/撤退を人間へ通知する。
 
 ## Issueの階層と判断の節目
 
@@ -24,8 +26,8 @@
 
 | 順序 | Issue | 完了条件 / 状態 |
 | --- | --- | --- |
-| 現在 | [#113 状態/操作入口の限定比較](https://github.com/KantoYamamoto/sekka/issues/113) | 評価器/規則/2入力を閲覧前に固定。Ice528/KeyboardShortcuts216の全素材・二回一致を照合、同じ通常diffを渡す独立A/Bで配置再考への実使用を確認中 |
-| 次の判断 | #113の結果による投資判断 | 機会なしと機会ありで利益なしを分ける。2件で一区切りにし、利益未支持の入口を細部調整/追加caseで延命しない。M3保留 |
+| 完了確認中 | [#113 状態/操作入口の限定比較](https://github.com/KantoYamamoto/sekka/issues/113) | 全258entries/二回一致/全4checkpoint/独立比較を照合。限定寄与と核心未提示を記録。PR #114の独立最終点検/Actions/実Bot/成果物を確認 |
+| 次 | [#115 状態集約と既存判断の関係](https://github.com/KantoYamamoto/sekka/issues/115) | 必要位置/露出/反対理由を実装前に固定し、関係の経路を一単位の既読診断。届かなければ一覧の細部調整へ戻らず投資判断 |
 
 <details><summary>完了したM1/M2の作業と根拠</summary>
 

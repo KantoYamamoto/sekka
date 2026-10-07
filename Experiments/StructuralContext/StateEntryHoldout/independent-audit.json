@@ -1,0 +1,23 @@
+{
+  "meaning": "Independent static audit; not OSS execution, utility proof, or final CI receipt",
+  "reportSHA256": "685938c739be2f27a71dad990c31b44586ad218d1299d87f39fcba66cd393f41",
+  "receiptSHA256": "fe48b17486667e93666abfc3781fb06d500f375ea90275dc80a565a6b6dbeb2b",
+  "remainingP1P2": 0,
+  "sourceEntries": 258,
+  "changedFiles": 5,
+  "diffHunks": 8,
+  "immutableCheckpoints": 4,
+  "finalReviews": 4,
+  "textOnlyBSupplements": 2,
+  "groupCandidateSites": {
+    "Ice-528": 9,
+    "KeyboardShortcuts-216": 16
+  },
+  "corrections": [
+    "Keyboard A: line180 is outside hunk; line181 only context",
+    "Keyboard B: existing methods unchanged; outer enum declaration changed",
+    "Keyboard B: ViewModifiers API names are onKeyboardShortcut/onGlobalKeyboardShortcut, not literal .on",
+    "Stage2 common prompt: LICENSE missing for Keyboard packet"
+  ],
+  "ownAuditorSHA256": "fee76ad985602a0a966552ed6a4f94cbfbf161c7b2a98fb1032dcf3bb07af344"
+}

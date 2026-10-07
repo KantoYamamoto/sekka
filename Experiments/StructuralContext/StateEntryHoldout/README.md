@@ -1,6 +1,6 @@
 # #113: 状態・操作入口の限定比較
 
-**新しい入口は、別入力で構造の比較に使われてから次の投資を決める。** [plan](plan.md)と[freeze](freeze.json)はsource/diffを見る前、[selection](selection.json)は取得前に固定した。進行は[Issue #113](https://github.com/KantoYamamoto/sekka/issues/113)。既読での候補到達、未見の案内、配置再考への寄与は別に扱う。
+**新しい入口は、別入力で構造の比較に使われてから次の投資を決める。** [plan](plan.md)と[freeze](freeze.json)はsource/diffを見る前、[selection](selection.json)は取得前に固定した。結果は[検証記録](../../../docs/validation/state-entry-holdout.md)、進行は[Issue #113](https://github.com/KantoYamamoto/sekka/issues/113)。既読での候補到達、未見の案内、配置再考への寄与は別に扱う。
 
 Ice PR528とKeyboardShortcuts PR216の2件をmetadata順だけで選択した。`inputs.json`は固定対のtree/blob/mode/size/SHA、`input-validation.json`は全通常diffのhunk/gap/tail、`execution.json`は固定binaryのJSON/text各二回一致。時間はdebug process時間でありレビュー時間ではない。Bに渡した追加資料はtextだけ。A/Bの共通Swift diffは同一bytesで、`review-material-*-both.json`に包装hashを残す。
 

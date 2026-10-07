@@ -1,6 +1,6 @@
 # #111: 記載状態と操作を入口にする診断
 
-2026-10-07。**既読GRDB1881の必要な関係を候補として表現できる。未見での配置再考への利益は未検査。** 同形switchの入口の利益未支持を修復した結果とは扱わない。本番/M3保留。
+2026-10-07。**既読GRDB1881の必要な関係を候補として表現できる。未見での利益は後続[#113の限定比較](state-entry-holdout.md)で別に評価した。** 同形switchの入口の利益未支持を修復した結果とは扱わない。本番/M3保留。
 
 ## 仮説と出所
 
@@ -39,7 +39,7 @@
 
 独立初稿レビューでP2を2件（implicit getter内local宣言の型memberへの混入、同じheaderの別conditional owner結合）、P3を1件（対照のassert不足）確認した。実行本文をmember inventoryの境界にし、字句ownerを物理宣言identityで分離、前後対応はowner/header/条件の一意性を別に検査する修正を行った。再点検で条件式の空白/コメントだけでも誤anchorするP2、text件数assertの誤passのP3を追加確認し、条件をtoken表記で照合、group数をJSONと明示比較するよう修正した。
 
-property initializer closure/subscript/local function、CodeBlock/Closure内のlocal、別conditional owner、extension候補/同名型/alias/protocol/修飾名、条件triviaのみの対照を加えた。41対照の正常0/失敗とJSON/text二回一致を確認。既読JSON/textの内容は修正前と同じbytesで、source/binary/control hashは更新した。独立最終点検/自己利用/Actionsの状態はPRと完了receiptへ残す。
+property initializer closure/subscript/local function、CodeBlock/Closure内のlocal、別conditional owner、extension候補/同名型/alias/protocol/修飾名、条件triviaのみの対照を加えた。41対照の正常0/失敗とJSON/text二回一致を確認。既読JSON/textの内容は修正前と同じbytesで、source/binary/control hashは更新した。独立最終点検/自己利用/最終Actions/実Bot/12成果物までPR #112で完了。[完了receipt](https://github.com/KantoYamamoto/sekka/pull/112#issuecomment-6036271072)。
 
 既読での必要先到達は、旧条件を足すより新しいstate/operation入口を一度固定して別入力で試す根拠になる。細かなrule、汎用scope拡張、高速化、移植を先行させない。次の小さな未見比較で案内が既存構造/代替案と反対材料を考えるために実際に使われたか、余計な候補を読む負担を記録する。寄与が得られなければ同じ入口を繰り返し調整せず、用途限定/撤退の判断を通知する。
 

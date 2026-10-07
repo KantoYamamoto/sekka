@@ -1,0 +1,42 @@
+{
+  "meaning": "Saved evidence consistency; not signed execution proof or utility",
+  "auditorSHA256": "fee76ad985602a0a966552ed6a4f94cbfbf161c7b2a98fb1032dcf3bb07af344",
+  "binarySHA256": "ea561b2b09c37df45cd30b03c314f9170437ca331611e8f6f3da3d36ff6a90f0",
+  "validatedEntries": 258,
+  "cases": [
+    {
+      "case": "Ice-528",
+      "validatedEntries": 238,
+      "groups": 1,
+      "reviews": {
+        "A": {
+          "stage1SHA256": "c2b89f47d82acef4d7a0e715aac479d1f7a3197b1a58c598fcbd08ea56e08af9",
+          "finalSHA256": "9b6c0b0e8731474c4c10569f804c1d30ba1ed1a1840e5ed74c14ba61afdb0615",
+          "finalBytes": 16957
+        },
+        "B": {
+          "stage1SHA256": "9e741727c573917f328258ba933c5a696f9e3b530700f3ed620cbfdbe730fcc0",
+          "finalSHA256": "8b11c6bb5206213b766e2acf0b45cc7ae262130dde927a4c40dfaa5b4004e7c4",
+          "finalBytes": 21111
+        }
+      }
+    },
+    {
+      "case": "KeyboardShortcuts-216",
+      "validatedEntries": 20,
+      "groups": 3,
+      "reviews": {
+        "A": {
+          "stage1SHA256": "b67ad7461c39b913e5a45a59e3f58c01084eb2cb5df0cf36078c50037b427dcb",
+          "finalSHA256": "aad173d8d681bdd901a0793e1795b9856c5ccecf8565d167c5e8cb5d52c4b98d",
+          "finalBytes": 15942
+        },
+        "B": {
+          "stage1SHA256": "2abca561d4bd1ec3bf8ccff6e2fbc46e5058f29ed537cd3e308ee5325c31abf6",
+          "finalSHA256": "bdf9cd645dcccdd3345866da41bbe9b5036c6c1f8ac1b39cd7c5aca7986c27b9",
+          "finalBytes": 15962
+        }
+      }
+    }
+  ]
+}
