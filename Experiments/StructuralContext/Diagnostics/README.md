@@ -1,5 +1,7 @@
 # 必要な確認先へ届かない理由の診断
 
+この文書は旧方式の検証記録。runtime/runnerの再現は固定commit `5177d21c476728e7fd4f3bbadba53cce9c181cfc`を別ディレクトリへarchiveして行う。現行CLIの契約・実行は[実験の入口](../README.md)を参照。
+
 #91 / [判断0044](../../../docs/decisions/0044-existing-result-producers.md)。本番や実験CLIの新しい検索経路ではなく、#87の既知4PRで次の仮説を選ぶための診断。必要位置を`needs.json`へ先に固定し、既存索引・検索条件と照合する。位置の集合は独立レビューの必要先で、網羅的正解集合ではない。
 
 `inventory-body.swift`は既存`context-probe`のソースreaderの後へ、**自分のpackageの一時コピー内だけ**で組み込む。library/通常CLIの検索は変更しない。readerと入力エラー表示helperは同じCLI targetから使い、entry pointだけを置換する。関数・property・型・字句scopeの索引、全ASTのcall表記と近傍の関数戻り値にあるIdentifierType名をdumpする。全ASTのdumpと、本来の検索に適格なcallは別物。local関数やspecialized等を含むdumpをそのまま検索成功と呼ばない。`callerBodyOwned`はnearest functionのbodyを祖先に持ち、local型をまたがないcall。試行は索引関数に対応するこのcallだけを使い、parameter default/headerやlocal型のproperty初期値を混ぜない。

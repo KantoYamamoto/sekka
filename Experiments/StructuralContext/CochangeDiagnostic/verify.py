@@ -142,7 +142,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--scratch', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
-    p.add_argument('--source-ref', default='HEAD')
+    p.add_argument('--source-ref', default='5177d21c476728e7fd4f3bbadba53cce9c181cfc')
     args = p.parse_args()
     repo = Path(__file__).resolve().parents[3]
     commit = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', args.source_ref + '^{commit}']).decode().strip()

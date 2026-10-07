@@ -1,5 +1,7 @@
 # 減った利用表記と残る窓口の診断（#96）
 
+この文書は旧方式の検証記録。runtime/runnerの再現は固定commit `5177d21c476728e7fd4f3bbadba53cce9c181cfc`を別ディレクトリへarchiveして行う。現行CLIの契約・実行は[実験の入口](../README.md)を参照。
+
 afterのcallから必要な共通先例へ届かない場合は、beforeで使っていた窓口が残るかを調べる。[実行前計画](plan.md)と[必要位置58件](needs.json)を固定し、#95の同じ4PRで原因を診断する。今回の集合は既読で、未見の有用性・網羅的正解集合ではない。本番/実験libraryの検索は変更しない。
 
 既存[Diagnostics](../Diagnostics/README.md)を再利用する。全ASTのcall dumpは形式/本文境界の確認用、利用数は`SourceInventory.functions[].writtenCalls`だけ。同形selectorの数が減り、両側一意の宣言・字句祖先headerがtoken同一かを照合する。読み取り位置の交差は契約の解析や実callee解決を意味しない。callerのキー対応なしを削除/rename/意味上の移行と断定しない。

@@ -11,6 +11,6 @@ let package = Package(
       .product(name: "SwiftParser", package: "swift-syntax"),
     ]),
     .executableTarget(name: "context-probe", dependencies: ["StructuralContext"]),
-    .testTarget(name: "StructuralContextTests", dependencies: ["StructuralContext"]),
+    .testTarget(name: "ContextRelationsTests", dependencies: ["StructuralContext"]),
   ]
 )

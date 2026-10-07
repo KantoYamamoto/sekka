@@ -1,5 +1,7 @@
 # 固定した案内の独立比較資料
 
+この文書は旧方式の検証記録。runtime/runnerの再現は固定commit `5177d21c476728e7fd4f3bbadba53cce9c181cfc`を別ディレクトリへarchiveして行う。現行CLIの契約・実行は[実験の入口](../README.md)を参照。
+
 M2 [#87](https://github.com/KantoYamamoto/sekka/issues/87)。評価方法/判定は[実行前の計画](plan.md)、入力はinputs.json、候補順と除外はselection.json、実行前の凍結情報はcheckpoint.json。第三者の生ソース・PR本文/diff・生レビューはGitへ置かない。checkpointのrawSelectionSHA256は本文を含む非公開の凍結選択、publicSelectionSHA256は本文を除いた公開selection.jsonを指す。stage資料/初回runnerのhashも受領記録であり、公開ファイルのhashとは別。再現用の共有runnerと初回出力は照合済み。PR本文はsource commitで固定されないため、同じ機械結果から当時のレビュー資料を復元できるとはしない。
 
 同じ2repoの別PRを、機械出力閲覧前に作成日順で選んだ。既読#77の4件を除き、最大40の先頭からproduction Swift変更2件ずつ。コメントだけの変更も含み、候補が出ない場合も差し替えない。これはrepo自体の未見ではなく、別の未読PRを履歴なしの担当が比較する小標本。

@@ -1,5 +1,7 @@
 # 両側call入口の別未読比較（#102）
 
+この文書は旧方式の検証記録。runtime/runnerの再現は固定commit `5177d21c476728e7fd4f3bbadba53cce9c181cfc`を別ディレクトリへarchiveして行う。現行CLIの契約・実行は[実験の入口](../README.md)を参照。
+
 **既知の必要先へ届いた後は、同じ例を再採点せず、方式と選択を固定して別の未読変更を独立比較する。** [Issue #102](https://github.com/KantoYamamoto/sekka/issues/102)。前段の実装/既読再現は[検証記録](../../../docs/validation/both-side-call-entry.md)。本番/M3は保留。
 
 選択/評価器の固定後、3入力の1,891 entriesをGit tree/blob/size/SHAへ照合し、通常diffの全変更範囲も確認した。残る1入力は固定beforeがmerge-baseと一致せず不成立。機械出力は固定バイナリの4mode各二回で終了コード/stdout/stderrの全bytesが一致。全3pairsの独立A/Bと結果点検、最終Actions/実Bot/10成果物までPR #104で完了。stage1の資料は原planと異なり非対称だったため、純増効果は評価できない。候補数や既知copy先例への到達を有用性の成功にしない。

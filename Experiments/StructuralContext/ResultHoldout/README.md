@@ -1,5 +1,7 @@
 # 戻り値名/call経路の固定比較（#95）
 
+この文書は旧方式の検証記録。runtime/runnerの再現は固定commit `5177d21c476728e7fd4f3bbadba53cce9c181cfc`を別ディレクトリへarchiveして行う。現行CLIの契約・実行は[実験の入口](../README.md)を参照。
+
 PR #94の実験評価器を固定し、既知8PRを除いた別4PRで通常diff/検索と案内併用を比較する。repo自体の未見とはしない。0候補/無関係候補/解析失敗を差し替えず、新経路と既存経路の寄与を分ける。
 
 選択は`selection.json`、実行前の[計画](plan.md)、全3,006入力は`inputs.json`、source/binary/toolchain/素材hashは`checkpoint.json`。二回実行は`execution.json`、初期資料/共通課題は`review-checkpoints.json`と`review-prompt-*.txt`、段階開放と生レビューhashは`review-receipts.json`、位置別の経路とB実使用分類は`candidate-audit.json`。[結果と次の判断](../../../docs/validation/result-relations-holdout.md)。第三者source/body/diffと生レビューはGit管理外。公開checkpointのcommandは移植用placeholderで、元の絶対commandを持つignored checkpointのSHAを別に記録する。Hashから生レビュー/当時のPR本文を復元できるとはしない。

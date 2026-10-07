@@ -33,7 +33,13 @@ func sources(at path: String) throws -> [(String, String)] {
     }
     let relative = components.dropFirst(root.pathComponents.count).joined(separator: "/")
     do {
-      files.append((relative, try String(contentsOf: url, encoding: .utf8)))
+      let data = try Data(contentsOf: url)
+      let source = String(decoding: data, as: UTF8.self)
+      guard Data(source.utf8) == data else {
+        throw CocoaError(.fileReadInapplicableStringEncoding)
+      }
+      // Preserve BOM and every source byte for physical offsets and input fingerprints.
+      files.append((relative, source))
     } catch {
       throw SourceReadFailure(path: root.appendingPathComponent(relative).path, cause: error)
     }
@@ -50,7 +56,7 @@ do {
   guard arguments.count == 2 else {
     throw NSError(domain: "Usage: context-probe BEFORE_DIR AFTER_DIR [--text] [--all]", code: 2)
   }
-  let report = try UnchangedContext.compare(
+  let report = try ContextRelations.compare(
     before: sources(at: arguments[0]), after: sources(at: arguments[1]), allEvidence: allEvidence)
   let encoder = JSONEncoder()
   encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
