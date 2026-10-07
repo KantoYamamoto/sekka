@@ -20,7 +20,7 @@ python3 Experiments/StructuralContext/DirectRelationsHoldout/audit_receipts.py \
   --output .build/direct-relations-unseen/receipt-audit-new.json
 ```
 
-private packetが無ければ後二つは実行できない。評価器のsource/toolchain/controlsは[#107](../DirectRelations/results.json)で固定。JSON/textの二回実行は[共通runner](../DirectRelations/replay.py)、`--all`は今回使った`run_all_modes.py`を同じprivate rootへコピーして行った。`prepare_reviews.py`も今回の包装scriptの保存で、両groupの通常Swift diffは同一bytes、Bだけ出力を追加する。固定済み資料を上書きしない。最初の包装scriptの版差は材料hashを照合して記録し、同じscript版だったことにはしない。
+private packetが無ければ後二つは実行できない。評価器のsource/toolchain/controlsは[#107](../DirectRelations/results.json)で固定。JSON/textの二回実行は[共通runner](../DirectRelations/replay.py)、`--all`は今回使った`run_all_modes.py`を同じprivate rootへコピーして行った。`prepare_reviews.py`も今回の包装scriptの保存で、両groupの通常Swift diffは同一bytes、Bだけ出力を追加する。全8材料receiptのpreparer SHAは保存scriptと一致。固定済み資料を上書きしない。
 
 `execution.json` の `meaning` は共通runnerの歴史的な文字列（known-input replay）。実際の入力は今回新しく選んだ4件であり、このreceipt単独は未見有用性を示さない。`all-modes.json` はdebug binary/2並行jobsのprocess時間で、レビュー時間・release性能ではない。`receipt-audit.json` は保存資料との整合確認であり、署名された実行証明ではない。
 

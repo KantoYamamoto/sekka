@@ -1,6 +1,7 @@
 """Audit saved private evidence; never execute the target or rerun the detector."""
 import argparse
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import re
@@ -28,6 +29,14 @@ def main():
     all_modes = load('all-modes.json')
     validation = load('input-validation.json')
     selection = load('selection.json')
+    own = Path(__file__).parent
+    check(selection['planSHA256'] == sha((own / 'plan.md').read_bytes()) and selection['selectorSHA256'] == sha((own / 'select_inputs.py').read_bytes()), 'Selection plan/code provenance')
+    check(execution['runnerSHA256'] == sha((own.parent / 'DirectRelations/replay.py').read_bytes()), 'Default runner provenance')
+    check(all_modes['runnerSHA256'] == sha((own / 'run_all_modes.py').read_bytes()), 'All-mode runner provenance')
+    verifier_path = Path(__file__).parents[1] / 'BothSideHoldout/verify_diff.py'
+    spec = importlib.util.spec_from_file_location('bound_diff_verifier', verifier_path)
+    verifier = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(verifier)
     ids = [c['id'] for c in cases]
     check(len(ids) == len(set(ids)) == 4, 'Frozen case inventory')
     check([(c['repository'], c['number']) for c in cases] == [(c['repository'], c['number']) for c in selection['cases']], 'Selected case order')
@@ -46,6 +55,7 @@ def main():
         name = case['id']
         packet = root / 'packet' / name
         entry_count = 0
+        source_bytes = {}
         for side in ('before', 'after'):
             folder = packet / side
             paths = list(folder.rglob('*'))
@@ -55,12 +65,14 @@ def main():
             check(len(entries) == len(expected), 'Duplicate source entry')
             check({str(p.relative_to(folder)) for p in paths if p.is_file()} == set(expected), 'Source inventory')
             scope = []
+            source_bytes[side] = {}
             for path, entry in expected.items():
                 data = (folder / path).read_bytes()
                 blob = hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest()
                 check(len(data) == entry['bytes'] and sha(data) == entry['sha256'] and blob == entry['blob'], 'Source bytes')
                 # Recorded Git modes were bound during materialization/diff verification.
                 check(entry['mode'] in ('100644', '100755'), 'Unsupported Git mode')
+                source_bytes[side][path] = data, entry['mode']
                 if path.startswith(case['prefix']) and path.endswith('.swift'):
                     relative = path[len(case['prefix']):]
                     if not any(part.startswith('.') for part in relative.split('/')):
@@ -72,7 +84,8 @@ def main():
         diff = (packet / 'ordinary.diff').read_bytes()
         check(sha(diff) == case['diffSHA256'], 'Ordinary diff bytes')
         bound = next(c for c in validation['cases'] if c['case'] == name)
-        check(bound['diffSHA256'] == case['diffSHA256'] and len(bound['files']) == len(case['changes']), 'Diff binding')
+        verified_files = verifier.verify_diff(source_bytes['before'], source_bytes['after'], case['changes'], diff)
+        check(bound['diffSHA256'] == case['diffSHA256'] and bound['files'] == verified_files, 'Full diff receipt binding')
         check(sha((packet / 'pr-context.md').read_bytes()) == case['prContextSHA256'], 'PR context')
         report_data = (root / 'replay' / (name + '.stdout')).read_bytes()
         report = json.loads(report_data)
@@ -102,6 +115,7 @@ def main():
             directory = root / 'review-material' / name / group
             receipt = load('review-material-' + name + '-' + group + '.json')
             check(receipt['inputsSHA256'] == execution['inputsSHA256'] and receipt['binarySHA256'] == execution['binarySHA256'], 'Material provenance')
+            check(receipt['preparerSHA256'] == sha((own / 'prepare_reviews.py').read_bytes()), 'Material preparer provenance')
             row = receipt['materials'][0]
             check(len(receipt['materials']) == 1 and row['case'] == name, 'Material case')
             material[group] = {p.name: sha(p.read_bytes()) for p in directory.iterdir() if p.is_file()}

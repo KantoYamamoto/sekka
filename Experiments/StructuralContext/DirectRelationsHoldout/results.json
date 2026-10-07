@@ -11,7 +11,7 @@
     "input-validation.json": "81109ec39318c9fd9334ce3ffd112b18a0f40ea96c99e224f11c80eda16b1b8a",
     "execution.json": "b6f96b0183ff42d31fc2031db1b9a75fa38dba2fa534e5dafc24667ab1c1354d",
     "all-modes.json": "2321c2c9823e9b6ef1547216e2b73355c27664e447ff9a477ada7a05094333a5",
-    "receipt-audit.json": "a62e22cc7f1bf4eb4c7bfc783176b87f76550e2d3ba64b887214616e85fa0aaf"
+    "receipt-audit.json": "a3097b322762dd79ebadfcd3e31221081be96965718b9f28c42244d6d7e5bcde"
   },
   "cases": [
     {
@@ -183,9 +183,23 @@
     "conditionalQuestionOrigin": "Ordinary diff/source, GRDB #1881 B; machine did not reach its necessary relation"
   },
   "independentAudit": {
-    "status": "pending"
+    "status": "complete",
+    "scope": "Saved source/diff/mode/blob/material/checkpoint/final bytes and public provenance, not target correctness, utility measurement or final CI",
+    "fixedFindings": {
+      "P2": 1,
+      "P3": 1
+    },
+    "unresolvedP1P2P3": 0,
+    "reportSHA256": "ad8816a58d2db707cd44171fbaaf861c430bce1c43dea5816f12ab04fbc51adf",
+    "independentCodeSHA256": "c99d16623ae12c0997bf846a2745dac97254611fa9003aa64ae96053fa3af2c0",
+    "metadataSHA256": "67ce555841cb512922c9e363f1997a0ef50f9cee86e8648b376a4c48ec48e12b",
+    "declarationChecksSHA256": "b83a6f912ceb90fb8168f6a61efad6e305168196e23282c268fa2c7cccc8f56e",
+    "finalAuditorReceiptSHA256": "a3097b322762dd79ebadfcd3e31221081be96965718b9f28c42244d6d7e5bcde",
+    "forgedReceiptRejectionSHA256": "1ce4a694c7e0257a45f499bb0ffa006b5a909dc19402b44b09bbd0cff2be57d2",
+    "completionEvidence": "Saved final report and final-candidate receipts survived agent delivery usage-limit failure"
   },
   "finalPRChecks": {
     "status": "pending"
-  }
+  },
+  "pr": "https://github.com/KantoYamamoto/sekka/pull/110"
 }

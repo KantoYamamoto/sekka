@@ -6,7 +6,7 @@
 
 **通常diffを補い、変更を既存構造へどう組み込むか考えるための差分外の実装・既存窓口を、関連根拠付きで示す。** 構文上の候補と不明を区別し、設計の良否・実calleeを推測で確定しない。Swift 6以降、CLI/Actions、LLMなしの決定論性を維持する。
 
-現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#107 / PR #108は完了、#109の新4PR比較は集計完了・独立/最終PR点検中。4件とも機械関係0、配置判断への寄与を支持しない。** [今回の結果](docs/validation/direct-relations-holdout.md)。前比較の機械寄与0とstage1非対称による純増未判定も保持する。[前結果](docs/validation/both-side-call-holdout.md)。
+現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#107 / PR #108は完了、#109の新4PR比較は集計/独立点検完了・最終PR点検中。4件とも機械関係0、配置判断への寄与を支持しない。** [今回の結果](docs/validation/direct-relations-holdout.md)。前比較の機械寄与0とstage1非対称による純増未判定も保持する。[前結果](docs/validation/both-side-call-holdout.md)。
 
 同形switchの入口は本番/M3へ進めない。GRDB1881で通常diff/sourceから出た「専用操作と既存の汎用合成・利用側を比較する問い」へ必要な関係を、一単位の診断へ戻す。[理由0050](docs/decisions/0050-unsupported-shape-entry.md)。現在の方式への利益未支持と目的全体の不可能を混ぜない。利益のない入口の拡張/高速化を先に行わず、別の根拠も尽きた場合は用途限定/撤退を人間へ通知する。人間判断待ちなし。
 
@@ -24,8 +24,8 @@
 
 | 順序 | Issue | 完了条件 / 状態 |
 | --- | --- | --- |
-| 現在 | [#109 直接関係の未見比較](https://github.com/KantoYamamoto/sekka/issues/109) | 4入力/全bytes/4pairsの集計完了。材料・出所・位置・担当交代の制約を独立点検し、最終Actions/実Bot/成果物を確認 |
-| 次 | 必要関係の診断だけを分解 | 専用操作/既存汎用操作の記載データと残る利用の関係が表現可能か。旧方式との違い/不明/反対理由を固定し、届かない場合は用途限定/撤退の判断を通知 |
+| 現在 | [#109 直接関係の未見比較](https://github.com/KantoYamamoto/sekka/issues/109) | 4入力/全bytes/4pairsの集計・独立指摘修正と再点検完了。最終Actions/実Bot/成果物を確認 |
+| 次 | [#111 必要関係の診断](https://github.com/KantoYamamoto/sekka/issues/111) | 専用操作/既存汎用操作の記載データと残る利用の関係が表現可能か。旧方式との違い/不明/反対理由を固定し、届かない場合は用途限定/撤退の判断を通知 |
 
 <details><summary>完了したM1/M2の作業と根拠</summary>
 

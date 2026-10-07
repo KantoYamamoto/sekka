@@ -1,6 +1,6 @@
 # #109: 同形switch変更を入口にした未見比較
 
-**入力が成立しても構造再考への寄与が無い場合は、実装の完成を用途の成功に読み替えず、本番統合を止める。** 4pairの集計は完了、独立fact点検/最終PR点検は未完了。固定条件は[plan](../../Experiments/StructuralContext/DirectRelationsHoldout/plan.md)、保存資料の照合と再現は[実験README](../../Experiments/StructuralContext/DirectRelationsHoldout/README.md)。対象OSSへの投稿・変更、対象code/build/test/scriptの実行はしていない。
+**入力が成立しても構造再考への寄与が無い場合は、実装の完成を用途の成功に読み替えず、本番統合を止める。** 4pairの集計/独立fact点検は完了、最終PR点検は未完了。固定条件は[plan](../../Experiments/StructuralContext/DirectRelationsHoldout/plan.md)、保存資料の照合と再現は[実験README](../../Experiments/StructuralContext/DirectRelationsHoldout/README.md)。対象OSSへの投稿・変更、対象code/build/test/scriptの実行はしていない。
 
 ## 結果と解釈
 
@@ -39,10 +39,12 @@ Bはafter DatabaseRegionの `canonicalTables:205`（before181）、static `union
 
 ## 比較上の制約と次の判断
 
-両stage1へ同一bytesのPR説明/通常Swift diff、Bだけ固定JSON/text。両checkpointをsource閲覧前に保存し、stage2は同じpacket内のsource/完全diff検索を許可した。全8材料とcheckpointのhashを照合した。包装scriptの初回版差は材料一致を確認して保存し、全材料を同じscript版が作ったとしない。stage2の非Swift diffは両groupに同時に許可した追加素材で、stage1の発見へ帰属させない。
+両stage1へ同一bytesのPR説明/通常Swift diff、Bだけ固定JSON/text。両checkpointをsource閲覧前に保存し、stage2は同じpacket内のsource/完全diff検索を許可した。全8材料とcheckpointのhashを照合し、全8材料receiptのpreparer SHAは保存scriptと一致した。stage2の非Swift diffは両groupに同時に許可した追加素材で、stage1の発見へ帰属させない。
 
 GRDB1879は中断後にA/Bとも後任へ交代。固定stage1を書き換えず、別担当がそれを出発点として追加検索した。第4pairを同一担当の継続比較や効率の効果量として扱わない。レビューは検索した集合の静的所見であり、全ソース読破・実callee解決・実行テスト成功の保証ではない。
 
 Bのunknownは4件とも本体未閲覧/判断不使用と記録。必要先の根拠がなく読取を見送ったのであり、全位置の無関係を証明していない。実行の整合receiptは暗号署名された実行証明ではない。raw素材/レビューはignored、公開metadataにhash/位置/出所だけを残す。
 
-`--all`はdebug binary/2並行jobsで一回約52〜97秒。レビュー時間・release性能と混同しない。時間/トークン/負担の改善は測定していない。現在の方式を本番/M3へ進めず、結果独立点検後に次の診断を一単位だけ分解する。別の決定論的根拠まで尽きた場合に用途限定/撤退を人間へ判断事項として通知する。
+独立点検は全3,054 entries/78変更ファイル/108 hunksとindex blob/mode、8組材料・8stage1・8final、所見の位置/出所/実使用と公開境界を照合。保存diff receiptのfiles内容を照合しない監査P2と、証拠のない包装script版差の記述P3を修正し、最終auditorの正常/改ざん拒否まで再点検した。未解消P1/P2/P3なし。独立agentは最終応答の配信時にusage limitで終了したが、最終reportと最終candidate SHAの照合receiptは保存されており、それを完了証拠とする。GitHub/CIの点検はその独立レビュー範囲外。[公開metadata](../../Experiments/StructuralContext/DirectRelationsHoldout/results.json)。
+
+`--all`はdebug binary/2並行jobsで一回約52〜97秒。レビュー時間・release性能と混同しない。時間/トークン/負担の改善は測定していない。現在の方式を本番/M3へ進めず、次の最小試作は[#111](https://github.com/KantoYamamoto/sekka/issues/111)だけを分解する。旧方式の検証継続を前提にせず、新方式で必要関係を表現する方が妥当かで選ぶ。別の決定論的根拠まで尽きた場合に用途限定/撤退を人間へ判断事項として通知する。
