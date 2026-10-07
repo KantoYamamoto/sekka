@@ -50,6 +50,7 @@ jobs:
         run: |
           python3 Experiments/StructuralContext/ResultHoldout/verify_diff_controls.py
           python3 Experiments/StructuralContext/BothSideHoldout/verify_diff_controls.py
+          python3 Experiments/StructuralContext/DirectRelationsHoldout/selection_controls.py
       - name: Exercise review boundaries
         run: python3 Scripts/review_probes.py --output .build/pr-review/probes.json
       - name: Exercise structural review questions

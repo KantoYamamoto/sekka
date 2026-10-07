@@ -1,0 +1,129 @@
+{
+  "binarySHA256": "c71d9882616173e152050efabf41f962ae78d07ccac11963692055b6db094f7a",
+  "inputsSHA256": "777a0f00f8af829abf263ba223cae33b405dd12f20074d4aba3d9077d56826a4",
+  "validatedEntries": 3054,
+  "runnerSHA256": "c08b597db4092a11a569291013ef3e0663bd0e6ba7540bd84006658595adc63f",
+  "results": [
+    {
+      "case": "swift-collections-744",
+      "exit": 0,
+      "fullProcessBytesEqual": true,
+      "stdoutBytes": 1617,
+      "stdoutSHA256": "f66f3cdf83a004745c31ba99eeab0c32387291735e78305ab40f0480657f7f63",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "textBytes": 1327,
+      "textSHA256": "a2a75e39a8b33dc5a02d2bc0f97be6bf9ec18042d076c45f8b4fc86a9158060c",
+      "textProcessBytesEqual": true,
+      "relationships": 0,
+      "users": 0,
+      "unknown": 1,
+      "switchCounts": {
+        "before": 37,
+        "after": 37
+      },
+      "inputScopes": {
+        "before": {
+          "files": 574,
+          "sha256": "bb63c11ac7aefd7cd677b86a0b75305d34bf3668171979daba9c23b4bc358f49",
+          "switches": 37
+        },
+        "after": {
+          "files": 574,
+          "sha256": "42736e2891c4a448dc881d4e88f7ae58710d6038213c927d48735ea616b0a165",
+          "switches": 37
+        }
+      }
+    },
+    {
+      "case": "swift-collections-739",
+      "exit": 0,
+      "fullProcessBytesEqual": true,
+      "stdoutBytes": 1617,
+      "stdoutSHA256": "3b3527cfe233b99e60a46f6c18338c0d796c826c9aef861aa9f123c4d14ec1a5",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "textBytes": 1327,
+      "textSHA256": "2b0cd113e5ba03599bf04cde74adb884b503cd3c258100e56623fa9c67ecc6ca",
+      "textProcessBytesEqual": true,
+      "relationships": 0,
+      "users": 0,
+      "unknown": 1,
+      "switchCounts": {
+        "before": 37,
+        "after": 37
+      },
+      "inputScopes": {
+        "before": {
+          "files": 575,
+          "sha256": "81ad95129448154d49266834c284907279128fedb11dd2df8ea3735c2d1a53f6",
+          "switches": 37
+        },
+        "after": {
+          "files": 574,
+          "sha256": "1a0dab9020f4d8bf56cd7c9605da3a200525aa5516747dcd744e1e15da207684",
+          "switches": 37
+        }
+      }
+    },
+    {
+      "case": "GRDB-swift-1881",
+      "exit": 0,
+      "fullProcessBytesEqual": true,
+      "stdoutBytes": 3564,
+      "stdoutSHA256": "826efa43c4c3f6defab7be0bbc5bb16d6c3526ca627a3ecc0859fef4dd5a2196",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "textBytes": 2141,
+      "textSHA256": "e3e33dd3de4be6178c796fb3961fee20a3ec14d35da4bd06975004b64f223624",
+      "textProcessBytesEqual": true,
+      "relationships": 0,
+      "users": 0,
+      "unknown": 4,
+      "switchCounts": {
+        "before": 262,
+        "after": 262
+      },
+      "inputScopes": {
+        "before": {
+          "files": 167,
+          "sha256": "d57c9a9ae80f66cc044966ad808484b10e201860aa1cad1c81cae4a6e1446cd1",
+          "switches": 262
+        },
+        "after": {
+          "files": 167,
+          "sha256": "7e06dda442e1debd9df71d8b579682ea9fe20e862d704d9b47dfb2b6a439f5be",
+          "switches": 262
+        }
+      }
+    },
+    {
+      "case": "GRDB-swift-1879",
+      "exit": 0,
+      "fullProcessBytesEqual": true,
+      "stdoutBytes": 3564,
+      "stdoutSHA256": "6907fd5d0ff5af181f52a7179d42f81fa587e6441fc5cb39d904f458a34baee2",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "textBytes": 2141,
+      "textSHA256": "e3e33dd3de4be6178c796fb3961fee20a3ec14d35da4bd06975004b64f223624",
+      "textProcessBytesEqual": true,
+      "relationships": 0,
+      "users": 0,
+      "unknown": 4,
+      "switchCounts": {
+        "before": 262,
+        "after": 262
+      },
+      "inputScopes": {
+        "before": {
+          "files": 167,
+          "sha256": "d57c9a9ae80f66cc044966ad808484b10e201860aa1cad1c81cae4a6e1446cd1",
+          "switches": 262
+        },
+        "after": {
+          "files": 167,
+          "sha256": "3fd2c356636d10b73e57c6e3c0feef857559c3e795f4af62e2764392d94fc95c",
+          "switches": 262
+        }
+      }
+    }
+  ],
+  "meaning": "Known-input direct output replay, not independent or unseen benefit"
+}

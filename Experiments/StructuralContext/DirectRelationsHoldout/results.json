@@ -1,0 +1,191 @@
+{
+  "scope": "Four new metadata-selected PRs; equal ordinary stage1 materials; saved evidence, not measured review efficiency",
+  "source": "58d85d1051fea3d6cf8e1724e5d41efe4a95ce3e",
+  "sourceTree": "f07a5646391bcdd52d68093bbef233fc5d7f5f47",
+  "binarySHA256": "c71d9882616173e152050efabf41f962ae78d07ccac11963692055b6db094f7a",
+  "inputsSHA256": "777a0f00f8af829abf263ba223cae33b405dd12f20074d4aba3d9077d56826a4",
+  "evidence": {
+    "plan.md": "b2620e5fd1abc2d4ffa2b1b7416012aebbf01d45c562f41f02752dcad7f93c6a",
+    "selection.json": "e70dda4f648563d65560b8bedd1434bf976f5fab54d5f7c6fe8166c07e2f3837",
+    "inputs.json": "777a0f00f8af829abf263ba223cae33b405dd12f20074d4aba3d9077d56826a4",
+    "input-validation.json": "81109ec39318c9fd9334ce3ffd112b18a0f40ea96c99e224f11c80eda16b1b8a",
+    "execution.json": "b6f96b0183ff42d31fc2031db1b9a75fa38dba2fa534e5dafc24667ab1c1354d",
+    "all-modes.json": "2321c2c9823e9b6ef1547216e2b73355c27664e447ff9a477ada7a05094333a5",
+    "receipt-audit.json": "a62e22cc7f1bf4eb4c7bfc783176b87f76550e2d3ba64b887214616e85fa0aaf"
+  },
+  "cases": [
+    {
+      "case": "swift-collections-744",
+      "validEntries": 1210,
+      "relations": 0,
+      "users": 0,
+      "transitionCount": 0,
+      "unknownGroups": 1,
+      "omittedShapeDetails": 0,
+      "normalZeroIsNotApproval": true,
+      "classification": {
+        "purpose": "Separate preview module; retain existing base insertion and preview adapters",
+        "A": "Current placement supported; no additional structural burden evidenced",
+        "B": "Current placement supported; no additional structural burden evidenced",
+        "limits": [
+          "Missing unchanged upper-level CMake/test configuration; no target build or link validation",
+          "Some after-only member reads not whole-before declaration comparisons"
+        ]
+      },
+      "machine": {
+        "necessaryEntryUsed": false,
+        "structuralEvidenceUsed": false,
+        "unknownBodiesRead": false,
+        "unknownTreatment": "Relatedness unresolved; not selected as necessary; not proof of irrelevance"
+      },
+      "reviewers": {
+        "A": {
+          "stage1SHA256": "888f59ea10bdb44c1eb380ca55b2acb78d731a150f429f122906e2c13d78991f",
+          "finalSHA256": "3f33157a82023b7cf7da02b5de14851068c93af09427996148c87051cbe8ad45",
+          "finalFilename": "A-final.md",
+          "stage2Replacement": false
+        },
+        "B": {
+          "stage1SHA256": "21e64eab1ff1919d2626945ce76653b3cb3a5d953894ead95b26872552bf6cbe",
+          "finalSHA256": "0640759d5d96668885c796c5eddbf4b7cd5d031f0b2a17d24d84528a0e79b959",
+          "finalFilename": "B-final.md",
+          "stage2Replacement": false
+        }
+      },
+      "checkpointSHA256": "7d202c0a02b54d9bf2baa007c9bce50043e097c34c968a634c5fb71ce4169251"
+    },
+    {
+      "case": "swift-collections-739",
+      "validEntries": 1161,
+      "relations": 0,
+      "users": 0,
+      "transitionCount": 0,
+      "unknownGroups": 1,
+      "omittedShapeDetails": 0,
+      "normalZeroIsNotApproval": true,
+      "classification": {
+        "purpose": "Disable/remove Ref adapters to work around older-OS runtime linking",
+        "A": "Existing iterator sharing supports placement; further consolidation unsupported",
+        "B": "Existing iterator sharing supports placement; further consolidation unsupported",
+        "limits": [
+          "Protocol/checkContainer/compiler lowering and old OS linking unresolved",
+          "A classified _copyContents as necessary; B classified it as context"
+        ]
+      },
+      "machine": {
+        "necessaryEntryUsed": false,
+        "structuralEvidenceUsed": false,
+        "unknownBodiesRead": false,
+        "unknownTreatment": "Relatedness unresolved; not selected as necessary; not proof of irrelevance"
+      },
+      "reviewers": {
+        "A": {
+          "stage1SHA256": "e8d8e84d272d34633874942167803c00012b52cdf96a1c3fff74f23a4e908a7e",
+          "finalSHA256": "e69934095061d2bcff6ee151d10e70a26d6dc31cffe794bd17720589b4efc525",
+          "finalFilename": "A-final.md",
+          "stage2Replacement": false
+        },
+        "B": {
+          "stage1SHA256": "8092959bfe4c8029f8df9c16d262c22a81e50129505d655f1dd7c6ba59a2d2c5",
+          "finalSHA256": "524e0dfd32a3398a01ce669f63193701152441293764eb5f31405977f65cb27b",
+          "finalFilename": "B-final.md",
+          "stage2Replacement": false
+        }
+      },
+      "checkpointSHA256": "e7c93d60c5ad316e51db75c22c3f12de6cd416b58f768a8165e176f3a7d147c0"
+    },
+    {
+      "case": "GRDB-swift-1881",
+      "validEntries": 341,
+      "relations": 0,
+      "users": 0,
+      "transitionCount": 1,
+      "unknownGroups": 4,
+      "omittedShapeDetails": 0,
+      "normalZeroIsNotApproval": true,
+      "classification": {
+        "purpose": "Insert table/column observations directly into the existing database region",
+        "A": "Current placement supported; no additional rearrangement required",
+        "B": "Current placement supported; conditional alternative for common union accumulation supported by ordinary diff/source only",
+        "limits": [
+          "No measured performance or proof that common mutation preserves all behavior",
+          "A/B necessity and structural-question judgments differ; not a majority vote"
+        ]
+      },
+      "machine": {
+        "necessaryEntryUsed": false,
+        "structuralEvidenceUsed": false,
+        "unknownBodiesRead": false,
+        "unknownTreatment": "Relatedness unresolved; not selected as necessary; not proof of irrelevance"
+      },
+      "reviewers": {
+        "A": {
+          "stage1SHA256": "977f276ad77ff53fafa027a5dacf3f3069674bbb3d696625a1ffb9ab13bf23eb",
+          "finalSHA256": "47c1060887db1cf05e5f1a1f63c89611e62a369583dee336946e39a37261ef3d",
+          "finalFilename": "A-final.md",
+          "stage2Replacement": false
+        },
+        "B": {
+          "stage1SHA256": "ead30f8d72b0e9b6ee2ed8884390d70494496770c759e7a632920cfa16ec6c8e",
+          "finalSHA256": "7cd2e6c03656e003acd82420caa5b94e30de9fa656681743b1d924d1eb2ac150",
+          "finalFilename": "B-final.md",
+          "stage2Replacement": false
+        }
+      },
+      "checkpointSHA256": "d722287514baa5fca8c224117c4642eef41207c7f9ece33dadea0707a7b4f9e7"
+    },
+    {
+      "case": "GRDB-swift-1879",
+      "validEntries": 342,
+      "relations": 0,
+      "users": 0,
+      "transitionCount": 1,
+      "unknownGroups": 4,
+      "omittedShapeDetails": 0,
+      "normalZeroIsNotApproval": true,
+      "classification": {
+        "purpose": "Classify INTEGER primary keys using existing rowid introspection",
+        "A": "Current shared schema/record placement supported; further rearrangement unsupported",
+        "B": "Current shared schema/record placement supported; further rearrangement unsupported",
+        "limits": [
+          "Stage2 reviewers replaced after interruption; not same-reviewer continuity",
+          "Existing old SQLite introspection caveat and INTEGER conflict-update coverage unverified"
+        ]
+      },
+      "machine": {
+        "necessaryEntryUsed": false,
+        "structuralEvidenceUsed": false,
+        "unknownBodiesRead": false,
+        "unknownTreatment": "Relatedness unresolved; not selected as necessary; not proof of irrelevance"
+      },
+      "reviewers": {
+        "A": {
+          "stage1SHA256": "29de7b3d33fa12f4502fb183bc8db13a7fb6b94d13f1ca6661ff9702d53a02e9",
+          "finalSHA256": "0ecd812bcfdbb77644e3e110dde447607e343868f3fc3ea0a8c342beb3f4b365",
+          "finalFilename": "A-final-resumed.md",
+          "stage2Replacement": true
+        },
+        "B": {
+          "stage1SHA256": "17da25a4bcfe3c1ed94e264b7ea75617111bd22248da77d74008389c38ebbd0b",
+          "finalSHA256": "326dadd2b282b411799ed8b1820399131a85cf15d495c20d241ae505b32722fb",
+          "finalFilename": "B-final-resumed.md",
+          "stage2Replacement": true
+        }
+      },
+      "checkpointSHA256": "2dc6965ff1f70fa5fb66374b66ee4fc89f201accfcb39339487ed4ba9d8a945b"
+    }
+  ],
+  "interpretation": {
+    "currentMethodBenefitSupported": false,
+    "productionIntegration": "held",
+    "noClaimOfMeasuredEfficiency": true,
+    "zeroIsNotDesignVerdict": true,
+    "conditionalQuestionOrigin": "Ordinary diff/source, GRDB #1881 B; machine did not reach its necessary relation"
+  },
+  "independentAudit": {
+    "status": "pending"
+  },
+  "finalPRChecks": {
+    "status": "pending"
+  }
+}
