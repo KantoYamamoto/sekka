@@ -1,0 +1,750 @@
+{
+  "planSHA256": "8304b8d009ab0ed901c2ee701aa07547e2b4f03c7672a8f36d5a95cc3c474fba",
+  "selectorSHA256": "20438f4111e641c1807e7ed919d1482613f96c2fbffedde9b6032011edc17b71",
+  "excluded": {
+    "jordanbaird/Ice": [],
+    "sindresorhus/KeyboardShortcuts": []
+  },
+  "audit": [
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 971,
+      "createdAt": "2026-08-18T07:40:44Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 962,
+      "createdAt": "2026-07-12T21:45:34Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 958,
+      "createdAt": "2026-06-26T16:28:33Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 952,
+      "createdAt": "2026-06-07T18:34:32Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 941,
+      "createdAt": "2026-05-05T16:00:15Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 933,
+      "createdAt": "2026-04-26T09:41:37Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 927,
+      "createdAt": "2026-04-19T21:30:58Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 903,
+      "createdAt": "2026-03-21T20:01:21Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 883,
+      "createdAt": "2026-02-20T10:52:28Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 856,
+      "createdAt": "2026-01-20T09:27:39Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 851,
+      "createdAt": "2026-01-14T03:21:51Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 850,
+      "createdAt": "2026-01-14T03:04:56Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 843,
+      "createdAt": "2026-01-06T21:49:58Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 842,
+      "createdAt": "2026-01-06T18:14:52Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 841,
+      "createdAt": "2026-01-06T17:32:14Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 839,
+      "createdAt": "2026-01-06T00:17:00Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 822,
+      "createdAt": "2025-12-16T12:12:49Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 720,
+      "createdAt": "2025-09-28T14:21:12Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 594,
+      "createdAt": "2025-07-03T03:03:16Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 574,
+      "createdAt": "2025-05-27T23:52:37Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 561,
+      "createdAt": "2025-05-08T15:47:26Z",
+      "mergedAt": "2025-06-06T13:01:23Z",
+      "selected": false,
+      "fileMetadataSHA256": "bba68bc640a898c4d0e01d3995b4cb18eae6661c48ee113ba769b57913b1d04d",
+      "expectedChangedFiles": 1,
+      "receivedChangedFiles": 1,
+      "productionSwift": [],
+      "reason": "no-production-swift"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 528,
+      "createdAt": "2025-03-21T09:59:47Z",
+      "mergedAt": "2025-06-06T13:09:48Z",
+      "selected": true,
+      "fileMetadataSHA256": "41b2b0c55cf0164f75f3825678ecf7affdf4a088cf0b66b0a2f4c762b6f88461",
+      "expectedChangedFiles": 4,
+      "receivedChangedFiles": 4,
+      "productionSwift": [
+        "Ice/Events/EventManager.swift",
+        "Ice/Settings/SettingsManagers/AdvancedSettingsManager.swift",
+        "Ice/Settings/SettingsPanes/AdvancedSettingsPane.swift",
+        "Ice/Utilities/Defaults.swift"
+      ],
+      "reason": "first-eligible-production-swift",
+      "comparison": {
+        "mergeBase": "16222b344f7fe31c6b61cfeb5aae5978d4fe6874",
+        "status": "ahead"
+      }
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 524,
+      "createdAt": "2025-03-11T19:33:40Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 499,
+      "createdAt": "2025-01-28T15:25:42Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 412,
+      "createdAt": "2024-10-21T16:02:45Z",
+      "mergedAt": "2024-10-28T19:54:00Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 349,
+      "createdAt": "2024-09-16T02:56:22Z",
+      "mergedAt": "2024-09-16T02:57:23Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 346,
+      "createdAt": "2024-09-11T07:02:49Z",
+      "mergedAt": "2024-09-11T07:04:05Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 309,
+      "createdAt": "2024-08-10T07:26:08Z",
+      "mergedAt": "2024-08-10T07:31:19Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 306,
+      "createdAt": "2024-08-09T00:11:16Z",
+      "mergedAt": "2024-08-09T06:25:17Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 305,
+      "createdAt": "2024-08-08T23:46:02Z",
+      "mergedAt": "2024-08-10T08:54:10Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 302,
+      "createdAt": "2024-08-07T01:23:21Z",
+      "mergedAt": "2024-08-09T05:44:22Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 290,
+      "createdAt": "2024-08-03T04:07:13Z",
+      "mergedAt": "2024-08-03T04:08:48Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 289,
+      "createdAt": "2024-08-02T20:12:01Z",
+      "mergedAt": "2024-08-02T20:14:15Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 277,
+      "createdAt": "2024-07-29T05:00:30Z",
+      "mergedAt": "2024-07-29T05:40:45Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 267,
+      "createdAt": "2024-07-25T06:35:33Z",
+      "mergedAt": "2024-07-25T22:58:44Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 255,
+      "createdAt": "2024-07-20T20:47:23Z",
+      "mergedAt": "2024-07-20T20:48:59Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 253,
+      "createdAt": "2024-07-19T06:17:46Z",
+      "mergedAt": "2024-07-19T06:31:26Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 132,
+      "createdAt": "2024-06-09T12:03:49Z",
+      "mergedAt": "2024-06-09T18:07:17Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 126,
+      "createdAt": "2024-06-08T08:55:16Z",
+      "mergedAt": "2024-06-08T11:21:21Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 106,
+      "createdAt": "2024-06-06T17:02:36Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 238,
+      "createdAt": "2026-03-16T11:29:33Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 236,
+      "createdAt": "2026-03-03T14:19:23Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 232,
+      "createdAt": "2026-01-09T19:20:27Z",
+      "mergedAt": "2026-01-24T09:02:59Z",
+      "selected": false,
+      "fileMetadataSHA256": "4c0a0669285a188667b170df24ccc01bc08c41b0ef9088be3124835026718265",
+      "expectedChangedFiles": 1,
+      "receivedChangedFiles": 1,
+      "productionSwift": [],
+      "reason": "no-production-swift"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 230,
+      "createdAt": "2025-11-10T20:59:02Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 227,
+      "createdAt": "2025-09-17T08:21:11Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 226,
+      "createdAt": "2025-09-16T07:45:14Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 224,
+      "createdAt": "2025-08-26T09:58:13Z",
+      "mergedAt": "2025-09-15T07:31:52Z",
+      "selected": false,
+      "fileMetadataSHA256": "08de004321b3f7729fb4fca5cb5305a7c1097b6d67f6d9a401ad7b79358e04d2",
+      "expectedChangedFiles": 1,
+      "receivedChangedFiles": 1,
+      "productionSwift": [],
+      "reason": "no-production-swift"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 222,
+      "createdAt": "2025-07-30T00:26:57Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 221,
+      "createdAt": "2025-07-11T15:06:58Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 218,
+      "createdAt": "2025-06-05T12:34:02Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "not-merged-by-cutoff"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 216,
+      "createdAt": "2025-05-05T20:38:29Z",
+      "mergedAt": "2025-05-07T07:30:21Z",
+      "selected": true,
+      "fileMetadataSHA256": "a66fadaa6a0de879a7d52ec080756351197f26c6c84795ed93f308b3835abd15",
+      "expectedChangedFiles": 1,
+      "receivedChangedFiles": 1,
+      "productionSwift": [
+        "Sources/KeyboardShortcuts/KeyboardShortcuts.swift"
+      ],
+      "reason": "first-eligible-production-swift",
+      "comparison": {
+        "mergeBase": "045cf174010beb335fa1d2567d18c057b8787165",
+        "status": "ahead"
+      }
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 215,
+      "createdAt": "2025-05-04T21:57:28Z",
+      "mergedAt": "2025-05-07T13:45:47Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 210,
+      "createdAt": "2025-04-12T20:56:10Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 201,
+      "createdAt": "2025-03-05T16:29:43Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 198,
+      "createdAt": "2025-01-06T04:33:18Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 196,
+      "createdAt": "2024-12-28T14:28:49Z",
+      "mergedAt": "2025-03-07T09:19:46Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 195,
+      "createdAt": "2024-12-13T07:04:16Z",
+      "mergedAt": "2024-12-13T14:02:06Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 194,
+      "createdAt": "2024-11-30T11:27:05Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 193,
+      "createdAt": "2024-11-30T06:32:21Z",
+      "mergedAt": "2024-12-07T14:19:38Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 191,
+      "createdAt": "2024-11-30T03:44:41Z",
+      "mergedAt": "2024-11-30T07:44:28Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 187,
+      "createdAt": "2024-10-21T02:49:35Z",
+      "mergedAt": "2024-10-21T18:35:23Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 186,
+      "createdAt": "2024-10-09T07:38:49Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 184,
+      "createdAt": "2024-09-21T04:34:38Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 183,
+      "createdAt": "2024-07-31T08:20:26Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 181,
+      "createdAt": "2024-07-17T01:14:52Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 179,
+      "createdAt": "2024-07-13T15:57:19Z",
+      "mergedAt": "2024-09-01T06:25:05Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 175,
+      "createdAt": "2024-06-19T08:43:19Z",
+      "mergedAt": "2024-09-01T06:25:50Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 171,
+      "createdAt": "2024-05-18T08:20:52Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 170,
+      "createdAt": "2024-05-18T08:10:52Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 167,
+      "createdAt": "2024-05-06T06:31:44Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 163,
+      "createdAt": "2024-02-27T04:23:19Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 161,
+      "createdAt": "2024-01-13T01:25:28Z",
+      "mergedAt": "2024-01-14T06:41:50Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 154,
+      "createdAt": "2023-11-26T01:22:59Z",
+      "mergedAt": "2023-11-27T21:22:50Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 153,
+      "createdAt": "2023-11-19T14:31:06Z",
+      "mergedAt": "2023-11-27T21:21:46Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 151,
+      "createdAt": "2023-10-26T10:25:36Z",
+      "mergedAt": "2023-11-15T06:38:01Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 150,
+      "createdAt": "2023-10-19T15:51:58Z",
+      "mergedAt": "2023-11-15T06:39:19Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 148,
+      "createdAt": "2023-09-28T12:36:02Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 147,
+      "createdAt": "2023-09-19T15:00:18Z",
+      "mergedAt": "2023-09-19T16:24:23Z",
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 139,
+      "createdAt": "2023-07-27T08:09:56Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 138,
+      "createdAt": "2023-07-26T03:18:08Z",
+      "mergedAt": null,
+      "selected": false,
+      "reason": "quota-already-fixed"
+    }
+  ],
+  "cases": [
+    {
+      "repository": "jordanbaird/Ice",
+      "number": 528,
+      "url": "https://github.com/jordanbaird/Ice/pull/528",
+      "before": "16222b344f7fe31c6b61cfeb5aae5978d4fe6874",
+      "after": "eb41f1a4846ecd501a783031b21c4fbe4a50ee80",
+      "reportedBase": "16222b344f7fe31c6b61cfeb5aae5978d4fe6874",
+      "prefix": "Ice/",
+      "changes": [
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "Ice/Events/EventManager.swift",
+          "previous_filename": null,
+          "status": "modified"
+        },
+        {
+          "additions": 10,
+          "changes": 10,
+          "deletions": 0,
+          "filename": "Ice/Settings/SettingsManagers/AdvancedSettingsManager.swift",
+          "previous_filename": null,
+          "status": "modified"
+        },
+        {
+          "additions": 6,
+          "changes": 6,
+          "deletions": 0,
+          "filename": "Ice/Settings/SettingsPanes/AdvancedSettingsPane.swift",
+          "previous_filename": null,
+          "status": "modified"
+        },
+        {
+          "additions": 1,
+          "changes": 1,
+          "deletions": 0,
+          "filename": "Ice/Utilities/Defaults.swift",
+          "previous_filename": null,
+          "status": "modified"
+        }
+      ]
+    },
+    {
+      "repository": "sindresorhus/KeyboardShortcuts",
+      "number": 216,
+      "url": "https://github.com/sindresorhus/KeyboardShortcuts/pull/216",
+      "before": "045cf174010beb335fa1d2567d18c057b8787165",
+      "after": "558ec6efbf27a2676ed6639cf7910b467b564626",
+      "reportedBase": "045cf174010beb335fa1d2567d18c057b8787165",
+      "prefix": "Sources/",
+      "changes": [
+        {
+          "additions": 24,
+          "changes": 24,
+          "deletions": 0,
+          "filename": "Sources/KeyboardShortcuts/KeyboardShortcuts.swift",
+          "previous_filename": null,
+          "status": "modified"
+        }
+      ]
+    }
+  ],
+  "meaning": "Frozen before source, diff or tool-output inspection; no size/title/switch selection"
+}
