@@ -41,8 +41,7 @@ JSONが必要なら`--format json`、完全な前後一覧が必要なら`--json
 
 本番CLIは型・メンバー・明示的な型参照・本体の変化を整理します。表示・diffへの導線・PR投稿は検証済みですが、それだけで元の目的を達成したとは扱いません。成功条件は「変更と既存構造の関係を根拠に、局所修正を続ける案と配置を見直す案を比較できること」です。
 
-別packageの[試作](Experiments/StructuralContext/README.md)は同形switch変更と既存窓口・利用側を直接案内しますが、[新しい4PRの比較](docs/validation/direct-relations-holdout.md)では、構造判断への寄与を支持できませんでした。本番統合を止め、新しい[記載状態→操作→既存利用の試作](Experiments/StructuralContext/StateOperations/README.md)へ切り替えています。既読例の必要関係への候補到達は確認しましたが、別calleeの同名call等も混じり、未見利益は未検査です。既知例への到達と未見の利益は別で、通常diffに対する利益は未確立です。
-
+別packageの構造索引/関係試作は、[実変更の比較](docs/validation/state-entry-holdout.md)で限定的な材料提供にとどまり、本番へ統合していません。現在は設定なしで「依存を渡すためだけに中間APIまで変わる」ことと別配置を示す[最小試作](Experiments/DependencyRelay/README.md)を検証しています。自作対照では根拠を取得できましたが、実変更は未解析でした。[判断と取得限界](docs/decisions/0052-config-free-first-problem.md)。実用性の確認前で、本番CLIの機能ではありません。
 [ROADMAP](ROADMAP.md)に現在位置と次の検証、[目的と候補](docs/ideas.md)に将来案、[試用意見](docs/feedback-summary.md)に根拠をまとめています。対応構文の数だけを増やすことは開発目標にしません。
 
 ## ライセンス

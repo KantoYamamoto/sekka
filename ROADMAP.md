@@ -1,6 +1,6 @@
 # Sekka: 現在位置と作業順
 
-更新日: 2026-10-07。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
+更新日: 2026-10-08。現在の計画は[全体方針 #12](https://github.com/KantoYamamoto/sekka/issues/12)、理由は[0031](docs/decisions/0031-structural-success.md)・[0038](docs/decisions/0038-outside-diff-context.md)。Issue本文が現在の進行、コメントが経過、判断/検証文書が根拠を持つ。
 
 ## ゴールと現在位置
 
@@ -8,9 +8,13 @@
 
 現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#109 / PR #110は最終Actions・実Bot・成果物まで完了。4件とも機械関係0、配置判断への寄与を支持しない。** [今回の結果](docs/validation/direct-relations-holdout.md)。前比較の機械寄与0とstage1非対称による純増未判定も保持する。[前結果](docs/validation/both-side-call-holdout.md)。
 
-同形switchの入口は凍結し、本番/M3へ進めない。#111 / PR #112で状態→操作→既存利用の試作を完了し、#113 / PR #114で未見2変更を比較した。[結果](docs/validation/state-entry-holdout.md)。既存UIとの整合、既存集合/bulk規則の比較にtextが使われた限定的な寄与はある。ただし核心helperは案内に出ず、両担当が普通のsourceから同じ問いへ到達した。独自発見や時間短縮、一般的な実用性は未確立。PR #114の最終Actions/実Bot/12成果物確認中。人間判断待ちなし。
+既存の構造索引/関係試作は本番へ統合しない。直近#113の固定2件では既存UIや集合の比較への限定的な寄与はあったが、核心の既存窓口は通常sourceから得た。[保存結果](docs/validation/state-entry-holdout.md)。既存方式を拡張することを次の目標にしない。
 
-この固定2件の比較は終了し、細部調整/入力追加で延命しない。次は[#115](https://github.com/KantoYamamoto/sekka/issues/115)で、一覧の代わりに「状態集約→既存判断→利用」の核心関係を表せるか一単位の既読診断。[理由0051](docs/decisions/0051-state-context-investment.md)。必要位置/反対材料を先に固定し、候補到達と未見利益を分ける。別の具体的根拠も尽きた場合は用途限定/撤退を人間へ通知する。
+**設定なしを中心にし、2026-10-08に第一課題と出力の方向をユーザーと合意。** [#115](https://github.com/KantoYamamoto/sekka/issues/115)で「新しい依存を渡すためだけに中間の型まで変更が連鎖する」を一試作にした。[判断と結果](docs/decisions/0052-config-free-first-problem.md)。自作例では位置・負担・別配置・成立条件を出し、13反例とparse失敗を区別した。独立レビューの名前衝突/末端shadow指摘を修正。ただし実変更SwiftLog #238は前後ファイル全体が未解析。実用性は未確立、本番統合/M3は保留。
+
+次は具体的負担を実変更の通常sourceで先に確認し、その経路を得るための最小範囲と費用を決める。自作例が通る範囲を製品仕様にしない。未解析を理由に一般graphや個別構文対応を継ぎ足さず、例が得られない/費用が大きい場合は第一課題の継続自体を再判断する。
+
+一課題・一仮説・一最小試作の順を維持する。件数/入力照合/テスト合格を利用価値に置き換えない。旧PR #114は最終Actions・実Botと12成果物の点検を終えmerge済み（`ed2b3c7`）。0051の関係方式は次実装として採用しない。
 
 ## Issueの階層と判断の節目
 
@@ -26,8 +30,8 @@
 
 | 順序 | Issue | 完了条件 / 状態 |
 | --- | --- | --- |
-| 完了確認中 | [#113 状態/操作入口の限定比較](https://github.com/KantoYamamoto/sekka/issues/113) | 全258entries/二回一致/全4checkpoint/独立比較を照合。限定寄与と核心未提示を記録。PR #114の独立最終点検/Actions/実Bot/成果物を確認 |
-| 次 | [#115 状態集約と既存判断の関係](https://github.com/KantoYamamoto/sekka/issues/115) | 必要位置/露出/反対理由を実装前に固定し、関係の経路を一単位の既読診断。届かなければ一覧の細部調整へ戻らず投資判断 |
+| 現在 | [#115 成功状態から一課題を選ぶ](https://github.com/KantoYamamoto/sekka/issues/115) | 出力方向はユーザー承認。明示constructor中継を最小試作、自作対照/独立レビュー修正済み。実変更は未解析、本番保留。試作のActions/成果物点検へ |
+| 完了 | [#113 状態/操作入口の限定比較](https://github.com/KantoYamamoto/sekka/issues/113) / PR #114 | 限定寄与/核心未提示を保存。最終Actions/実Bot/12成果物点検とmerge済み。次方式の実装へ自動継続しない |
 
 <details><summary>完了したM1/M2の作業と根拠</summary>
 
