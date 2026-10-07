@@ -1,0 +1,341 @@
+{
+  "binarySHA256": "af1147494e771b9c7133d438446dff938f4b711e2cff7b5f849c1514f36c4e90",
+  "sourceSHA256": "aa602e358f18bb55d652ba05206dcb433ac9f6f35a26a14290cd5e3d600915c0",
+  "runnerSHA256": "5fe1e1ad0c1817f6764e1f93d0553da099b6f59d01ba47e6d2d1c325f42bfdf3",
+  "inputsManifestSHA256": "777a0f00f8af829abf263ba223cae33b405dd12f20074d4aba3d9077d56826a4",
+  "case": "GRDB-swift-1881",
+  "scope": "Known-source expression diagnostic, not unseen utility",
+  "files": [
+    167,
+    167
+  ],
+  "relationships": 4,
+  "beforeInputSHA256": "d57c9a9ae80f66cc044966ad808484b10e201860aa1cad1c81cae4a6e1446cd1",
+  "afterInputSHA256": "7e06dda442e1debd9df71d8b579682ea9fe20e862d704d9b47dfb2b6a439f5be",
+  "formats": {
+    "json": {
+      "stdoutSHA256": "d2e57b9e8a983d1e773cc49b609324fd453c56f5237d48cafd9512a281070621",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 47789,
+      "lines": 1507,
+      "fullProcessBytesEqual": true,
+      "seconds": [
+        15.898314415999998,
+        16.200553791
+      ]
+    },
+    "text": {
+      "stdoutSHA256": "5995e290264eaef4d24c87d813c1ba1ebaa6d4ea448cacce9156c887805b3b6b",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 6818,
+      "lines": 52,
+      "fullProcessBytesEqual": true,
+      "seconds": [
+        16.372705458,
+        16.414113583000002
+      ]
+    }
+  },
+  "controls": {
+    "count": 37,
+    "runnerSHA256": "16fa31c60e769fdb9ec26907da9ac7aaa1cb979bfb725800236c0c5e347a09de",
+    "cases": [
+      {
+        "case": "added-operation-existing-data",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "explicit-self-over-parameter-shadow",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "parameter-shadow-remains-unresolved",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "local-shadow-remains-unresolved",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "closure-shadow-remains-unresolved",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "same-name-other-owner",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "arbitrary-receiver-field-not-connected",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "nested-type-field-not-connected",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "legitimate-dedicated-operation-no-warning",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "computed-property-storage-unresolved",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "unchanged-and-comment-only",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "extension-not-assumed-same-owner",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "normal-zero",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "parse-failure-not-zero",
+        "exit": 2,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "unrelated-body-edit-does-not-anchor-field",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "existing-helper-may-change",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "repeated-same-use-count-increase",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "literal-unicode-names-not-normalized",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "conditional-property-candidates-remain-distinct",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "observed-property-distinct-from-computed",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "implicit-getter-local-property-not-invented",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "implicit-getter-local-function-not-owner-operation",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "stored-initializer-closure-local-property-not-invented",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "subscript-local-property-not-invented",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "different-conditional-owners-not-joined",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "duplicate-owner-header-correspondence-not-assumed",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "owner-line-shift-keeps-unique-correspondence",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "extension-incoming-call-keeps-candidate-boundary",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "extension-join-rejected-for-alias",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "extension-join-rejected-for-protocol",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "extension-join-rejected-for-duplicate-nominal",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "extension-join-rejected-for-qualified",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "extension-join-rejected-for-generic",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "extension-conditions-kept-unresolved",
+        "exit": 0,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "invalid-utf8",
+        "exit": 2,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "missing-root",
+        "exit": 2,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      },
+      {
+        "case": "symlink-root-rejected",
+        "exit": 2,
+        "fullProcessBytesEqual": true,
+        "textProcessBytesEqual": true
+      }
+    ]
+  },
+  "fixedPositions": [
+    {
+      "line": 174,
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "exposure": "changed hunk",
+      "candidateReached": true
+    },
+    {
+      "line": 181,
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "exposure": "changed hunk",
+      "candidateReached": true
+    },
+    {
+      "line": 397,
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "exposure": "changed hunk",
+      "candidateReached": true
+    },
+    {
+      "line": 402,
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "exposure": "changed hunk",
+      "candidateReached": true
+    },
+    {
+      "line": 144,
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "exposure": "outside hunk",
+      "candidateReached": true
+    },
+    {
+      "line": 169,
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "exposure": "body context",
+      "candidateReached": true
+    },
+    {
+      "line": 377,
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "exposure": "tail context only",
+      "candidateReached": true
+    },
+    {
+      "line": 205,
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "exposure": "outside hunk",
+      "candidateReached": true
+    },
+    {
+      "line": 211,
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "exposure": "outside hunk",
+      "candidateReached": true
+    },
+    {
+      "line": 494,
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "exposure": "outside hunk",
+      "candidateReached": true
+    },
+    {
+      "line": 500,
+      "path": "GRDB/Core/DatabaseRegion.swift",
+      "exposure": "outside hunk",
+      "candidateReached": true
+    }
+  ],
+  "judgment": {
+    "knownCandidateReach": "supported",
+    "unseenBenefit": "not-tested",
+    "designVerdict": "none",
+    "productionIntegration": "held"
+  }
+}

@@ -1,6 +1,6 @@
 # 同形変更と既存窓口の関係を直接示す実験
 
-通常diffでは離れて見える変更領域・既存helper・利用側を、書かれた構文の根拠から一緒に読むための試作。[新しい4PRの比較](../../docs/validation/direct-relations-holdout.md)では機械案内の構造判断への寄与を支持できず、本番統合は止めている。[判断0050](../../docs/decisions/0050-unsupported-shape-entry.md)。現runtimeは再現用に凍結し、次の必要関係の診断は[#111](https://github.com/KantoYamamoto/sekka/issues/111)へ分ける。LLM、対象アプリのbuild/test/scriptは使わない。
+通常diffでは離れて見える変更領域・既存helper・利用側を、書かれた構文の根拠から一緒に読むための試作。[新しい4PRの比較](../../docs/validation/direct-relations-holdout.md)では機械案内の構造判断への寄与を支持できず、本番統合は止めている。[判断0050](../../docs/decisions/0050-unsupported-shape-entry.md)。現runtimeは再現用に凍結し、新しい[状態/操作の試作](StateOperations/README.md)は別packageで診断している。既読の候補到達と未見利益を分け、本番統合は保留する。LLM、対象アプリのbuild/test/scriptは使わない。
 
 ```sh
 swift test --package-path Experiments/StructuralContext --scratch-path .build/structural-context

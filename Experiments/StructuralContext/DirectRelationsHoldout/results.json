@@ -199,7 +199,14 @@
     "completionEvidence": "Saved final report and final-candidate receipts survived agent delivery usage-limit failure"
   },
   "finalPRChecks": {
-    "status": "pending"
+    "status": "complete",
+    "head": "3b6fd032a10615064ce35cced0525dd9ebcd8c65",
+    "base": "ac70412240a944a05994fa5b918ca48fe2a067d8",
+    "actionsRun": 37600345122,
+    "exactArtifacts": 10,
+    "botComment": 6028626096,
+    "completionReceipt": "https://github.com/KantoYamamoto/sekka/pull/110#issuecomment-6035125675",
+    "recordedAfterMerge": true
   },
   "pr": "https://github.com/KantoYamamoto/sekka/pull/110"
 }
