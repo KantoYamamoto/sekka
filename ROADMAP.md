@@ -6,14 +6,13 @@
 
 **通常diffを補い、変更を既存構造へどう組み込むか考えるための差分外の実装・既存窓口を、関連根拠付きで示す。** 構文上の候補と不明を区別し、設計の良否・実calleeを推測で確定しない。Swift 6以降、CLI/Actions、LLMなしの決定論性を維持する。
 
-現在の本番CLIは構造差分と確認先への案内。既存構造の再検討への寄与は未確立。**#109 / PR #110は最終Actions・実Bot・成果物まで完了。4件とも機械関係0、配置判断への寄与を支持しない。** [今回の結果](docs/validation/direct-relations-holdout.md)。前比較の機械寄与0とstage1非対称による純増未判定も保持する。[前結果](docs/validation/both-side-call-holdout.md)。
+本番CLIは構造差分と確認先への案内であり、元目的の一般有用性は未確立。現在の研究単位は[0054](docs/decisions/0054-callback-contract-adaptation.md)の共有callback契約拡大への既存closure適応。設定なし/LLMなしで、追加値を捨てる利用側とAPI位置をまとめ、現API・event payload・旧入口/adapterを比較する。
 
-既存の構造索引/関係試作は本番へ統合しない。直近#113の固定2件では既存UIや集合の比較への限定的な寄与はあったが、核心の既存窓口は通常sourceから得た。[保存結果](docs/validation/state-entry-holdout.md)。既存方式を拡張することを次の目標にしない。
+**#124 / PR #125は完了。** 実装前に固定したMaple五closureを取得し、15負例/5入力失敗、独立指摘修正/再確認、初読A/B、自己利用、最終Actions/実Bot/18成果物確認後merge `3a1ccdb`。[結果と限界](docs/validation/callback-contract-cost.md)。通常資料も同じ境界の問い/専用入口案へ到達し、追加資料の支持は根拠整理/照合の補助に限る。問いの新規性/時間短縮/未見の有用性は未支持。
 
-**設定なしを中心にし、実際の契約変更が既存の利用側へ波及した理由とAPI境界の比較を示す。** constructor/#119の保持callback中継取得は固定実sourceで成立したが、#121の通常資料との比較では問いの新規性/時間短縮は未支持。[結果](docs/validation/callback-material-value.md)。#122の最大二Swift候補も「純中継の既存二型の契約拡大」は不成立なので実装しない。
+**現在は[#126](https://github.com/KantoYamamoto/sekka/issues/126)のプロダクト判断待ち。** 推奨は、汎用化の独立試作を増やすことを止め、この狭い通知を最初の実用機能として限定試用する価値があるかを確認すること。受け入れる場合だけ、本番入力/JSON/textへ一単位を組み込み実PRで試す。広い構造再考が得られなければ価値が小さいという判断なら現方式への投資を止める。本番/M3は保留し、新しいdetector/未対応構文/素材探索を自動で増やさない。
 
-次[#124](https://github.com/KantoYamamoto/sekka/issues/124)は、共有callbackへ追加された値を使わない既存closureもarity適応する負担を一単位にする。Mapleの五closureを実装前に固定し、独立sourceレビューも照合済み。[事実/成功状態](docs/validation/callback-contract-cost.md)、[判断0054](docs/decisions/0054-callback-contract-adaptation.md)。現API/event payload/旧入口を保つadapterを条件付きで比較し、取得と案内寄与を別に評価する。寄与が弱ければ構文対応や別素材探索で延命しない。本番/M3は保留。
-旧PR #114は最終Actions・実Botと12成果物の点検を終えmerge `ed2b3c7`。0051の関係方式は次実装として採用しない。一課題・一仮説・一最小試作を維持し、件数/テスト合格を利用価値へ置き換えない。
+直前#122は実source二候補で「純中継の既存二型の契約拡大」が不成立なので実装せず終了。#119の中継1→2取得と#121の案内明確化は保存するが、本番の根拠へ読み替えない。旧構造索引/関係試作も統合しない。これまでの直接関係/状態入口の結果は下の完了表と各検証記録を参照する。
 
 ## Issueの階層と判断の節目
 
@@ -34,7 +33,8 @@
 | 完了 | [#119 保持callbackの一経路取得](https://github.com/KantoYamamoto/sekka/issues/119) | 固定実sourceの1→2/旧field削除を取得、独立修正/自己利用/最終Actions/実Bot/16成果物点検とmerge済み。本番保留 |
 | 完了 | [#121 素材と案内寄与](https://github.com/KantoYamamoto/sekka/issues/121) / PR #123 | 探索不成立/案の明確化だけ確認。最終Actions/実Bot/16成果物確認後merge `6033ce0` |
 | 終了 | [#122 実際の中間API変更](https://github.com/KantoYamamoto/sekka/issues/122) | 最大二Swift候補で元条件不成立。拡張を実装せず、根拠を#124の比較単位へ置換 |
-| 作業中 | [#124 共有callback契約の適応](https://github.com/KantoYamamoto/sekka/issues/124) | 実source五既存closure/条件付き境界比較を取得。独立比較・自己利用・Actionsまで。一件合格を本番採用へ置換しない |
+| 判断待ち | [#126 限定試用の価値を判断](https://github.com/KantoYamamoto/sekka/issues/126) | 終了した具体的試作と限界を確認し、狭い通知を第一試用機能にするか判断。本番統合は回答後に一PRだけ具体化 |
+| 完了 | [#124 共有callback契約の適応](https://github.com/KantoYamamoto/sekka/issues/124) / PR #125 | 固定五caller/独立比較/自己利用/最終Actions・実Bot/18成果物まで完了。根拠整理の補助、本番保留 |
 | 完了 | [#113 状態/操作入口の限定比較](https://github.com/KantoYamamoto/sekka/issues/113) / PR #114 | 限定寄与/核心未提示を保存。最終Actions/実Bot/12成果物点検とmerge済み。次方式の実装へ自動継続しない |
 
 <details><summary>完了したM1/M2の作業と根拠</summary>

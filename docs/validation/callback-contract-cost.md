@@ -80,4 +80,10 @@ LibraryGridとSearchPhotoResultsSectionのcallはtrailing closure未対応とし
 
 本番コードは不変なので同じ現行評価器で `6033ce0 → 08d95fd` を比較。20観測/Swift変更6ファイル/本体未比較45。共有SourceInventory境界と新規型への案内は得たが、reader維持/正規化/一意pair/catch束縛/Python・CI統合の確認は通常diffで行った。新contract-probeも実際の自repo変更source inventoryで実行し、契約拡大0件。自作fixtureの三件をこのPR自身の検出と混ぜない。実装者の既知情報を持つ自己レビューであり、独立した有用性評価ではない。
 
-最終Actions/実Bot/18成果物の点検は未完了。
+### 完了と次の判断
+
+[PR #125](https://github.com/KantoYamamoto/sekka/pull/125)を最終head `158cff2de1c809982b8c9aee9020549d88ff3982`、[Actions成功](https://github.com/KantoYamamoto/sekka/actions/runs/37714886140)、実Bot body=summary、18成果物/全JSON/ordinary diff hash・文字数/自作三adapter・三比較案を確認後、merge `3a1ccdb36f4b6f7f3842bac0386b34fd78921b74`。#124完了。成果物の三件は自作fixtureで、当該Sekka PRの検出ではない。
+
+決定論的な実根拠付き比較は取得できたが、通常資料だけでも同じ問い/対案へ到達している。独自の問題発見/時間短縮/未見の一般有用性の裏付けはない。根拠整理の補助を無価値とは扱わず、その程度の利益を最初の試用対象として受け入れるかを[#126](https://github.com/KantoYamamoto/sekka/issues/126)のプロダクト判断にする。
+
+ここから別のdetectorや未対応構文を自動で増やさない。**推奨は、汎用化の試作を止め、この狭い通知を最初の試用機能にする価値があるかを確認すること。** 限定試用なら本番の入力/JSON/textへこの一単位だけ組み込み、既存の全機能化を目指さず実PRで要否を評価する。初回から本番統合を支持したという意味ではない。より広い気づきがなければ価値が小さいという判断なら、現在の方式への投資を止める。広い目的の達成や撤退の必然性を断定しない。
