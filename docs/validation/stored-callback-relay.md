@@ -54,3 +54,7 @@ hashはrelative pathとsource bytesの長さ付き連結。ソースと生出力
 自作sourceのgrowth・組立済み除去、利用/wrapper/shadow/factory/local nominal/custom init/conditional/duplicate/signature/末端未利用を含む16負例と、parse/symlink/非UTF-8/隠しファイルparse失敗の4対照を二回ずつ検証。通常三fixtureだけSwift 6 typecheckを確認し、外部sourceは一切ビルド/実行していない。旧constructor対照も維持。独立コードレビューでsetter/observer parameterとgeneric calleeのshadow取り違えを指摘され、明示/暗黙accessor・generic・captureの名前を除外し、再現対照を追加した。
 
 **得た成果は経路の機械取得であり、未見のレビューで役に立った証拠ではない。** content slot案の実改修/挙動検証も未実施。この範囲の取得が成立した後に、未見の実変更で「中間action APIを増やす理由と別配置」を検討する助けになるか、一件だけ判断する。一般graph/型解決/本番統合へは進まない。
+
+独立コードレビュー後、元のsetter shadowは変更0/不明、generic callee shadowは変更0/曖昧名、正例は1→2を維持することを別レビューで再確認。上位の未解消指摘なし。一般の型/呼出解決を検証したものではない。
+
+自己利用は本番Sekkaでcommit `51db5a5` → `cc55786`の11変更pathを比較。新executableの13型と比較データ/入力読取/visitorの確認先、5 Swift/6非Swiftの区別が索引として得られた。一方、accessor/generic shadowの誤りは独立の通常コード読解と自作再現で分かり、Sekkaが検出したとは扱わない。本番出力はこの新しい経路解析をまだ使用しない。

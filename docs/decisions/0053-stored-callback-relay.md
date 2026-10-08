@@ -4,7 +4,7 @@
 
 - 記録日：2026-10-08
 - 関連：[#117](https://github.com/KantoYamamoto/sekka/issues/117)、[0052](0052-config-free-first-problem.md)
-- 状態：独立試作で固定実sourceの中継1→2と旧root field削除を取得。コードレビュー/PR検証中。本番/M3は保留
+- 状態：独立試作で固定実sourceの中継1→2と旧root field削除を取得。独立コードレビュー指摘修正・再確認済み。PR検証中。本番/M3は保留
 
 ## What / Why
 
