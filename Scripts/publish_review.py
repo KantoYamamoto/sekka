@@ -37,6 +37,26 @@ def read_bundle(data, expected_head):
     return manifest, report, text
 
 
+def read_api_review(data):
+    """Optional versioned data only; never execute or publish PR-supplied summary HTML."""
+    with zipfile.ZipFile(io.BytesIO(data)) as archive:
+        if sum(f.file_size for f in archive.infolist()) > LIMIT:
+            raise ValueError('Review artifact is too large')
+        names = ['api-review.json', 'api-review.text']
+        if not any(name in archive.namelist() for name in names):
+            return None, ''
+        if any(archive.namelist().count(name) != 1 for name in names):
+            raise ValueError('Missing or duplicate API review file')
+        report = json.loads(archive.read(names[0]))
+        text = archive.read(names[1]).decode('utf-8')
+    if report.get('schemaVersion') != 1 or report.get('analysis') != 'experimental-callback-contracts':
+        raise ValueError('Unsupported API review schema')
+    changes = report.get('contract', {}).get('changes')
+    if not isinstance(changes, list) or any(not isinstance(c, dict) or not isinstance(c.get('adaptations'), list) for c in changes):
+        raise ValueError('Invalid API review candidates')
+    return report, text
+
+
 def current_pr(pr, run, repository):
     return (pr['state'] == 'open' and pr['base']['repo']['full_name'] == repository
             and pr['head']['sha'] == run['head_sha']
@@ -74,11 +94,12 @@ def main():
             raise ValueError('No unique bounded review artifact')
         data = subprocess.check_output(['gh', 'api', f"{prefix}/actions/artifacts/{matches[0]['id']}/zip"])
         manifest, report, text = read_bundle(data, run['head_sha'])
+        api_review, api_text = read_api_review(data)
         comparison = api(f"{prefix}/compare/{pr['base']['sha']}...{run['head_sha']}")
         if manifest['base'] != comparison['merge_base_commit']['sha']:
             print('PR base changed since analysis; skipped')
             return
-        body = MARKER + '\n' + render_summary(manifest, report, text, f'https://github.com/{repository}', str(number), run_url)
+        body = MARKER + '\n' + render_summary(manifest, report, text, f'https://github.com/{repository}', str(number), run_url, api_review, api_text)
     else:
         body = (MARKER + '\n## Sekka — 結果を更新できませんでした\n\n'
                 f"対象: `{run['head_sha']}`\n\n"

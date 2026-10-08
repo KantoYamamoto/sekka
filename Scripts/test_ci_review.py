@@ -62,6 +62,22 @@ class SummaryTests(unittest.TestCase):
         self.assertNotIn('<img', result)
         self.assertIn('解析状態不明', result)
 
+    def test_trial_uses_real_candidate_units_and_escapes_bounded_source(self):
+        args = ({"base": "a", "head": "b"},
+                {"findings": [], "coverage": {"changedFiles": [], "skippedBodyCount": 0},
+                 "inventory": {"scope": "test", "changes": []}},
+                "", "https://github.com/example/repo", "1", "https://github.com/run")
+        result = render_summary(*args, {"contract": {"changes": [{"adaptations": [1, 2]}]}}, '</pre><img>' + '<' * 9000)
+        self.assertIn('候補 1件', result)
+        self.assertIn('適応 2箇所', result)
+        self.assertNotIn('<img>', result)
+        self.assertIn('8,000文字', result)
+        self.assertIn('このPRの検出件数には含めません', result)
+        empty = render_summary(*args, {"contract": {"changes": []}}, 'limits ' * 9000)
+        self.assertIn('候補 0件', empty)
+        self.assertIn('0件は設計の承認を意味しません', empty)
+        self.assertNotIn('limits ', empty)
+
 
 class TreeTests(unittest.TestCase):
     def test_branches_preserve_hierarchy_and_clear_between_types(self):
