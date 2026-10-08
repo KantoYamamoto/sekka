@@ -14,7 +14,7 @@
 
 [#117](https://github.com/KantoYamamoto/sekka/issues/117)で、依存中継が明示された実Issueからsourceを照合。bilibili_tvのlayout抽出で、callbackが一つの中間Viewを通る形から二つへ増え、両中間では子に渡すだけと確認した。[source位置と選択](docs/validation/stored-callback-relay.md)。独立照合で上位指摘なし。既知の修正から履歴を辿った事後診断で、未見の有用性比較ではない。
 
-[0053](docs/decisions/0053-stored-callback-relay.md)の保持callback→body内受渡し→末端呼出を一経路取得できた。#119で16負例/4入力失敗と独立レビュー修正・再確認、自己利用を終え、PRのActions/実Bot/試作成果物を確認する。constructor/型解決/一般graphの未対応を埋め続けず、欲しい根拠の単位を実sourceから選ぶ。本番統合/M3は保留。現配置とcontent slot案を、itemsの契約/所有/identity/snapshotの条件付きで比較できるかが次の判断。
+[0053](docs/decisions/0053-stored-callback-relay.md)の保持callback→body内受渡し→末端呼出を一経路取得できた。#119/PR #120は16負例/4入力失敗、独立修正再確認/自己利用、最終Actions/実Bot/16成果物を確認してmerge `5f9b63ca`。#121の別素材二候補は当該負担がなく探索不成立。既読実例の初読A/Bでは、通常diffも別配置に到達し、機械は経路/末端だけの案を明確化した。[結果](docs/validation/callback-material-value.md)。時間短縮/未見有用性は未支持。次#122は深さだけでなく、既存中間APIが実際に変わった契約増加を一単位で確認する。constructor/型解決/一般graphの未対応を埋め続けず、欲しい根拠の単位を実sourceから選ぶ。本番統合/M3は保留。現配置とcontent slot案を、itemsの契約/所有/identity/snapshotの条件付きで比較できるかが次の判断。
 
 旧PR #114は最終Actions・実Botと12成果物の点検を終えmerge `ed2b3c7`。0051の関係方式は次実装として採用しない。一課題・一仮説・一最小試作を維持し、件数/テスト合格を利用価値へ置き換えない。
 
@@ -34,7 +34,9 @@
 | --- | --- | --- |
 | 完了 | [#115 成功状態から一課題を選ぶ](https://github.com/KantoYamamoto/sekka/issues/115) / PR #116 | 自作のconstructor試作。最終Actions/実Bot/14成果物点検とmerge済み。本番保留 |
 | 完了 | [#117 実変更から取得範囲を決める](https://github.com/KantoYamamoto/sekka/issues/117) | 実sourceのcallback中継1→2と別配置の条件を確認、独立照合済み。記録PR #118はActions/実Bot/14成果物確認後merge `30232a4` |
-| 現在 | [#119 保持callbackの一経路取得](https://github.com/KantoYamamoto/sekka/issues/119) | 固定実sourceの1→2/旧field削除と自作対照を取得。独立コードレビュー修正/再確認と自己利用済み、Actionsへ。一般graph/本番統合はしない |
+| 完了 | [#119 保持callbackの一経路取得](https://github.com/KantoYamamoto/sekka/issues/119) | 固定実sourceの1→2/旧field削除を取得、独立修正/自己利用/最終Actions/実Bot/16成果物点検とmerge済み。本番保留 |
+| 完了 | [#121 素材と案内寄与](https://github.com/KantoYamamoto/sekka/issues/121) | 別素材は探索不成立、既読例の初読A/Bで経路/末端案の明確化だけ確認。記録PRの検証へ |
+| 次 | [#122 実際の中間API変更](https://github.com/KantoYamamoto/sekka/issues/122) | 同じfield経路のcallback引数増加が中間二型へも現れる事実を一単位にする。一般解決/historyはしない |
 | 完了 | [#113 状態/操作入口の限定比較](https://github.com/KantoYamamoto/sekka/issues/113) / PR #114 | 限定寄与/核心未提示を保存。最終Actions/実Bot/12成果物点検とmerge済み。次方式の実装へ自動継続しない |
 
 <details><summary>完了したM1/M2の作業と根拠</summary>
