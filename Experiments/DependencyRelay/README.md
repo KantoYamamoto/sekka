@@ -20,7 +20,7 @@ python3 Experiments/DependencyRelay/check_contract.py "$RELAY_BIN/contract-probe
 
 供給source内の一意な記載struct・一つの明示init・名前付きcallback引数に限定する。前後call候補は同じfile/字句owner/callback以外の引数tokenで一意対応する場合だけ。生成init、trailing closure、direct reference→closure、macro/条件付きscope、shadow/複雑なclosureは比較しない。0件は範囲内で当該適応を得なかった意味で、設計の承認ではない。Unknownは比較対象の適格な拡大APIについてのみ出し、全未対応APIを列挙しない。
 
-`callback-probe`とsource reader/hash/失敗境界を共有する。対象sourceは実行しない。bodyのtoken同一は挙動同一や変更の因果を保証しない。payloadも初回移行が必要で、生成側/初期化契約/metadata利用側の変更は残る。一度の追加なら現APIが妥当なこともある。[実sourceと評価](../../docs/validation/callback-contract-cost.md)。本番への統合は保留。
+`Packages/CallbackContracts`にreader/hash/解析を置き、SwiftSyntax 603.0.1で`callback-probe`と本体CLIのopt-in `sekka review`も共有する。standaloneは薄い実行入口で、検出ロジックを二重に持たない。対象sourceは実行しない。bodyのtoken同一は挙動同一や変更の因果を保証しない。payloadも初回移行が必要で、生成側/初期化契約/metadata利用側の変更は残る。一度の追加なら現APIが妥当なこともある。[実sourceと評価](../../docs/validation/callback-contract-cost.md)。実入力への限定接続を#126で試行する。通常提供/M3採用は保留。
 
 ## callback-probe（保存した中継取得）
 

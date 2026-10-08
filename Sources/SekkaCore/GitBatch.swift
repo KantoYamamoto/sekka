@@ -2,7 +2,7 @@ import Foundation
 
 enum GitBatch {
   /// Git's batch protocol frames object contents by byte length, not lines or characters.
-  static func decode(_ data: Data, objects: [String]) throws -> [String: String] {
+  static func decode(_ data: Data, objects: [String], exactUTF8: Bool = false) throws -> [String: String] {
     var cursor = 0
     var sources: [String: String] = [:]
     func invalid() -> SekkaError { .message("Invalid or incomplete Git batch output; analysis stopped") }
@@ -20,6 +20,9 @@ enum GitBatch {
       }
       guard let source = String(data: data[start..<(start + count)], encoding: .utf8) else {
         throw SekkaError.message("Git returned non-UTF-8 source; analysis stopped")
+      }
+      if exactUTF8 && Data(source.utf8) != data[start..<(start + count)] {
+        throw SekkaError.message("Callback trial requires round-trippable UTF-8 source bytes (no BOM)")
       }
       sources[object] = source
       cursor = start + count + 1

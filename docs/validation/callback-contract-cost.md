@@ -84,6 +84,16 @@ LibraryGridとSearchPhotoResultsSectionのcallはtrailing closure未対応とし
 
 [PR #125](https://github.com/KantoYamamoto/sekka/pull/125)を最終head `158cff2de1c809982b8c9aee9020549d88ff3982`、[Actions成功](https://github.com/KantoYamamoto/sekka/actions/runs/37714886140)、実Bot body=summary、18成果物/全JSON/ordinary diff hash・文字数/自作三adapter・三比較案を確認後、merge `3a1ccdb36f4b6f7f3842bac0386b34fd78921b74`。#124完了。成果物の三件は自作fixtureで、当該Sekka PRの検出ではない。
 
-決定論的な実根拠付き比較は取得できたが、通常資料だけでも同じ問い/対案へ到達している。独自の問題発見/時間短縮/未見の一般有用性の裏付けはない。根拠整理の補助を無価値とは扱わず、その程度の利益を最初の試用対象として受け入れるかを[#126](https://github.com/KantoYamamoto/sekka/issues/126)のプロダクト判断にする。
+決定論的な実根拠付き比較は取得できたが、通常資料だけでも同じ問い/対案へ到達している。独自の問題発見/時間短縮/未見の一般有用性の裏付けはない。根拠整理の補助まで否定せず、[次の限定試用 #126](https://github.com/KantoYamamoto/sekka/issues/126)で実入力経路・表示へ接続する。
 
-ここから別のdetectorや未対応構文を自動で増やさない。**推奨は、汎用化の試作を止め、この狭い通知を最初の試用機能にする価値があるかを確認すること。** 限定試用なら本番の入力/JSON/textへこの一単位だけ組み込み、既存の全機能化を目指さず実PRで要否を評価する。初回から本番統合を支持したという意味ではない。より広い気づきがなければ価値が小さいという判断なら、現在の方式への投資を止める。広い目的の達成や撤退の必然性を断定しない。
+終了判断の独立レビューは、限定試用の着手までユーザー承認待ちにする必要が薄いと指摘した。目的を変えない撤回可能な接続は委任範囲であり、利益未確立は人間だけが決められる要件とは異なる。承認ゲートを取り下げ、ルールを増やさず実Git入力へ一単位を接続する。M3合格や通常提供の採用とは分ける。最終成功を根拠整理だけへ変更する、元目的を縮小する、全プロジェクトを撤退する場合に人間の判断を求める。
+
+### #126: 実入力への限定接続
+
+成功状態は実装前にIssue #126へ固定した。`sekka review`をGit refs・作業ツリー・ディレクトリ比較へ接続し、解析は`Packages/CallbackContracts`とstandalone probeで共有する。parserを603.0.1へ揃えても、保存済みMaple全JSON・二つのhash・API位置137→149・五caller位置は一致した。新しい検出ルールは追加していない。
+
+ローカル検証はSwift 6.4/macOSで65 tests、39 CLI/Git checks、実reviewのGit/dir/working tree/空の片側/非Swift inventory/parse・count・BOM・size・引数失敗と全出力の二回byte照合、Python表示14 tests。Documents配下の生成xctestにFinderInfoが付いて署名失敗したため、`swift test --scratch-path /tmp/sekka-contract-cli-core`で成功確認した。対象アプリのビルドではない。
+
+独立レビューでassume-unchangedのSwift変更がinventoryから消えるP2を指摘され、比較したraw sourceから補完した。入力上限を読込前へ移し、BOMの除去でhashが変わる境界もreviewのみ明示拒否した。修正後、同レビューがCLI対照・directoryのBOM/4MB超/20MB超・表示8 testsを再確認し、未解消指摘なし。旧diff/scanの入力契約は維持する。
+
+自己利用と最終Actions/実Bot/20成果物はPR上で確認する。実PRのapi-reviewは自作対照のcallback-contractと分け、0候補も保持する。接続できたことは配置再考への純増利益やM3合格の証拠にはしない。

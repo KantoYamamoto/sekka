@@ -29,7 +29,15 @@ def tree_text(text):
     return '\n'.join(reversed(rendered))
 
 
-def render_summary(manifest, report, text, repo_url, pr_number, run_url):
+def escaped_preview(text, limit):
+    escaped = html.escape(text)
+    preview = escaped[:limit]
+    if len(escaped) > limit and "&" in preview and preview.rfind("&") > preview.rfind(";"):
+        preview = preview[:preview.rfind("&")]
+    return preview, len(escaped) > limit
+
+
+def render_summary(manifest, report, text, repo_url, pr_number, run_url, api_review=None, api_text=""):
     coverage = report["coverage"]
     swift_files = coverage["changedFiles"]
     inventory = report["inventory"]
@@ -45,6 +53,19 @@ def render_summary(manifest, report, text, repo_url, pr_number, run_url):
     ]
     if not swift_files:
         lines += ["今回、解析対象のSwift差分はありません。設定・文書・スクリプトの変更は通常のPR diffで確認してください。", ""]
+    if api_review is not None:
+        candidates = api_review["contract"]["changes"]
+        adaptations = sum(len(c["adaptations"]) for c in candidates)
+        lines += ["### API境界の比較（限定試行）", "",
+                  f"このPRの実入力: 契約拡大の候補 {len(candidates)}件 / 追加値を捨てる既存closureの適応 {adaptations}箇所。",
+                  "末尾引数が増えるcallbackの一形態だけが対象です。0件は設計の承認を意味しません。", ""]
+        if candidates:
+            preview, omitted = escaped_preview(api_text, 8000)
+            lines += ["<details><summary>根拠とAPI境界の別案を開く</summary>", "", "<pre>" + preview + "</pre>"]
+            if omitted:
+                lines += ["表示を8,000文字で区切っています。完全版はapi-review.textを参照してください。"]
+            lines += ["", "</details>", ""]
+        lines += ["実PRの結果は成果物api-review.json/textに保存します。callback-contract.json/textは自作対照の結果で、このPRの検出件数には含めません。", ""]
     lines += ["### 確認するファイル", "", "Swiftの変更を先に表示します。観測の有無は確認済み範囲を意味しません。", ""]
     swift_paths = {f["file"]: f for f in swift_files}
     inventory_by_path = {item["file"]: item for item in changes}
@@ -92,13 +113,9 @@ def render_summary(manifest, report, text, repo_url, pr_number, run_url):
         lines += ["", "</details>"]
     # The runner-local replay command cannot be copied into a local checkout.
     display = "\n".join(line for line in text.splitlines() if not line.startswith("Inspect source hunks:"))
-    escaped = html.escape(tree_text(display))
-    # Bound the escaped payload too: source containing '<' can expand severalfold.
-    preview = escaped[:16000]
-    if len(escaped) > 16000 and "&" in preview and preview.rfind("&") > preview.rfind(";"):
-        preview = preview[:preview.rfind("&")]
+    preview, omitted = escaped_preview(tree_text(display), 16000)
     lines += ["", "<details><summary>構造案内を開く</summary>", "", "<pre>" + preview + "</pre>"]
-    if len(escaped) > 16000:
+    if omitted:
         lines.append("表示を16,000文字で区切っています。完全版は成果物candidate.textを参照してください。")
     lines += [
         "", "</details>", "",
@@ -120,11 +137,19 @@ def main():
     ).strip()
     output = repo / ".build/pr-review"
     manifest = capture(repo, base, head, repo / ".build/debug/sekka", output)
+    # The same frozen evaluator and source refs as the structural report; no target checkout/build.
+    binary = output / "candidate-sekka"
+    api_args = [str(binary), "review", base, "--head", head, "--path", str(repo)]
+    for format, name in [("json", "api-review.json"), ("text", "api-review.text")]:
+        result = subprocess.run(api_args + ["--format", format], capture_output=True, check=True)
+        (output / name).write_bytes(result.stdout)
+    api_review = json.loads((output / "api-review.json").read_text())
     report = json.loads((output / "candidate.compact").read_text())
     repo_url = os.environ.get("GITHUB_SERVER_URL", "https://github.com") + "/" + os.environ["GITHUB_REPOSITORY"]
     summary = render_summary(
         manifest, report, (output / "candidate.text").read_text(), repo_url,
         os.environ.get("SEKKA_PR", ""), repo_url + "/actions/runs/" + os.environ["GITHUB_RUN_ID"],
+        api_review, (output / "api-review.text").read_text(),
     )
     (output / "summary.md").write_text(summary)
     with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as stream:

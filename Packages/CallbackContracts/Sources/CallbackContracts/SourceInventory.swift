@@ -35,13 +35,27 @@ public struct SourceInventory {
     if let enumerationError { throw enumerationError }
     inputs.sort { $0.path < $1.path }
     guard !inputs.isEmpty, inputs.count <= 128 else { try inputFailure("supply 1...128 Swift files") }
-    var parsed: [ParsedSource] = [], hashed = Data(), total = 0
-    files = inputs.map { String($0.path.dropFirst(root.path.count + 1)) }
-    for (url, file) in zip(inputs, files) {
+    var directoryBytes = 0
+    let raw = try inputs.map { url -> (path: String, source: String) in
       guard try url.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile == true else { try inputFailure("Swift source must be an ordinary file") }
-      let bytes = try Data(contentsOf: url); total += bytes.count
-      guard bytes.count <= 4_000_000, total <= 20_000_000,
-        let source = String(data: bytes, encoding: .utf8), Data(source.utf8) == bytes else { try inputFailure("inventory must be bounded UTF-8") }
+      let bytes = try Data(contentsOf: url)
+      directoryBytes += bytes.count
+      guard bytes.count <= 4_000_000, directoryBytes <= 20_000_000, let source = String(data: bytes, encoding: .utf8), Data(source.utf8) == bytes else { try inputFailure("inventory must be bounded UTF-8") }
+      return (String(url.path.dropFirst(root.path.count + 1)), source)
+    }
+    try self.init(raw)
+  }
+
+  /// Reuses already-read Git/directory source; does not materialize or execute target files.
+  public init(_ raw: [(path: String, source: String)]) throws {
+    guard raw.count <= 128, Set(raw.map(\.path)).count == raw.count else { try inputFailure("trial accepts at most 128 unique Swift paths per side") }
+    let sorted = raw.sorted { $0.path < $1.path }
+    files = sorted.map(\.path)
+    var parsed: [ParsedSource] = [], hashed = Data(), total = 0
+    for (file, source) in sorted {
+      guard !file.isEmpty, !file.hasPrefix("/"), !file.split(separator: "/").contains(".."), file.hasSuffix(".swift") else { try inputFailure("expected relative Swift path") }
+      let bytes = Data(source.utf8); total += bytes.count
+      guard bytes.count <= 4_000_000, total <= 20_000_000 else { try inputFailure("inventory must be bounded UTF-8") }
       let tree = Array(bytes).withUnsafeBufferPointer { Parser.parse(source: $0, swiftVersion: .v6) }
       guard !tree.hasError else { try inputFailure("Swift parse failed: " + file) }
       hashed.append(Data((String(file.utf8.count) + ":" + file + ":" + String(bytes.count) + ":").utf8)); hashed.append(bytes)
@@ -49,5 +63,6 @@ public struct SourceInventory {
     }
     sources = parsed
     hash = SHA256.hash(data: hashed).map { String(format: "%02x", $0) }.joined()
+
   }
 }

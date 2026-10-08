@@ -34,6 +34,8 @@ jobs:
         run: swift test
       - name: CLI and Git checks
         run: python3 Scripts/smoke.py .build/debug/sekka
+      - name: Experimental API review input checks
+        run: python3 Scripts/review_trial.py .build/debug/sekka
       - name: Summary renderer checks
         run: python3 -m unittest discover -s Scripts -p 'test_*.py'
       - name: Generate PR review guide
@@ -78,6 +80,8 @@ jobs:
           retention-days: 14
           include-hidden-files: true
           path: |
+            .build/pr-review/api-review.json
+            .build/pr-review/api-review.text
             .build/pr-review/state-operations.json
             .build/pr-review/state-operations.text
             .build/pr-review/callback-contract.json
