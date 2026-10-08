@@ -1,0 +1,145 @@
+{
+  "repo": "zubair-io/Maple",
+  "pr": 3740,
+  "base": "049e1dd09bf673aac62cfe08df11723d78693c90",
+  "head": "803b3a0b9fb53c766e946a05503fb5cbf175575a",
+  "files": [
+    "src/apple/Maple/Views/AllSourcesTimelineView.swift",
+    "src/apple/Maple/Views/BrowseGrid.swift",
+    "src/apple/Maple/Views/CloudSearchView.swift",
+    "src/apple/Maple/Views/CloudTimelineView.swift",
+    "src/apple/Maple/Views/Grid/PhotoGrid.swift",
+    "src/apple/Maple/Views/Grid/PhotoThumbnailCell.swift",
+    "src/apple/Maple/Views/LibraryGrid.swift",
+    "src/apple/Maple/Views/SearchPhotoResultsSection.swift"
+  ],
+  "scope": "Eight fixed relevant Swift files; not the whole PR",
+  "sourceManifest": [
+    {
+      "side": "base",
+      "path": "src/apple/Maple/Views/AllSourcesTimelineView.swift",
+      "bytes": 9557,
+      "sha256": "19f7a1e7c396a7c72dff832cb91aeecb43ea231f15c7df81f7813cd066a1daf3"
+    },
+    {
+      "side": "base",
+      "path": "src/apple/Maple/Views/BrowseGrid.swift",
+      "bytes": 29835,
+      "sha256": "2a70ce056ad31c6b7369f63bf7193e48465bdc97aed416eda4efdd05d3032d7e"
+    },
+    {
+      "side": "base",
+      "path": "src/apple/Maple/Views/CloudSearchView.swift",
+      "bytes": 8004,
+      "sha256": "3a56b7a4d6ee8d42ee9cf4cd426de37e71a174ba03e169638bd4574d367d58f1"
+    },
+    {
+      "side": "base",
+      "path": "src/apple/Maple/Views/CloudTimelineView.swift",
+      "bytes": 12112,
+      "sha256": "b758cdae758199866052534cdcf5ebbea80b78409e23987acaf39d020ea7bb11"
+    },
+    {
+      "side": "base",
+      "path": "src/apple/Maple/Views/Grid/PhotoGrid.swift",
+      "bytes": 10901,
+      "sha256": "8e26ee408c691d0431f236306575b97e9a52d42342ff992d6f6709e5b78bdf73"
+    },
+    {
+      "side": "base",
+      "path": "src/apple/Maple/Views/Grid/PhotoThumbnailCell.swift",
+      "bytes": 18155,
+      "sha256": "e292dbb984869006de74f17024918afff5556738dd8f52b19288357f59fbcd87"
+    },
+    {
+      "side": "base",
+      "path": "src/apple/Maple/Views/LibraryGrid.swift",
+      "bytes": 4487,
+      "sha256": "e13e34a3e038b2eb1d775df8be288a6c671dcc667842b4ab4ea2381c93d03651"
+    },
+    {
+      "side": "base",
+      "path": "src/apple/Maple/Views/SearchPhotoResultsSection.swift",
+      "bytes": 4824,
+      "sha256": "30e68fcb7a23a9f10e208f7dff87d616abc85669f2117fe797be67811ceb6391"
+    },
+    {
+      "side": "head",
+      "path": "src/apple/Maple/Views/AllSourcesTimelineView.swift",
+      "bytes": 9560,
+      "sha256": "230a06825be490725d39dad8f9278b39865e2c80c4b413f7934aaf6d13f2d7e6"
+    },
+    {
+      "side": "head",
+      "path": "src/apple/Maple/Views/BrowseGrid.swift",
+      "bytes": 29841,
+      "sha256": "1d86d77f594c85c7c401ce8f42224548edc76232da88585cf3172ceb54402c71"
+    },
+    {
+      "side": "head",
+      "path": "src/apple/Maple/Views/CloudSearchView.swift",
+      "bytes": 8019,
+      "sha256": "e4a1dead206977269ee9fe331c81ec3dbe7c3c3ad81488d83997398b4ebf70f7"
+    },
+    {
+      "side": "head",
+      "path": "src/apple/Maple/Views/CloudTimelineView.swift",
+      "bytes": 12130,
+      "sha256": "e0a109cd9e1c205066b84875f225d2d04ab4ad929db91ed210e93a868ce75f67"
+    },
+    {
+      "side": "head",
+      "path": "src/apple/Maple/Views/Grid/PhotoGrid.swift",
+      "bytes": 11825,
+      "sha256": "fe16a6169a1af0a9c88c6ca77e450604f52a83ce4e985a74f9cd7cbdad2dac13"
+    },
+    {
+      "side": "head",
+      "path": "src/apple/Maple/Views/Grid/PhotoThumbnailCell.swift",
+      "bytes": 19408,
+      "sha256": "fe32559737f0f7d1249182748ce0b015b11a4e6f7fe3f27774515deef1b03de8"
+    },
+    {
+      "side": "head",
+      "path": "src/apple/Maple/Views/LibraryGrid.swift",
+      "bytes": 24280,
+      "sha256": "ca85d0809a121c604794ad1068f484e1ecc8376f0085ded96dce02665b5315cd"
+    },
+    {
+      "side": "head",
+      "path": "src/apple/Maple/Views/SearchPhotoResultsSection.swift",
+      "bytes": 4847,
+      "sha256": "cc57243be1eb42f0c50da61d91f57e80af2904507e3f813ea0ac912966ab17fd"
+    }
+  ],
+  "expectedAdaptations": [
+    {
+      "file": "src/apple/Maple/Views/AllSourcesTimelineView.swift",
+      "beforeLine": 172,
+      "afterLine": 172
+    },
+    {
+      "file": "src/apple/Maple/Views/BrowseGrid.swift",
+      "beforeLine": 394,
+      "afterLine": 394
+    },
+    {
+      "file": "src/apple/Maple/Views/CloudSearchView.swift",
+      "beforeLine": 189,
+      "afterLine": 189
+    },
+    {
+      "file": "src/apple/Maple/Views/CloudTimelineView.swift",
+      "beforeLine": 206,
+      "afterLine": 206
+    },
+    {
+      "file": "src/apple/Maple/Views/CloudTimelineView.swift",
+      "beforeLine": 231,
+      "afterLine": 231
+    }
+  ],
+  "expectedBeforeSHA256": "827618667caf8daf62767e4fa55cebcc0922128e58f0e5b99e855f3711b5b5f4",
+  "expectedAfterSHA256": "5c9645fa240059edcb067c5aeff6c9ee1f77a13b7f54f88b13e86ec314a619af",
+  "expectationSource": "Manual source inspection before implementation; machine output later verified against these locations, not a blind holdout"
+}
