@@ -5,7 +5,7 @@ from unittest.mock import patch
 import zipfile
 
 from ci_review import render_summary
-from publish_review import MARKER, current_pr, owned_comment, read_bundle, main
+from publish_review import MARKER, current_pr, owned_comment, read_bundle, read_api_review, main
 
 
 class PublishTests(unittest.TestCase):
@@ -35,6 +35,22 @@ class PublishTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 read_bundle(self.bundle(), 'a' * 40)
 
+    def test_optional_trial_bundle_rejects_partial_duplicate_and_wrong_schema(self):
+        self.assertEqual(read_api_review(self.bundle()), (None, ''))
+        def trial(report, text=True, duplicate=False):
+            data = io.BytesIO()
+            with zipfile.ZipFile(data, 'w') as archive:
+                archive.writestr('api-review.json', json.dumps(report))
+                if text: archive.writestr('api-review.text', '</pre><img>')
+                if duplicate: archive.writestr('api-review.text', 'duplicate')
+            return data.getvalue()
+        valid={'schemaVersion':1, 'analysis':'experimental-callback-contracts', 'contract':{'changes':[{'adaptations':[1]}]}}
+        self.assertEqual(read_api_review(trial(valid)), (valid, '</pre><img>'))
+        for data in [trial(valid, text=False), trial({'schemaVersion':2}), trial({'schemaVersion':1,'analysis':'experimental-callback-contracts','contract':{'changes':[{}]}})]:
+            with self.assertRaises(ValueError): read_api_review(data)
+        with self.assertWarns(UserWarning): data=trial(valid, duplicate=True)
+        with self.assertRaises(ValueError): read_api_review(data)
+
     def test_only_own_bot_comment_is_updated(self):
         spoof = {'id': 1, 'body': MARKER, 'user': {'login': 'someone', 'type': 'User'}}
         bot = {'id': 2, 'body': MARKER + '\nold', 'user': {'login': 'github-actions[bot]', 'type': 'Bot'}}
@@ -57,6 +73,36 @@ class PublishTests(unittest.TestCase):
         self.assertNotIn('runner-only', body)
         self.assertIn('16,000文字', body)
         self.assertIn('未観測の変更が混在', body)
+
+    def test_successful_publisher_passes_trial_data_to_trusted_renderer(self):
+        run = {'event':'pull_request','path':'.github/workflows/pr-review.yml','status':'completed',
+               'pull_requests':[{'number':1}], 'head_sha':'a'*40, 'head_repository':{'full_name':'o/r'}, 'conclusion':'success'}
+        pr = {'number':1,'state':'open','base':{'sha':'c'*40,'repo':{'full_name':'o/r'}},
+              'head':{'sha':'a'*40,'repo':{'full_name':'o/r'}}}
+        manifest={'head':'a'*40,'base':'b'*40,'changedFiles':[]}
+        report={'coverage':{'changedFiles':[],'skippedBodyCount':0},'findings':[], 'inventory':{'scope':'test','changes':[]}}
+        trial={'schemaVersion':1,'analysis':'experimental-callback-contracts','contract':{'changes':[{'adaptations':[1,2]}]}}
+        data=io.BytesIO()
+        with zipfile.ZipFile(data,'w') as archive:
+            for name,value in [('manifest.json',manifest),('candidate.compact',report),('api-review.json',trial)]:
+                archive.writestr(name,json.dumps(value))
+            archive.writestr('candidate.text','normal')
+            archive.writestr('api-review.text','</pre><img>')
+            archive.writestr('summary.md','<script>must not publish this</script>')
+        writes=[]
+        def fake_api(path,payload=None):
+            if payload:
+                writes.append(payload['body']); return {'html_url':'https://github.com/comment'}
+            if path.endswith('/artifacts'): return {'artifacts':[{'name':'sekka-review-1','expired':False,'size_in_bytes':1000,'id':1}]}
+            if '/actions/runs/' in path: return run
+            if '/pulls/' in path: return pr
+            if '/compare/' in path: return {'merge_base_commit':{'sha':'b'*40}}
+            if '/comments?' in path: return []
+            raise AssertionError(path)
+        with patch.dict('os.environ',{'GITHUB_REPOSITORY':'o/r','SEKKA_RUN_ID':'1','SEKKA_DRY_RUN':'0'}), patch('publish_review.api',fake_api), patch('publish_review.subprocess.check_output',return_value=data.getvalue()):
+            main()
+        self.assertIn('候補 1件',writes[0]); self.assertIn('適応 2箇所',writes[0])
+        self.assertIn('&lt;img&gt;',writes[0]); self.assertNotIn('<img>',writes[0]); self.assertNotIn('<script>',writes[0])
 
     def test_failed_run_replaces_previous_result_with_failure_notice(self):
         run = {'event': 'pull_request', 'path': '.github/workflows/pr-review.yml', 'status': 'completed',
