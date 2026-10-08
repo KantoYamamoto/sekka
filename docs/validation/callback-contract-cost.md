@@ -76,4 +76,8 @@ LibraryGridとSearchPhotoResultsSectionのcallはtrailing closure未対応とし
 
 根拠付きのAPI境界比較へ繋げることはできた。単なる件数より具体的だが、機械なしでも同じ問いへ到達している。今の支持は既存契約の適応をまとめる補助で、本番統合や広い設計検出の合格ではない。新しい構文対応/別素材探索をこの結果だけで自動継続しない。
 
-自己利用と最終Actions/実Bot/18成果物の点検は未完了。
+### 自己利用
+
+本番コードは不変なので同じ現行評価器で `6033ce0 → 08d95fd` を比較。20観測/Swift変更6ファイル/本体未比較45。共有SourceInventory境界と新規型への案内は得たが、reader維持/正規化/一意pair/catch束縛/Python・CI統合の確認は通常diffで行った。新contract-probeも実際の自repo変更source inventoryで実行し、契約拡大0件。自作fixtureの三件をこのPR自身の検出と混ぜない。実装者の既知情報を持つ自己レビューであり、独立した有用性評価ではない。
+
+最終Actions/実Bot/18成果物の点検は未完了。
