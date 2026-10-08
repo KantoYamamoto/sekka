@@ -10,11 +10,13 @@
 
 既存の構造索引/関係試作は本番へ統合しない。直近#113の固定2件では既存UIや集合の比較への限定的な寄与はあったが、核心の既存窓口は通常sourceから得た。[保存結果](docs/validation/state-entry-holdout.md)。既存方式を拡張することを次の目標にしない。
 
-**設定なしを中心にし、2026-10-08に第一課題と出力の方向をユーザーと合意。** [#115](https://github.com/KantoYamamoto/sekka/issues/115)で「新しい依存を渡すためだけに中間の型まで変更が連鎖する」を一試作にした。[判断と結果](docs/decisions/0052-config-free-first-problem.md)。自作例では位置・負担・別配置・成立条件を出し、13反例とparse失敗を区別した。独立レビューの名前衝突/末端shadow指摘を修正。ただし実変更SwiftLog #238は前後ファイル全体が未解析。実用性は未確立、本番統合/M3は保留。
+**設定なしを中心にし、第一課題は「渡すためだけに中間APIが増える理由」と別配置を示すこと。** #115/PR #116のconstructor試作は自作例で取得可能性を確認し、Actions/実Bot/14成果物点検後にmerge `65e023a`。実変更SwiftLog #238は未解析で、本番採用の根拠ではない。
 
-次は具体的負担を実変更の通常sourceで先に確認し、その経路を得るための最小範囲と費用を決める。自作例が通る範囲を製品仕様にしない。未解析を理由に一般graphや個別構文対応を継ぎ足さず、例が得られない/費用が大きい場合は第一課題の継続自体を再判断する。
+[#117](https://github.com/KantoYamamoto/sekka/issues/117)で、依存中継が明示された実Issueからsourceを照合。bilibili_tvのlayout抽出で、callbackが一つの中間Viewを通る形から二つへ増え、両中間では子に渡すだけと確認した。[source位置と選択](docs/validation/stored-callback-relay.md)。独立照合で上位指摘なし。既知の修正から履歴を辿った事後診断で、未見の有用性比較ではない。
 
-一課題・一仮説・一最小試作の順を維持する。件数/入力照合/テスト合格を利用価値に置き換えない。旧PR #114は最終Actions・実Botと12成果物の点検を終えmerge済み（`ed2b3c7`）。0051の関係方式は次実装として採用しない。
+次は[0053](docs/decisions/0053-stored-callback-relay.md)の保持callback→body内受渡し→末端呼出を一経路だけ機械で取る。constructor/型解決/一般graphの未対応を埋め続けず、欲しい根拠の単位を実sourceから選ぶ。本番統合/M3は保留。現配置とcontent slot案を、itemsの契約/所有/identity/snapshotの条件付きで比較できるかが次の判断。
+
+旧PR #114は最終Actions・実Botと12成果物の点検を終えmerge `ed2b3c7`。0051の関係方式は次実装として採用しない。一課題・一仮説・一最小試作を維持し、件数/テスト合格を利用価値へ置き換えない。
 
 ## Issueの階層と判断の節目
 
@@ -30,7 +32,9 @@
 
 | 順序 | Issue | 完了条件 / 状態 |
 | --- | --- | --- |
-| 現在 | [#115 成功状態から一課題を選ぶ](https://github.com/KantoYamamoto/sekka/issues/115) | 出力方向はユーザー承認。明示constructor中継を最小試作、自作対照/独立レビュー修正済み。実変更は未解析、本番保留。試作のActions/成果物点検へ |
+| 完了 | [#115 成功状態から一課題を選ぶ](https://github.com/KantoYamamoto/sekka/issues/115) / PR #116 | 自作のconstructor試作。最終Actions/実Bot/14成果物点検とmerge済み。本番保留 |
+| 現在 | [#117 実変更から取得範囲を決める](https://github.com/KantoYamamoto/sekka/issues/117) | 実sourceのcallback中継1→2と別配置の条件を確認、独立照合済み。記録PRのActions/成果物確認へ |
+| 次 | 保持callbackの一経路取得 | 0053の実source位置と最小対照を再現する一PRだけ。一般graph/本番統合はしない |
 | 完了 | [#113 状態/操作入口の限定比較](https://github.com/KantoYamamoto/sekka/issues/113) / PR #114 | 限定寄与/核心未提示を保存。最終Actions/実Bot/12成果物点検とmerge済み。次方式の実装へ自動継続しない |
 
 <details><summary>完了したM1/M2の作業と根拠</summary>
