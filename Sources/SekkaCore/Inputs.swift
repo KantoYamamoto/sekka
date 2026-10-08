@@ -1,16 +1,30 @@
 import Foundation
 
+/// Optional source-read bounds; ordinary structural scan/diff retain their existing input contract.
+public struct SourceReadLimits: Sendable {
+  public static let callbackTrial = SourceReadLimits(files: 128, fileBytes: 4_000_000, totalBytes: 20_000_000)
+  let files: Int
+  let fileBytes: Int
+  let totalBytes: Int
+
+  func check(_ sizes: [Int]) throws {
+    guard sizes.count <= files, sizes.allSatisfy({ $0 >= 0 && $0 <= fileBytes }),
+      sizes.reduce(0, +) <= totalBytes else {
+      throw SekkaError.message("Callback trial source limits exceeded (128 files, 4MB/file, 20MB/side)")
+    }
+  }
+}
+
 public enum Inputs {
   public static let defaultExclusions = [
     ".build", ".swiftpm", ".git", "Pods", "Carthage", "DerivedData",
   ]
 
-  public static func directory(_ path: String, excluding: [String] = []) throws -> [(
+  public static func directory(_ path: String, excluding: [String] = [], limits: SourceReadLimits? = nil) throws -> [(
     path: String, source: String
   )] {
-    try inventoryFiles(path, excluding: excluding).filter { $0.key.hasSuffix(".swift") }
-      .map { (path: $0.key, source: try String(contentsOf: $0.value, encoding: .utf8)) }
-      .sorted { $0.path < $1.path }
+    let files = try inventoryFiles(path, excluding: excluding).filter { $0.key.hasSuffix(".swift") }
+    return try readSources(files.map { (path: $0.key, url: $0.value) }, limits: limits)
   }
 
   public static func gitRoot(_ path: String) throws -> String {
@@ -52,7 +66,7 @@ public enum Inputs {
     return try runGit(["merge-base", base, head], at: root).trimmingCharacters(in: .newlines)
   }
 
-  public static func gitSnapshot(_ commit: String, at root: String, excluding: [String] = []) throws
+  public static func gitSnapshot(_ commit: String, at root: String, excluding: [String] = [], limits: SourceReadLimits? = nil) throws
     -> [(path: String, source: String)]
   {
     let resolved = try revision(commit, at: root)
@@ -67,20 +81,36 @@ public enum Inputs {
       else { continue }
       selected.append((path, String(header[2])))
     }
+    try limits?.check(Array(repeating: 0, count: selected.count))
     let objects = Array(Set(selected.map(\.object))).sorted()
     guard !objects.isEmpty else { return [] }
     let input = Data((objects.joined(separator: "\n") + "\n").utf8)
+    if let limits {
+      // Bound content reads before cat-file produces blobs, counting duplicate paths separately.
+      let rows = try runGit(["cat-file", "--batch-check"], at: root, input: input).split(separator: "\n")
+      guard rows.count == objects.count else { throw SekkaError.message("Incomplete Git size inventory") }
+      var sizes: [String: Int] = [:]
+      for (object, row) in zip(objects, rows) {
+        let fields = row.split(separator: " ")
+        guard fields.count == 3, fields[0] == object, fields[1] == "blob",
+          let size = Int(fields[2]), size >= 0, size <= limits.fileBytes else {
+          throw SekkaError.message("Invalid or oversized callback trial Git source")
+        }
+        sizes[object] = size
+      }
+      try limits.check(selected.map { sizes[$0.object]! })
+    }
     let data = try runGitData(["cat-file", "--batch"], at: root, input: input)
-    let sources = try GitBatch.decode(data, objects: objects)
+    let sources = try GitBatch.decode(data, objects: objects, exactUTF8: limits != nil)
     return selected.map { (path: $0.path, source: sources[$0.object]!) }.sorted { $0.path < $1.path }
   }
 
-  public static func worktree(at root: String, excluding: [String] = []) throws -> [(
+  public static func worktree(at root: String, excluding: [String] = [], limits: SourceReadLimits? = nil) throws -> [(
     path: String, source: String
   )] {
     let names = try runGit(
       ["ls-files", "--cached", "--others", "--exclude-standard", "-z"], at: root)
-    var files: [(path: String, source: String)] = []
+    var files: [(path: String, url: URL)] = []
     let rootURL = URL(fileURLWithPath: root).resolvingSymlinksInPath()
     for path in Set(names.split(separator: "\0").map(String.init)).sorted() {
       guard path.hasSuffix(".swift"), !excluded(path, extra: excluding) else { continue }
@@ -89,9 +119,38 @@ public enum Inputs {
       guard url.resolvingSymlinksInPath().path == url.standardizedFileURL.path else { continue }
       let values = try url.resourceValues(forKeys: [.isRegularFileKey])
       guard values.isRegularFile == true else { continue }
-      files.append((path, try String(contentsOf: url, encoding: .utf8)))
+      files.append((path, url))
     }
-    return files
+    return try readSources(files, limits: limits)
+  }
+
+  private static func readSources(_ files: [(path: String, url: URL)], limits: SourceReadLimits?) throws
+    -> [(path: String, source: String)]
+  {
+    let files = files.sorted { $0.path < $1.path }
+    guard let limits else {
+      return try files.map { ($0.path, try String(contentsOf: $0.url, encoding: .utf8)) }
+    }
+    try limits.check(Array(repeating: 0, count: files.count))
+    let sizes = try files.map { try $0.url.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? limits.fileBytes + 1 }
+    try limits.check(sizes)
+    var actualSizes: [Int] = []
+    return try files.map { file in
+      let handle = try FileHandle(forReadingFrom: file.url)
+      defer { try? handle.close() }
+      var data = Data()
+      while data.count <= limits.fileBytes {
+        let chunk = try handle.read(upToCount: limits.fileBytes + 1 - data.count) ?? Data()
+        if chunk.isEmpty { break }
+        data.append(chunk)
+      }
+      actualSizes.append(data.count)
+      try limits.check(actualSizes)
+      guard let source = String(data: data, encoding: .utf8), Data(source.utf8) == data else {
+        throw SekkaError.message("Callback trial requires round-trippable UTF-8 source bytes (no BOM)")
+      }
+      return (file.path, source)
+    }
   }
 
   static func excluded(_ path: String, extra: [String]) -> Bool {

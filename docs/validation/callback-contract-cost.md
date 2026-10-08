@@ -80,4 +80,24 @@ LibraryGridとSearchPhotoResultsSectionのcallはtrailing closure未対応とし
 
 本番コードは不変なので同じ現行評価器で `6033ce0 → 08d95fd` を比較。20観測/Swift変更6ファイル/本体未比較45。共有SourceInventory境界と新規型への案内は得たが、reader維持/正規化/一意pair/catch束縛/Python・CI統合の確認は通常diffで行った。新contract-probeも実際の自repo変更source inventoryで実行し、契約拡大0件。自作fixtureの三件をこのPR自身の検出と混ぜない。実装者の既知情報を持つ自己レビューであり、独立した有用性評価ではない。
 
-最終Actions/実Bot/18成果物の点検は未完了。
+### 完了と次の判断
+
+[PR #125](https://github.com/KantoYamamoto/sekka/pull/125)を最終head `158cff2de1c809982b8c9aee9020549d88ff3982`、[Actions成功](https://github.com/KantoYamamoto/sekka/actions/runs/37714886140)、実Bot body=summary、18成果物/全JSON/ordinary diff hash・文字数/自作三adapter・三比較案を確認後、merge `3a1ccdb36f4b6f7f3842bac0386b34fd78921b74`。#124完了。成果物の三件は自作fixtureで、当該Sekka PRの検出ではない。
+
+決定論的な実根拠付き比較は取得できたが、通常資料だけでも同じ問い/対案へ到達している。独自の問題発見/時間短縮/未見の一般有用性の裏付けはない。根拠整理の補助まで否定せず、[次の限定試用 #126](https://github.com/KantoYamamoto/sekka/issues/126)で実入力経路・表示へ接続する。
+
+終了判断の独立レビューは、限定試用の着手までユーザー承認待ちにする必要が薄いと指摘した。目的を変えない撤回可能な接続は委任範囲であり、利益未確立は人間だけが決められる要件とは異なる。承認ゲートを取り下げ、ルールを増やさず実Git入力へ一単位を接続する。M3合格や通常提供の採用とは分ける。最終成功を根拠整理だけへ変更する、元目的を縮小する、全プロジェクトを撤退する場合に人間の判断を求める。
+
+### #126: 実入力への限定接続
+
+成功状態は実装前にIssue #126へ固定した。`sekka review`をGit refs・作業ツリー・ディレクトリ比較へ接続し、解析は`Packages/CallbackContracts`とstandalone probeで共有する。parserを603.0.1へ揃えても、保存済みMaple全JSON・二つのhash・API位置137→149・五caller位置は一致した。新しい検出ルールは追加していない。
+
+ローカル検証はSwift 6.4/macOSで65 tests、39 CLI/Git checks、実reviewのGit/dir/working tree/空の片側/非Swift inventory/parse・count・BOM・size・引数失敗と全出力の二回byte照合、Python表示/投稿16 tests（先行投稿修正を含む）。Documents配下の生成xctestにFinderInfoが付いて署名失敗したため、`swift test --scratch-path /tmp/sekka-contract-cli-core`で成功確認した。対象アプリのビルドではない。
+
+独立レビューでassume-unchangedのSwift変更がinventoryから消えるP2を指摘され、比較したraw sourceから補完した。入力上限を読込前へ移し、BOMの除去でhashが変わる境界もreviewのみ明示拒否した。修正後、同レビューがCLI対照・directoryのBOM/4MB超/20MB超・表示8 testsを再確認し、未解消指摘なし。旧diff/scanの入力契約は維持する。
+
+自己利用はbase `3a1ccdb` → 実装head `699615c`、13Swift変更/41構造観測、API reviewは0候補/0 unknown。今回に対象callback拡大はなく、方式の失敗にも有用性の成功にも数えない。最終Actions/実Bot/20成果物/mergeは[PR #127](https://github.com/KantoYamamoto/sekka/pull/127)と[#126の完了記録](https://github.com/KantoYamamoto/sekka/issues/126)を参照する。実PRのapi-reviewは自作対照のcallback-contractと分け、0候補も保持する。接続できたことは配置再考への純増利益やM3合格の証拠にはしない。
+
+初回#127 Actions run37718299874は成功/20成果物だったが、実BotにAPI欄がなかった。デフォルトブランチの旧投稿器が再描画する経路を見落としていたため、[0055](../decisions/0055-trusted-trial-publisher.md)の投稿bootstrapを#128/PR #129に分離。16Python対照・独立trust境界レビュー・Actions run37736990352成功・旧形式実Bot=summary・18成果物を確認し、merge `b4979a4b9eec43cd0c50a450102a8826522e31c3`。#127を追従し、最終headの新形式実Bot/20成果物まで確認する。解析/成果物の成功だけで表示完了としない。
+
+接続実装後の独立投資レビューは、同方式への追加実装を支持する具体的根拠は現資料にないと評価した。一件で一般無益は断定しないが、不確実性だけで素材探索/構文拡張を継続しない。追加投資の保留は元目的を維持する委任範囲。根拠整理だけを最終成功にする、用途限定を正式な目標にする、Sekka全体を休止/撤退する判断は人間に残す。これに合わせ、次の実装Issueを自動追加しない。

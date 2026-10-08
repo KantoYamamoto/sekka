@@ -28,6 +28,20 @@ Gitモードでは `--path` 内のリポジトリ全体を解析します。作�
 
 scanとディレクトリ比較は指定ディレクトリ配下を読み、`.gitignore` は解釈しません。Swiftの解析入力では全モードでシンボリックリンクをスキップし、`.build`, `.swiftpm`, `.git`, `Pods`, `Carthage`, `DerivedData` を除外します。テストコードもデフォルトで含まれます。
 
+## API境界の限定試行（review）
+
+`sekka review BASE --head HEAD --merge-base --path REPO`、`sekka review BASE --path REPO`（作業ツリー）、`sekka review --before DIR --after DIR`で、既存の入力取得経路を利用します。通常の構造`diff`とは別の実験で、ルールを一つに限定しています。
+
+明示initializerを一つ持つ一意な記載structのcallback型で末尾引数が増え、同じfile/字句owner/他引数tokenで対応する既存closureが追加slotを `_` で捨て、旧引数参照の正規化後にbody tokenが同じ場合を集約します。元bodyで元引数を使っていたことも必要です。API位置とcallerの前後位置、現positional API・単一event payload・旧入口/adapterの比較条件を返します。型/callee/実行時の意味は未解決です。
+
+同名・shadow・複数init・macro/条件付きscope・複雑なbody・trailing closure・direct referenceからclosureへの変換などは保証外です。不明は対象の拡大APIに関するものだけ出し、未対応APIを全列挙しません。**0件は設計の承認ではありません。** token同一も挙動同値を証明しません。[取得方法・実source・比較の限界](validation/callback-contract-cost.md)。
+
+形式はtext/JSONのみ。JSONは独立した`schemaVersion: 1`、`analysis: experimental-callback-contracts`、`beforeLabel/afterLabel`、全変更パスの`inventory`、`contract`を持ちます。`contract`は`beforeSHA256/afterSHA256`・relative path一覧・`changes`・`unknown`・`limits`を含み、hashはpathとUTF-8 bytesを長さ付きで区切ったinventoryの識別子です。認証情報ではありません。実入力とstandalone probeは同じ解析コードを使います。
+
+Swift sourceを読む前に、片側128ファイル・4,000,000 bytes/ファイル・20,000,000 bytes/側を検査します（Gitはblob metadata、通常ファイルはmetadataとbounded read）。BOMを含むUTF-8 roundtrip不一致・読取/parse失敗はstderrと終了コード2で停止し、部分JSONは返しません。片側Swift 0件は許可します。除外・リンク・非Swiftの扱いは既存入力と同じで、上限は非Swift inventoryの件数制限ではありません。
+
+`--fail-on-findings`は候補があれば終了コード1、候補なしは0。`--json-detail`、`--show-diff/--at/--expect-input`、GitHub形式は対応しません。試行の出力契約は変更し得ます。
+
 ## レビュー向け出力
 
 textは型ごとに観測をまとめます。同じ型内で前後とも名前が一意な関数・initializerの引数変更は、長い宣言を2本並べる代わりに「追加・削除された引数」で表示します。引数以外のアクセス修飾子・戻り値なども変わった場合、その部分も別に表示します。オーバーロードは名前だけでまとめません。この宣言要約を本体の対応付けには使いません。

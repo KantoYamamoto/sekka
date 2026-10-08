@@ -1,5 +1,5 @@
 import Foundation
-import ProbeSupport
+import CallbackContracts
 import SwiftSyntax
 
 struct Site: Encodable, Hashable { let file: String; let line: Int }

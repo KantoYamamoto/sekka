@@ -137,11 +137,19 @@ def main():
     ).strip()
     output = repo / ".build/pr-review"
     manifest = capture(repo, base, head, repo / ".build/debug/sekka", output)
+    # The same frozen evaluator and source refs as the structural report; no target checkout/build.
+    binary = output / "candidate-sekka"
+    api_args = [str(binary), "review", base, "--head", head, "--path", str(repo)]
+    for format, name in [("json", "api-review.json"), ("text", "api-review.text")]:
+        result = subprocess.run(api_args + ["--format", format], capture_output=True, check=True)
+        (output / name).write_bytes(result.stdout)
+    api_review = json.loads((output / "api-review.json").read_text())
     report = json.loads((output / "candidate.compact").read_text())
     repo_url = os.environ.get("GITHUB_SERVER_URL", "https://github.com") + "/" + os.environ["GITHUB_REPOSITORY"]
     summary = render_summary(
         manifest, report, (output / "candidate.text").read_text(), repo_url,
         os.environ.get("SEKKA_PR", ""), repo_url + "/actions/runs/" + os.environ["GITHUB_RUN_ID"],
+        api_review, (output / "api-review.text").read_text(),
     )
     (output / "summary.md").write_text(summary)
     with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as stream:

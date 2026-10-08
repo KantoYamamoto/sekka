@@ -8,6 +8,8 @@ private let help = """
     sekka scan [--path DIRECTORY] [--format text|json]
     sekka diff REF [--path REPOSITORY] [--head REF] [--merge-base]
     sekka diff --before DIRECTORY --after DIRECTORY
+    sekka review REF [--path REPOSITORY] [--head REF] [--merge-base]
+    sekka review --before DIRECTORY --after DIRECTORY [--format text|json]
 
   Options:
     --format text|json|github  Output format (default: text; github requires Git diff)
@@ -22,6 +24,8 @@ private let help = """
     --help                    Show this help
     --version                 Show version
 
+  review is an opt-in experimental callback-contract comparison; at most 128 Swift paths per side.
+  It suggests API boundary comparisons, not fixes or design approval. text/json only.
   Git mode analyzes the entire repository, even when --path is a subdirectory.
   Working tree includes staged/unstaged/untracked non-ignored files; only Swift is parsed.
   Directory mode does not interpret .gitignore. Symlinks are not parsed; Git inventory lists them.
@@ -48,7 +52,7 @@ private struct Options {
   var expectInput: String?
 
   init(_ args: [String]) throws {
-    guard let first = args.first, ["scan", "diff"].contains(first) else {
+    guard let first = args.first, ["scan", "diff", "review"].contains(first) else {
       throw SekkaError.message(help)
     }
     command = first
@@ -88,7 +92,7 @@ private struct Options {
       case "--merge-base": mergeBase = true
       case "--fail-on-findings": fail = true
       default:
-        guard command == "diff", ref == nil, !arg.hasPrefix("-") else {
+        guard ["diff", "review"].contains(command), ref == nil, !arg.hasPrefix("-") else {
           throw SekkaError.message("Unknown argument: \(arg)")
         }
         ref = arg
@@ -97,6 +101,9 @@ private struct Options {
     }
     guard ["text", "json", "github"].contains(format) else {
       throw SekkaError.message("Unknown format: \(format)")
+    }
+    if command == "review", format == "github" {
+      throw SekkaError.message("review trial supports --format text|json only")
     }
     if jsonDetailSpecified && (command != "diff" || format != "json") {
       throw SekkaError.message("--json-detail requires diff --format json")
@@ -123,7 +130,7 @@ private struct Options {
           "github format requires Git mode so annotation paths match the repository")
       }
     } else if ref == nil {
-      throw SekkaError.message("diff requires a Git ref or --before/--after directories")
+      throw SekkaError.message("\(command) requires a Git ref or --before/--after directories")
     }
   }
 }
@@ -144,6 +151,7 @@ private func run() throws -> Int32 {
     print(try options.format == "json" ? Renderer.json(snapshot) : Renderer.text(snapshot))
     return 0
   }
+  let readLimits: SourceReadLimits? = options.command == "review" ? .callbackTrial : nil
   let beforeFiles: [(path: String, source: String)]
   let afterFiles: [(path: String, source: String)]
   let beforeLabel: String
@@ -151,8 +159,8 @@ private func run() throws -> Int32 {
   let inventory: ComparisonInventory
   var replay: [String] = ["sekka", "diff"]
   if let before = options.before, let after = options.after {
-    beforeFiles = try Inputs.directory(before, excluding: options.exclude)
-    afterFiles = try Inputs.directory(after, excluding: options.exclude)
+    beforeFiles = try Inputs.directory(before, excluding: options.exclude, limits: readLimits)
+    afterFiles = try Inputs.directory(after, excluding: options.exclude, limits: readLimits)
     beforeLabel = before
     afterLabel = after
     inventory = try Inputs.directoryChanges(before: before, after: after, excluding: options.exclude)
@@ -165,11 +173,11 @@ private func run() throws -> Int32 {
     let base =
       try options.mergeBase
       ? Inputs.commonAncestor(ref, headCommit ?? "HEAD", at: root) : Inputs.revision(ref, at: root)
-    beforeFiles = try Inputs.gitSnapshot(base, at: root, excluding: options.exclude)
+    beforeFiles = try Inputs.gitSnapshot(base, at: root, excluding: options.exclude, limits: readLimits)
     if let headCommit {
-      afterFiles = try Inputs.gitSnapshot(headCommit, at: root, excluding: options.exclude)
+      afterFiles = try Inputs.gitSnapshot(headCommit, at: root, excluding: options.exclude, limits: readLimits)
     } else {
-      afterFiles = try Inputs.worktree(at: root, excluding: options.exclude)
+      afterFiles = try Inputs.worktree(at: root, excluding: options.exclude, limits: readLimits)
     }
     beforeLabel =
       options.mergeBase
@@ -184,6 +192,12 @@ private func run() throws -> Int32 {
   guard !beforeFiles.isEmpty || !afterFiles.isEmpty || !inventory.changes.isEmpty else {
     throw SekkaError.message(
       "No Swift files found on either side; check the input paths and exclusions")
+  }
+  if options.command == "review" {
+    let report = try ContractReview.compare(before: beforeFiles, after: afterFiles,
+      beforeLabel: beforeLabel, afterLabel: afterLabel, inventory: inventory)
+    print(try options.format == "json" ? ContractReview.json(report) : ContractReview.text(report))
+    return options.fail && report.hasCandidates ? 1 : 0
   }
   let beforeSnapshot = try Analyzer.analyze(beforeFiles)
   let afterSnapshot = try Analyzer.analyze(afterFiles)

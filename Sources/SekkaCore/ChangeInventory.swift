@@ -12,10 +12,21 @@ public struct ComparisonInventory: Codable, Equatable, Sendable {
   public let changes: [InputChange]
 
   public func includingSwiftChanges(_ files: [ChangedFile]) -> ComparisonInventory {
-    let known = Set(changes.map(\.file))
-    let additional = files.filter { !known.contains($0.file) }.map {
-      InputChange(file: $0.file, change: $0.change, analysis: "swift")
+    includingSourceChanges(files.map { InputChange(file: $0.file, change: $0.change, analysis: "swift") })
+  }
+
+  public func includingSourceChanges(before: [(path: String, source: String)], after: [(path: String, source: String)]) -> ComparisonInventory {
+    let old = Dictionary(uniqueKeysWithValues: before), new = Dictionary(uniqueKeysWithValues: after)
+    let files = Set(old.keys).union(new.keys).sorted().compactMap { file -> InputChange? in
+      if let a = old[file], let b = new[file], a.utf8.elementsEqual(b.utf8) { return nil }
+      return InputChange(file: file, change: old[file] == nil ? "added" : new[file] == nil ? "deleted" : "modified", analysis: "swift")
     }
+    return includingSourceChanges(files)
+  }
+
+  private func includingSourceChanges(_ files: [InputChange]) -> ComparisonInventory {
+    let known = Set(changes.map(\.file))
+    let additional = files.filter { !known.contains($0.file) }
     return ComparisonInventory(
       scope: scope + (additional.isEmpty ? "" : "; also includes raw Swift-source changes"),
       changes: (changes + additional).sorted { $0.file < $1.file })
