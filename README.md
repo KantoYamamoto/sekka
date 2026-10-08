@@ -41,7 +41,7 @@ JSONが必要なら`--format json`、完全な前後一覧が必要なら`--json
 
 本番CLIは型・メンバー・明示的な型参照・本体の変化を整理します。表示・diffへの導線・PR投稿は検証済みですが、それだけで元の目的を達成したとは扱いません。成功条件は「変更と既存構造の関係を根拠に、局所修正を続ける案と配置を見直す案を比較できること」です。
 
-別packageの構造索引/関係試作は、[実変更の比較](docs/validation/state-entry-holdout.md)で限定的な材料提供にとどまり、本番へ統合していません。現在は設定なしで「依存を渡すためだけに中間APIまで変わる」ことと別配置を示す[最小試作](Experiments/DependencyRelay/README.md)を検証しています。自作対照では根拠を取得できましたが、実変更は未解析でした。[判断と取得限界](docs/decisions/0052-config-free-first-problem.md)。実用性の確認前で、本番CLIの機能ではありません。
+別packageの構造索引/関係試作は、[実変更の比較](docs/validation/state-entry-holdout.md)で限定的な材料提供にとどまり、本番へ統合していません。設定なしで「渡すためだけに中間APIが増える理由」と別配置を示す方法を検証しています。[constructor試作](Experiments/DependencyRelay/README.md)は自作例で取得可能性を確認。[実source](docs/validation/stored-callback-relay.md)では、保持callbackをbodyで渡す中継が増えた変更を確認したため、次は[その一経路の取得](docs/decisions/0053-stored-callback-relay.md)に絞ります。実用性は未確立で、本番CLIの機能ではありません。
 [ROADMAP](ROADMAP.md)に現在位置と次の検証、[目的と候補](docs/ideas.md)に将来案、[試用意見](docs/feedback-summary.md)に根拠をまとめています。対応構文の数だけを増やすことは開発目標にしません。
 
 ## ライセンス
