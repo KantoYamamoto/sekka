@@ -1,6 +1,5 @@
 import Foundation
-import CryptoKit
-import SwiftParser
+import ProbeSupport
 import SwiftSyntax
 
 struct Site: Encodable, Hashable { let file: String; let line: Int }
@@ -134,34 +133,9 @@ struct Inventory {
   var owners: [String: Owner] = [:]; var fields: [String: Field] = [:]
   var unknown: [String] = []; var paths: [Path] = []
   init(_ directory: String) throws {
-    let suppliedRoot = URL(fileURLWithPath: directory).standardizedFileURL
-    let resources = try suppliedRoot.resourceValues(forKeys: [.isDirectoryKey, .isSymbolicLinkKey])
-    guard resources.isDirectory == true, resources.isSymbolicLink != true else { try fail("input must be an ordinary source directory") }
-    guard let resolved = realpath(suppliedRoot.path, nil) else { try fail("cannot resolve supplied directory") }
-    let root = URL(fileURLWithPath: String(cString: resolved)); free(resolved)
-    var enumerationError: Error?
-    guard let listing = FileManager.default.enumerator(at: root, includingPropertiesForKeys: [.isSymbolicLinkKey],
-      options: [], errorHandler: { _, error in enumerationError = error; return false }) else { try fail("cannot enumerate source directory") }
-    var inputs: [URL] = []
-    while let file = listing.nextObject() as? URL {
-      guard try file.resourceValues(forKeys: [.isSymbolicLinkKey]).isSymbolicLink != true else { try fail("symlink in supplied inventory") }
-      if file.pathExtension == "swift" { inputs.append(file) }
-    }
-    if let enumerationError { throw enumerationError }
-    inputs.sort { $0.path < $1.path }
-    guard !inputs.isEmpty, inputs.count <= 128 else { try fail("supply 1...128 Swift files") }
-    var trees: [(SourceFileSyntax, SourceLocationConverter)] = [], hashed = Data(), total = 0
-    files = inputs.map { String($0.path.dropFirst(root.path.count + 1)) }
-    for (url, file) in zip(inputs, files) {
-      let bytes = try Data(contentsOf: url); total += bytes.count
-      guard bytes.count <= 4_000_000, total <= 20_000_000,
-        let source = String(data: bytes, encoding: .utf8), Data(source.utf8) == bytes else { try fail("inventory must be bounded UTF-8") }
-      let tree = Array(bytes).withUnsafeBufferPointer { Parser.parse(source: $0, swiftVersion: .v6) }
-      guard !tree.hasError else { try fail("Swift parse failed: " + file) }
-      hashed.append(Data((String(file.utf8.count) + ":" + file + ":" + String(bytes.count) + ":").utf8)); hashed.append(bytes)
-      trees.append((tree, SourceLocationConverter(fileName: file, tree: tree)))
-    }
-    hash = SHA256.hash(data: hashed).map { String(format: "%02x", $0) }.joined()
+    let input = try SourceInventory(directory)
+    hash = input.hash; files = input.files
+    let trees = input.sources.map { ($0.tree, $0.converter) }
     var definitions: [(StructDeclSyntax, SourceLocationConverter)] = []
     var allCalls: [(FunctionCallExprSyntax, SourceLocationConverter)] = []
     var extensions = Set<String>(), globals = Set<String>()

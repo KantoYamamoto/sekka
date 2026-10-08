@@ -4,7 +4,7 @@
 
 - 記録日：2026-10-08
 - 関連：[#117](https://github.com/KantoYamamoto/sekka/issues/117)、[0052](0052-config-free-first-problem.md)
-- 状態：独立試作で固定実sourceの中継1→2と旧root field削除を取得。独立コードレビュー指摘修正・再確認済み。PR #120のActions/実Bot/16成果物まで確認してmerge。本番/M3は保留
+- 状態：固定実sourceの中継取得/PR #120は完了。本番保留。#122の契約拡大仮説はsource gate不成立で実装せず、次単位は[0054](0054-callback-contract-adaptation.md)へ置換
 
 ## What / Why
 
@@ -57,6 +57,6 @@
 
 ## 初読reader点検後の選択
 
-**中継の深さだけでは配置見直しの根拠が弱い場合は、同じcallback変更で中間APIも実際に変わったことを次の観測単位にする。** [#121の結果](../validation/callback-material-value.md)では通常diffでもgeneric content案が得られ、試作の寄与は経路1→2と末端だけの別配置の明確化だった。時間短縮/問いの新規性は支持しない。未見素材二候補も当該負担を持たず、実用性は保留。
+#121では通常diffでもgeneric content案が得られ、試作の寄与は経路1→2と末端だけの案の明確化に限られた。時間短縮/問いの新規性は未支持。次#122は実際の中間二型の契約拡大をsource-firstで調べたが、最大二Swift候補で元条件不成立だったため、検出拡張を実装しない。
 
-[#122](https://github.com/KantoYamamoto/sekka/issues/122)では現在の一経路取得を再利用し、同じ開始/末端/中継field列で明示function引数数が増え、二つ以上の中間のfield契約も書き換わった場合に限定する。Whyは観測された配線の大きさより実際のAPI変更負担へ問いを結ぶため。Howは位置/前後型表記/別配置の条件を共有し、型名変更/rename/利用やtransformを増加の証拠にしないこと。一般型解決やhistory方式は初回の根拠取得に投資が大きく、採用しない。必要な明示依存/所有契約なら現配置が妥当という反対理由も残す。
+取得済みのcallback経路は保存する。現在の次単位は[0054](0054-callback-contract-adaptation.md)の共有callback契約拡大への既存利用側の適応であり、中継ルールへ個別構文対応を継ぎ足さない。[source gateと別単位の根拠](../validation/callback-contract-cost.md)。
