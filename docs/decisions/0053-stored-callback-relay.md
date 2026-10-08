@@ -4,7 +4,7 @@
 
 - 記録日：2026-10-08
 - 関連：[#117](https://github.com/KantoYamamoto/sekka/issues/117)、[0052](0052-config-free-first-problem.md)
-- 状態：実sourceで中継の増加を確認。次の取得単位を決定、解析実装はこれから。本番/M3は保留
+- 状態：独立試作で固定実sourceの中継1→2と旧root field削除を取得。独立コードレビュー指摘修正・再確認済み。PR検証中。本番/M3は保留
 
 ## What / Why
 
@@ -14,7 +14,7 @@
 
 この修正前には、`onResume`がFeedContentScrollView → ShelvesSection → ResumeShelfViewへ渡され、中間二型には当該callbackを呼ぶ記載がない。同リポジトリの履歴では、PGC channel追加のcommit `743c84a`がShelvesSectionを抽出し、中継を一段から二段へ増やした。中間型全体が無責務なのではなく、このcallbackについて配線の境界が増えたことが根拠。
 
-## 欲しい成果（手書き。まだ検出結果ではない）
+## 成功状態（実装前に固定した手書き契約）
 
 ```text
 記載上のcallback中継が1 → 2段に増えました
@@ -40,9 +40,9 @@
 
 ## How / 次の実装単位
 
-同じSwiftSyntax依存を使い、供給された前後source inventoryの一意なstruct、明示したconst function field、子への直接の名前付き引数、末端にある当該fieldの呼出表記を読む。初回は記載上の戻り値がVoidのcallbackに限定する。compilerの生成initや責務は推定しない。関連する字句衝突、macro/条件付き宣言、custom init等が対応を曖昧にする場合は不明とする。
+同じSwiftSyntax依存を使い、供給された前後source inventoryの一意なstruct、明示したconst function field、子への直接の名前付き引数、末端にある当該fieldの呼出表記を読む。初回は記載上の戻り値がVoidのcallbackに限定する。`callback-probe`を同じDependencyRelay packageへ置き、入力hash/relative path/各位置、比較案と成立条件をJSON/textで共有する。compilerの生成initや責務は推定しない。関連する字句衝突、macro/条件付き宣言、custom init等が対応を曖昧にする場合は不明とする。
 
-複数ファイルの位置と入力hashを持ち、同じ開始field/末端field/型表記の経路を前後比較する。新しい中間型、または一段から二段への増加を出す。既に修正されたPRでは、記載上のfield/経路の削除を、実行時依存の消滅と区別する。余分な参照、変換、captureしたwrapper、同名shadowは単純中継としない。前後どちらかのread/parse失敗は部分結果を返さない。
+複数ファイルの位置と入力hashを持ち、同じ開始field/末端field/型表記の経路を前後比較する。既存の完結した経路が二段以上へ増えた場合を出す（完全新規の経路は比較しない）。既に修正されたPRでは、記載上のfield/経路の削除を、実行時依存の消滅と区別する。余分な参照、変換、captureしたwrapper、同名shadowは単純中継としない。前後どちらかのread/parse失敗は部分結果を返さない。
 
 0052のconstructor試作は保存された取得可能性の実験として扱い、この実例のために一般のconstructor/型/alias/graph対応を継ぎ足さない。本番CLIへは統合しない。最初は一経路の取得、意味を変えた最小の対照、この実変更での出力を確認する一PRに限る。自己利用と独立レビューで、機械で得た材料と通常読解による発見を分ける。
 
