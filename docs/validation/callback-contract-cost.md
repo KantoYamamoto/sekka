@@ -92,10 +92,12 @@ LibraryGridとSearchPhotoResultsSectionのcallはtrailing closure未対応とし
 
 成功状態は実装前にIssue #126へ固定した。`sekka review`をGit refs・作業ツリー・ディレクトリ比較へ接続し、解析は`Packages/CallbackContracts`とstandalone probeで共有する。parserを603.0.1へ揃えても、保存済みMaple全JSON・二つのhash・API位置137→149・五caller位置は一致した。新しい検出ルールは追加していない。
 
-ローカル検証はSwift 6.4/macOSで65 tests、39 CLI/Git checks、実reviewのGit/dir/working tree/空の片側/非Swift inventory/parse・count・BOM・size・引数失敗と全出力の二回byte照合、Python表示14 tests。Documents配下の生成xctestにFinderInfoが付いて署名失敗したため、`swift test --scratch-path /tmp/sekka-contract-cli-core`で成功確認した。対象アプリのビルドではない。
+ローカル検証はSwift 6.4/macOSで65 tests、39 CLI/Git checks、実reviewのGit/dir/working tree/空の片側/非Swift inventory/parse・count・BOM・size・引数失敗と全出力の二回byte照合、Python表示/投稿16 tests（先行投稿修正を含む）。Documents配下の生成xctestにFinderInfoが付いて署名失敗したため、`swift test --scratch-path /tmp/sekka-contract-cli-core`で成功確認した。対象アプリのビルドではない。
 
 独立レビューでassume-unchangedのSwift変更がinventoryから消えるP2を指摘され、比較したraw sourceから補完した。入力上限を読込前へ移し、BOMの除去でhashが変わる境界もreviewのみ明示拒否した。修正後、同レビューがCLI対照・directoryのBOM/4MB超/20MB超・表示8 testsを再確認し、未解消指摘なし。旧diff/scanの入力契約は維持する。
 
 自己利用はbase `3a1ccdb` → 実装head `699615c`、13Swift変更/41構造観測、API reviewは0候補/0 unknown。今回に対象callback拡大はなく、方式の失敗にも有用性の成功にも数えない。最終Actions/実Bot/20成果物/mergeは[PR #127](https://github.com/KantoYamamoto/sekka/pull/127)と[#126の完了記録](https://github.com/KantoYamamoto/sekka/issues/126)を参照する。実PRのapi-reviewは自作対照のcallback-contractと分け、0候補も保持する。接続できたことは配置再考への純増利益やM3合格の証拠にはしない。
+
+初回#127 Actions run37718299874は成功/20成果物だったが、実BotにAPI欄がなかった。デフォルトブランチの旧投稿器が再描画する経路を見落としていたため、[0055](../decisions/0055-trusted-trial-publisher.md)の投稿bootstrapを#128/PR #129に分離。16Python対照・独立trust境界レビュー・Actions run37736990352成功・旧形式実Bot=summary・18成果物を確認し、merge `b4979a4b9eec43cd0c50a450102a8826522e31c3`。#127を追従し、最終headの新形式実Bot/20成果物まで確認する。解析/成果物の成功だけで表示完了としない。
 
 接続実装後の独立投資レビューは、同方式への追加実装を支持する具体的根拠は現資料にないと評価した。一件で一般無益は断定しないが、不確実性だけで素材探索/構文拡張を継続しない。追加投資の保留は元目的を維持する委任範囲。根拠整理だけを最終成功にする、用途限定を正式な目標にする、Sekka全体を休止/撤退する判断は人間に残す。これに合わせ、次の実装Issueを自動追加しない。
