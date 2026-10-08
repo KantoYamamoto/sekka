@@ -1,18 +1,31 @@
 # Dependency relay: 一課題の試作
 
-新しい依存のために中間constructorのAPIまで増えたとき、なぜ変更が連鎖したかと、子を呼出側で組み立てる別配置を短く示す。目的と採用理由・実変更の取得限界は[0052](../../docs/decisions/0052-config-free-first-problem.md)。本番Sekkaへは未統合。
+中間APIが依存/callbackを渡すために増えた理由と、組み立てる場所を見直す比較案を示す独立実験。本番Sekkaへは未統合。実sourceに合わせた取得単位は[0053](../../docs/decisions/0053-stored-callback-relay.md)、先のconstructor試作は[0052](../../docs/decisions/0052-config-free-first-problem.md)。
 
 ```sh
 swift build --package-path Experiments/DependencyRelay --scratch-path .build/dependency-relay
 RELAY_BIN=$(swift build --package-path Experiments/DependencyRelay --scratch-path .build/dependency-relay --show-bin-path)
+python3 Experiments/DependencyRelay/check_callback.py "$RELAY_BIN/callback-probe"
+"$RELAY_BIN/callback-probe" Experiments/DependencyRelay/CallbackFixtures/before Experiments/DependencyRelay/CallbackFixtures/after --text
+```
+
+## callback-probe（今回の取得単位）
+
+前後のsourceディレクトリを受け取り、同じ開始/末端field・型表記の経路が一段から二段以上へ増えた場合、各保持宣言・受渡し・末端呼出・呼出側の位置を示す。呼出側で末端を組み立てcontent slotを渡す比較案と、items契約/所有/identity/更新/snapshotの条件はJSONにも含む。中間型全体の責務や設計の良否は判定しない。
+
+供給inventory内で一意なplain struct、明示const function field（記載戻り値Void）、直接named argument受渡し、当該fieldの一回だけの呼出表記に限定する。shadow・同名・custom init/generic/attributes/extension/条件付きownerは対象外。呼出callee/生成init/実際の型同一性は未解決。root fieldの削除は実行時依存の消滅と区別する。
+
+`--text`なしではJSON。隠しSwiftファイルも含め、1〜128 Swiftファイル・各4MB/合計20MB以下のUTF-8を読む。symlink/read/parse失敗はstderrとexit 2、部分JSONは返さない。sourceはビルド/実行しない。同じrelative path/bytesから同じhashと出力。0件は構造の承認ではなく、範囲外や無関係な経路も省略される。
+
+bilibili_tvの固定履歴で1→2の増加と後のroot field削除を取得した。[検証](../../docs/validation/stored-callback-relay.md)。修正を知った事後診断なので、未見の利用価値や本番採用の合格ではない。
+
+## relay-probe（先のconstructor取得可能性）
+
+```sh
 python3 Experiments/DependencyRelay/check.py "$RELAY_BIN/relay-probe"
 "$RELAY_BIN/relay-probe" Experiments/DependencyRelay/Fixtures/before.swift Experiments/DependencyRelay/Fixtures/after.swift --text
 ```
 
-`--text`なしではJSON。ソースを構文解析するだけで、対象をビルド/実行しない。UTF-8・4MB以下の通常ファイル二つを受け取り、parse/read失敗はstderrとexit 2、部分JSONを返さない。同じ入力path/bytesから同じ出力を返す。
+一ファイル内の一意な明示型・一つの明示init・直接代入/構築、全段で新引数が加わる場合に限定。4MB以下のUTF-8通常ファイル二つを比較する。自作例ではEventSinkが二つの中間constructorで子へ渡され、Checkoutで保持/参照される。別配置は子を組み立てた後に親へ注入すること。生成時期/所有/アクセス/構築を隠すAPI契約は別途確認する。
 
-自作例の実出力は、`EventSink`が`CheckoutScreen.init(repository:events:)`と`CheckoutModel.init(repository:events:)`で子の構築へ一回ずつ渡され、`Checkout`で保持/参照される記載を示す。比較案は`CheckoutModel(checkout:)` → `CheckoutScreen(model:)`へ組み立てを変更し、末端の将来の依存追加を中間APIから切り離すこと。生成時期・所有・アクセス・構築を隠すAPI契約は別途確認する。
-
-一ファイル内の一意な明示型・一つの明示init・直接代入/構築に限定する。全段で新引数が加わる場合のみ。記載参照は実callee・副作用・責務の証明ではない。0候補や未解析は構造の承認を意味しない。暗黙initや複数ファイルの解析を製品の制約として採用したわけではない。
-
-対照は通常の局所追加、組立済み、中間での利用/変換/closure、overload、条件コンパイル、shadow等とparse失敗。独立レビューで同名factoryと末端の引数shadowの誤認を修正した。自作の合格と実用性の合格は別。SwiftLog #238は前後ファイル全体が未解析だったため、本番へ進める証拠にはなっていない。
+自作対照と独立レビュー修正まで完了。実SwiftLog #238は条件付き宣言で未解析、今回のSwiftUI実例は明示initがなく未解析。この方式の未対応を増やすことは次の目標にしない。両試作の自作成果物だけをActionsに保存する。

@@ -33,8 +33,8 @@
 | 順序 | Issue | 完了条件 / 状態 |
 | --- | --- | --- |
 | 完了 | [#115 成功状態から一課題を選ぶ](https://github.com/KantoYamamoto/sekka/issues/115) / PR #116 | 自作のconstructor試作。最終Actions/実Bot/14成果物点検とmerge済み。本番保留 |
-| 現在 | [#117 実変更から取得範囲を決める](https://github.com/KantoYamamoto/sekka/issues/117) | 実sourceのcallback中継1→2と別配置の条件を確認、独立照合済み。記録PRのActions/成果物確認へ |
-| 次 | 保持callbackの一経路取得 | 0053の実source位置と最小対照を再現する一PRだけ。一般graph/本番統合はしない |
+| 完了 | [#117 実変更から取得範囲を決める](https://github.com/KantoYamamoto/sekka/issues/117) | 実sourceのcallback中継1→2と別配置の条件を確認、独立照合済み。記録PR #118はActions/実Bot/14成果物確認後merge `30232a4` |
+| 現在 | [#119 保持callbackの一経路取得](https://github.com/KantoYamamoto/sekka/issues/119) | 固定実sourceの1→2/旧field削除と自作対照を取得。独立コードレビュー/自己利用/Actionsへ。一般graph/本番統合はしない |
 | 完了 | [#113 状態/操作入口の限定比較](https://github.com/KantoYamamoto/sekka/issues/113) / PR #114 | 限定寄与/核心未提示を保存。最終Actions/実Bot/12成果物点検とmerge済み。次方式の実装へ自動継続しない |
 
 <details><summary>完了したM1/M2の作業と根拠</summary>

@@ -62,6 +62,7 @@ jobs:
         run: |
           swift build --package-path Experiments/DependencyRelay --scratch-path .build/dependency-relay-ci
           SEKKA_RELAY_BIN="$(swift build --package-path Experiments/DependencyRelay --scratch-path .build/dependency-relay-ci --show-bin-path)"
+          python3 Experiments/DependencyRelay/check_callback.py "$SEKKA_RELAY_BIN/callback-probe" --output .build/pr-review/callback-relay.json --text-output .build/pr-review/callback-relay.text
           python3 Experiments/DependencyRelay/check.py "$SEKKA_RELAY_BIN/relay-probe"
           "$SEKKA_RELAY_BIN/relay-probe" Experiments/DependencyRelay/Fixtures/before.swift Experiments/DependencyRelay/Fixtures/after.swift > .build/pr-review/dependency-relay.json
           "$SEKKA_RELAY_BIN/relay-probe" Experiments/DependencyRelay/Fixtures/before.swift Experiments/DependencyRelay/Fixtures/after.swift --text > .build/pr-review/dependency-relay.text
@@ -78,6 +79,8 @@ jobs:
           path: |
             .build/pr-review/state-operations.json
             .build/pr-review/state-operations.text
+            .build/pr-review/callback-relay.json
+            .build/pr-review/callback-relay.text
             .build/pr-review/dependency-relay.json
             .build/pr-review/dependency-relay.text
             .build/pr-review/structural-context.json
