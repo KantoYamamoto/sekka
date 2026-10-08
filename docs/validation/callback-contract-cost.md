@@ -96,4 +96,6 @@ LibraryGridとSearchPhotoResultsSectionのcallはtrailing closure未対応とし
 
 独立レビューでassume-unchangedのSwift変更がinventoryから消えるP2を指摘され、比較したraw sourceから補完した。入力上限を読込前へ移し、BOMの除去でhashが変わる境界もreviewのみ明示拒否した。修正後、同レビューがCLI対照・directoryのBOM/4MB超/20MB超・表示8 testsを再確認し、未解消指摘なし。旧diff/scanの入力契約は維持する。
 
-自己利用と最終Actions/実Bot/20成果物はPR上で確認する。実PRのapi-reviewは自作対照のcallback-contractと分け、0候補も保持する。接続できたことは配置再考への純増利益やM3合格の証拠にはしない。
+自己利用はbase `3a1ccdb` → 実装head `699615c`、13Swift変更/41構造観測、API reviewは0候補/0 unknown。今回に対象callback拡大はなく、方式の失敗にも有用性の成功にも数えない。最終Actions/実Bot/20成果物/mergeは[PR #127](https://github.com/KantoYamamoto/sekka/pull/127)と[#126の完了記録](https://github.com/KantoYamamoto/sekka/issues/126)を参照する。実PRのapi-reviewは自作対照のcallback-contractと分け、0候補も保持する。接続できたことは配置再考への純増利益やM3合格の証拠にはしない。
+
+接続実装後の独立投資レビューは、同方式への追加実装を支持する具体的根拠は現資料にないと評価した。一件で一般無益は断定しないが、不確実性だけで素材探索/構文拡張を継続しない。追加投資の保留は元目的を維持する委任範囲。根拠整理だけを最終成功にする、用途限定を正式な目標にする、Sekka全体を休止/撤退する判断は人間に残す。これに合わせ、次の実装Issueを自動追加しない。
